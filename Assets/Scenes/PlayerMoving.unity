@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 1752942279}
   - component: {fileID: 1752942278}
   m_Layer: 0
-  m_Name: tileset-sliced_19
+  m_Name: PixelatedGrass
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
