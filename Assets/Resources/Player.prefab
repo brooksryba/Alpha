@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitName: You
-  unitLevel: 999
+  unitLevel: 5
   damage: 10
-  maxHP: 25
-  currentHP: 20
+  maxHP: 50
+  currentHP: 40
