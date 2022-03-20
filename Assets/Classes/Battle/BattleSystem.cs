@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -39,7 +40,7 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
-        dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
+        dialogueText.text = enemyUnit.unitName + " engages in battle...";
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
@@ -108,6 +109,11 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
+    void ReturnToWorld()
+    {
+        SceneManager.LoadScene (sceneName:"World");
+    }
+
     void EndBattle()
     {
         if(state == BattleState.WON)
@@ -117,6 +123,8 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You were defeated";
         }   
+        
+        Invoke("ReturnToWorld", 3);
     }
 
     void PlayerTurn()

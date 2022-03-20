@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5249084546642599468}
   - component: {fileID: 2318486329383952247}
   m_Layer: 0
-  m_Name: Rock
+  m_Name: You
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -71,7 +71,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 80ab8906613b31142af2b24c5b853a67, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4fc82fadd0e1d4ed8a697be473d72842, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e39b8d5d889f9c40a7cb6248ca91ab7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitName: Actual Rock
-  unitLevel: 999
+  unitName: You
+  unitLevel: 5
   damage: 10
-  maxHP: 25
-  currentHP: 20
+  maxHP: 50
+  currentHP: 40
