@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public int level = 0;
     public int health = 10;
 
+    public List<InventoryItem> items;
+
     void Start()
     {
         LoadState();
@@ -22,6 +24,11 @@ public class Player : MonoBehaviour
             SaveSystem.Reset();
             SceneManager.LoadScene("World");
         }        
+    }
+
+    public void AddInventoryItem(InventoryItem item)
+    {
+        items.Add(item);
     }
 
     public void SaveState()
