@@ -14,12 +14,12 @@ public class Enemy : MonoBehaviour
 
     public void SaveState()
     {
-        SaveSystem.SaveStateEnemy(this, gameObject.name);
+        SaveSystem.SaveState<EnemyData>(new EnemyData(this), gameObject.name);
     }
 
     public void LoadState()
     {
-        EnemyData data = SaveSystem.LoadStateEnemy(gameObject.name);
+        EnemyData data = SaveSystem.LoadState<EnemyData>(gameObject.name) as EnemyData;
         if( data != null ) {
             gameObject.SetActive(data.active);
         }

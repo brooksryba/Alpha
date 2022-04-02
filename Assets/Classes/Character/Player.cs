@@ -24,12 +24,12 @@ public class Player : MonoBehaviour
 
     public void SaveState()
     {
-        SaveSystem.SaveStatePlayer(this);
+        SaveSystem.SaveState<PlayerData>(new PlayerData(this), gameObject.name);
     }
 
     public void LoadState()
     {
-        PlayerData data = SaveSystem.LoadStatePlayer();
+        PlayerData data = SaveSystem.LoadState<PlayerData>(gameObject.name) as PlayerData;
         if( data != null ) {
             this.level = data.level;
             this.health = data.health; 

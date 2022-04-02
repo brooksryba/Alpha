@@ -13,26 +13,24 @@ public static class SaveSystem {
         }
     }
 
-    public static void SaveStatePlayer(Player player)
+    public static void SaveState<T>(T data, string name)
     {
-        string PATH_SAVEFILE = Application.persistentDataPath + "/state-player.bin";
+        string PATH_SAVEFILE = Application.persistentDataPath + "/state-"+name+".bin";
         FileStream stream = new FileStream(PATH_SAVEFILE, FileMode.Create);
         
-        PlayerData data = new PlayerData(player);
-
         BinaryFormatter formatter = new BinaryFormatter();
         formatter.Serialize(stream, data);
         stream.Close();
     }
 
-    public static PlayerData LoadStatePlayer()
+    public static T LoadState<T>(string name) where T : class
     {
-        string PATH_SAVEFILE = Application.persistentDataPath + "/state-player.bin";
+        string PATH_SAVEFILE = Application.persistentDataPath + "/state-"+name+".bin";
         if( File.Exists(PATH_SAVEFILE) ) {
             FileStream stream = new FileStream(PATH_SAVEFILE, FileMode.Open);
 
             BinaryFormatter formatter = new BinaryFormatter();
-            PlayerData data = formatter.Deserialize(stream) as PlayerData;
+            T data = formatter.Deserialize(stream) as T;
             stream.Close();
 
             return data;
@@ -41,31 +39,4 @@ public static class SaveSystem {
         }
     }
 
-    public static void SaveStateEnemy(Enemy enemy, string name)
-    {
-        string PATH_SAVEFILE = Application.persistentDataPath + "/state-enemy-"+ name +".bin";
-        FileStream stream = new FileStream(PATH_SAVEFILE, FileMode.Create);
-        
-        EnemyData data = new EnemyData(enemy);
-
-        BinaryFormatter formatter = new BinaryFormatter();
-        formatter.Serialize(stream, data);
-        stream.Close();
-    }
-
-    public static EnemyData LoadStateEnemy(string name)
-    {
-        string PATH_SAVEFILE = Application.persistentDataPath + "/state-enemy-"+ name +".bin";
-        if( File.Exists(PATH_SAVEFILE) ) {
-            FileStream stream = new FileStream(PATH_SAVEFILE, FileMode.Open);
-
-            BinaryFormatter formatter = new BinaryFormatter();
-            EnemyData data = formatter.Deserialize(stream) as EnemyData;
-            stream.Close();
-
-            return data;
-        } else {
-            return null; 
-        }
-    }
 }
