@@ -10,6 +10,16 @@ public class BattleHUD : MonoBehaviour
    public Text hpText;
    public Slider hpSlider;
 
+   public Button playerButton;
+
+   public GameObject attackSubMenu;
+   
+
+   void Start()
+   {
+       playerButton.onClick.AddListener(toggleSubmenu);
+   }
+
    public void SetHUD(Unit unit)
    {
        nameText.text = unit.unitName;
@@ -23,5 +33,10 @@ public class BattleHUD : MonoBehaviour
    {
        hpSlider.value = hp;
        hpText.text = hp.ToString() + " HP";
+   }
+
+   public void toggleSubmenu()
+   {
+       attackSubMenu.SetActive(!attackSubMenu.activeSelf);
    }
 }

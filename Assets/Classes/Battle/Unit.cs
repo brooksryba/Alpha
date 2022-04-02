@@ -13,6 +13,24 @@ public class Unit : MonoBehaviour
 	public int maxHP;
 	public int currentHP;
 
+	public int maxMana;
+	public int currentMana;
+
+	public List<GameObject> attackList;
+
+	public List<string> attackNames;
+
+	void Start()
+   {
+	   foreach(Object attackName in attackList)
+	   {
+		   attackNames.Add(attackName.name);
+	   }
+
+   }
+
+
+
 	public bool TakeDamage(int dmg)
 	{
 		currentHP -= dmg;

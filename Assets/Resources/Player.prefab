@@ -131,3 +131,8 @@ MonoBehaviour:
   damage: 10
   maxHP: 50
   currentHP: 40
+  maxMana: 0
+  currentMana: 0
+  attackList:
+  - {fileID: 0}
+  attackNames: []
