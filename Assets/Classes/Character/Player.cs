@@ -17,22 +17,23 @@ public class Player : MonoBehaviour
         if( Input.GetKeyUp(KeyCode.Q) ) {
             SaveState();
         }
+        if( Input.GetKeyUp(KeyCode.R) ) {
+            SaveSystem.Reset();
+        }        
     }
 
-    void SaveState()
+    public void SaveState()
     {
-        Debug.Log("Saving");
         SaveSystem.SaveStatePlayer(this);
     }
 
-    void LoadState()
+    public void LoadState()
     {
-        Debug.Log("Loading");
         PlayerData data = SaveSystem.LoadStatePlayer();
         if( data != null ) {
             this.level = data.level;
             this.health = data.health; 
-            
+
             Vector3 position;
             position.x = data.position[0];
             position.y = data.position[1];

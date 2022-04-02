@@ -32,8 +32,13 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.name == "Enemy") {
-            SceneManager.LoadScene (sceneName:"Battle");
+        if (collision.gameObject.name == "Enemy0") {
+            collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponent<Enemy>().SaveState();
+            
+            gameObject.GetComponent<Player>().SaveState();
+            
+            SceneManager.LoadScene(sceneName:"Battle");
         }
     }    
 }
