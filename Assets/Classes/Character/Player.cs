@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public int level = 0;
-    public int health = 10;
+    public int level;
+    public int health;
 
     public List<InventoryItem> items;
 
