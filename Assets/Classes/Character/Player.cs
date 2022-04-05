@@ -16,28 +16,6 @@ public class Player : MonoBehaviour
         LoadState();
     }
 
-    void Update()
-    {
-        if( Input.GetKeyUp(KeyCode.Q) ) {
-            SaveState();
-        }
-        if( Input.GetKeyUp(KeyCode.R) ) {
-            SaveSystem.Reset();
-            SceneManager.LoadScene("World");
-        }
-        if( Input.GetKeyUp(KeyCode.O) ) {
-            GameObject obj = Instantiate(Resources.Load("Menu"), transform.position, transform.rotation) as GameObject;
-            DynamicMenu menu = obj.GetComponent<DynamicMenu>();
-            menu.Open(new Dictionary<string, Action>(){
-                {"Player", () => Debug.Log("player")},
-                {"Items", () => Debug.Log("items")},
-                {"Map", () => Debug.Log("map")},
-                {"Save", () => Debug.Log("save")},
-                {"Quit", () => Debug.Log("quit")},
-            });
-        } 
-    }
-
     public void AddInventoryItem(InventoryItem item)
     {
         items.Add(item);

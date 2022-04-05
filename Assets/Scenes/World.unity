@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 115905600}
   - component: {fileID: 115905603}
   - component: {fileID: 115905597}
+  - component: {fileID: 115905604}
   - component: {fileID: 115905599}
   - component: {fileID: 115905602}
   - component: {fileID: 115905598}
@@ -296,6 +297,18 @@ MonoBehaviour:
   level: 0
   health: 10
   items: []
+--- !u!114 &115905604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 115905596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44661514e82234ca2df5fd86fb959e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &147545480
 GameObject:
   m_ObjectHideFlags: 0
