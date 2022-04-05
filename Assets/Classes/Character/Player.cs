@@ -15,17 +15,6 @@ public class Player : MonoBehaviour
         LoadState();
     }
 
-    void Update()
-    {
-        if( Input.GetKeyUp(KeyCode.Q) ) {
-            SaveState();
-        }
-        if( Input.GetKeyUp(KeyCode.R) ) {
-            SaveSystem.Reset();
-            SceneManager.LoadScene("World");
-        }        
-    }
-
     public void AddInventoryItem(InventoryItem item)
     {
         items.Add(item);
@@ -49,6 +38,11 @@ public class Player : MonoBehaviour
             position.z = 0;
 
             transform.position = position;
+
+            foreach( var item in data.items )
+            {
+                AddInventoryItem(GameObject.Find(item.title).GetComponent<InventoryItem>());
+            }
         }
     }
 }
