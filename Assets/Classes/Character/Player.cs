@@ -23,7 +23,10 @@ public class Player : MonoBehaviour
         if( Input.GetKeyUp(KeyCode.R) ) {
             SaveSystem.Reset();
             SceneManager.LoadScene("World");
-        }        
+        }
+        if( Input.GetKeyUp(KeyCode.O) ) {
+            GameObject.Find("/Menu").GetComponent<DynamicMenu>().Render();
+        } 
     }
 
     public void AddInventoryItem(InventoryItem item)
