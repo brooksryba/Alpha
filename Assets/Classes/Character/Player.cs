@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,7 +26,14 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("World");
         }
         if( Input.GetKeyUp(KeyCode.O) ) {
-            GameObject.Find("/Menu").GetComponent<DynamicMenu>().Open();
+            DynamicMenu menu = GameObject.Find("/Menu").GetComponent<DynamicMenu>();
+            menu.Open(new Dictionary<string, Action>(){
+                {"Player", () => Debug.Log("player")},
+                {"Items", () => Debug.Log("items")},
+                {"Map", () => Debug.Log("map")},
+                {"Save", () => Debug.Log("save")},
+                {"Quit", () => Debug.Log("quit")},
+            });
         } 
     }
 

@@ -21,19 +21,13 @@ public class DynamicMenu : MonoBehaviour
         
     }
 
-    public void Open()
+    public void Open(Dictionary<string, Action> items)
     {
-        // transform to a point on screen
-        // populate MenuList with MenuItems
-        // handle on click event for menu items
-            // if submenu, spawn new menu
-            // if not, send event
+        foreach( var item in items )
+        {
+            AddItem(item.Key, item.Value);
+        }
 
-        AddItem("Player", () => Debug.Log("player!"));
-        AddSubmenu("Items");
-        AddItem("Map", () => Debug.Log("map!"));
-        AddItem("Save", () => Debug.Log("save!"));
-        AddItem("Quit", () => Debug.Log("quit!"));
         Canvas.ForceUpdateCanvases();            
     }
 
