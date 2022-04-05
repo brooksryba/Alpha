@@ -44,7 +44,6 @@ public class DynamicMenu : MonoBehaviour
 
     private void AddItem(string text, Action callback, bool close = true)
     {
-        Debug.Log(menuList);
         GameObject obj = Instantiate(_menuItem, menuList.transform.position, menuList.transform.rotation);
         obj.transform.SetParent(menuList.GetComponent<Transform>());
         obj.transform.GetComponent<DynamicMenuItem>().SetLabel(text);
@@ -55,8 +54,16 @@ public class DynamicMenu : MonoBehaviour
     {
         GameObject obj = Instantiate(_menu, transform.position, transform.rotation);
         obj.transform.SetParent(transform);
-        obj.transform.position += new Vector3(50, 0, 0);
+        obj.transform.position = transform.position + new Vector3(50, 0, 0);
+        foreach (Transform child in obj.transform.GetChild(0).transform)
+        {
+            Debug.Log(child);
+            if(child.GetComponent<DynamicMenuItem>()) {
+                Destroy(child.gameObject);
+            }
+        }        
         obj.GetComponent<DynamicMenu>().AddItem("item 1", () => Debug.Log("item1"));
+        obj.GetComponent<DynamicMenu>().AddSubmenu("test");
     }
 
     private void AddSubmenu(string text)
