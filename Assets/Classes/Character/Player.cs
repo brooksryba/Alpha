@@ -38,6 +38,11 @@ public class Player : MonoBehaviour
             position.z = 0;
 
             transform.position = position;
+
+            foreach( var item in data.items )
+            {
+                AddInventoryItem(GameObject.Find(item.title).GetComponent<InventoryItem>());
+            }
         }
     }
 }

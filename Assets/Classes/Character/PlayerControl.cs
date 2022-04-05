@@ -17,19 +17,25 @@ public class PlayerControl : MonoBehaviour
             SceneManager.LoadScene("World");
         }
         if( Input.GetKeyUp(KeyCode.O) ) {
+            if( GameObject.Find("Menu(Clone)") ) { return; }
+            
             GameObject obj = Instantiate(Resources.Load("Menu"), transform.position, transform.rotation) as GameObject;
             DynamicMenu menu = obj.GetComponent<DynamicMenu>();
+
+            Dictionary<string, Action> items = new Dictionary<string, Action>();
+            foreach( var item in transform.GetComponent<Player>().items )
+            {
+                items.Add(item.gameObject.name, () => {});
+            }
+            items.Add("Return", () => {});
+
             menu.Open(new Dictionary<string, Action>(){
-                {"Player", () => Debug.Log("player")},
-                {"Items", delegate { menu.SubMenu(new Dictionary<string, Action>(){
-                    {"Item 1", () => Debug.Log("item1")},
-                    {"Item 2", () => Debug.Log("item2")},
-                    {"Return", () => Debug.Log("")},
-                }); }},
-                {"Map", () => Debug.Log("map")},
-                {"Save", () => Debug.Log("save")},
-                {"Quit", () => Debug.Log("quit")},
-                {"Return", () => Debug.Log("return")},
+                {"Player", () => {}},
+                {"Items", delegate { menu.SubMenu(items); }},
+                {"Map", () => {}},
+                {"Save", () => transform.GetComponent<Player>().SaveState()},
+                {"Quit", () => SceneManager.LoadScene("Menu")},
+                {"Return", () => {}},
             });
         } 
     }
