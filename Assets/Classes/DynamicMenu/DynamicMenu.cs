@@ -25,7 +25,8 @@ public class DynamicMenu : MonoBehaviour
     {
         foreach( var item in items )
         {
-            AddItem(item.Key, item.Value);
+            bool sub = item.Value.GetInvocationList()[0].Target.ToString().Contains("DisplayClass");
+            AddItem(item.Key, item.Value, !(sub));
         }
 
         Canvas.ForceUpdateCanvases();            
@@ -35,6 +36,17 @@ public class DynamicMenu : MonoBehaviour
     {
         Destroy(gameObject);
     }
+
+    public void SubMenu(Dictionary<string, Action> items)
+    {
+        GameObject obj = Instantiate(_menu, transform.position, transform.rotation);
+        obj.transform.SetParent(transform);
+        obj.transform.position = transform.position + new Vector3(50, 0, 0);
+  
+        DynamicMenu menu = obj.GetComponent<DynamicMenu>();
+        menu.RemoveItems();
+        menu.Open(items);
+    }    
 
     private void RemoveItems()
     {
@@ -52,21 +64,5 @@ public class DynamicMenu : MonoBehaviour
         obj.transform.SetParent(menuList.GetComponent<Transform>());
         obj.transform.GetComponent<DynamicMenuItem>().SetLabel(text);
         obj.transform.GetComponent<DynamicMenuItem>().SetCallback(delegate { if(close) Close(); callback(); });
-    }
-
-    private void AddSubmenu(string text)
-    {
-        AddItem(text, delegate{ SpawnMenu(); }, false);
-    }
-    private void SpawnMenu()
-    {
-        GameObject obj = Instantiate(_menu, transform.position, transform.rotation);
-        obj.transform.SetParent(transform);
-        obj.transform.position = transform.position + new Vector3(50, 0, 0);
-  
-        DynamicMenu menu = obj.GetComponent<DynamicMenu>();
-        menu.RemoveItems();
-        menu.AddItem("item 1", () => Debug.Log("item1"));
-        menu.AddSubmenu("test");
     }
 }

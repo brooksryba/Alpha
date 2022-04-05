@@ -21,11 +21,17 @@ public class PlayerControl : MonoBehaviour
             DynamicMenu menu = obj.GetComponent<DynamicMenu>();
             menu.Open(new Dictionary<string, Action>(){
                 {"Player", () => Debug.Log("player")},
-                {"Items", () => Debug.Log("items")},
+                {"Items", delegate { menu.SubMenu(new Dictionary<string, Action>(){
+                    {"Item 1", () => Debug.Log("item1")},
+                    {"Item 2", () => Debug.Log("item2")},
+                    {"Return", () => Debug.Log("")},
+                }); }},
                 {"Map", () => Debug.Log("map")},
                 {"Save", () => Debug.Log("save")},
                 {"Quit", () => Debug.Log("quit")},
+                {"Return", () => Debug.Log("return")},
             });
         } 
     }
 }
+
