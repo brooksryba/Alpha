@@ -10,4 +10,9 @@ public class SceneSwitch : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void ResetScenes()
+    {
+        SaveSystem.Reset();
+    }    
+
 }
