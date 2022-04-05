@@ -21,7 +21,7 @@ public class DynamicMenu : MonoBehaviour
         
     }
 
-    public void Render()
+    public void Open()
     {
         // transform to a point on screen
         // populate MenuList with MenuItems
@@ -50,6 +50,10 @@ public class DynamicMenu : MonoBehaviour
         obj.transform.GetComponent<DynamicMenuItem>().SetCallback(delegate { if(close) Close(); callback(); });
     }
 
+    private void AddSubmenu(string text)
+    {
+        AddItem(text, delegate{ SpawnMenu(); }, false);
+    }
     private void SpawnMenu()
     {
         GameObject obj = Instantiate(_menu, transform.position, transform.rotation);
@@ -57,17 +61,11 @@ public class DynamicMenu : MonoBehaviour
         obj.transform.position = transform.position + new Vector3(50, 0, 0);
         foreach (Transform child in obj.transform.GetChild(0).transform)
         {
-            Debug.Log(child);
             if(child.GetComponent<DynamicMenuItem>()) {
                 Destroy(child.gameObject);
             }
         }        
         obj.GetComponent<DynamicMenu>().AddItem("item 1", () => Debug.Log("item1"));
         obj.GetComponent<DynamicMenu>().AddSubmenu("test");
-    }
-
-    private void AddSubmenu(string text)
-    {
-        AddItem(text, delegate{ SpawnMenu(); }, false);
     }
 }

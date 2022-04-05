@@ -25,7 +25,7 @@ public class Player : MonoBehaviour
             SceneManager.LoadScene("World");
         }
         if( Input.GetKeyUp(KeyCode.O) ) {
-            GameObject.Find("/Menu").GetComponent<DynamicMenu>().Render();
+            GameObject.Find("/Menu").GetComponent<DynamicMenu>().Open();
         } 
     }
 
