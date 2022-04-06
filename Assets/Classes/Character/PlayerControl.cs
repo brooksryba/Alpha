@@ -19,7 +19,7 @@ public class PlayerControl : MonoBehaviour
         if( Input.GetKeyUp(KeyCode.O) ) {
             if( GameObject.Find("Menu(Clone)") ) { return; }
             
-            GameObject obj = Instantiate(Resources.Load("Menu"), transform.position, transform.rotation) as GameObject;
+            GameObject obj = Instantiate(Resources.Load("Prefabs/Menu"), transform.position, transform.rotation) as GameObject;
             DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
             Dictionary<string, Action> items = new Dictionary<string, Action>();
