@@ -43,11 +43,17 @@ public class BattleHUD : MonoBehaviour
     Dictionary<string, Action> strategies = new Dictionary<string, Action>();
 
     // place to loop through attacks, spells, etc and add
-    attacks.Add("Basic Attack", () => {});
-    attacks.Add("Heavy Attack", () => {});
+    // the battle system should not hold attack and heal functions
+    BattleSystem bSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
 
-    spells.Add("Heal", () => {});
+    attacks.Add("Basic Attack", () => {bSystem.OnAttackButton();});
+    attacks.Add("Heavy Attack", () => {});
+    attacks.Add("Return", () => {});
+    
+
+    spells.Add("Heal", () => {bSystem.OnHealButton();});
     spells.Add("Fire Damage", () => {});
+    spells.Add("Return", () => {});
 
     strategies.Add("Charge Mana", () => {});
 
