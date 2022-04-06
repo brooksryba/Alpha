@@ -35,7 +35,7 @@ public class BattleHUD : MonoBehaviour
 
    public void toggleSubmenu()
    {
-    GameObject obj = Instantiate(Resources.Load("Menu"), transform.position, transform.rotation) as GameObject;
+    GameObject obj = Instantiate(Resources.Load("Prefabs/Menu"), transform.position, transform.rotation) as GameObject;
     DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
     Dictionary<string, Action> attacks = new Dictionary<string, Action>();
