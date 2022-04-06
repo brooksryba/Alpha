@@ -13,6 +13,13 @@ public class PlayerMovement : MonoBehaviour
     
     Vector2 movement;
 
+    void Start()
+    {
+        Player obj = transform.GetComponent<Player>();
+        obj.LoadState();
+        transform.position = obj.position;
+    }
+
     // Update is called once per frame
     void Update()
     {

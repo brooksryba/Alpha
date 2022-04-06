@@ -7,8 +7,9 @@ public class Player : MonoBehaviour
 {
     public int level;
     public int health;
+    public Vector3 position;
 
-    public List<InventoryItem> items;
+    public List<ItemData> items;
 
     void Start()
     {
@@ -17,31 +18,30 @@ public class Player : MonoBehaviour
 
     public void AddInventoryItem(InventoryItem item)
     {
-        items.Add(item);
+        items.Add(new ItemData(item));
     }
 
     public void SaveState()
     {
-        SaveSystem.SaveState<PlayerData>(new PlayerData(this), gameObject.name);
+        SaveSystem.SaveState<PlayerData>(new PlayerData(this), "Player");
     }
 
     public void LoadState()
     {
-        PlayerData data = SaveSystem.LoadState<PlayerData>(gameObject.name) as PlayerData;
+        PlayerData data = SaveSystem.LoadState<PlayerData>("Player") as PlayerData;
         if( data != null ) {
             this.level = data.level;
             this.health = data.health; 
 
-            Vector3 position;
-            position.x = data.position[0];
-            position.y = data.position[1];
-            position.z = 0;
+            this.position = new Vector3();
+            this.position.x = data.position[0];
+            this.position.y = data.position[1];
+            this.position.z = 0;
 
-            transform.position = position;
-
+            this.items = new List<ItemData>();
             foreach( var item in data.items )
             {
-                AddInventoryItem(GameObject.Find(item.title).GetComponent<InventoryItem>());
+                this.items.Add(item);
             }
         }
     }

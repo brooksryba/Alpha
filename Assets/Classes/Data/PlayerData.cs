@@ -18,7 +18,7 @@ public class PlayerData {
         position[0] = player.transform.position.x;
         position[1] = player.transform.position.y;
 
-        items = player.items.ConvertAll(x => new ItemData(x));
+        items = player.items;
     }
 
 }

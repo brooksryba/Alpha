@@ -16,16 +16,9 @@ public class Unit : MonoBehaviour
 	public int maxMana;
 	public int currentMana;
 
-	public List<GameObject> attackList;
-
-	public List<string> attackNames;
 
 	void Start()
    {
-	   foreach(Object attackName in attackList)
-	   {
-		   attackNames.Add(attackName.name);
-	   }
 
    }
 

@@ -25,7 +25,7 @@ public class PlayerControl : MonoBehaviour
             Dictionary<string, Action> items = new Dictionary<string, Action>();
             foreach( var item in transform.GetComponent<Player>().items )
             {
-                items.Add(item.gameObject.name, () => {});
+                items.Add(item.title, () => {});
             }
             items.Add("Return", () => {});
 
