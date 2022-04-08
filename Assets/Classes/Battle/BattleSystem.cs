@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,17 +16,16 @@ public class BattleSystem : MonoBehaviour
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    Character playerUnit;
+    Character enemyUnit;
 
     public Text dialogueText;
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
-
     public BattleState state;
-    // Start is called before the first frame update
+
     void Start()
     {
         state = BattleState.START;
@@ -35,12 +35,12 @@ public class BattleSystem : MonoBehaviour
     IEnumerator SetupBattle() 
     {
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Unit>();
+        playerUnit = playerGO.GetComponent<Character>();
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        enemyUnit = enemyGO.GetComponent<Character>();
 
-        dialogueText.text = enemyUnit.unitName + " engages in battle...";
+        dialogueText.text = enemyUnit.name + " engages in battle...";
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
@@ -52,25 +52,31 @@ public class BattleSystem : MonoBehaviour
 
     }
 
-    IEnumerator PlayerAttack()
+    IEnumerator PlayerAttack(Func<bool, Character, Character> AttackName, Character self, Character enemy)
     {
-        state = BattleState.ENEMYTURN;
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+        bool isAccepted = AttackName(self, enemy);
+        bool isDead = enemyUnit.currentHP <= 0;
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack is successful";
-
-        yield return new WaitForSeconds(2f);
-
-        if(isDead)
-        {
-            state = BattleState.WON;
-            EndBattle();
+        if(isAccepted){
+            
+            dialogueText.text = "The attack is successful";
+            yield return new WaitForSeconds(2f);
+            if(isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else 
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
         }
-        else 
-        {
-            StartCoroutine(EnemyTurn());
+        else {
+            dialogueText.text = "You cannot choose this attack";
         }
+        
     }
 
     IEnumerator PlayerHeal()
@@ -88,7 +94,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + " attacks!";
+        dialogueText.text = enemyUnit.name + " attacks!";
 
         yield return new WaitForSeconds(1f);
 
@@ -132,12 +138,12 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "Choose an action:";
     }
 
-    public void OnAttackButton()
+    public void OnAttackButton(Func<bool, Character, Character> AttackName, Character self, Character enemy)
     {
         if (state != BattleState.PLAYERTURN)
             return;
 
-        StartCoroutine(PlayerAttack());
+        StartCoroutine(PlayerAttack(AttackName, self, enemy));
     }
 
     public void OnHealButton()

@@ -18,10 +18,10 @@ public class BattleHUD : MonoBehaviour
        playerButton.onClick.AddListener(toggleSubmenu);
    }
 
-   public void SetHUD(Unit unit)
+   public void SetHUD(Character unit)
    {
-       nameText.text = unit.unitName;
-       levelText.text = "Lvl " + unit.unitLevel;
+       nameText.text = unit.name;
+       levelText.text = "Lvl " + unit.level;
        hpSlider.maxValue = unit.maxHP;
        hpSlider.value = unit.currentHP;
        hpText.text = unit.currentHP.ToString() + " HP";
@@ -45,8 +45,10 @@ public class BattleHUD : MonoBehaviour
     // place to loop through attacks, spells, etc and add
     // the battle system should not hold attack and heal functions
     BattleSystem bSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
+    Character self = GameObject.Find("Player").GetComponent<Character>();
+    Character enemy = GameObject.Find("Enemy0").GetComponent<Character>();
 
-    attacks.Add("Basic Attack", () => {bSystem.OnAttackButton();});
+    attacks.Add("Basic Attack", () => {bSystem.OnAttackButton(Attack.basicAttack<Character>, self, enemy);});
     attacks.Add("Heavy Attack", () => {});
     attacks.Add("Return", () => {});
     
