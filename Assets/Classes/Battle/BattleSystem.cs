@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,64 +16,78 @@ public class BattleSystem : MonoBehaviour
     public Transform playerBattleStation;
     public Transform enemyBattleStation;
 
-    Unit playerUnit;
-    Unit enemyUnit;
+    Character playerUnit;
+    Character enemyUnit;
 
     public Text dialogueText;
 
     public BattleHUD playerHUD;
     public BattleHUD enemyHUD;
 
-
     public BattleState state;
-    // Start is called before the first frame update
+    public BattleSceneScriptable battleScriptable;
+
     void Start()
     {
+        if(battleScriptable.enemy != null){
+            enemyPrefab = Resources.Load("Prefabs/" + battleScriptable.enemy) as GameObject;
+        }
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
     IEnumerator SetupBattle() 
     {
+
+
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Unit>();
+        playerUnit = playerGO.GetComponent<Player>();
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Unit>();
+        enemyUnit = enemyGO.GetComponent<Enemy>();
 
-        dialogueText.text = enemyUnit.unitName + " engages in battle...";
+        dialogueText.text = enemyUnit.title + " engages in battle...";
+
+        yield return new WaitForSeconds(1f);
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
-
-        yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
 
     }
 
-    IEnumerator PlayerAttack()
+    IEnumerator PlayerAttack(Func<Character, Character, bool> AttackName, Character self, Character enemy)
     {
-        state = BattleState.ENEMYTURN;
-        bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
+        bool isAccepted = AttackName(self, enemy);
+        bool isDead = enemyUnit.currentHP <= 0;
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack is successful";
-
-        yield return new WaitForSeconds(2f);
-
-        if(isDead)
-        {
-            state = BattleState.WON;
-            EndBattle();
+        if(isAccepted){
+            
+            dialogueText.text = "The attack is successful";
+            playerHUD.SetHUD(playerUnit);
+            enemyHUD.SetHUD(enemyUnit);
+            yield return new WaitForSeconds(2f);
+            if(isDead)
+            {
+                state = BattleState.WON;
+                EndBattle();
+            }
+            else 
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
         }
-        else 
-        {
-            StartCoroutine(EnemyTurn());
+        else {
+            dialogueText.text = "You cannot choose this attack";
         }
+        
     }
 
+    // this should exist somewhere else, similar to attack
     IEnumerator PlayerHeal()
     {
         playerUnit.Heal(5);
@@ -88,13 +103,15 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.unitName + " attacks!";
+        dialogueText.text = enemyUnit.title + " attacks!";
 
         yield return new WaitForSeconds(1f);
 
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
 
-        playerHUD.SetHP(playerUnit.currentHP);
+
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
 
         yield return new WaitForSeconds(1f);
 
@@ -123,7 +140,8 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You were defeated";
         }   
-        
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player.SaveState();
         Invoke("ReturnToWorld", 3);
     }
 
@@ -132,12 +150,12 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "Choose an action:";
     }
 
-    public void OnAttackButton()
+    public void OnAttackButton(Func<Character, Character, bool> AttackName, Character self, Character enemy)
     {
         if (state != BattleState.PLAYERTURN)
             return;
 
-        StartCoroutine(PlayerAttack());
+        StartCoroutine(PlayerAttack(AttackName, self, enemy));
     }
 
     public void OnHealButton()

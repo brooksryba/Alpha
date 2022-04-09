@@ -10,8 +10,34 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D rb;
     public Animator animator;
+    public Vector3 position;
+
+    public BattleSceneScriptable battleScriptable;
     
     Vector2 movement;
+
+    void Start()
+    {
+        LoadState();
+        transform.position = position;
+    }
+    
+    public void SaveState()
+    {
+        SaveSystem.SaveState<PlayerLocationData>(new PlayerLocationData(this), "PlayerLocation");
+    }
+
+    public void LoadState()
+    {
+        PlayerLocationData data = SaveSystem.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
+        if( data != null ) {
+            this.position = new Vector3();
+            this.position.x = data.position[0];
+            this.position.y = data.position[1];
+            this.position.z = 0;
+
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,7 +63,10 @@ public class PlayerMovement : MonoBehaviour
             collision.gameObject.GetComponent<Enemy>().SaveState();
             
             gameObject.GetComponent<Player>().SaveState();
+            gameObject.GetComponent<PlayerMovement>().SaveState();
             
+            battleScriptable.enemy = collision.gameObject.name;
+
             SceneManager.LoadScene(sceneName:"Battle");
         }
 

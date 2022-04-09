@@ -2,11 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Enemy : Character
 {
-    public int level;
-    public int health;
-
     void Start()
     {
         LoadState();
@@ -19,8 +16,13 @@ public class Enemy : MonoBehaviour
 
     public void LoadState()
     {
+        this.currentHP = this.level * 10;
+        this.currentMana = this.level * 5;
+        this.maxHP = this.level * 10;
+        this.maxMana = this.level * 5;
         EnemyData data = SaveSystem.LoadState<EnemyData>(gameObject.name) as EnemyData;
-        if( data != null ) {
+        if (data != null)
+        {
             gameObject.SetActive(data.active);
         }
     }
