@@ -46,7 +46,7 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
         enemyUnit = enemyGO.GetComponent<Enemy>();
 
-        dialogueText.text = enemyUnit.name + " engages in battle...";
+        dialogueText.text = enemyUnit.title + " engages in battle...";
 
         yield return new WaitForSeconds(1f);
 
@@ -103,7 +103,7 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.name + " attacks!";
+        dialogueText.text = enemyUnit.title + " attacks!";
 
         yield return new WaitForSeconds(1f);
 

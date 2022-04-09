@@ -33,7 +33,10 @@ public class PlayerControl : MonoBehaviour
                 {"Player", () => {}},
                 {"Items", delegate { menu.SubMenu(items); }},
                 {"Map", () => {}},
-                {"Save", () => transform.GetComponent<Player>().SaveState()},
+                {"Save", () => {
+                    transform.GetComponent<Player>().SaveState();
+                    transform.GetComponent<PlayerMovement>().SaveState();
+                }},
                 {"Quit", () => SceneManager.LoadScene("Menu")},
                 {"Return", () => {}},
             });
