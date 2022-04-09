@@ -9,6 +9,7 @@ public class Player : Character
 
     public List<ItemData> items;
 
+
     void Start()
     {
         LoadState();
@@ -28,9 +29,15 @@ public class Player : Character
     {
         PlayerData data = SaveSystem.LoadState<PlayerData>("Player") as PlayerData;
         if( data != null ) {
-            this.level = data.level;
-            this.currentHP = data.currentHP; 
-            this.currentMana = data.currentMana; 
+            if(data.level!=0)
+                this.level = data.level;   
+            if(data.currentHP!=0)
+                this.currentHP = data.currentHP;        
+            if(data.currentMana!=0)
+                this.currentMana = data.currentMana;
+            
+            this.maxHP = this.level * 10;
+            this.maxMana = this.level * 5;
 
             this.position = new Vector3();
             this.position.x = data.position[0];

@@ -25,34 +25,40 @@ public class BattleSystem : MonoBehaviour
     public BattleHUD enemyHUD;
 
     public BattleState state;
+    public BattleSceneScriptable battleScriptable;
 
     void Start()
     {
+        if(battleScriptable.enemy != null){
+            enemyPrefab = Resources.Load("Prefabs/" + battleScriptable.enemy) as GameObject;
+        }
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
     IEnumerator SetupBattle() 
     {
+
+
         GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Character>();
+        playerUnit = playerGO.GetComponent<Player>();
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Character>();
+        enemyUnit = enemyGO.GetComponent<Enemy>();
 
         dialogueText.text = enemyUnit.name + " engages in battle...";
 
+        yield return new WaitForSeconds(1f);
+
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
-
-        yield return new WaitForSeconds(2f);
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
 
     }
 
-    IEnumerator PlayerAttack(Func<bool, Character, Character> AttackName, Character self, Character enemy)
+    IEnumerator PlayerAttack(Func<Character, Character, bool> AttackName, Character self, Character enemy)
     {
         bool isAccepted = AttackName(self, enemy);
         bool isDead = enemyUnit.currentHP <= 0;
@@ -61,6 +67,8 @@ public class BattleSystem : MonoBehaviour
         if(isAccepted){
             
             dialogueText.text = "The attack is successful";
+            playerHUD.SetHUD(playerUnit);
+            enemyHUD.SetHUD(enemyUnit);
             yield return new WaitForSeconds(2f);
             if(isDead)
             {
@@ -79,6 +87,7 @@ public class BattleSystem : MonoBehaviour
         
     }
 
+    // this should exist somewhere else, similar to attack
     IEnumerator PlayerHeal()
     {
         playerUnit.Heal(5);
@@ -100,7 +109,9 @@ public class BattleSystem : MonoBehaviour
 
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
 
-        playerHUD.SetHP(playerUnit.currentHP);
+
+        playerHUD.SetHUD(playerUnit);
+        enemyHUD.SetHUD(enemyUnit);
 
         yield return new WaitForSeconds(1f);
 
@@ -129,7 +140,8 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You were defeated";
         }   
-        
+        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        player.SaveState();
         Invoke("ReturnToWorld", 3);
     }
 
@@ -138,7 +150,7 @@ public class BattleSystem : MonoBehaviour
         dialogueText.text = "Choose an action:";
     }
 
-    public void OnAttackButton(Func<bool, Character, Character> AttackName, Character self, Character enemy)
+    public void OnAttackButton(Func<Character, Character, bool> AttackName, Character self, Character enemy)
     {
         if (state != BattleState.PLAYERTURN)
             return;

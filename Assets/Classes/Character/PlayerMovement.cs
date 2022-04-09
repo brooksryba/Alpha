@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
 
     public Rigidbody2D rb;
     public Animator animator;
+
+    public BattleSceneScriptable battleScriptable;
     
     Vector2 movement;
 
@@ -45,6 +47,8 @@ public class PlayerMovement : MonoBehaviour
             
             gameObject.GetComponent<Player>().SaveState();
             
+            battleScriptable.enemy = collision.gameObject.name;
+
             SceneManager.LoadScene(sceneName:"Battle");
         }
 

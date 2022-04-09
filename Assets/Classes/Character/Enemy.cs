@@ -16,9 +16,10 @@ public class Enemy : Character
 
     public void LoadState()
     {
-        this.level = 5;
-        this.currentHP = 25;
-        this.currentMana = 25;
+        this.currentHP = this.level * 10;
+        this.currentMana = this.level * 5;
+        this.maxHP = this.level * 10;
+        this.maxMana = this.level * 5;
         EnemyData data = SaveSystem.LoadState<EnemyData>(gameObject.name) as EnemyData;
         if (data != null)
         {

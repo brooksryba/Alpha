@@ -596,6 +596,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &520536760 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 850309863414207139, guid: a9054194425562d4fa16e252c86faf97,
+    type: 3}
+  m_PrefabInstance: {fileID: 2106220803}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &565413471
 GameObject:
   m_ObjectHideFlags: 0
@@ -956,6 +968,18 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 850309864004950731, guid: a9054194425562d4fa16e252c86faf97,
     type: 3}
   m_PrefabInstance: {fileID: 1146534978}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &900512181 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 850309864004950731, guid: a9054194425562d4fa16e252c86faf97,
+    type: 3}
+  m_PrefabInstance: {fileID: 2106220803}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1410,6 +1434,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2106220803}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1533483866 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 850309863414207139, guid: a9054194425562d4fa16e252c86faf97,
+    type: 3}
+  m_PrefabInstance: {fileID: 231278770}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1599655439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,6 +1512,8 @@ MonoBehaviour:
   levelText: {fileID: 498685229}
   hpText: {fileID: 607840042}
   hpSlider: {fileID: 418180930}
+  manaText: {fileID: 1831296076}
+  manaSlider: {fileID: 1533483866}
   playerButton: {fileID: 588573557}
 --- !u!1 &1626255947
 GameObject:
@@ -1516,6 +1554,7 @@ MonoBehaviour:
   playerHUD: {fileID: 1599655443}
   enemyHUD: {fileID: 2104231781}
   state: 0
+  battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
 --- !u!4 &1626255949
 Transform:
   m_ObjectHideFlags: 0
@@ -1530,6 +1569,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1831296076 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 850309864004950731, guid: a9054194425562d4fa16e252c86faf97,
+    type: 3}
+  m_PrefabInstance: {fileID: 231278770}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1964306456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1667,6 +1718,8 @@ MonoBehaviour:
   levelText: {fileID: 157035933}
   hpText: {fileID: 800049826}
   hpSlider: {fileID: 1088842884}
+  manaText: {fileID: 900512181}
+  manaSlider: {fileID: 520536760}
   playerButton: {fileID: 1298501350}
 --- !u!222 &2104231782
 CanvasRenderer:
@@ -1825,8 +1878,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1, y: -183.6}
-  m_SizeDelta: {x: 1166, y: 150.79}
+  m_AnchoredPosition: {x: 6.4987, y: -183.6}
+  m_SizeDelta: {x: 1155, y: 150.79}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2142311386
 MonoBehaviour:
@@ -1849,7 +1902,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 971f01409bd6f82469421af553b5ff19, type: 3}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -1857,7 +1910,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 2
 --- !u!222 &2142311387
 CanvasRenderer:
   m_ObjectHideFlags: 0
