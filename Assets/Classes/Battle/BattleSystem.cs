@@ -13,45 +13,80 @@ public class BattleSystem : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
-    public Transform playerBattleStation;
-    public Transform enemyBattleStation;
+    public GameObject playerBattleStation;
+    public GameObject enemyBattleStation;
+
+    public GameObject playerPartyContainer;
+    public GameObject enemyPartyContainer;
 
     Character playerUnit;
     Character enemyUnit;
 
     public Text dialogueText;
 
-    public BattleHUD playerHUD;
-    public BattleHUD enemyHUD;
-
     public BattleState state;
     public BattleSceneScriptable battleScriptable;
 
     void Start()
     {
-        if(battleScriptable.enemy != null){
-            enemyPrefab = Resources.Load("Prefabs/" + battleScriptable.enemy) as GameObject;
+        if(battleScriptable.enemy != null && battleScriptable.enemy != ""){           
+            enemyPrefab = Resources.Load("Prefabs/Characters/" + battleScriptable.enemy) as GameObject;
         }
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
+    public void createSingleHUD(ref GameObject partyMember, GameObject partyContainer)
+    {
+        GameObject battleHudPrefab = Instantiate(Resources.Load<GameObject>("Prefabs/BattleHUD"), partyContainer.transform);
+        battleHudPrefab.transform.SetParent(partyContainer.transform);
+        BattleHUD hud = battleHudPrefab.GetComponent<BattleHUD>();
+        hud.character = partyMember.GetComponent<Character>();
+        hud.Refresh();
+    }
+    public GameObject initializeParty(GameObject partyLeaderPrefab, GameObject battleStationContainer, GameObject partyContainer)
+    {
+        GameObject partyLeaderObj = Instantiate(partyLeaderPrefab, battleStationContainer.transform);
+        partyLeaderObj.transform.SetParent(battleStationContainer.transform);
+        Character partyLeader = partyLeaderPrefab.GetComponent<Character>();
+        partyLeader.LoadState();
+
+        createSingleHUD(ref partyLeaderObj, partyContainer);
+
+        int index = 0;
+        foreach(var pm in partyLeader.partyMembers){
+            index += 1;
+            GameObject partyMemberObject = Instantiate(Resources.Load<GameObject>("Prefabs/" + pm), battleStationContainer.transform);
+            partyMemberObject.GetComponent<Character>().LoadState();
+
+            // @todo - right now it puts next party member down 2 * its height. Should try and make this more flexible
+            partyMemberObject.transform.SetParent(battleStationContainer.transform);
+            partyMemberObject.transform.position = partyMemberObject.transform.position - new Vector3(0.0f, 2 * index, 0.0f);
+
+            createSingleHUD(ref partyMemberObject, partyContainer);
+        }
+        return partyLeaderObj;
+    }
+
+    public void RefreshAllHUDs()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
+        foreach(var hud in objs){           
+            hud.GetComponent<BattleHUD>().Refresh();
+        }
+    }
+
     IEnumerator SetupBattle() 
     {
+        GameObject playerGO = initializeParty(playerPrefab, playerBattleStation, playerPartyContainer);
+        playerUnit = playerGO.GetComponent<Character>();
 
-
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Player>();
-
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Enemy>();
+        GameObject enemyGO = initializeParty(enemyPrefab, enemyBattleStation, enemyPartyContainer);
+        enemyUnit = enemyGO.GetComponent<Character>();
 
         dialogueText.text = enemyUnit.title + " engages in battle...";
 
         yield return new WaitForSeconds(1f);
-
-        playerHUD.SetHUD(playerUnit);
-        enemyHUD.SetHUD(enemyUnit);
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
@@ -63,12 +98,11 @@ public class BattleSystem : MonoBehaviour
         bool isAccepted = AttackName(self, enemy);
         bool isDead = enemyUnit.currentHP <= 0;
 
-        enemyHUD.SetHP(enemyUnit.currentHP);
+        RefreshAllHUDs();
         if(isAccepted){
             
             dialogueText.text = "The attack is successful";
-            playerHUD.SetHUD(playerUnit);
-            enemyHUD.SetHUD(enemyUnit);
+            RefreshAllHUDs();
             yield return new WaitForSeconds(2f);
             if(isDead)
             {
@@ -92,7 +126,7 @@ public class BattleSystem : MonoBehaviour
     {
         playerUnit.Heal(5);
 
-        playerHUD.SetHP(playerUnit.currentHP);
+        RefreshAllHUDs();
         dialogueText.text = "You have healed!";
 
         yield return new WaitForSeconds(2f);
@@ -110,8 +144,7 @@ public class BattleSystem : MonoBehaviour
         bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
 
 
-        playerHUD.SetHUD(playerUnit);
-        enemyHUD.SetHUD(enemyUnit);
+        RefreshAllHUDs();
 
         yield return new WaitForSeconds(1f);
 

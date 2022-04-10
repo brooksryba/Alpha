@@ -16,36 +16,25 @@ public class BattleHUD : MonoBehaviour
     public Slider manaSlider;
     public Button playerButton;
 
+    public Character character;
+
     void Start()
     {
         playerButton.onClick.AddListener(toggleSubmenu);
     }
 
-    public void SetHUD(Character unit)
+    public void Refresh()
     {
-        nameText.text = unit.title;
-        levelText.text = "Lvl " + unit.level;
-        hpSlider.maxValue = unit.maxHP;
-        hpSlider.value = unit.currentHP;
-        hpText.text = unit.currentHP.ToString() + " HP";
+        nameText.text = character.title;
+        levelText.text = "Lvl " + character.level;
+        hpSlider.maxValue = character.maxHP;
+        hpSlider.value = character.currentHP;
+        hpText.text = character.currentHP.ToString() + " HP";
 
-        manaSlider.maxValue = unit.maxMana;
-        manaSlider.value = unit.currentMana;
-        manaText.text = unit.currentMana.ToString() + " Mana";
+        manaSlider.maxValue = character.maxMana;
+        manaSlider.value = character.currentMana;
+        manaText.text = character.currentMana.ToString() + " Mana";
     }
-
-    public void SetHP(int hp)
-    {
-        hpSlider.value = hp;
-        hpText.text = hp.ToString() + " HP";
-    }
-
-    public void SetMana(int mana)
-    {
-        manaSlider.value = mana;
-        manaText.text = mana.ToString() + " Mana";
-    }
-
 
     public void toggleSubmenu()
     {
@@ -59,8 +48,8 @@ public class BattleHUD : MonoBehaviour
         // place to loop through attacks, spells, etc and add
         // the battle system should not hold attack and heal functions
         BattleSystem bSystem = GameObject.Find("BattleSystem").GetComponent<BattleSystem>();
-        Character self = GameObject.FindWithTag("Player").GetComponent<Player>();
-        Character enemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+        Character self = GameObject.Find("Player(Clone)").GetComponent<Character>();
+        Character enemy = GameObject.Find("Enemy0(Clone)").GetComponent<Character>();
 
         attacks.Add("Basic Attack", () => { bSystem.OnAttackButton(Attacks.basicAttack, self, enemy); });
         attacks.Add("Heavy Attack", () => { bSystem.OnAttackButton(Attacks.heavyAttack, self, enemy); });
