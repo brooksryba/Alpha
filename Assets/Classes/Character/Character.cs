@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,22 +18,28 @@ public class Character : MonoBehaviour
     public int currentMana;
 
     public List<string> partyMembers;
+    public List<string> attackNames;
+
+    void Start()
+    {
+        LoadState();
+    }
 
     public void SaveState()
     {
-        SaveSystem.SaveState<CharacterData>(new CharacterData(this), gameObject.name);
+        SaveSystem.SaveState<CharacterData>(new CharacterData(this), this.title);
     }
 
     public void LoadState()
     {
-
-        CharacterData data = SaveSystem.LoadState<CharacterData>(gameObject.name) as CharacterData;
+        CharacterData data = SaveSystem.LoadState<CharacterData>(this.title) as CharacterData;
         if (data != null)
         {
-			this.level = data.level;
-			this.currentHP = data.currentHP;
-        	this.currentMana = data.currentHP;
-
+            Debug.Log(data.level);
+            Debug.Log(data.currentHP);
+            this.level = data.level;
+            this.currentHP = data.currentHP;
+            this.currentMana = data.currentMana;
         }
 		else 
 		{
@@ -78,6 +85,16 @@ public class Character : MonoBehaviour
         }
 
 
+    }
+
+    public Dictionary<string, AttackData> getAttacks()
+    {
+        Dictionary<string, AttackData> attackDictionary = new Dictionary<string, AttackData>();
+        foreach(var attack in this.attackNames)
+        {
+            attackDictionary.Add(attack, Attacks.lookup[attack]);
+        }
+        return attackDictionary;
     }
 
 }

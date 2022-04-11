@@ -1,31 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Attacks
+public class AttackData
 {
+    public int mana;
+    public int damage;
 
-
-   public static bool basicAttack(Character attacker, Character defender)
+    public AttackData(int damage, int mana)
     {
-
-        defender.TakeDamage(2*attacker.level + 5);
-        return true;
-
+        this.damage = damage;
+        this.mana = mana;
     }
-
-
-    public static bool heavyAttack(Character attacker, Character defender)
-    {
-        if(attacker.useMana(5)){
-            defender.TakeDamage(2*attacker.level + 10);
-            return true;
-        } else {
-            return false;
-        }
-        
-    }
-
-
 }
 
+public static class Attacks
+{
+    public static Dictionary<string, AttackData> lookup = new Dictionary<string, AttackData>() {
+        {"Basic Attack", new AttackData(25, 0)},
+        {"Heavy Attack", new AttackData(50, 10)}
+    };
+}

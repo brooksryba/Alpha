@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8620067899578566029}
-  - component: {fileID: 3851121602351010879}
-  - component: {fileID: 1758589926555978252}
+  - component: {fileID: 555200299348408392}
+  - component: {fileID: 2265687635042025385}
   m_Layer: 0
-  m_Name: Enemy0
+  m_Name: Enemy2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &3851121602351010879
+--- !u!212 &555200299348408392
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -72,7 +72,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7cefe9e9e8c984bbd9ff43235be8f54f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 06a287cc97cb64df8a11af10f2352365, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -83,7 +83,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1758589926555978252
+--- !u!114 &2265687635042025385
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,15 +95,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9518d13259db2134c9218f639c53f1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Bearman
-  level: 3
+  title: Trecock
+  level: 4
   damage: 0
   maxHP: 0
   currentHP: 0
   maxMana: 0
   currentMana: 0
-  partyMembers:
-  - Characters/Enemy1
-  - Characters/Enemy2
+  partyMembers: []
   attackNames:
   - Basic Attack

@@ -103,3 +103,5 @@ MonoBehaviour:
   maxMana: 0
   currentMana: 0
   partyMembers: []
+  attackNames:
+  - Basic Attack

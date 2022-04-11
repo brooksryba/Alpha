@@ -60,8 +60,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (collision.gameObject.tag == "Enemy") {
             collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponent<Character>().SaveState();
             collision.gameObject.GetComponent<Enemy>().SaveState();
             
+            gameObject.GetComponent<Character>().SaveState();
             gameObject.GetComponent<Player>().SaveState();
             gameObject.GetComponent<PlayerMovement>().SaveState();
             

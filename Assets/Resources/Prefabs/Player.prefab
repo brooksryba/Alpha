@@ -68,6 +68,9 @@ MonoBehaviour:
   partyMembers:
   - Characters/PartyMember0
   - Characters/PartyMember1
+  attackNames:
+  - Basic Attack
+  - Heavy Attack
 --- !u!212 &8988213778532503585
 SpriteRenderer:
   m_ObjectHideFlags: 0
