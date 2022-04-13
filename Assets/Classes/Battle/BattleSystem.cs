@@ -5,101 +5,217 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
+public enum BattleState { START, // Setup the battle scene
+                          PLAYERTURN_START, // Setup the player move
+                          PLAYERTURN_AWAIT_MOVE, // Waiting for click event on menu
+                          PLAYERTURN_AWAIT_TARGET, // Waiting for click on name button
+                          PLAYERTURN_ATTACKING, // Waiting for the attack to complete
+                          ENEMYTURN_START, // Setup the enemy move
+                          ENEMYTURN_AWAIT_MOVE, // Waiting for AI to select move
+                          ENEMYTURN_AWAIT_TARGET, // Waiting for AI to select target
+                          ENEMYTURN_ATTACKING, // Waiting for the attack to complete
+                          WON, // Player has won the battle
+                          LOST // Player has lost the battle
+                        }
 
 public class BattleSystem : MonoBehaviour
 {
 
+    public Text dialogueText;
+    
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
-    public Transform playerBattleStation;
-    public Transform enemyBattleStation;
+    public GameObject playerBattleStation;
+    public GameObject enemyBattleStation;
 
-    Character playerUnit;
-    Character enemyUnit;
-
-    public Text dialogueText;
-
-    public BattleHUD playerHUD;
-    public BattleHUD enemyHUD;
+    public GameObject playerPartyContainer;
+    public GameObject enemyPartyContainer;
 
     public BattleState state;
     public BattleSceneScriptable battleScriptable;
 
+    Character playerUnit;
+    Character enemyUnit;
+
+    List<string> playerParty;
+    List<string> enemyParty;
+
+    AttackData attackReference;
+
     void Start()
     {
-        if(battleScriptable.enemy != null){
-            enemyPrefab = Resources.Load("Prefabs/" + battleScriptable.enemy) as GameObject;
+        BattleSystemController.instance.onBattleHudTitleButton += OnHUDTitleButton;
+
+        if(battleScriptable.enemy != null && battleScriptable.enemy != ""){           
+            enemyPrefab = Resources.Load("Prefabs/Characters/" + battleScriptable.enemy) as GameObject;
         }
+
+        playerParty = new List<string>();
+        enemyParty = new List<string>();
+
         state = BattleState.START;
         StartCoroutine(SetupBattle());
     }
 
+    public Character GetCharacter(string id)
+    {
+        return GameObject.Find(id).GetComponent<Character>();
+    }
+
+    public void createSingleHUD(ref GameObject partyMember, ref Character hudCharacter, GameObject partyContainer)
+    {
+        GameObject battleHudPrefab = Instantiate(Resources.Load<GameObject>("Prefabs/BattleHUD"), partyContainer.transform);
+        battleHudPrefab.transform.SetParent(partyContainer.transform);
+        BattleHUD hud = battleHudPrefab.GetComponent<BattleHUD>();
+        hud.character = hudCharacter;
+        hud.Refresh();        
+    }
+    
+    public GameObject initializeParty(ref List<string> partyList, ref GameObject partyLeaderPrefab, GameObject battleStationContainer, GameObject partyContainer)
+    {
+        GameObject partyLeaderObj = Instantiate(partyLeaderPrefab, battleStationContainer.transform);
+        partyLeaderObj.transform.SetParent(battleStationContainer.transform);
+        Character partyLeader = partyLeaderPrefab.GetComponent<Character>();
+        partyLeaderObj.name = partyLeader.title;
+        partyLeader.LoadState();
+        //Debug.Log("Loaded State of the party leader, current HP is below");
+        //Debug.Log(partyLeader.currentHP);
+        partyList.Add(partyLeader.title);
+
+        createSingleHUD(ref partyLeaderObj, ref partyLeader, partyContainer);
+
+        int index = 0;
+        foreach(var pm in partyLeader.partyMembers){
+            index += 1;
+            GameObject partyMemberObject = Instantiate(Resources.Load<GameObject>("Prefabs/" + pm), battleStationContainer.transform);
+            Character partyMemberChar = partyMemberObject.GetComponent<Character>();
+            partyMemberObject.name = partyMemberChar.title;
+            partyMemberChar.LoadState();
+            partyList.Add(partyMemberChar.title);
+
+            // @todo - right now it puts next party member down 2 * its height. Should try and make this more flexible
+            partyMemberObject.transform.SetParent(battleStationContainer.transform);
+            partyMemberObject.transform.position = partyMemberObject.transform.position - new Vector3(0.0f, 2 * index, 0.0f);
+
+            createSingleHUD(ref partyMemberObject, ref partyMemberChar, partyContainer);
+        }
+        return partyLeaderObj;
+    }
+
+    public void RefreshAllHUDs()
+    {
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
+        foreach(var hud in objs){
+            BattleHUD battleHud = hud.GetComponent<BattleHUD>();
+            Character updateHudCharacter = GetCharacter(battleHud.character.title);
+            battleHud.character = updateHudCharacter;
+            battleHud.Refresh();
+        }
+    }
+
     IEnumerator SetupBattle() 
     {
+        GameObject playerGO = initializeParty(ref playerParty, ref playerPrefab, playerBattleStation, playerPartyContainer);
+        playerUnit = playerGO.GetComponent<Character>();
 
-
-        GameObject playerGO = Instantiate(playerPrefab, playerBattleStation);
-        playerUnit = playerGO.GetComponent<Player>();
-
-        GameObject enemyGO = Instantiate(enemyPrefab, enemyBattleStation);
-        enemyUnit = enemyGO.GetComponent<Enemy>();
+        GameObject enemyGO = initializeParty(ref enemyParty, ref enemyPrefab, enemyBattleStation, enemyPartyContainer);
+        enemyUnit = enemyGO.GetComponent<Character>();
 
         dialogueText.text = enemyUnit.title + " engages in battle...";
 
         yield return new WaitForSeconds(1f);
 
-        playerHUD.SetHUD(playerUnit);
-        enemyHUD.SetHUD(enemyUnit);
-
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        state = BattleState.PLAYERTURN_START;
+        PlayerTurnStart();
 
     }
 
-    IEnumerator PlayerAttack(Func<Character, Character, bool> AttackName, Character self, Character enemy)
+    public bool DoAttack(AttackData attack, ref Character attacker, ref Character defender)
     {
-        bool isAccepted = AttackName(self, enemy);
+        if(attacker.useMana(attack.mana)){
+            defender.TakeDamage(attack.damage);
+            return true;
+        } else {
+            return false;
+        }        
+    }
+
+    public Character GetNextEnemy(Character currentEnemy)
+    {
+        int currentEnemyIndex = enemyParty.IndexOf(currentEnemy.name);
+        for(int i = 0; i < enemyParty.Count; i++)
+        {
+            int indexToCheck = (currentEnemyIndex + i + 1) % enemyParty.Count;
+            Character enemy = GetCharacter(enemyParty[indexToCheck]);
+            if(enemy.currentHP > 0)
+                return GetCharacter(enemyParty[indexToCheck]);
+        }
+        return currentEnemy;
+    }
+
+    public bool PartyDead(List<string> partyMembers)
+    {
+        foreach(var id in partyMembers)
+        {
+            Character member = GetCharacter(id);
+            if(member.currentHP > 0)
+                return false;
+        }
+        return true;
+    }
+
+    IEnumerator PlayerAttack()
+    {
+        bool isAccepted = DoAttack(attackReference, ref playerUnit, ref enemyUnit);
         bool isDead = enemyUnit.currentHP <= 0;
 
-        enemyHUD.SetHP(enemyUnit.currentHP);
+        RefreshAllHUDs();
         if(isAccepted){
             
             dialogueText.text = "The attack is successful";
-            playerHUD.SetHUD(playerUnit);
-            enemyHUD.SetHUD(enemyUnit);
+            RefreshAllHUDs();
             yield return new WaitForSeconds(2f);
             if(isDead)
             {
-                state = BattleState.WON;
-                EndBattle();
+                bool allDead = PartyDead(enemyParty);
+                if(allDead)
+                {
+                    state = BattleState.WON;
+                    EndBattle();
+                } else {
+                    enemyUnit = GetNextEnemy(enemyUnit);
+                    state = BattleState.ENEMYTURN_START;
+                    EnemyTurnStart();
+                }
             }
             else 
             {
-                state = BattleState.ENEMYTURN;
-                StartCoroutine(EnemyTurn());
+                state = BattleState.ENEMYTURN_START;
+                EnemyTurnStart();
             }
         }
         else {
-            dialogueText.text = "You cannot choose this attack";
+            dialogueText.text = playerUnit.title + " cannot choose this attack";
+            yield return new WaitForSeconds(2f);
+            PlayerTurnStart();
         }
         
     }
 
-    // this should exist somewhere else, similar to attack
-    IEnumerator PlayerHeal()
-    {
-        playerUnit.Heal(5);
+    // // this should exist somewhere else, similar to attack
+    // IEnumerator PlayerHeal()
+    // {
+    //     playerUnit.Heal(5);
 
-        playerHUD.SetHP(playerUnit.currentHP);
-        dialogueText.text = "You have healed!";
+    //     RefreshAllHUDs();
+    //     dialogueText.text = "You have healed!";
 
-        yield return new WaitForSeconds(2f);
+    //     yield return new WaitForSeconds(2f);
 
-        state = BattleState.ENEMYTURN;
-        StartCoroutine(EnemyTurn());
-    }
+    //     state = BattleState.ENEMYTURN;
+    //     StartCoroutine(EnemyTurn());
+    // }
 
     IEnumerator EnemyTurn()
     {
@@ -107,22 +223,30 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
+        bool isDead = playerUnit.TakeDamage(5); // enemyParty[currentEnemy].damage);
 
-
-        playerHUD.SetHUD(playerUnit);
-        enemyHUD.SetHUD(enemyUnit);
+        RefreshAllHUDs();
 
         yield return new WaitForSeconds(1f);
 
         if(isDead)
         {
-            state = BattleState.LOST;
-            EndBattle();
+            bool allDead = PartyDead(playerParty);
+            if(allDead)
+            {
+                state = BattleState.LOST;
+                EndBattle();
+            }
+            else
+            {
+                state = BattleState.PLAYERTURN_START;
+                PlayerTurnStart();
+            }
+
         } else 
         {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
+            state = BattleState.PLAYERTURN_START;
+            PlayerTurnStart();
         }
     }
 
@@ -140,30 +264,105 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You were defeated";
         }   
-        Player player = GameObject.FindWithTag("Player").GetComponent<Player>();
+        Character player = GameObject.FindWithTag("Player").GetComponent<Character>();
         player.SaveState();
         Invoke("ReturnToWorld", 3);
     }
 
-    void PlayerTurn()
+    public void OnHUDTitleButton(string characterID)
+    {
+        Character character = GetCharacter(characterID);
+        if(state == BattleState.PLAYERTURN_AWAIT_MOVE)
+        {
+            playerUnit = character;
+            OpenSubmenu(character);
+        }   
+        else if(state == BattleState.PLAYERTURN_AWAIT_TARGET)
+        {
+            enemyUnit = character;
+            state = BattleState.PLAYERTURN_ATTACKING;
+            PlayerTurnAttack();
+        }
+    }
+
+    void PlayerTurnStart()
     {
         dialogueText.text = "Choose an action:";
+        state = BattleState.PLAYERTURN_AWAIT_MOVE;
     }
 
-    public void OnAttackButton(Func<Character, Character, bool> AttackName, Character self, Character enemy)
+    void EnemyTurnStart()
     {
-        if (state != BattleState.PLAYERTURN)
+        dialogueText.text = enemyUnit.title + " is starting their attack!";
+        state = BattleState.ENEMYTURN_AWAIT_MOVE;
+        StartCoroutine(EnemyTurn());
+    }
+
+    void AwaitTarget()
+    {
+        closeOptionSubmenu();
+
+        dialogueText.text = "Choose a target for "+playerUnit.title+":";
+        state = BattleState.PLAYERTURN_AWAIT_TARGET;        
+    }
+
+    void PlayerTurnAttack()
+    {
+        if (state != BattleState.PLAYERTURN_ATTACKING)
             return;
 
-        StartCoroutine(PlayerAttack(AttackName, self, enemy));
+        StartCoroutine(PlayerAttack());        
     }
 
-    public void OnHealButton()
+    public void OpenSubmenu(Character character)
     {
-        if (state != BattleState.PLAYERTURN)
-            return;
-
-        StartCoroutine(PlayerHeal());
+        createOptionSubmenu(character);
     }
+
+    public void closeOptionSubmenu()
+    {
+        GameObject obj = GameObject.Find("Menu(Clone)");
+        DynamicMenu menu = obj.GetComponent<DynamicMenu>();
+        menu.Close();
+    }
+
+    public void createOptionSubmenu(Character character)
+    {
+        GameObject obj = Instantiate(Resources.Load("Prefabs/Menu"), transform.position, transform.rotation) as GameObject;
+        DynamicMenu menu = obj.GetComponent<DynamicMenu>();
+
+        Dictionary<string, Action> attacks = new Dictionary<string, Action>();
+        Dictionary<string, Action> spells = new Dictionary<string, Action>();
+        Dictionary<string, Action> strategies = new Dictionary<string, Action>();
+
+        foreach( var attackRef in character.getAttacks() ) {
+            attacks.Add(attackRef.Key, () => { attackReference = attackRef.Value; AwaitTarget();});
+        }
+        attacks.Add("Return", () => { });
+
+        spells.Add("Heal", () => { });
+        spells.Add("Fire Damage", () => { });
+        spells.Add("Return", () => { });
+
+        strategies.Add("Charge Mana", () => { });
+        strategies.Add("Return", () => { });
+
+        Dictionary<string, Action> items = new Dictionary<string, Action>();
+        if(character.GetComponent<Player>() != null){
+            foreach (var item in character.GetComponent<Player>().items)
+            {
+                items.Add(item.title, () => { });
+            }
+        }
+        items.Add("Return", () => { });
+
+        menu.Open(new Dictionary<string, Action>(){
+        {"Attacks", delegate { menu.SubMenu(attacks); }},
+        {"Spells", delegate { menu.SubMenu(spells); }},
+        {"Items", delegate { menu.SubMenu(items); }},
+        {"Strategies", delegate { menu.SubMenu(strategies); }},
+        {"Return", () => {}},
+    });
+    }    
 
 }
