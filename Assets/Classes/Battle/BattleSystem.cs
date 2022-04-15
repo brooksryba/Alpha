@@ -82,8 +82,8 @@ public class BattleSystem : MonoBehaviour
         Character partyLeader = partyLeaderPrefab.GetComponent<Character>();
         partyLeaderObj.name = partyLeader.title;
         partyLeader.LoadState();
-        Debug.Log("Loaded State of the party leader, current HP is below");
-        Debug.Log(partyLeader.currentHP);
+        //Debug.Log("Loaded State of the party leader, current HP is below");
+        //Debug.Log(partyLeader.currentHP);
         partyList.Add(partyLeader.title);
 
         createSingleHUD(ref partyLeaderObj, ref partyLeader, partyContainer);
@@ -112,8 +112,11 @@ public class BattleSystem : MonoBehaviour
     public void RefreshAllHUDs()
     {
         GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
-        foreach(var hud in objs){           
-            hud.GetComponent<BattleHUD>().Refresh();
+        foreach(var hud in objs){
+            BattleHUD battleHud = hud.GetComponent<BattleHUD>();
+            Character updateHudCharacter = GetCharacter(battleHud.character.title);
+            battleHud.character = updateHudCharacter;
+            battleHud.Refresh();
         }
     }
 
@@ -159,14 +162,9 @@ public class BattleSystem : MonoBehaviour
 
     public bool PartyDead(List<string> partyMembers)
     {
-        Debug.Log("Calling Party dead with following partyMembers");
-        Debug.Log(partyMembers);
         foreach(var id in partyMembers)
         {
-            Debug.Log("Checking the following members HP");
             Character member = GetCharacter(id);
-            Debug.Log(member.title);
-            Debug.Log(member.currentHP);
             if(member.currentHP > 0)
                 return false;
         }
