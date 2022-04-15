@@ -281,7 +281,6 @@ public class BattleSystem : MonoBehaviour
         if(state == BattleState.PLAYERTURN_AWAIT_MOVE)
         {
             playerUnit = character;
-            closeOptionSubmenu();
             OpenSubmenu(character, target);
         }   
         else if(state == BattleState.PLAYERTURN_AWAIT_TARGET)
@@ -323,14 +322,17 @@ public class BattleSystem : MonoBehaviour
 
     public void OpenSubmenu(Character character, GameObject target)
     {
+        closeOptionSubmenu();
         createOptionSubmenu(character);
         positionOptionSubmenu(target);
     }
 
     public void positionOptionSubmenu(GameObject target)
     {
-        GameObject obj = GameObject.Find("Menu(Clone)");
-        obj.transform.position = target.transform.position;
+        GameObject obj = GameObject.Find("MenuList");
+        Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        obj.transform.position = cam.WorldToScreenPoint(target.transform.position);
+        obj.transform.position += new Vector3(0, 100, 0);
     }
 
     public void closeOptionSubmenu()
@@ -338,8 +340,7 @@ public class BattleSystem : MonoBehaviour
         GameObject obj = GameObject.Find("Menu(Clone)");
         if(obj) 
         {
-            DynamicMenu menu = obj.GetComponent<DynamicMenu>();
-            menu.Close();
+            Destroy(obj);
         }
     }
 
