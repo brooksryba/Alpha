@@ -31,7 +31,7 @@ public class BattleHUD : MonoBehaviour
     public void Refresh()
     {
         nameText.text = character.title;
-        levelText.text = "Lvl " + character.level;
+        levelText.text = "Lv" + character.level;
         hpSlider.maxValue = character.maxHP;
         hpSlider.value = character.currentHP;
         hpText.text = character.currentHP.ToString() + " HP";
