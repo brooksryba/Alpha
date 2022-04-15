@@ -12,10 +12,10 @@ public class BattleSystemController : MonoBehaviour
         instance = this;
     }
 
-    public event Action<string> onBattleHudTitleButton;
-    public void BattleHudTitleButton(string character)
+    public event Action<string, GameObject> onBattleHudTitleButton;
+    public void BattleHudTitleButton(string character, GameObject target)
     {
         if(onBattleHudTitleButton != null)
-            onBattleHudTitleButton(character);
+            onBattleHudTitleButton(character, target);
     }
 }

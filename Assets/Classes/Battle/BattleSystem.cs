@@ -277,13 +277,14 @@ public class BattleSystem : MonoBehaviour
         Invoke("ReturnToWorld", 3);
     }
 
-    public void OnHUDTitleButton(string characterID)
+    public void OnHUDTitleButton(string characterID, GameObject target)
     {
         Character character = GetCharacter(characterID);
         if(state == BattleState.PLAYERTURN_AWAIT_MOVE)
         {
             playerUnit = character;
-            OpenSubmenu(character);
+            closeOptionSubmenu();
+            OpenSubmenu(character, target);
         }   
         else if(state == BattleState.PLAYERTURN_AWAIT_TARGET)
         {
@@ -322,16 +323,26 @@ public class BattleSystem : MonoBehaviour
         StartCoroutine(PlayerAttack());        
     }
 
-    public void OpenSubmenu(Character character)
+    public void OpenSubmenu(Character character, GameObject target)
     {
         createOptionSubmenu(character);
+        positionOptionSubmenu(target);
+    }
+
+    public void positionOptionSubmenu(GameObject target)
+    {
+        GameObject obj = GameObject.Find("Menu(Clone)");
+        obj.transform.position = target.transform.position;
     }
 
     public void closeOptionSubmenu()
     {
         GameObject obj = GameObject.Find("Menu(Clone)");
-        DynamicMenu menu = obj.GetComponent<DynamicMenu>();
-        menu.Close();
+        if(obj) 
+        {
+            DynamicMenu menu = obj.GetComponent<DynamicMenu>();
+            menu.Close();
+        }
     }
 
     public void createOptionSubmenu(Character character)
