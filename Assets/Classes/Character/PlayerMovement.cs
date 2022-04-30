@@ -87,6 +87,10 @@ public class PlayerMovement : MonoBehaviour
             item.SaveState();
         }
         if (collision.gameObject.tag == "Portal"){
+            if( loadPosition == true ) {
+                gameObject.transform.position -= new Vector3(0, 1, 0);
+                SaveState();  
+            } 
             string gname = collision.gameObject.name.Substring(7);
             SceneManager.LoadScene(sceneName: gname);
         }
