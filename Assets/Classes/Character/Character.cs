@@ -17,8 +17,17 @@ public class Character : MonoBehaviour
     public int maxMana;
     public int currentMana;
 
+    public int speed;
+    public int earnedXp;
+
     public List<string> partyMembers;
     public List<string> attackNames;
+
+    private CharacterManager _manager;
+
+    public void Init(CharacterManager manager) {
+        _manager = manager;
+    }
 
     void Start()
     {
@@ -40,11 +49,14 @@ public class Character : MonoBehaviour
             this.level = data.level;
             this.currentHP = data.currentHP;
             this.currentMana = data.currentMana;
+            this.speed = data.speed;
+            this.earnedXp = data.earnedXp;
         }
 		else 
 		{
 			this.currentHP = this.level * 10;
         	this.currentMana = this.level * 5;
+            this.speed = this.level * 3;
 		}
 		this.maxHP = this.level * 10;
 		this.maxMana = this.level * 5;

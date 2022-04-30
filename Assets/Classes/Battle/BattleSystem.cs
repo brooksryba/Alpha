@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum BattleState { START, // Setup the battle scene
+                          DETERMINE_NEXT_ATTACK, // Figure out which character gets the next move
                           PLAYERTURN_START, // Setup the player move
                           PLAYERTURN_AWAIT_MOVE, // Waiting for click event on menu
                           PLAYERTURN_AWAIT_TARGET, // Waiting for click on name button
@@ -82,8 +83,6 @@ public class BattleSystem : MonoBehaviour
         Character partyLeader = partyLeaderPrefab.GetComponent<Character>();
         partyLeaderObj.name = partyLeader.title;
         partyLeader.LoadState();
-        //Debug.Log("Loaded State of the party leader, current HP is below");
-        //Debug.Log(partyLeader.currentHP);
         partyList.Add(partyLeader.title);
 
         createSingleHUD(ref partyLeaderObj, ref partyLeader, partyContainer);
