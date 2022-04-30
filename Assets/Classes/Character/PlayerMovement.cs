@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
 
     public float moveSpeed = 5f;
 
+    public bool loadPosition = true; 
+
     public Rigidbody2D rb;
     public Animator animator;
     public Vector3 position;
@@ -18,8 +20,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        LoadState();
-        transform.position = position;
+        if( loadPosition == true) {
+            LoadState();
+            transform.position = position;
+        }
     }
     
     public void SaveState()
@@ -38,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+
 
     // Update is called once per frame
     void Update()
@@ -80,6 +85,10 @@ public class PlayerMovement : MonoBehaviour
             
             collision.gameObject.SetActive(false);
             item.SaveState();
+        }
+        if (collision.gameObject.tag == "Portal"){
+            string gname = collision.gameObject.name.Substring(7);
+            SceneManager.LoadScene(sceneName: gname);
         }
     }    
 }
