@@ -30,9 +30,13 @@ public class PlayerControl : MonoBehaviour
             items.Add("Return", () => {});
 
             menu.Open(new Dictionary<string, Action>(){
-                {"Player", () => {}},
+                {"Player", () => {
+                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
+                }},
                 {"Items", delegate { menu.SubMenu(items); }},
-                {"Map", () => {}},
+                {"Map", () => {
+                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
+                }},
                 {"Save", () => {
                     transform.GetComponent<Player>().SaveState();
                     transform.GetComponent<PlayerMovement>().SaveState();
