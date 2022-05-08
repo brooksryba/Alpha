@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using TMPro;
 
 public enum BattleState { START, // Setup the battle scene
-                          DETERMINE_NEXT_ATTACK, // Figure out which character gets the next move
+                          DETERMINE_NEXT_ATTACKER, // Figure out which character gets the next move
                           PLAYERTURN_START, // Setup the player move
                           PLAYERTURN_AWAIT_MOVE, // Waiting for click event on menu
                           PLAYERTURN_AWAIT_TARGET, // Waiting for click on name button
@@ -36,6 +36,8 @@ public class BattleSystem : MonoBehaviour
 
     public BattleState state;
     public BattleSceneScriptable battleScriptable;
+
+    public int turnIndex = -1;
 
     Character playerUnit;
     Character enemyUnit;
@@ -131,9 +133,69 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        state = BattleState.PLAYERTURN_START;
-        PlayerTurnStart();
+        state = BattleState.DETERMINE_NEXT_ATTACKER;
+        GetNextAttacker();
 
+    }
+
+    public void disableUnusableHuds(string usableHudName){
+        // this should probably be done in a HUD manager or equivalent 
+        GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
+        foreach(var hud in objs){
+            BattleHUD battleHud = hud.GetComponent<BattleHUD>();
+            if (playerParty.Contains(battleHud.character.title)){
+            if (battleHud.character.title==usableHudName)
+                continue;
+            else 
+                battleHud.playerButton.interactable = false;
+            }
+
+        }
+    }
+    public void GetNextAttacker()
+    {
+        // Loops through ordered list of all characters by speed and selects the next in order to attack
+        // Potential concerns - Are we allowing speed changes mid-battle, if so how do we handle that? Currently, the order of the list will change, but turn number does not reset
+
+        // YOU ARE HERE: End of this function with PLayerTurnStart and EnemyTurn
+        //      You need to walk through starting the player / enemy turns and be sure those steps use this one properly and the disabling of the player button works properly
+        turnIndex += 1;
+        int totalPlayers = playerParty.Count + enemyParty.Count;
+        if(turnIndex >= totalPlayers)
+            turnIndex = 0;
+        List<Character> allCharacters = new List<Character>();
+        foreach(var p in playerParty){
+            allCharacters.Add(GetCharacter(p));
+        }
+        foreach(var p in enemyParty){
+            allCharacters.Add(GetCharacter(p));
+        }
+
+        allCharacters.Sort(delegate(Character a, Character b){
+            return (-1*a.speed).CompareTo(-1*b.speed);
+        });
+
+        for(int i = 0; i < allCharacters.Count; i++){
+            int indexToCheck = (turnIndex + i) % allCharacters.Count;
+            if(allCharacters[indexToCheck].currentHP > 0){
+                turnIndex = indexToCheck;
+            }
+        }
+        Character nextUp = allCharacters[turnIndex];
+        if(playerParty.Contains(nextUp.title)){
+            state = BattleState.PLAYERTURN_START;
+            // change dialogue text, disable other player buttons, and change state
+            dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
+            playerUnit = nextUp;
+            disableUnusableHuds(nextUp.title);
+            PlayerTurnStart();
+        } else {
+            state = BattleState.ENEMYTURN_START;
+            // chage dialogue text and through enemy attack
+            enemyUnit = nextUp;
+            EnemyTurn();
+        }
+            
     }
 
     public bool DoAttack(AttackData attack, ref Character attacker, ref Character defender)
@@ -292,7 +354,6 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurnStart()
     {
-        dialogueText.text = "Choose an action:";
         state = BattleState.PLAYERTURN_AWAIT_MOVE;
     }
 
