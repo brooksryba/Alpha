@@ -157,8 +157,8 @@ public class BattleSystem : MonoBehaviour
         // Loops through ordered list of all characters by speed and selects the next in order to attack
         // Potential concerns - Are we allowing speed changes mid-battle, if so how do we handle that? Currently, the order of the list will change, but turn number does not reset
 
-        // YOU ARE HERE: End of this function with PLayerTurnStart and EnemyTurn
-        //      You need to walk through starting the player / enemy turns and be sure those steps use this one properly and the disabling of the player button works properly
+        if(state==BattleState.WON || state==BattleState.LOST)
+            return;
         turnIndex += 1;
         int totalPlayers = playerParty.Count + enemyParty.Count;
         if(turnIndex >= totalPlayers)
@@ -172,28 +172,28 @@ public class BattleSystem : MonoBehaviour
         }
 
         allCharacters.Sort(delegate(Character a, Character b){
-            return (-1*a.speed).CompareTo(-1*b.speed);
+            return (b.speed).CompareTo(a.speed); // highest speed first (a comp to b is lowest)
         });
 
         for(int i = 0; i < allCharacters.Count; i++){
             int indexToCheck = (turnIndex + i) % allCharacters.Count;
             if(allCharacters[indexToCheck].currentHP > 0){
                 turnIndex = indexToCheck;
+                break;
             }
         }
         Character nextUp = allCharacters[turnIndex];
         if(playerParty.Contains(nextUp.title)){
             state = BattleState.PLAYERTURN_START;
-            // change dialogue text, disable other player buttons, and change state
             dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
             playerUnit = nextUp;
             disableUnusableHuds(nextUp.title);
             PlayerTurnStart();
         } else {
             state = BattleState.ENEMYTURN_START;
-            // chage dialogue text and through enemy attack
+            dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
             enemyUnit = nextUp;
-            EnemyTurn();
+            StartCoroutine(EnemyTurn());
         }
             
     }
@@ -206,19 +206,6 @@ public class BattleSystem : MonoBehaviour
         } else {
             return false;
         }        
-    }
-
-    public Character GetNextEnemy(Character currentEnemy)
-    {
-        int currentEnemyIndex = enemyParty.IndexOf(currentEnemy.name);
-        for(int i = 0; i < enemyParty.Count; i++)
-        {
-            int indexToCheck = (currentEnemyIndex + i + 1) % enemyParty.Count;
-            Character enemy = GetCharacter(enemyParty[indexToCheck]);
-            if(enemy.currentHP > 0)
-                return GetCharacter(enemyParty[indexToCheck]);
-        }
-        return currentEnemy;
     }
 
     public bool PartyDead(List<string> partyMembers)
@@ -243,24 +230,14 @@ public class BattleSystem : MonoBehaviour
             dialogueText.text = "The attack is successful";
             RefreshAllHUDs();
             yield return new WaitForSeconds(2f);
-            if(isDead)
-            {
+            if(isDead){
                 bool allDead = PartyDead(enemyParty);
-                if(allDead)
-                {
+                if(allDead){
                     state = BattleState.WON;
                     EndBattle();
-                } else {
-                    enemyUnit = GetNextEnemy(enemyUnit);
-                    state = BattleState.ENEMYTURN_START;
-                    EnemyTurnStart();
                 }
             }
-            else 
-            {
-                state = BattleState.ENEMYTURN_START;
-                EnemyTurnStart();
-            }
+            GetNextAttacker();
         }
         else {
             dialogueText.text = playerUnit.title + " cannot choose this attack";
@@ -270,51 +247,31 @@ public class BattleSystem : MonoBehaviour
         
     }
 
-    // // this should exist somewhere else, similar to attack
-    // IEnumerator PlayerHeal()
-    // {
-    //     playerUnit.Heal(5);
-
-    //     RefreshAllHUDs();
-    //     dialogueText.text = "You have healed!";
-
-    //     yield return new WaitForSeconds(2f);
-
-    //     state = BattleState.ENEMYTURN;
-    //     StartCoroutine(EnemyTurn());
-    // }
-
     IEnumerator EnemyTurn()
     {
-        dialogueText.text = enemyUnit.title + " attacks!";
+        state = BattleState.ENEMYTURN_AWAIT_MOVE; // state changes will be needed when AI is implemented, but not useful yet
+        state = BattleState.ENEMYTURN_AWAIT_TARGET;
+        dialogueText.text = enemyUnit.title + " attacks " + playerUnit.title + "!";
 
         yield return new WaitForSeconds(1f);
+        // @todo - this is where the enemies AI should be implemented
 
+        state = BattleState.ENEMYTURN_ATTACKING;
         bool isDead = playerUnit.TakeDamage(5); // enemyParty[currentEnemy].damage);
 
         RefreshAllHUDs();
 
         yield return new WaitForSeconds(1f);
 
-        if(isDead)
-        {
+        if(isDead){
             bool allDead = PartyDead(playerParty);
-            if(allDead)
-            {
+            if(allDead){
                 state = BattleState.LOST;
                 EndBattle();
             }
-            else
-            {
-                state = BattleState.PLAYERTURN_START;
-                PlayerTurnStart();
-            }
-
-        } else 
-        {
-            state = BattleState.PLAYERTURN_START;
-            PlayerTurnStart();
         }
+
+        GetNextAttacker();
     }
 
     void ReturnToWorld()
@@ -357,19 +314,13 @@ public class BattleSystem : MonoBehaviour
         state = BattleState.PLAYERTURN_AWAIT_MOVE;
     }
 
-    void EnemyTurnStart()
-    {
-        dialogueText.text = enemyUnit.title + " is starting their attack!";
-        state = BattleState.ENEMYTURN_AWAIT_MOVE;
-        StartCoroutine(EnemyTurn());
-    }
 
     void AwaitTarget()
     {
         closeOptionSubmenu();
 
         dialogueText.text = "Choose a target for "+playerUnit.title+":";
-        state = BattleState.PLAYERTURN_AWAIT_TARGET;        
+        state = BattleState.PLAYERTURN_AWAIT_TARGET;
     }
 
     void PlayerTurnAttack()
@@ -417,7 +368,7 @@ public class BattleSystem : MonoBehaviour
             attacks.Add(attackRef.Key, () => { attackReference = attackRef.Value; AwaitTarget();});
         }
         attacks.Add("Return", () => { });
-
+        
         spells.Add("Heal", () => { });
         spells.Add("Fire Damage", () => { });
         spells.Add("Return", () => { });
@@ -435,12 +386,14 @@ public class BattleSystem : MonoBehaviour
         items.Add("Return", () => { });
 
         menu.Open(new Dictionary<string, Action>(){
-        {"Attacks", delegate { menu.SubMenu(attacks); }},
-        {"Spells", delegate { menu.SubMenu(spells); }},
-        {"Items", delegate { menu.SubMenu(items); }},
-        {"Strategies", delegate { menu.SubMenu(strategies); }},
+        {"Attacks >>", delegate { menu.SubMenu(attacks); }},
+        {"Spells >>", delegate { menu.SubMenu(spells); }},
+        {"Items >>", delegate { menu.SubMenu(items); }},
+        {"Strategies >>", delegate { menu.SubMenu(strategies); }},
         {"Return", () => {}},
-    });
+        });
+    
+    
     }    
 
 }

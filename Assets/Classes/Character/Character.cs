@@ -44,8 +44,6 @@ public class Character : MonoBehaviour
         CharacterData data = SaveSystem.LoadState<CharacterData>(this.title) as CharacterData;
         if (data != null)
         {
-            Debug.Log(data.level);
-            Debug.Log(data.currentHP);
             this.level = data.level;
             this.currentHP = data.currentHP;
             this.currentMana = data.currentMana;
