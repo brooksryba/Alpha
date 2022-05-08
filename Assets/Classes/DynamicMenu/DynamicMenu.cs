@@ -14,7 +14,7 @@ public class DynamicMenu : MonoBehaviour
     {
         foreach( var item in items )
         {
-            bool sub = item.Value.GetInvocationList()[0].Target.ToString().Contains("DisplayClass");
+            bool sub = item.Key.Contains(">>");
             AddItem(item.Key, item.Value, !(sub));
         }
 
@@ -28,6 +28,8 @@ public class DynamicMenu : MonoBehaviour
 
     public void SubMenu(Dictionary<string, Action> items)
     {
+        if( GameObject.Find("Menu(Clone)(Clone)") ) { return; }
+        
         GameObject obj = Instantiate(_menu, transform.position, transform.rotation);
         obj.transform.SetParent(transform);
         obj.transform.position = transform.position + new Vector3(50, 0, 0);

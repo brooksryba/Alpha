@@ -23,17 +23,65 @@ public class PlayerControl : MonoBehaviour
             DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
             Dictionary<string, Action> items = new Dictionary<string, Action>();
-            foreach( var item in transform.GetComponent<Player>().items )
+            Dictionary<string, int> itemCount = new Dictionary<string, int>();
+            Dictionary<string, ItemData> itemRefs = new Dictionary<string, ItemData>();
+
+            foreach( var item in transform.GetComponent<Player>().items ) {
+                itemRefs[item.title] = item;
+                if( itemCount.ContainsKey(item.title) ) {
+                    itemCount[item.title] += 1;
+                } else {
+                    itemCount.Add(item.title, 1);
+                }
+            }
+
+            foreach( KeyValuePair<string, int> item in itemCount )
             {
-                items.Add(item.title, () => {});
+                items.Add(item.Key + " (x" + item.Value + ")", () => {
+                    if( WorldItems.lookup.ContainsKey(item.Key) )
+                    {
+                        InventoryItemData itemData = WorldItems.lookup[item.Key];
+                        Player player = GameObject.Find("Player").GetComponent<Player>();
+                        Character character = GameObject.Find("Player").GetComponent<Character>();
+                        bool hpAllowed = character.multiplyHP(itemData.hp);
+
+                        if( hpAllowed ) {
+                            bool manaAllowed = character.multiplyMana(itemData.mana);
+                            
+                            if( manaAllowed ) {
+                                string message = "Player used a(n) "  + item.Key;
+                                if( itemData.message != "" )
+                                {
+                                    message += "\n" + itemData.message;
+                                }
+
+                                player.items.Remove(itemRefs[item.Key]);
+                                player.SaveState();
+                                character.SaveState();
+                                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
+                                Destroy(GameObject.Find("Menu(Clone)"));
+                            } else {
+                                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not enough mana to use this item.");
+                            }
+                        } else {
+                            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not enough HP to use this item.");
+                        }
+                    } 
+                    else
+                    {
+                        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Can't use this item now.");
+                    }
+                });
             }
             items.Add("Return", () => {});
 
             menu.Open(new Dictionary<string, Action>(){
                 {"Player", () => {
-                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
+                    Character player = GameObject.Find("Player").GetComponent<Character>();
+                    string message = "HP: " + player.currentHP + "/" + player.maxHP + "\nMana: " + player.currentMana + "/" + player.maxMana;
+                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
                 }},
-                {"Items", delegate { menu.SubMenu(items); }},
+                {"Items >>", delegate { menu.SubMenu(items); }},
                 {"Map", () => {
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
                 }},
