@@ -86,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             collision.gameObject.SetActive(false);
             item.SaveState();
 
-            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Picked up a " + collision.gameObject.name);
+            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Picked up a(n) " + collision.gameObject.name);
         }
         if (collision.gameObject.tag == "Portal"){
             if( loadPosition == true ) {
