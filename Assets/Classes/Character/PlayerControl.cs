@@ -36,6 +36,7 @@ public class PlayerControl : MonoBehaviour
                 {"Save", () => {
                     transform.GetComponent<Player>().SaveState();
                     transform.GetComponent<PlayerMovement>().SaveState();
+                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
                 }},
                 {"Quit", () => SceneManager.LoadScene("Menu")},
                 {"Return", () => {}},
