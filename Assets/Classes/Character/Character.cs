@@ -50,6 +50,27 @@ public class Character : MonoBehaviour
 		this.maxMana = this.level * 5;
     }
 
+    public bool multiplyHP(double hp) 
+    {
+        int newHP = currentHP + (int)((double)maxHP * hp);
+        if( newHP > 0 ) {
+            currentHP = Math.Min(newHP, maxHP);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public bool multiplyMana(double mana)
+    {
+        int newMana = currentMana + (int)((double)maxMana * mana);
+        if( newMana > 0 ) {
+            currentMana = Math.Min(newMana, maxMana);
+            return true;
+        } else {
+            return false;
+        }
+    }
 
 
     public bool TakeDamage(int dmg)
