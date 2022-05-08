@@ -8,8 +8,10 @@ public static class SaveSystem {
     {
         foreach (var path in Directory.GetFiles(Application.persistentDataPath))
         {
-            FileInfo file = new FileInfo(path);
-            file.Delete();
+            if( path.Contains(".bin") ) {
+                FileInfo file = new FileInfo(path);
+                file.Delete();
+            }
         }
     }
 
