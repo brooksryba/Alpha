@@ -16,6 +16,7 @@ public enum BattleState { START, // Setup the battle scene
                           ENEMYTURN_AWAIT_MOVE, // Waiting for AI to select move
                           ENEMYTURN_AWAIT_TARGET, // Waiting for AI to select target
                           ENEMYTURN_ATTACKING, // Waiting for the attack to complete
+                          RESIGN, // Player has resigned the battle
                           WON, // Player has won the battle
                           LOST // Player has lost the battle
                         }
@@ -287,9 +288,19 @@ public class BattleSystem : MonoBehaviour
         } else if (state == BattleState.LOST)
         {
             dialogueText.text = "You were defeated";
-        }   
-        Character player = GameObject.FindWithTag("Player").GetComponent<Character>();
-        player.SaveState();
+        } else if (state == BattleState.RESIGN) {
+            dialogueText.text = "You resigned the battle";
+        }
+
+        if(state != BattleState.RESIGN) {
+            GameObject.FindWithTag("Player").GetComponent<Character>().SaveState();
+            GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().SaveState();
+
+            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Friendly")) {
+                go.GetComponent<Character>().SaveState();
+            }
+        }
+
         Invoke("ReturnToWorld", 3);
     }
 
@@ -390,6 +401,7 @@ public class BattleSystem : MonoBehaviour
         {"Spells >>", delegate { menu.SubMenu(spells); }},
         {"Items >>", delegate { menu.SubMenu(items); }},
         {"Strategies >>", delegate { menu.SubMenu(strategies); }},
+        {"Resign", delegate { state = BattleState.RESIGN; EndBattle(); }},
         {"Return", () => {}},
         });
     

@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
             movementLock = true;
 
             Character enemy = collision.gameObject.GetComponent<Character>();
-            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; HandleEnemy(collision); }); 
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
         }
 
         if (collision.gameObject.tag == "InventoryItem") {
@@ -109,17 +109,16 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleEnemy(Collision2D collision)
     {
-        collision.gameObject.SetActive(false);
-        collision.gameObject.GetComponent<Character>().SaveState();
-        collision.gameObject.GetComponent<Enemy>().SaveState();
-        
-        gameObject.GetComponent<Character>().SaveState();
-        gameObject.GetComponent<Player>().SaveState();
         gameObject.GetComponent<PlayerMovement>().SaveState();
-        
-        battleScriptable.enemy = collision.gameObject.name;
 
-        SceneManager.LoadScene(sceneName:"Battle");        
+        Character enemy = collision.gameObject.GetComponent<Character>();
+        if(enemy.currentHP > 0) {
+            battleScriptable.enemy = collision.gameObject.name;
+            SceneManager.LoadScene(sceneName:"Battle");        
+        } else {
+            collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponent<Enemy>().SaveState();
+        }
     }
 
     void HandleInventoryItem(Collision2D collision)
