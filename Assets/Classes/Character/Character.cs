@@ -23,6 +23,9 @@ public class Character : MonoBehaviour
     public List<string> partyMembers;
     public List<string> attackNames;
 
+    public int dialogIndex;
+    public List<string> dialogText;
+
     void Start()
     {
         LoadState();
@@ -44,6 +47,7 @@ public class Character : MonoBehaviour
             this.speed = data.speed;
             this.earnedXp = data.earnedXp;
             this.partyMembers = data.partyMembers;
+            this.dialogIndex = data.dialogIndex;
         }
 		else 
 		{

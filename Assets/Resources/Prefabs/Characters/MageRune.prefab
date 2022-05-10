@@ -107,3 +107,8 @@ MonoBehaviour:
   partyMembers: []
   attackNames:
   - Basic Attack
+  dialogIndex: 0
+  dialogText:
+  - I was just polishing some of my new runes.
+  - Oh, you'd like me to join your party? Ok, I guess...
+  - These runes will be ready to use in battle soon.

@@ -7898,6 +7898,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8643284994398649998, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
+        type: 3}
+      propertyPath: partyMembers.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8643284994398649998, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
+        type: 3}
+      propertyPath: partyMembers.Array.data[1]
+      value: Characters/Toxic Gem
+      objectReference: {fileID: 0}
     - target: {fileID: 8988213778532503585, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
         type: 3}
       propertyPath: m_SortingOrder

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,11 +13,24 @@ public class DialogSystem : MonoBehaviour
         Close();
     }
 
-    public void Open(string message, int duration = 6)
+    public void Open(string message, Action callback = null)
     {
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
-        StartCoroutine(TimedClose(duration));
+        StartCoroutine(TimedClose(6, callback));
+    }
+
+    public void Next(Character character, Action callback = null)
+    {
+        if(character.dialogText.Count > 0) {
+            string message = character.title + ": " + character.dialogText[character.dialogIndex];
+            if(character.dialogIndex + 1 < character.dialogText.Count) {
+                character.dialogIndex++;
+                character.SaveState();
+            }
+
+            Open(message, callback);
+        }
     }
 
     public void Close()
@@ -25,9 +39,11 @@ public class DialogSystem : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    IEnumerator TimedClose(int duration)
+    IEnumerator TimedClose(int duration, Action callback = null)
     {
         yield return new WaitForSeconds(duration);
         Close();
+
+        if(callback != null) { callback(); }
     }
 }

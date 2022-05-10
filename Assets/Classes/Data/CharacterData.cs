@@ -13,6 +13,8 @@ public class CharacterData {
 
     public List<string> partyMembers;
 
+    public int dialogIndex;
+
 
     public CharacterData(Character character) {
         level = character.level;
@@ -21,6 +23,7 @@ public class CharacterData {
         speed = character.speed;
         earnedXp = character.earnedXp;
         partyMembers = character.partyMembers;
+        dialogIndex = character.dialogIndex;
     }
 
 }

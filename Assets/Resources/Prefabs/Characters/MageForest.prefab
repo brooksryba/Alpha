@@ -107,3 +107,8 @@ MonoBehaviour:
   partyMembers: []
   attackNames:
   - Basic Attack
+  dialogIndex: 0
+  dialogText:
+  - What are you doing wandering the forest alone?
+  - It's nice to meet you, though.\nI will join your party!
+  - I look forward to fighting with you.

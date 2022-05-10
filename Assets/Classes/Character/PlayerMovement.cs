@@ -64,52 +64,69 @@ public class PlayerMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Friendly") {
-            Character player = gameObject.GetComponent<Character>();
-            string message = "";
-
-            if(player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
-                message = "I look forward to fighting with you";
-            } else {
-                message = "Hello my name is " + collision.gameObject.name + ". It's nice to meet you!\nI will join your party";
-                player.partyMembers.Add("Characters/"+collision.gameObject.name);
-                gameObject.GetComponent<Character>().SaveState();
-            }
-            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Open(message);
+            Character friendly = collision.gameObject.GetComponent<Character>();
+            HandleFriendly(collision);
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly); 
         }
 
         if (collision.gameObject.tag == "Enemy") {
-            collision.gameObject.SetActive(false);
-            collision.gameObject.GetComponent<Character>().SaveState();
-            collision.gameObject.GetComponent<Enemy>().SaveState();
-            
-            gameObject.GetComponent<Character>().SaveState();
-            gameObject.GetComponent<Player>().SaveState();
-            gameObject.GetComponent<PlayerMovement>().SaveState();
-            
-            battleScriptable.enemy = collision.gameObject.name;
-
-            SceneManager.LoadScene(sceneName:"Battle");
+            Character enemy = collision.gameObject.GetComponent<Character>();
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { HandleEnemy(collision); }); 
         }
 
         if (collision.gameObject.tag == "InventoryItem") {
-            InventoryItem item = collision.gameObject.GetComponent<InventoryItem>();
-
-            gameObject.GetComponent<Player>().AddInventoryItem(item);
-            gameObject.GetComponent<Player>().SaveState();
-            
-            collision.gameObject.SetActive(false);
-            item.SaveState();
-
-            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Picked up a(n) " + collision.gameObject.name);
+            HandleInventoryItem(collision);
         }
 
         if (collision.gameObject.tag == "Portal"){
-            if( loadPosition == true ) {
-                gameObject.transform.position -= new Vector3(0, 1, 0);
-                SaveState();  
-            } 
-            string gname = collision.gameObject.name.Substring(7);
-            SceneManager.LoadScene(sceneName: gname);
+            HandlePortal(collision);
         }
     }    
+
+    void HandleFriendly(Collision2D collision)
+    {
+        Character player = gameObject.GetComponent<Character>();
+        if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
+            player.partyMembers.Add("Characters/"+collision.gameObject.name);
+            gameObject.GetComponent<Character>().SaveState();
+        }        
+    }
+
+    void HandleEnemy(Collision2D collision)
+    {
+        collision.gameObject.SetActive(false);
+        collision.gameObject.GetComponent<Character>().SaveState();
+        collision.gameObject.GetComponent<Enemy>().SaveState();
+        
+        gameObject.GetComponent<Character>().SaveState();
+        gameObject.GetComponent<Player>().SaveState();
+        gameObject.GetComponent<PlayerMovement>().SaveState();
+        
+        battleScriptable.enemy = collision.gameObject.name;
+
+        SceneManager.LoadScene(sceneName:"Battle");        
+    }
+
+    void HandleInventoryItem(Collision2D collision)
+    {
+        InventoryItem item = collision.gameObject.GetComponent<InventoryItem>();
+
+        gameObject.GetComponent<Player>().AddInventoryItem(item);
+        gameObject.GetComponent<Player>().SaveState();
+        
+        collision.gameObject.SetActive(false);
+        item.SaveState();
+
+        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Picked up a(n) " + collision.gameObject.name);        
+    }
+
+    void HandlePortal(Collision2D collision)
+    {
+        if( loadPosition == true ) {
+            gameObject.transform.position -= new Vector3(0, 1, 0);
+            SaveState();  
+        } 
+        string gname = collision.gameObject.name.Substring(7);
+        SceneManager.LoadScene(sceneName: gname);        
+    }
 }
