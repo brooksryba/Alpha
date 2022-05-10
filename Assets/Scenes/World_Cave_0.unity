@@ -5960,7 +5960,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300002, guid: 91c04e64c2626724882426ca7ab6765e,
     type: 2}
-  m_audioClip: {fileID: 8300000, guid: a56961b480a684afc92f1c82668120ca, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d91f317dd34c4e04c94e86e720130291, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -6096,6 +6096,8 @@ MonoBehaviour:
   animator: {fileID: 1680783335}
   position: {x: 0, y: 0, z: 0}
   battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
+  movementLock: 0
+  dialogLock: 0
 --- !u!95 &1680783335
 Animator:
   serializedVersion: 3
