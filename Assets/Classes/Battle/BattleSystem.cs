@@ -299,6 +299,14 @@ public class BattleSystem : MonoBehaviour
             foreach(GameObject go in GameObject.FindGameObjectsWithTag("Friendly")) {
                 go.GetComponent<Character>().SaveState();
             }
+        } else {
+            GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().dialogIndex = 0;
+            GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().SaveState();
+
+            GameObject.FindWithTag("Player").GetComponent<Character>().currentHP = 0;
+            GameObject.FindWithTag("Player").GetComponent<Character>().SaveState();
+
+            RefreshAllHUDs();
         }
 
         Invoke("ReturnToWorld", 3);

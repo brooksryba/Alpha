@@ -55,13 +55,27 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
-
     }
 
     void FixedUpdate()
     {
         if(!movementLock) {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+
+        Character player = gameObject.GetComponent<Character>();
+        if(player.currentHP == 0) {
+            player.currentHP = (int)(player.maxHP / 2);
+            player.SaveState();
+
+            this.position = new Vector3();
+            this.position.x = 0;
+            this.position.y = 0;
+            this.position.z = 0;
+            transform.position = this.position;
+            SaveState();
+
+            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("You have fainted. Your health was reset to 25%");
         }
     }
 
