@@ -90,10 +90,16 @@ public class PlayerMovement : MonoBehaviour
     void HandleFriendly(Collision2D collision)
     {
         Character player = gameObject.GetComponent<Character>();
-        if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
-            player.partyMembers.Add("Characters/"+collision.gameObject.name);
-            gameObject.GetComponent<Character>().SaveState();
-        }        
+        Character friendly = collision.gameObject.GetComponent<Character>();
+        
+        if(friendly.dialogIndex == 2) {
+            if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
+                player.partyMembers.Add("Characters/"+collision.gameObject.name);
+                gameObject.GetComponent<Character>().SaveState();
+
+                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(friendly.title + " joined your party!");
+            }        
+        }
     }
 
     void HandleEnemy(Collision2D collision)

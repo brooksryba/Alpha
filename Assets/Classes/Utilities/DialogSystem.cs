@@ -7,6 +7,7 @@ using TMPro;
 
 public class DialogSystem : MonoBehaviour
 {
+    public int timeout = 4;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +18,7 @@ public class DialogSystem : MonoBehaviour
     {
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
-        StartCoroutine(TimedClose(6, callback));
+        StartCoroutine(TimedClose(timeout, callback));
     }
 
     public void Next(Character character, Action callback = null)
