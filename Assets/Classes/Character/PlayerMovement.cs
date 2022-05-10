@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
     public BattleSceneScriptable battleScriptable;
     
     Vector2 movement;
+    public bool movementLock = false;
+    public bool dialogLock = false;
 
     void Start()
     {
@@ -53,48 +55,113 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
-
     }
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if(!movementLock) {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
+
+        Character player = gameObject.GetComponent<Character>();
+        if(player.currentHP == 0) {
+            player.currentHP = (int)(player.maxHP / 2);
+            player.SaveState();
+
+            this.position = new Vector3();
+            this.position.x = 0;
+            this.position.y = 0;
+            this.position.z = 0;
+            transform.position = this.position;
+            SaveState();
+
+            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("You have fainted. Your health was reset to 25%");
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy") {
-            collision.gameObject.SetActive(false);
-            collision.gameObject.GetComponent<Character>().SaveState();
-            collision.gameObject.GetComponent<Enemy>().SaveState();
-            
-            gameObject.GetComponent<Character>().SaveState();
-            gameObject.GetComponent<Player>().SaveState();
-            gameObject.GetComponent<PlayerMovement>().SaveState();
-            
-            battleScriptable.enemy = collision.gameObject.name;
+        if (collision.gameObject.tag == "Friendly" && !dialogLock) {
+            dialogLock = true;
 
-            SceneManager.LoadScene(sceneName:"Battle");
+            Character friendly = collision.gameObject.GetComponent<Character>();
+            HandleFriendly(collision);
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
+        }
+
+        if (collision.gameObject.tag == "Enemy" && !dialogLock) {
+            dialogLock = true;
+            movementLock = true;
+
+            Character enemy = collision.gameObject.GetComponent<Character>();
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
         }
 
         if (collision.gameObject.tag == "InventoryItem") {
-            InventoryItem item = collision.gameObject.GetComponent<InventoryItem>();
-
-            gameObject.GetComponent<Player>().AddInventoryItem(item);
-            gameObject.GetComponent<Player>().SaveState();
-            
-            collision.gameObject.SetActive(false);
-            item.SaveState();
-
-            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Picked up a(n) " + collision.gameObject.name);
+            HandleInventoryItem(collision);
         }
+
         if (collision.gameObject.tag == "Portal"){
-            if( loadPosition == true ) {
-                gameObject.transform.position -= new Vector3(0, 1, 0);
-                SaveState();  
-            } 
-            string gname = collision.gameObject.name.Substring(7);
-            SceneManager.LoadScene(sceneName: gname);
+            HandlePortal(collision);
         }
     }    
+
+    void HandleFriendly(Collision2D collision)
+    {
+        Character player = gameObject.GetComponent<Character>();
+        Character friendly = collision.gameObject.GetComponent<Character>();
+        
+        if(friendly.dialogIndex == 1) {
+            if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
+                player.partyMembers.Add("Characters/"+collision.gameObject.name);
+                gameObject.GetComponent<Character>().SaveState();
+
+                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(friendly.title + " joined your party!");
+            }        
+        }
+    }
+
+    void HandleEnemy(Collision2D collision)
+    {
+        gameObject.GetComponent<PlayerMovement>().SaveState();
+
+        Character enemy = collision.gameObject.GetComponent<Character>();
+        if(enemy.currentHP > 0) {
+            battleScriptable.enemy = collision.gameObject.name;
+            SceneManager.LoadScene(sceneName:"Battle");        
+        } else {
+            collision.gameObject.SetActive(false);
+            collision.gameObject.GetComponent<Enemy>().SaveState();
+        }
+    }
+
+    void HandleInventoryItem(Collision2D collision)
+    {
+        InventoryItem item = collision.gameObject.GetComponent<InventoryItem>();
+
+        gameObject.GetComponent<Player>().AddInventoryItem(item);
+        gameObject.GetComponent<Player>().SaveState();
+        
+        collision.gameObject.SetActive(false);
+        item.SaveState();
+
+        string itemName = collision.gameObject.name.ToLower();
+        string message = "Picked up a";
+        if("aeiou".Contains(itemName[0].ToString())) {
+            message += "n";
+        }
+        message += " " + itemName + ".";
+
+        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);        
+    }
+
+    void HandlePortal(Collision2D collision)
+    {
+        if( loadPosition == true ) {
+            gameObject.transform.position -= new Vector3(0, 1, 0);
+            SaveState();  
+        } 
+        string gname = collision.gameObject.name.Substring(7);
+        SceneManager.LoadScene(sceneName: gname);        
+    }
 }

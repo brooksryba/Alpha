@@ -8,6 +8,8 @@ TagManager:
   - InventoryItem
   - BattleHUD
   - Portal
+  - Friendly
+  - Menu
   layers:
   - Default
   - TransparentFX

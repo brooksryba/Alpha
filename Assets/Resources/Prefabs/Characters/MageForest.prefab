@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4285036244626313821}
   m_Layer: 0
   m_Name: MageForest
-  m_TagString: Enemy
+  m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -51,7 +51,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -102,6 +102,13 @@ MonoBehaviour:
   currentHP: 0
   maxMana: 0
   currentMana: 0
+  speed: 0
+  earnedXp: 0
   partyMembers: []
   attackNames:
   - Basic Attack
+  dialogIndex: 0
+  dialogText:
+  - What are you doing wandering the forest alone?
+  - It's nice to meet you, though.\nI will join your party!
+  - I look forward to fighting with you.

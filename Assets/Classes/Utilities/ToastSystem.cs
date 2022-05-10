@@ -12,7 +12,7 @@ public class ToastSystem : MonoBehaviour
         Close();
     }
 
-    public void Open(string message, int duration = 2)
+    public void Open(string message, int duration = 3)
     {
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
