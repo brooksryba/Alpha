@@ -30,6 +30,8 @@ public class DialogSystem : MonoBehaviour
             }
 
             Open(message, callback);
+        } else {
+            callback();
         }
     }
 

@@ -548,7 +548,7 @@ PrefabInstance:
     - target: {fileID: 2460646344076525313, guid: f90eb019c46a01c449b93efc0a230e31,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2460646344076525313, guid: f90eb019c46a01c449b93efc0a230e31,
         type: 3}
@@ -7715,7 +7715,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.72
 --- !u!114 &1112232567
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27191,7 +27191,7 @@ PrefabInstance:
     - target: {fileID: 749204447295944871, guid: 52163005ee3f9094a817ec6726fb83c7,
         type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 749204447295944871, guid: 52163005ee3f9094a817ec6726fb83c7,
         type: 3}
