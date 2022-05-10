@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     public BattleSceneScriptable battleScriptable;
     
     Vector2 movement;
+    public bool movementLock = false;
 
     void Start()
     {
@@ -58,7 +59,9 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if(!movementLock) {
+            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -70,6 +73,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         if (collision.gameObject.tag == "Enemy") {
+            movementLock = true;
             Character enemy = collision.gameObject.GetComponent<Character>();
             GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { HandleEnemy(collision); }); 
         }
