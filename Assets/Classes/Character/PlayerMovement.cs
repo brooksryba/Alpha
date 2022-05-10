@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     
     Vector2 movement;
     public bool movementLock = false;
+    public bool dialogLock = false;
 
     void Start()
     {
@@ -66,16 +67,20 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Friendly") {
+        if (collision.gameObject.tag == "Friendly" && !dialogLock) {
+            dialogLock = true;
+
             Character friendly = collision.gameObject.GetComponent<Character>();
             HandleFriendly(collision);
-            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly); 
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
         }
 
-        if (collision.gameObject.tag == "Enemy") {
+        if (collision.gameObject.tag == "Enemy" && !dialogLock) {
+            dialogLock = true;
             movementLock = true;
+
             Character enemy = collision.gameObject.GetComponent<Character>();
-            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { HandleEnemy(collision); }); 
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; HandleEnemy(collision); }); 
         }
 
         if (collision.gameObject.tag == "InventoryItem") {
@@ -92,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         Character player = gameObject.GetComponent<Character>();
         Character friendly = collision.gameObject.GetComponent<Character>();
         
-        if(friendly.dialogIndex == 2) {
+        if(friendly.dialogIndex == 1) {
             if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
                 player.partyMembers.Add("Characters/"+collision.gameObject.name);
                 gameObject.GetComponent<Character>().SaveState();
