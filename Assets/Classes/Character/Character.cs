@@ -23,12 +23,6 @@ public class Character : MonoBehaviour
     public List<string> partyMembers;
     public List<string> attackNames;
 
-    private CharacterManager _manager;
-
-    public void Init(CharacterManager manager) {
-        _manager = manager;
-    }
-
     void Start()
     {
         LoadState();
@@ -49,6 +43,7 @@ public class Character : MonoBehaviour
             this.currentMana = data.currentMana;
             this.speed = data.speed;
             this.earnedXp = data.earnedXp;
+            this.partyMembers = data.partyMembers;
         }
 		else 
 		{

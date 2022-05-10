@@ -63,6 +63,20 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.gameObject.tag == "Friendly") {
+            Character player = gameObject.GetComponent<Character>();
+            string message = "";
+
+            if(player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
+                message = "I look forward to fighting with you";
+            } else {
+                message = "Hello my name is " + collision.gameObject.name + ". It's nice to meet you!\nI will join your party";
+                player.partyMembers.Add("Characters/"+collision.gameObject.name);
+                gameObject.GetComponent<Character>().SaveState();
+            }
+            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Open(message);
+        }
+
         if (collision.gameObject.tag == "Enemy") {
             collision.gameObject.SetActive(false);
             collision.gameObject.GetComponent<Character>().SaveState();
@@ -88,6 +102,7 @@ public class PlayerMovement : MonoBehaviour
 
             GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Picked up a(n) " + collision.gameObject.name);
         }
+
         if (collision.gameObject.tag == "Portal"){
             if( loadPosition == true ) {
                 gameObject.transform.position -= new Vector3(0, 1, 0);

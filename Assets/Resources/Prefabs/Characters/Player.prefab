@@ -65,9 +65,9 @@ MonoBehaviour:
   currentHP: 50
   maxMana: 25
   currentMana: 25
-  partyMembers:
-  - Characters/MageForest
-  - Characters/MageRune
+  speed: 0
+  earnedXp: 0
+  partyMembers: []
   attackNames:
   - Basic Attack
   - Heavy Attack

@@ -11,6 +11,8 @@ public class CharacterData {
     public int speed;
     public int earnedXp;
 
+    public List<string> partyMembers;
+
 
     public CharacterData(Character character) {
         level = character.level;
@@ -18,7 +20,7 @@ public class CharacterData {
         currentMana = character.currentMana;
         speed = character.speed;
         earnedXp = character.earnedXp;
-
+        partyMembers = character.partyMembers;
     }
 
 }
