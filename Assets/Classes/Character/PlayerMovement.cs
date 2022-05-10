@@ -132,7 +132,14 @@ public class PlayerMovement : MonoBehaviour
         collision.gameObject.SetActive(false);
         item.SaveState();
 
-        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Picked up a(n) " + collision.gameObject.name);        
+        string itemName = collision.gameObject.name.ToLower();
+        string message = "Picked up a";
+        if("aeiou".Contains(itemName[0].ToString())) {
+            message += "n";
+        }
+        message += " " + itemName + ".";
+
+        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);        
     }
 
     void HandlePortal(Collision2D collision)
