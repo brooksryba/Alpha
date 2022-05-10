@@ -49,7 +49,11 @@ public class PlayerControl : MonoBehaviour
                             bool manaAllowed = character.multiplyMana(itemData.mana);
                             
                             if( manaAllowed ) {
-                                string message = "Player used a(n) "  + item.Key;
+                                string message = "Player used a";
+                                if("aeiou".Contains(item.Key.ToLower()[0].ToString())) {
+                                    message += "n";
+                                }
+                                message += " " + item.Key.ToLower() + ".";                                
                                 if( itemData.message != "" )
                                 {
                                     message += "\n" + itemData.message;
