@@ -2,6 +2,14 @@ public class BattleStateSetup : BattleState
 {
     public void execute()
     {
+        BattleSystemController.instance.onBattleHudTitleButton += OnHUDTitleButton;
+
+        GameObject playerPrefab = Resources.Load("Prefabs/Characters/" + battleScriptable.enemy) as GameObject;
+        GameObject enemyPrefab = null;
+        if(battleScriptable.enemy != null && battleScriptable.enemy != ""){           
+            enemyPrefab = Resources.Load("Prefabs/Characters/" + battleScriptable.enemy) as GameObject;
+        }
+
         GameObject playerGO = initializeParty(ref playerParty, ref playerPrefab, playerBattleStation, playerPartyContainer);
         playerUnit = playerGO.GetComponent<Character>();
 
@@ -12,10 +20,7 @@ public class BattleStateSetup : BattleState
 
         yield return new WaitForSeconds(1f);
 
-        state = BattleState.DETERMINE_NEXT_ATTACKER;
-        GetNextAttacker();
-
-        return this;
+        return new BattleStateGetAttacker();
     }
 
     public GameObject initializeParty(ref List<string> partyList, ref GameObject partyLeaderPrefab, GameObject battleStationContainer, GameObject partyContainer, bool flip=false)

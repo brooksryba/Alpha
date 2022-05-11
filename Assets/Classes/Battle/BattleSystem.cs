@@ -4,12 +4,6 @@ public class BattleSystem : MonoBehaviour
 
     void Start()
     {
-        BattleSystemController.instance.onBattleHudTitleButton += OnHUDTitleButton;
-
-        if(battleScriptable.enemy != null && battleScriptable.enemy != ""){           
-            enemyPrefab = Resources.Load("Prefabs/Characters/" + battleScriptable.enemy) as GameObject;
-        }
-
         state = new BattleStateSetup();
     }
 
