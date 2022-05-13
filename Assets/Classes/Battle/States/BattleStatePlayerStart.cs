@@ -1,10 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
 public class BattleStatePlayerStart : BattleState
 {
-    public void execute()
+    override public IEnumerator execute()
     {
-        dialogueText.text = "Choose a target for "+playerUnit.title+":";
-        state = BattleState.PLAYERTURN_AWAIT_TARGET;
-                
-        return this;
+        newState = this;
+
+        battleObjManager.dialogueText.text = "It's "+battleObjManager.playerUnit.title+" turn to attack!";
+        battleObjManager.battleSystemHud.canSelect = true;
+
+        if(battleObjManager.battleSystemHud.selection != null){
+            battleObjManager.battleSystemHud.canSelect = false;
+            newState = new BattleStatePlayerAwaitAttack();
+        }
+
+        yield return new WaitForSeconds(0f);
     }
 }

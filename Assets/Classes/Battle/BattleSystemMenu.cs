@@ -1,5 +1,14 @@
-public class BattleSystemMenu 
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+public class BattleSystemMenu
 {
+    public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
 
     public void OpenSubmenu(Character character, GameObject target)
     {
@@ -21,13 +30,15 @@ public class BattleSystemMenu
         GameObject obj = GameObject.Find("Menu(Clone)");
         if(obj) 
         {
-            Destroy(obj);
+            GameObject.Destroy(obj);
         }
     }
 
+
+
     public void createOptionSubmenu(Character character)
     {
-        GameObject obj = Instantiate(Resources.Load("Prefabs/Menu"), transform.position, transform.rotation) as GameObject;
+        GameObject obj = GameObject.Instantiate(Resources.Load("Prefabs/Menu")) as GameObject;
         DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
         Dictionary<string, Action> attacks = new Dictionary<string, Action>();
@@ -35,7 +46,7 @@ public class BattleSystemMenu
         Dictionary<string, Action> strategies = new Dictionary<string, Action>();
 
         foreach( var attackRef in character.getAttacks() ) {
-            attacks.Add(attackRef.Key, () => { attackReference = attackRef.Value; AwaitTarget();});
+            attacks.Add(attackRef.Key, () => { battleObjManager.attackReference = attackRef.Value; });
         }
         attacks.Add("Return", () => { });
         
@@ -47,11 +58,44 @@ public class BattleSystemMenu
         strategies.Add("Return", () => { });
 
         Dictionary<string, Action> items = new Dictionary<string, Action>();
-        if(character.GetComponent<Player>() != null){
-            foreach (var item in character.GetComponent<Player>().items)
-            {
-                items.Add(item.title, () => { });
+        Dictionary<string, int> itemCount = new Dictionary<string, int>();
+        Dictionary<string, ItemData> itemRefs = new Dictionary<string, ItemData>();
+
+        foreach( var item in character.items ) {
+            itemRefs[item.title] = item;
+            if( itemCount.ContainsKey(item.title) ) {
+                itemCount[item.title] += 1;
+            } else {
+                itemCount.Add(item.title, 1);
             }
+        }
+
+        foreach( KeyValuePair<string, int> item in itemCount )
+        {
+            items.Add(item.Key + " (x" + item.Value + ")", () => {
+                if( BattleItems.lookup.ContainsKey(item.Key) )
+                {
+                    InventoryItemData itemData = BattleItems.lookup[item.Key];
+
+                    string message = "Player used a";
+                    if("aeiou".Contains(item.Key.ToLower()[0].ToString())) {
+                        message += "n";
+                    }
+                    message += " " + item.Key.ToLower() + ".";                                
+                    if( itemData.message != "" )
+                    {
+                        message += "\n" + itemData.message;
+                    }
+
+                    character.items.Remove(itemRefs[item.Key]);
+                    character.SaveState();
+                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);                        
+                } 
+                else
+                {
+                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Can't use this item now.");
+                }
+            });
         }
         items.Add("Return", () => { });
 
@@ -60,7 +104,7 @@ public class BattleSystemMenu
         {"Spells >>", delegate { menu.SubMenu(spells); }},
         {"Items >>", delegate { menu.SubMenu(items); }},
         {"Strategies >>", delegate { menu.SubMenu(strategies); }},
-        {"Resign", delegate { state = BattleState.RESIGN; EndBattle(); }},
+        {"Resign", delegate { battleObjManager.battleStateMachine.Transition(new BattleStateResign()); }},
         {"Return", () => {}},
         });
     

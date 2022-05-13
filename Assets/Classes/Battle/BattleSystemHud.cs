@@ -1,8 +1,20 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+
 public class BattleSystemHud
 {
+    public BattleSystemUtils utils = new BattleSystemUtils();
+
+    public bool canSelect = false;
+    public Character selection;
+    public GameObject selectionButton;
     public void createSingleHUD(ref GameObject partyMember, ref Character hudCharacter, GameObject partyContainer)
     {
-        GameObject battleHudPrefab = Instantiate(Resources.Load<GameObject>("Prefabs/BattleHUD"), partyContainer.transform);
+        GameObject battleHudPrefab = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BattleHUD"), partyContainer.transform);
         battleHudPrefab.transform.SetParent(partyContainer.transform);
         BattleHUD hud = battleHudPrefab.GetComponent<BattleHUD>();
         hud.character = hudCharacter;
@@ -14,14 +26,13 @@ public class BattleSystemHud
         GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
         foreach(var hud in objs){
             BattleHUD battleHud = hud.GetComponent<BattleHUD>();
-            Character updateHudCharacter = GetCharacter(battleHud.character.title);
+            Character updateHudCharacter = utils.GetCharacter(battleHud.character.title);
             battleHud.character = updateHudCharacter;
             battleHud.Refresh();
         }
     }
 
-    public void disableUnusableHuds(string usableHudName){
-        // this should probably be done in a HUD manager or equivalent 
+    public void disableUnusableHuds(string usableHudName, List<string> playerParty){
         GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
         foreach(var hud in objs){
             BattleHUD battleHud = hud.GetComponent<BattleHUD>();
@@ -31,24 +42,16 @@ public class BattleSystemHud
             else 
                 battleHud.playerButton.interactable = false;
             }
-
         }
     }
 
-
     public void OnHUDTitleButton(string characterID, GameObject target)
     {
-        Character character = GetCharacter(characterID);
-        if(state == BattleState.PLAYERTURN_AWAIT_MOVE)
-        {
-            playerUnit = character;
-            OpenSubmenu(character, target);
-        }   
-        else if(state == BattleState.PLAYERTURN_AWAIT_TARGET)
-        {
-            enemyUnit = character;
-            state = BattleState.PLAYERTURN_ATTACKING;
-            PlayerTurnAttack();
+        if( canSelect == true ) {
+            selection = utils.GetCharacter(characterID);
+            selectionButton = target;
         }
-    }        
+    }  
+
+      
 }

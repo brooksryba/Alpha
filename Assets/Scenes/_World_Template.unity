@@ -339,6 +339,8 @@ MonoBehaviour:
   animator: {fileID: 26244351}
   position: {x: 0, y: 0, z: 0}
   battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
+  movementLock: 0
+  dialogLock: 0
 --- !u!4 &26244358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5619778278270914738, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
@@ -1829,7 +1831,8 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 128669590853526168, guid: 9b218ddbc89d4ea4eaebd514e466cfe5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9b218ddbc89d4ea4eaebd514e466cfe5, type: 3}
 --- !u!1 &1683679422
 GameObject:

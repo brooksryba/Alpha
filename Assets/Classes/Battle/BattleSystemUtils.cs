@@ -1,3 +1,7 @@
+using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 public class BattleSystemUtils
 {
     public Character GetCharacter(string id)
@@ -25,4 +29,9 @@ public class BattleSystemUtils
         }
         return true;
     }
+
+
+
+
+
 }

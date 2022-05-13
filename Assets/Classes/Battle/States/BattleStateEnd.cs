@@ -1,34 +1,35 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using TMPro;
+
+
+
 public class BattleStateEnd : BattleState
 {
-    public void execute()
+    override public IEnumerator execute()
     {
-        if(state == BattleState.WON)
+        newState = this;
+
+        if(battleSystemUtils.PartyDead(battleObjManager.enemyParty))
         {
-            dialogueText.text = "You won the battle!";
-        } else if (state == BattleState.LOST)
+            battleObjManager.dialogueText.text = "You won the battle!";
+        } else if (battleSystemUtils.PartyDead(battleObjManager.playerParty))
         {
-            dialogueText.text = "You were defeated";
-        } else if (state == BattleState.RESIGN) {
-            dialogueText.text = "You resigned the battle";
+            battleObjManager.dialogueText.text = "You were defeated";
+        } 
+
+        GameObject.FindWithTag("Player").GetComponent<Character>().SaveState();
+        GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().SaveState();
+
+        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Friendly")) {
+            go.GetComponent<Character>().SaveState();
         }
 
-        if(state != BattleState.RESIGN) {
-            GameObject.FindWithTag("Player").GetComponent<Character>().SaveState();
-            GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().SaveState();
-
-            foreach(GameObject go in GameObject.FindGameObjectsWithTag("Friendly")) {
-                go.GetComponent<Character>().SaveState();
-            }
-        } else {
-            GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().dialogIndex = 0;
-            GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().SaveState();
-
-            GameObject.FindWithTag("Player").GetComponent<Character>().currentHP = 0;
-            GameObject.FindWithTag("Player").GetComponent<Character>().SaveState();
-
-            RefreshAllHUDs();
-        }
-
-        Invoke("ReturnToWorld", 3);
+        SceneManager.LoadScene(sceneName:"World");
+        yield return new WaitForSeconds(0f);
     }
 }

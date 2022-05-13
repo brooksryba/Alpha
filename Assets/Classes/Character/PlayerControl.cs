@@ -9,9 +9,6 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( Input.GetKeyUp(KeyCode.Q) ) {
-            transform.GetComponent<Player>().SaveState();
-        }
         if( Input.GetKeyUp(KeyCode.R) ) {
             SaveSystem.Reset();
             SceneManager.LoadScene("World");
@@ -26,7 +23,7 @@ public class PlayerControl : MonoBehaviour
             Dictionary<string, int> itemCount = new Dictionary<string, int>();
             Dictionary<string, ItemData> itemRefs = new Dictionary<string, ItemData>();
 
-            foreach( var item in transform.GetComponent<Player>().items ) {
+            foreach( var item in transform.GetComponent<Character>().items ) {
                 itemRefs[item.title] = item;
                 if( itemCount.ContainsKey(item.title) ) {
                     itemCount[item.title] += 1;
@@ -41,7 +38,6 @@ public class PlayerControl : MonoBehaviour
                     if( WorldItems.lookup.ContainsKey(item.Key) )
                     {
                         InventoryItemData itemData = WorldItems.lookup[item.Key];
-                        Player player = GameObject.Find("Player").GetComponent<Player>();
                         Character character = GameObject.Find("Player").GetComponent<Character>();
                         bool hpAllowed = character.multiplyHP(itemData.hp);
 
@@ -59,8 +55,7 @@ public class PlayerControl : MonoBehaviour
                                     message += "\n" + itemData.message;
                                 }
 
-                                player.items.Remove(itemRefs[item.Key]);
-                                player.SaveState();
+                                character.items.Remove(itemRefs[item.Key]);
                                 character.SaveState();
                                 GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
                                 Destroy(GameObject.Find("Menu(Clone)"));
@@ -90,7 +85,7 @@ public class PlayerControl : MonoBehaviour
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
                 }},
                 {"Save", () => {
-                    transform.GetComponent<Player>().SaveState();
+                    transform.GetComponent<Character>().SaveState();
                     transform.GetComponent<PlayerMovement>().SaveState();
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
                 }},

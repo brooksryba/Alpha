@@ -9,6 +9,8 @@ public class Character : MonoBehaviour
     public string title;
     public int level;
 
+    public List<ItemData> items;
+
     public int damage;
 
     public int maxHP;
@@ -48,6 +50,14 @@ public class Character : MonoBehaviour
             this.earnedXp = data.earnedXp;
             this.partyMembers = data.partyMembers;
             this.dialogIndex = data.dialogIndex;
+            this.items = new List<ItemData>();
+
+            if( data.items != null ) {
+                foreach( var item in data.items )
+                {
+                    this.items.Add(item);
+                }            
+            }
         }
 		else 
 		{
@@ -59,6 +69,10 @@ public class Character : MonoBehaviour
 		this.maxMana = this.level * 5;
     }
 
+    public void AddInventoryItem(InventoryItem item)
+    {
+        items.Add(new ItemData(item));
+    }
     public bool multiplyHP(double hp) 
     {
         int newHP = currentHP + (int)((double)maxHP * hp);

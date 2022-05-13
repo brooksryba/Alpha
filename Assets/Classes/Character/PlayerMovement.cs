@@ -139,8 +139,8 @@ public class PlayerMovement : MonoBehaviour
     {
         InventoryItem item = collision.gameObject.GetComponent<InventoryItem>();
 
-        gameObject.GetComponent<Player>().AddInventoryItem(item);
-        gameObject.GetComponent<Player>().SaveState();
+        gameObject.GetComponent<Character>().AddInventoryItem(item);
+        gameObject.GetComponent<Character>().SaveState();
         
         collision.gameObject.SetActive(false);
         item.SaveState();
