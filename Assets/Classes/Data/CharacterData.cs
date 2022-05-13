@@ -6,6 +6,7 @@ using UnityEngine;
 public class CharacterData {
 
     public int level;
+    public List<ItemData> items;
     public int currentHP;
     public int currentMana;
     public int speed;
@@ -18,6 +19,7 @@ public class CharacterData {
 
     public CharacterData(Character character) {
         level = character.level;
+        items = character.items;
         currentHP = character.currentHP;
         currentMana = character.currentMana;
         speed = character.speed;
