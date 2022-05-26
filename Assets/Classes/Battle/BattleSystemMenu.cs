@@ -45,8 +45,8 @@ public class BattleSystemMenu
         Dictionary<string, Action> spells = new Dictionary<string, Action>();
         Dictionary<string, Action> strategies = new Dictionary<string, Action>();
 
-        foreach( var attackRef in character.getAttacks() ) {
-            attacks.Add(attackRef.Key, () => { battleObjManager.attackReference = attackRef.Value; });
+        foreach( var attackName in character.attackNames ) {
+            attacks.Add(attackName, () => { battleObjManager.chosenAttack = attackName; });
         }
         attacks.Add("Return", () => { });
         

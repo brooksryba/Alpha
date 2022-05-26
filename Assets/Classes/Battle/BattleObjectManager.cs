@@ -27,7 +27,7 @@ public class BattleObjectManager : MonoBehaviour
     public List<string> playerParty;
     public List<string> enemyParty;
 
-    public AttackData attackReference;
+    public string chosenAttack;
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
 

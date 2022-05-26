@@ -16,10 +16,10 @@ public class BattleStatePlayerAttack : BattleState
             battleObjManager.enemyUnit = battleObjManager.battleSystemHud.selection;
             battleObjManager.battleSystemHud.selection = null;
 
-            bool isAccepted = battleSystemUtils.DoAttack(battleObjManager.attackReference, ref battleObjManager.playerUnit, ref battleObjManager.enemyUnit);
+            bool isAccepted = battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit);
             bool isDead = battleObjManager.enemyUnit.currentHP <= 0;
 
-            battleObjManager.attackReference = null;
+            battleObjManager.chosenAttack = null;
             battleObjManager.battleSystemHud.RefreshAllHUDs();
             if(isAccepted){
                 

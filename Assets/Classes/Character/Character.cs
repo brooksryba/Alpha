@@ -131,14 +131,4 @@ public class Character : MonoBehaviour
 
     }
 
-    public Dictionary<string, AttackData> getAttacks()
-    {
-        Dictionary<string, AttackData> attackDictionary = new Dictionary<string, AttackData>();
-        foreach(var attack in this.attackNames)
-        {
-            attackDictionary.Add(attack, Attacks.lookup[attack]);
-        }
-        return attackDictionary;
-    }
-
 }
