@@ -1,9 +1,32 @@
+using UnityEngine;
+
 public class HeavyAttack : Attack
 {
     public string name = "Heavy Attack";
-    override public bool doAttack(string attackerName, string defenderName) {
-        Character attacker = getCharacter(attackerName);
-        Character defender = getCharacter(defenderName);
+
+    override public bool CheckAttackInputs()
+    {
+        return defenderName != "" & defenderName != null;
+    }
+
+    override public bool CheckAttackFeasible()
+    {
+        return GetCharacter(attackerName).currentMana >= 5;
+    }
+
+    public override int GetAttackDamage()
+    {
+        if(defenderName != ""){
+            return Mathf.Min(GetCharacter(defenderName).currentHP, 15);
+        } else {
+            return -1;
+        }
+    }
+
+    
+    override public bool DoAttack() {
+        Character attacker = GetCharacter(attackerName);
+        Character defender = GetCharacter(defenderName);
 
         if(attacker.useMana(5)){
             defender.TakeDamage(15);

@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Forest Mage
   level: 7
+  items: []
   damage: 0
   maxHP: 0
   currentHP: 0
@@ -107,6 +108,7 @@ MonoBehaviour:
   partyMembers: []
   attackNames:
   - Basic Attack
+  - Spread Attack
   dialogIndex: 0
   dialogText:
   - What are you doing wandering the forest alone?

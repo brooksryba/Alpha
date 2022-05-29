@@ -11,13 +11,12 @@ public class BattleStatePlayerAttack : BattleState
 
         battleObjManager.battleSystemMenu.closeOptionSubmenu();
         battleObjManager.battleSystemHud.canSelect = true;
-        if(battleObjManager.battleSystemHud.selection != null){
+        if(battleSystemUtils.ConfirmAttackInputs(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.battleSystemHud.selection)){
             battleObjManager.battleSystemHud.canSelect = false;        
             battleObjManager.enemyUnit = battleObjManager.battleSystemHud.selection;
-            battleObjManager.battleSystemHud.selection = null;
-
+           
             bool isAccepted = battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit);
-            bool isDead = battleObjManager.enemyUnit.currentHP <= 0;
+            battleObjManager.battleSystemHud.selection = null;
 
             battleObjManager.chosenAttack = null;
             battleObjManager.battleSystemHud.RefreshAllHUDs();
@@ -26,13 +25,14 @@ public class BattleStatePlayerAttack : BattleState
                 battleObjManager.dialogueText.text = "The attack is successful";
                 battleObjManager.battleSystemHud.RefreshAllHUDs();
                 newState = new BattleStateGetAttacker();
+
                 yield return new WaitForSeconds(2f);
-                if(isDead){
-                    bool allDead = battleSystemUtils.PartyDead(battleObjManager.enemyParty);
-                    if(allDead){
-                        newState = new BattleStateEnd();
-                    }
+
+                bool allDead = battleSystemUtils.PartyDead(battleObjManager.enemyParty);
+                if(allDead){
+                    newState = new BattleStateEnd();
                 }
+                
             }
             else {
                 battleObjManager.dialogueText.text = battleObjManager.playerUnit.title + " cannot choose this attack";

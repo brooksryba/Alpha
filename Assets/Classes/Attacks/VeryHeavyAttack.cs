@@ -3,13 +3,28 @@
 public class VeryHeavyAttack : Attack
 {
     public string name = "Very Heavy Attack";
-    override public bool doAttack(string attackerName, string defenderName) {
-        Character attacker = getCharacter(attackerName);
-        Character defender = getCharacter(defenderName);
+    override public bool CheckAttackInputs()
+    {
+        return defenderName != "" & defenderName != null;
+    }
 
-        if(attacker.currentHP <= 5){
-            return false;
+    override public bool CheckAttackFeasible()
+    {
+        return GetCharacter(attackerName).currentHP > 5 & GetCharacter(attackerName).currentMana >= 10;
+    }
+
+    public override int GetAttackDamage()
+    {
+        if(defenderName != ""){
+            return GetCharacter(defenderName).currentHP;
+        } else {
+            return -1;
         }
+    }
+
+    override public bool DoAttack() {
+        Character attacker = GetCharacter(attackerName);
+        Character defender = GetCharacter(defenderName);
 
         if(attacker.useMana(10)){
             attacker.TakeDamage(5);

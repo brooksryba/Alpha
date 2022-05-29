@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class BattleStateEnemyAttack : BattleState
 {
+
     override public IEnumerator execute()
     {
         newState = this;
 
-        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + battleObjManager.playerUnit.title + "!";
-
+        EnemyAttackChooser attackChooser = new EnemyAttackChooser();
+        List<string> chosenAttackList = attackChooser.GetAttack(battleObjManager.enemyUnit.title);
+        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + chosenAttackList[0] + "!";
         yield return new WaitForSeconds(1f);
 
-        // @todo - this is where the enemies AI should be implemented
-
-        bool isDead = battleObjManager.playerUnit.TakeDamage(5); 
+        bool isDead = battleSystemUtils.DoAttack(chosenAttackList[0], battleSystemUtils.GetCharacter(battleObjManager.enemyUnit.title), battleSystemUtils.GetCharacter(chosenAttackList[1]));
 
         battleObjManager.battleSystemHud.RefreshAllHUDs();
 
@@ -22,12 +22,12 @@ public class BattleStateEnemyAttack : BattleState
 
         newState = new BattleStateGetAttacker();
 
-        if(isDead){
-            bool allDead = battleSystemUtils.PartyDead(battleObjManager.playerParty);
-            if(allDead){
-                newState = new BattleStateEnd();
-            }
+
+        bool allDead = battleSystemUtils.PartyDead(battleObjManager.playerParty);
+        if(allDead){
+            newState = new BattleStateEnd();
         }
+        
 
         yield return new WaitForSeconds(0f);
     }

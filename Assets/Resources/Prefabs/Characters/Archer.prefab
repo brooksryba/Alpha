@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Archer
   level: 4
+  items: []
   damage: 0
   maxHP: 40
   currentHP: 40
@@ -108,6 +109,7 @@ MonoBehaviour:
   - Characters/Warrior
   attackNames:
   - Basic Attack
+  - Spread Attack
   dialogIndex: 0
   dialogText:
   - The light is no match for me and my gang!

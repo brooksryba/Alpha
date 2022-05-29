@@ -97,6 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Dark Mage
   level: 3
+  items: []
   damage: 0
   maxHP: 30
   currentHP: 30
@@ -109,6 +110,7 @@ MonoBehaviour:
   - Characters/Warrior
   attackNames:
   - Basic Attack
+  - Heavy Attack
   dialogIndex: 0
   dialogText:
   - My dark magic is strong, you better be prepared.
