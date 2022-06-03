@@ -29,7 +29,7 @@ public class HeavyAttack : Attack
         Character defender = GetCharacter(defenderName);
 
         if(attacker.useMana(5)){
-            defender.TakeDamage(15);
+            defender.TakeDamage((int)(15*damageMultiplier));
         } else {
             return;
         }        

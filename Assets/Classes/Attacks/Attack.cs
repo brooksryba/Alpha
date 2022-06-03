@@ -5,6 +5,8 @@ public class Attack
 
     public string attackerName;
     public string defenderName;
+    public double damageMultiplier;
+
 
     public Character GetCharacter(string id)
     {
@@ -54,6 +56,21 @@ public class Attack
                 return new SpreadAttack();
             default:
                 return this;
+        }
+    }
+
+    public BattleMinigame GetAttackMinigame(string attackName){
+        switch(attackName){
+            case "Basic Attack":
+                return new MinigameBasic();
+            case "Heavy Attack":
+                return new MinigameBasic();
+            case "Very Heavy Attack":
+                return new BattleMinigame();
+            case "Spread Attack":
+                return new MinigameBasic();
+            default:
+                return new BattleMinigame();
         }
     }
 

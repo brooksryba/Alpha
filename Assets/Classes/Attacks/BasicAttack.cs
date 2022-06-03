@@ -26,6 +26,6 @@ public class BasicAttack : Attack
         Character attacker = GetCharacter(attackerName);
         Character defender = GetCharacter(defenderName);
 
-        defender.TakeDamage(5);
+        defender.TakeDamage((int)(5*damageMultiplier));
     }
 }

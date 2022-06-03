@@ -12,8 +12,15 @@ public class BattleSystemUtils
     }
 
 
+    public BattleMinigame getAttackMinigame(string attackName){
+        return attackLibrary.GetAttackMinigame(attackName);
+    }
+
+    
+
+
     // @todo - repeating code for these, should chosenAttack be a public var?
-    public void DoAttack(string attackName, Character attacker, Character defender){
+    public void DoAttack(string attackName, Character attacker, Character defender, double damageMultiplier=1.0){
         Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
         chosenAttack.attackerName = attacker.title;
         if(defender == null){
@@ -21,6 +28,7 @@ public class BattleSystemUtils
         } else {
             chosenAttack.defenderName = defender.title;
         }
+        chosenAttack.damageMultiplier = damageMultiplier;
         chosenAttack.DoAttack();
     }
 

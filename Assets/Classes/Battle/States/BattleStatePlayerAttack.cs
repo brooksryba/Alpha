@@ -21,22 +21,8 @@ public class BattleStatePlayerAttack : BattleState
             battleObjManager.battleSystemHud.RefreshAllHUDs();
             if(isAccepted){
 
+                newState = new BattleStateAttackMinigame();
 
-                battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit);
-                battleObjManager.dialogueText.text = "The attack is successful";
-                battleObjManager.battleSystemHud.RefreshAllHUDs();
-                
-
-                battleObjManager.chosenAttack = null;
-                newState = new BattleStateGetAttacker();
-
-                yield return new WaitForSeconds(2f);
-
-                bool allDead = battleSystemUtils.PartyDead(battleObjManager.enemyParty);
-                if(allDead){
-                    newState = new BattleStateEnd();
-                }
-                
             }
             else {
                 battleObjManager.dialogueText.text = battleObjManager.playerUnit.title + " cannot choose this attack";

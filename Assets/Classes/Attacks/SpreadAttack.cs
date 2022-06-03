@@ -49,7 +49,7 @@ public class SpreadAttack : Attack
     override public void _DoAttack() {
         _setDefenders();
         foreach(var d in defenderList){
-            GetCharacter(d).TakeDamage(5);
+            GetCharacter(d).TakeDamage((int)(5*damageMultiplier));
         }
     }
 }
