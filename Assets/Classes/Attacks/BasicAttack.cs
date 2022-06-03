@@ -22,11 +22,10 @@ public class BasicAttack : Attack
         }
     }
 
-    override public bool DoAttack() {
+    override public void _DoAttack() {
         Character attacker = GetCharacter(attackerName);
         Character defender = GetCharacter(defenderName);
 
         defender.TakeDamage(5);
-        return true;
     }
 }

@@ -24,15 +24,14 @@ public class HeavyAttack : Attack
     }
 
     
-    override public bool DoAttack() {
+    override public void _DoAttack() {
         Character attacker = GetCharacter(attackerName);
         Character defender = GetCharacter(defenderName);
 
         if(attacker.useMana(5)){
             defender.TakeDamage(15);
-            return true;
         } else {
-            return false;
+            return;
         }        
     
     }

@@ -14,7 +14,7 @@ public class BattleStateEnemyAttack : BattleState
         battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + chosenAttackList[0] + "!";
         yield return new WaitForSeconds(1f);
 
-        bool isDead = battleSystemUtils.DoAttack(chosenAttackList[0], battleSystemUtils.GetCharacter(battleObjManager.enemyUnit.title), battleSystemUtils.GetCharacter(chosenAttackList[1]));
+        battleSystemUtils.DoAttack(chosenAttackList[0], battleSystemUtils.GetCharacter(battleObjManager.enemyUnit.title), battleSystemUtils.GetCharacter(chosenAttackList[1]));
 
         battleObjManager.battleSystemHud.RefreshAllHUDs();
 

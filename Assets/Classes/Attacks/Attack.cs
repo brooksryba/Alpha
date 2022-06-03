@@ -12,9 +12,18 @@ public class Attack
         return GameObject.Find(id).GetComponent<Character>();
     }
 
-    virtual public bool DoAttack() {
+    public bool CanUseAttack(){
+        return CheckAttackInputs() & CheckAttackFeasible();
+    }
+    public void DoAttack() {
+        if(CanUseAttack())
+            this._DoAttack();
+
+    }
+
+    virtual public void _DoAttack() {
         // executes the attack and returns true if the attack can be executed. Else returns false.
-        return false;
+        return;
     }
 
     virtual public bool CheckAttackInputs(){

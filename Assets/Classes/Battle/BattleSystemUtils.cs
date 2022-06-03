@@ -13,7 +13,7 @@ public class BattleSystemUtils
 
 
     // @todo - repeating code for these, should chosenAttack be a public var?
-    public bool DoAttack(string attackName, Character attacker, Character defender){
+    public void DoAttack(string attackName, Character attacker, Character defender){
         Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
         chosenAttack.attackerName = attacker.title;
         if(defender == null){
@@ -21,7 +21,7 @@ public class BattleSystemUtils
         } else {
             chosenAttack.defenderName = defender.title;
         }
-        return chosenAttack.DoAttack();
+        chosenAttack.DoAttack();
     }
 
     public bool ConfirmAttackInputs(string attackName, Character attacker, Character defender){
@@ -34,6 +34,18 @@ public class BattleSystemUtils
         }
         return chosenAttack.CheckAttackInputs();
     }
+
+    public bool ConfirmCanUseAttack(string attackName, Character attacker, Character defender){
+        Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
+        chosenAttack.attackerName = attacker.title;
+        if(defender == null){
+            chosenAttack.defenderName = "";
+        } else {
+            chosenAttack.defenderName = defender.title;
+        }
+        return chosenAttack.CanUseAttack();
+    }
+
 
 
     public bool PartyDead(List<string> partyMembers)

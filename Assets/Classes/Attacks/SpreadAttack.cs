@@ -46,14 +46,10 @@ public class SpreadAttack : Attack
         return damage;
         
     }
-
-
-
-    override public bool DoAttack() {
+    override public void _DoAttack() {
         _setDefenders();
         foreach(var d in defenderList){
             GetCharacter(d).TakeDamage(5);
         }
-        return true;
     }
 }

@@ -15,15 +15,19 @@ public class BattleStatePlayerAttack : BattleState
             battleObjManager.battleSystemHud.canSelect = false;        
             battleObjManager.enemyUnit = battleObjManager.battleSystemHud.selection;
            
-            bool isAccepted = battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit);
+            bool isAccepted = battleSystemUtils.ConfirmCanUseAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit); 
             battleObjManager.battleSystemHud.selection = null;
 
-            battleObjManager.chosenAttack = null;
             battleObjManager.battleSystemHud.RefreshAllHUDs();
             if(isAccepted){
-                
+
+
+                battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit);
                 battleObjManager.dialogueText.text = "The attack is successful";
                 battleObjManager.battleSystemHud.RefreshAllHUDs();
+                
+
+                battleObjManager.chosenAttack = null;
                 newState = new BattleStateGetAttacker();
 
                 yield return new WaitForSeconds(2f);

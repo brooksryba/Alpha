@@ -22,16 +22,15 @@ public class VeryHeavyAttack : Attack
         }
     }
 
-    override public bool DoAttack() {
+    override public void _DoAttack() {
         Character attacker = GetCharacter(attackerName);
         Character defender = GetCharacter(defenderName);
 
         if(attacker.useMana(10)){
             attacker.TakeDamage(5);
             defender.TakeDamage(defender.currentHP);
-            return true;
         } else {
-            return false;
+            return;
         }        
     
     }
