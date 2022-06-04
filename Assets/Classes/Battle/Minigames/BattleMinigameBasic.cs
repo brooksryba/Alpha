@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class MinigameBasic : BattleMinigame
+public class BattleMinigameBasic : BattleMinigame
 {
     public float timeLeft;
     public TextMeshProUGUI minigameText;

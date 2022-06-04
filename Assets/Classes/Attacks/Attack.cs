@@ -62,13 +62,13 @@ public class Attack
     public BattleMinigame GetAttackMinigame(string attackName){
         switch(attackName){
             case "Basic Attack":
-                return new MinigameBasic();
+                return new BattleMinigameBasic();
             case "Heavy Attack":
-                return new MinigameBasic();
+                return new BattleMinigameBasic();
             case "Very Heavy Attack":
                 return new BattleMinigame();
             case "Spread Attack":
-                return new MinigameBasic();
+                return new BattleMinigameBasic();
             default:
                 return new BattleMinigame();
         }
