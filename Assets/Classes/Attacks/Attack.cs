@@ -6,6 +6,7 @@ public class Attack
     public string attackerName;
     public string defenderName;
     public double damageMultiplier;
+    public string minigameName;
 
 
     public Character GetCharacter(string id)
@@ -38,8 +39,8 @@ public class Attack
         return false;
     }
 
-    virtual public int GetAttackDamage(){
-        // for enemy ai, maybe other uses down the road
+    virtual public int GetTotalDamageAi(){
+        // for enemy ai, maybe other uses down the road, calculates the total potential damage dealt
         return -1;
     }
 
@@ -58,21 +59,5 @@ public class Attack
                 return this;
         }
     }
-
-    public BattleMinigame GetAttackMinigame(string attackName){
-        switch(attackName){
-            case "Basic Attack":
-                return new MinigameBasic();
-            case "Heavy Attack":
-                return new MinigameBasic();
-            case "Very Heavy Attack":
-                return new BattleMinigame();
-            case "Spread Attack":
-                return new MinigameBasic();
-            default:
-                return new BattleMinigame();
-        }
-    }
-
 
 }

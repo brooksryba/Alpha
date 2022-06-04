@@ -3,6 +3,17 @@ using UnityEngine;
 public class HeavyAttack : Attack
 {
     public string name = "Heavy Attack";
+    public HeavyAttack(){
+        minigameName = "BattleMinigameBasic";
+    }
+
+    private int _GetAttackDamage(){
+        return 15;
+    }
+
+    private int _GetManaCost(){
+        return 5;
+    }
 
     override public bool CheckAttackInputs()
     {
@@ -11,13 +22,13 @@ public class HeavyAttack : Attack
 
     override public bool CheckAttackFeasible()
     {
-        return GetCharacter(attackerName).currentMana >= 5;
+        return GetCharacter(attackerName).currentMana >= _GetManaCost();
     }
 
-    public override int GetAttackDamage()
+    public override int GetTotalDamageAi()
     {
         if(defenderName != ""){
-            return Mathf.Min(GetCharacter(defenderName).currentHP, 15);
+            return Mathf.Min(GetCharacter(defenderName).currentHP, _GetAttackDamage());
         } else {
             return -1;
         }
@@ -28,8 +39,8 @@ public class HeavyAttack : Attack
         Character attacker = GetCharacter(attackerName);
         Character defender = GetCharacter(defenderName);
 
-        if(attacker.useMana(5)){
-            defender.TakeDamage((int)(15*damageMultiplier));
+        if(attacker.useMana(_GetManaCost())){
+            defender.TakeDamage((int)(_GetAttackDamage()*damageMultiplier));
         } else {
             return;
         }        

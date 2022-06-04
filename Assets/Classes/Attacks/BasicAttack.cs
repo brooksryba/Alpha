@@ -3,6 +3,16 @@ public class BasicAttack : Attack
 {
     public string name = "Basic Attack";
 
+    public BasicAttack(){
+        minigameName = "BattleMinigameBasic";
+    }
+
+    private int _GetAttackDamage(){
+        // Character attacker = GetCharacter(attackerName);
+        // return 5 * attacker.level;
+        return 5;
+    }
+
     override public bool CheckAttackInputs()
     {
         return defenderName != "" & defenderName != null;
@@ -13,10 +23,10 @@ public class BasicAttack : Attack
         return true;
     }
 
-    public override int GetAttackDamage()
+    public override int GetTotalDamageAi()
     {
         if(defenderName != ""){
-            return Mathf.Min(GetCharacter(defenderName).currentHP, 5);
+            return Mathf.Min(GetCharacter(defenderName).currentHP, _GetAttackDamage());
         } else {
             return -1;
         }
@@ -26,6 +36,6 @@ public class BasicAttack : Attack
         Character attacker = GetCharacter(attackerName);
         Character defender = GetCharacter(defenderName);
 
-        defender.TakeDamage((int)(5*damageMultiplier));
+        defender.TakeDamage((int)(_GetAttackDamage()*damageMultiplier));
     }
 }

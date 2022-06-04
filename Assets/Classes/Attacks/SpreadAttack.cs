@@ -4,6 +4,10 @@ using UnityEngine;
 public class SpreadAttack : Attack
 {
     public string name = "Spread Attack";
+    public SpreadAttack(){
+        minigameName = "BattleMinigameBasic";
+    }
+
     public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
 
     public List<string> defenderList;
@@ -24,6 +28,10 @@ public class SpreadAttack : Attack
         }
     }
 
+    private int _GetAttackDamage(){
+        return 5;
+    }
+
     override public bool CheckAttackInputs()
     {
         return true;
@@ -34,13 +42,13 @@ public class SpreadAttack : Attack
         return true;
     }
 
-    public override int GetAttackDamage()
+    public override int GetTotalDamageAi()
     {
 
         int damage = 0;
         _setDefenders();
         foreach(var d in defenderList){
-            damage += Mathf.Min(GetCharacter(d).currentHP, 5);
+            damage += Mathf.Min(GetCharacter(d).currentHP, _GetAttackDamage());
         }
 
         return damage;
@@ -49,7 +57,7 @@ public class SpreadAttack : Attack
     override public void _DoAttack() {
         _setDefenders();
         foreach(var d in defenderList){
-            GetCharacter(d).TakeDamage((int)(5*damageMultiplier));
+            GetCharacter(d).TakeDamage((int)(_GetAttackDamage()*damageMultiplier));
         }
     }
 }
