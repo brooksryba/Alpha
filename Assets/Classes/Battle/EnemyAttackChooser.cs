@@ -30,7 +30,7 @@ public class EnemyAttackChooser
                 attackRef.attackerName = enemyName;
                 attackRef.defenderName = t;
                 if(attackRef.CheckAttackFeasible()){
-                    int attackPointsAi = attackRef.GetAttackDamage();
+                    int attackPointsAi = attackRef.GetTotalDamageAi();
                     if(attackPointsAi <= 0)
                         continue;
                     if(t == "Forest Mage")

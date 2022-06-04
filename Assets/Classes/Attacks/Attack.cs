@@ -38,8 +38,8 @@ public class Attack
         return false;
     }
 
-    virtual public int GetAttackDamage(){
-        // for enemy ai, maybe other uses down the road
+    virtual public int GetTotalDamageAi(){
+        // for enemy ai, maybe other uses down the road, calculates the total potential damage dealt
         return -1;
     }
 
