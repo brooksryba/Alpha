@@ -58,6 +58,7 @@ MonoBehaviour:
   attackNames:
   - Basic Attack
   - Heavy Attack
+  - Very Heavy Attack
   dialogIndex: 0
   dialogText: []
 --- !u!212 &8988213778532503585

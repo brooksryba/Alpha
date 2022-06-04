@@ -9,11 +9,10 @@ public class BattleStatePlayerAwaitAttack : BattleState
         newState = this;
 
         battleObjManager.dialogueText.text = "Choose a target for "+battleObjManager.playerUnit.title+":";
-
         if(battleObjManager.battleSystemHud.selection != null){
             battleObjManager.battleSystemMenu.OpenSubmenu(battleObjManager.battleSystemHud.selection, battleObjManager.battleSystemHud.selectionButton);
             battleObjManager.battleSystemHud.selection = null;
-        } else if(battleObjManager.attackReference != null) {
+        } else if(battleObjManager.chosenAttack != "" & battleObjManager.chosenAttack != null) {
             newState = new BattleStatePlayerAttack();
         }
 

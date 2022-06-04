@@ -10,7 +10,7 @@ public class BattleSystemHud
     public BattleSystemUtils utils = new BattleSystemUtils();
 
     public bool canSelect = false;
-    public Character selection;
+    public Character selection; // this is who the user picks as the target of an attack, spell, etc
     public GameObject selectionButton;
     public void createSingleHUD(ref GameObject partyMember, ref Character hudCharacter, GameObject partyContainer)
     {

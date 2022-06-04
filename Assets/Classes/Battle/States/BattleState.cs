@@ -5,7 +5,9 @@ public class BattleState
 {
     public BattleState newState;
     public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleMinigame minigame = new BattleMinigame();
     public BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
+
 
     virtual public IEnumerator execute() {
         newState = this;
