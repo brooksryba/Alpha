@@ -11,16 +11,13 @@ public class BattleSystemUtils
         return GameObject.Find(id).GetComponent<Character>();
     }
 
-
-    public BattleMinigame getAttackMinigame(string attackName){
-        return attackLibrary.GetAttackMinigame(attackName);
+    public string GetMinigameNameFromAttack(string attackName){
+        Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
+        return chosenAttack.minigameName;
     }
 
-    
 
-
-    // @todo - repeating code for these, should chosenAttack be a public var?
-    public void DoAttack(string attackName, Character attacker, Character defender, double damageMultiplier=1.0){
+    public Attack PrepChosenAttack(string attackName, Character attacker, Character defender){
         Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
         chosenAttack.attackerName = attacker.title;
         if(defender == null){
@@ -28,29 +25,23 @@ public class BattleSystemUtils
         } else {
             chosenAttack.defenderName = defender.title;
         }
+        return chosenAttack;
+    }
+
+
+    public void DoAttack(string attackName, Character attacker, Character defender, double damageMultiplier=1.0){
+        Attack chosenAttack = PrepChosenAttack(attackName, attacker, defender);
         chosenAttack.damageMultiplier = damageMultiplier;
         chosenAttack.DoAttack();
     }
 
     public bool ConfirmAttackInputs(string attackName, Character attacker, Character defender){
-        Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
-        chosenAttack.attackerName = attacker.title;
-        if(defender == null){
-            chosenAttack.defenderName = "";
-        } else {
-            chosenAttack.defenderName = defender.title;
-        }
+        Attack chosenAttack = PrepChosenAttack(attackName, attacker, defender);
         return chosenAttack.CheckAttackInputs();
     }
 
     public bool ConfirmCanUseAttack(string attackName, Character attacker, Character defender){
-        Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
-        chosenAttack.attackerName = attacker.title;
-        if(defender == null){
-            chosenAttack.defenderName = "";
-        } else {
-            chosenAttack.defenderName = defender.title;
-        }
+        Attack chosenAttack = PrepChosenAttack(attackName, attacker, defender);
         return chosenAttack.CanUseAttack();
     }
 

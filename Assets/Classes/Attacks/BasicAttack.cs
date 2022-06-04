@@ -3,6 +3,10 @@ public class BasicAttack : Attack
 {
     public string name = "Basic Attack";
 
+    public BasicAttack(){
+        minigameName = "BattleMinigameBasic";
+    }
+
     private int _GetAttackDamage(){
         // Character attacker = GetCharacter(attackerName);
         // return 5 * attacker.level;
