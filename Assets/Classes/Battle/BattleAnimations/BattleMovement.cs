@@ -16,11 +16,13 @@ public class BattleMovement : MonoBehaviour
     public bool isAnimating = false;
     public bool isFinished = false;
 
+    public float yComp; // ratio of y travel distance to x travel distance
+
 
     void Update(){
         if(isAnimating){
             Vector2 direction = new Vector2();
-            float yComp = 1 / (Math.Abs(positionEnd.x - positionStart.x) / Math.Abs(positionEnd.y - positionStart.y)); // ratio of y travel distance to x travel distance
+            
             direction.x = (positionStart.x > positionEnd.x ? -1 : (positionStart.x == positionEnd.x ? 0 : 1)); // left if -1, none if 0, right if 1
             direction.y = (positionStart.y > positionEnd.y ? -1 * yComp : (positionStart.y == positionEnd.y ? 0 : yComp)); // down if -1, none if 0, up if 1
 
@@ -50,6 +52,8 @@ public class BattleMovement : MonoBehaviour
     public void Animate(Vector3 start, Vector3 end){
         positionStart = start;
         positionEnd = end;
+        yComp = 1 / (Math.Abs(positionEnd.x - positionStart.x) / Math.Abs(positionEnd.y - positionStart.y)); // ratio of y travel distance to x travel distance
+        if(yComp <= 0.000001f) yComp = 0f; // arbitraily low non-zero numbers, like 2.507881E-08f, cause problems
         isAnimating = true;
     }
 
