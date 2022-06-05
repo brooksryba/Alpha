@@ -42,25 +42,21 @@ public class BattleStateAttackMinigame : BattleState
             if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
             battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit, ongoingMinigameData.bonusMultiplier);
+
+            battleObjManager.attacker = GameObject.Find(battleObjManager.playerUnit.title);
+            battleObjManager.defender = null;
+            if(battleObjManager.enemyUnit) battleObjManager.defender = GameObject.Find(battleObjManager.enemyUnit.title);
             
             if(ongoingMinigameData.completedSuccessfully){
                 battleObjManager.dialogueText.text = "The attack is successful with extra damage!";
             } else {
                 battleObjManager.dialogueText.text = "The attack is successful";
             }
+
+
+            newState = new BattleStateAttackAnimationApproach();
             
-            battleObjManager.battleSystemHud.RefreshAllHUDs();
-            
 
-            battleObjManager.chosenAttack = null;
-            newState = new BattleStateGetAttacker();
-
-            yield return new WaitForSeconds(2f);
-
-            bool allDead = battleSystemUtils.PartyDead(battleObjManager.enemyParty);
-            if(allDead){
-                newState = new BattleStateEnd();
-            }
 
         }
 

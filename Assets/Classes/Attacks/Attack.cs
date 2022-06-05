@@ -7,6 +7,7 @@ public class Attack
     public string defenderName;
     public double damageMultiplier;
     public string minigameName;
+    public string animationName = "";
 
 
     public Character GetCharacter(string id)
