@@ -19,9 +19,6 @@ public class BattleStateEnemyAttack : BattleState
         battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
 
         battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleSystemUtils.GetCharacter(battleObjManager.enemyUnit.title), battleSystemUtils.GetCharacter(chosenAttackList[1]));
-
-        battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
-        battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
         
         newState = new BattleStateAttackAnimationApproach();
             
