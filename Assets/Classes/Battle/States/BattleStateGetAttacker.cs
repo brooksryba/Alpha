@@ -8,12 +8,18 @@ public class BattleStateGetAttacker : BattleState
     {
         newState = this;
 
-        // initialize the list if this is called for first time in a battle
+        // initialize the list if this is called for first time in a battle, also check for dead players
         if(battleObjManager.turnIndex == -1){
             battleObjManager.allCharacters = new List<Character>();
             foreach(var p in battleObjManager.allPlayers){
                 battleObjManager.allCharacters.Add(battleSystemUtils.GetCharacter(p));
             }
+
+            for(int i = 0; i < battleObjManager.allPlayers.Count; i++){
+                if(battleSystemUtils.CheckPlayerDeadAndAnimate(battleObjManager.allPlayers[i]))
+                    battleObjManager.deadPlayerList.Add(battleObjManager.allPlayers[i]);
+            }
+
         }
 
         // step into next turn, turnover if you've reached the end, re-sort the list if all characters have been cycled through or it's the first turn
@@ -29,7 +35,7 @@ public class BattleStateGetAttacker : BattleState
 
         for(int i = 0; i < battleObjManager.allCharacters.Count; i++){
             int indexToCheck = (battleObjManager.turnIndex + i) % battleObjManager.allCharacters.Count;
-            if(battleObjManager.allCharacters[indexToCheck].currentHP > 0){
+            if(!battleObjManager.deadPlayerList.Contains(battleObjManager.allCharacters[indexToCheck].title)){
                 battleObjManager.turnIndex = indexToCheck;
                 break;
             }

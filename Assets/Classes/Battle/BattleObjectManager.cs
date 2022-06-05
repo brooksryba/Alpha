@@ -102,4 +102,7 @@ public class BattleObjectManager : MonoBehaviour
         return partyLeaderObj;
     }
 
+
+
+
 }

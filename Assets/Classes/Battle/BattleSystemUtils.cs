@@ -19,7 +19,18 @@ public class BattleSystemUtils
         return chosenAttack.defenseMinigameName;
     }
 
-
+    public bool CheckPlayerDeadAndAnimate(string id){
+        // check dead players and handles death animation
+        GameObject playerObj = GameObject.Find(id);
+        Character player = playerObj.GetComponent<Character>();
+        if(player.currentHP == 0){
+            Debug.Log("Found dead player " + id);
+            BattleSpriteController spriteController = playerObj.GetComponent<BattleSpriteController>();
+            spriteController.TransitionColors(spriteController.sprite.color, new Color (0.25f, 0.25f, 0.25f, 0.25f), 3.0f);
+            return true;
+        }
+        return false;
+    }
 
     public Attack PrepChosenAttack(string attackName, Character attacker, Character defender){
         Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
