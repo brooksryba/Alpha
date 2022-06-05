@@ -8,7 +8,7 @@ public class BattleStateGetAttacker : BattleState
     {
         newState = this;
 
-        // initialize the list if this is called for first time in a battle, also check for dead players
+        // initialize the list if this is called the first time a battle starts only, gathers all players once initialized, checks for dead players, sets turn
         if(battleObjManager.turnIndex == -1){
             battleObjManager.allCharacters = new List<Character>();
             foreach(var p in battleObjManager.allPlayers){
@@ -19,36 +19,34 @@ public class BattleStateGetAttacker : BattleState
                 if(battleSystemUtils.CheckPlayerDeadAndAnimate(battleObjManager.allPlayers[i]))
                     battleObjManager.deadPlayerList.Add(battleObjManager.allPlayers[i]);
             }
-
+            battleObjManager.overallTurnNumber = 0;
+            
         }
 
-        // step into next turn, turnover if you've reached the end, re-sort the list if all characters have been cycled through or it's the first turn
-        battleObjManager.turnIndex += 1;
-        if(battleObjManager.turnIndex >= battleObjManager.allPlayers.Count) battleObjManager.turnIndex = 0;
+        //coninually add 1 to turn index until a non-dead play is picked. If we hit the whole list of players, reset the speed list and add to overall turn count
+        // It loops through 2*# of players as the speeds might change mid battle. Due to order change, going through size of list twice guarantees selection
+        for(int i = 1; i <= 2*battleObjManager.allCharacters.Count; i++){
+            battleObjManager.turnIndex = (battleObjManager.turnIndex + 1) % (battleObjManager.allCharacters.Count);
+            if(battleObjManager.turnIndex == 0){
+                battleObjManager.allCharacters.Sort(delegate(Character a, Character b){return (b.speed).CompareTo(a.speed);}); // highest speed first (a comp to b is lowest)
+                battleObjManager.overallTurnNumber += 1;
+                battleObjManager.turnCounterText.text = "Overall Turn: " + battleObjManager.overallTurnNumber.ToString();
 
-        if(battleObjManager.turnIndex == 0){
-            battleObjManager.allCharacters.Sort(delegate(Character a, Character b){
-                return (b.speed).CompareTo(a.speed); // highest speed first (a comp to b is lowest)
-            });
-        }
-        
-
-        for(int i = 0; i < battleObjManager.allCharacters.Count; i++){
-            int indexToCheck = (battleObjManager.turnIndex + i) % battleObjManager.allCharacters.Count;
-            if(!battleObjManager.deadPlayerList.Contains(battleObjManager.allCharacters[indexToCheck].title)){
-                battleObjManager.turnIndex = indexToCheck;
+            }
+            if(!battleObjManager.deadPlayerList.Contains(battleObjManager.allCharacters[battleObjManager.turnIndex].title)){
                 break;
             }
+
         }
         
         Character nextUp = battleObjManager.allCharacters[battleObjManager.turnIndex];
+        battleObjManager.dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
+
         if(battleObjManager.playerParty.Contains(nextUp.title)){
-            battleObjManager.dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
             battleObjManager.playerUnit = nextUp;
             battleObjManager.battleSystemHud.disableUnusableHuds(nextUp.title, battleObjManager.playerParty);
             newState =  new BattleStatePlayerStart();
         } else {
-            battleObjManager.dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
             battleObjManager.enemyUnit = nextUp;
             newState =  new BattleStateEnemyStart();
         }

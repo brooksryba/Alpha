@@ -24,7 +24,6 @@ public class BattleSystemUtils
         GameObject playerObj = GameObject.Find(id);
         Character player = playerObj.GetComponent<Character>();
         if(player.currentHP == 0){
-            Debug.Log("Found dead player " + id);
             BattleSpriteController spriteController = playerObj.GetComponent<BattleSpriteController>();
             spriteController.TransitionColors(spriteController.sprite.color, new Color (0.25f, 0.25f, 0.25f, 0.25f), 3.0f);
             return true;

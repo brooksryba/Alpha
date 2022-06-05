@@ -6,6 +6,7 @@ using TMPro;
 public class BattleObjectManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI turnCounterText;
     
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
@@ -20,6 +21,7 @@ public class BattleObjectManager : MonoBehaviour
     public BattleSceneScriptable battleScriptable;
 
     public int turnIndex = -1;
+    public int overallTurnNumber;
 
     public Character playerUnit;
     public Character enemyUnit;
