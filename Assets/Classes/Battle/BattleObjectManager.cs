@@ -24,6 +24,11 @@ public class BattleObjectManager : MonoBehaviour
     public Character playerUnit;
     public Character enemyUnit;
 
+    public GameObject attacker;
+    public Vector3 attackerPositionStart; // this can be a list of Vector2s, think this through for spread attacks
+    public GameObject defender;
+    public Vector3 defenderPositionStart;
+
     public List<string> playerParty;
     public List<string> enemyParty;
 

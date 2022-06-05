@@ -11,24 +11,20 @@ public class BattleStateEnemyAttack : BattleState
 
         EnemyAttackChooser attackChooser = new EnemyAttackChooser();
         List<string> chosenAttackList = attackChooser.GetAttack(battleObjManager.enemyUnit.title);
-        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + chosenAttackList[0] + "!";
+        battleObjManager.chosenAttack = chosenAttackList[0];
+        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + battleObjManager.chosenAttack + "!";
         yield return new WaitForSeconds(1f);
 
-        battleSystemUtils.DoAttack(chosenAttackList[0], battleSystemUtils.GetCharacter(battleObjManager.enemyUnit.title), battleSystemUtils.GetCharacter(chosenAttackList[1]));
+        battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
+        battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
 
-        battleObjManager.battleSystemHud.RefreshAllHUDs();
+        battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleSystemUtils.GetCharacter(battleObjManager.enemyUnit.title), battleSystemUtils.GetCharacter(chosenAttackList[1]));
 
-        yield return new WaitForSeconds(1f);
-
-        newState = new BattleStateGetAttacker();
-
-
-        bool allDead = battleSystemUtils.PartyDead(battleObjManager.playerParty);
-        if(allDead){
-            newState = new BattleStateEnd();
-        }
+        battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
+        battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
         
-
+        newState = new BattleStateAttackAnimationApproach();
+            
         yield return new WaitForSeconds(0f);
     }
 }
