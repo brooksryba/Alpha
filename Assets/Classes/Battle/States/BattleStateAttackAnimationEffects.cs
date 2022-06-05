@@ -24,6 +24,30 @@ public class BattleStateAttackAnimationEffects : BattleState
             effect.SetActive(false);
             effect.transform.eulerAngles = originalRotation;
         }
+        battleObjManager.battleSystemHud.RefreshAllHUDs();
+
+        Color DeathColor = new Color (0.25f, 0.25f, 0.25f, 0.25f);
+        for(int i = 0; i < battleObjManager.playerParty.Count; i++){
+            Character partyMember = battleSystemUtils.GetCharacter(battleObjManager.playerParty[i]);
+            GameObject partyMemberObj = GameObject.Find(partyMember.title);
+            if(partyMember.currentHP <= 0 && !battleObjManager.deadPlayerList.Contains(battleObjManager.playerParty[i])){
+                battleObjManager.deadPlayerList.Add(battleObjManager.playerParty[i]);
+                BattleSpriteController spriteController = partyMemberObj.GetComponent<BattleSpriteController>();
+                spriteController.TransitionColors(spriteController.sprite.color, DeathColor, 3.0f);
+            }
+        }
+
+        for(int i = 0; i < battleObjManager.enemyParty.Count; i++){
+            Character partyMember = battleSystemUtils.GetCharacter(battleObjManager.enemyParty[i]);
+            GameObject partyMemberObj = GameObject.Find(partyMember.title);
+            if(partyMember.currentHP <= 0 && !battleObjManager.deadPlayerList.Contains(battleObjManager.enemyParty[i])){
+                battleObjManager.deadPlayerList.Add(battleObjManager.enemyParty[i]);
+                BattleSpriteController spriteController = partyMemberObj.GetComponent<BattleSpriteController>();
+                spriteController.TransitionColors(spriteController.sprite.color, DeathColor, 3.0f);
+            }
+        }
+
+
 
         newState = new BattleStateAttackAnimationRetreat();
         yield return newState;

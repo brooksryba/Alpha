@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1758589926555978252}
   - component: {fileID: 370051859557069467}
   - component: {fileID: 7765376628152518156}
+  - component: {fileID: 4830619023053835864}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Enemy
@@ -155,6 +156,25 @@ MonoBehaviour:
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
+--- !u!114 &4830619023053835864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df98330b33f04834286754f130913d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTransitioning: 0
+  isFinished: 0
+  sprite: {fileID: 3851121602351010879}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
+  EndColor: {r: 0, g: 0, b: 0, a: 0}
+  timeRemaining: 0
+  timeToTransition: 0
 --- !u!1001 &3931705347337877985
 PrefabInstance:
   m_ObjectHideFlags: 0

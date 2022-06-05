@@ -10,7 +10,7 @@ public class BattleMinigameBasic : BattleMinigameBase
     public Button button;
 
     public int clickCounter = 0;
-    public int numberClicksForWin = 5;
+    public int numberClicksForWin = 3;
     public float timeLeft;
 
 
@@ -30,6 +30,7 @@ public class BattleMinigameBasic : BattleMinigameBase
         } else {
             targetButtonText.text = "WIN!";
             button.interactable = false;
+            timeLeft = 0f;
         }
             
 
@@ -55,7 +56,5 @@ public class BattleMinigameBasic : BattleMinigameBase
             updateTimer(timeLeft);
         
     }
-
-
 
 }

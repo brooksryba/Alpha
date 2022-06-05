@@ -5,6 +5,7 @@ public class BasicAttack : Attack
 
     public BasicAttack(){
         minigameName = "BattleMinigameBasic";
+        defenseMinigameName = "BattleMinigameBasic";
     }
 
     private int _GetAttackDamage(){

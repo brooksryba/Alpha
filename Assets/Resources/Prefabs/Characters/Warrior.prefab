@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2265687635042025385}
   - component: {fileID: 3833707400123226569}
   - component: {fileID: 2223905783974899180}
+  - component: {fileID: 3317827109410804684}
   m_Layer: 0
   m_Name: Warrior
   m_TagString: Enemy
@@ -154,6 +155,25 @@ MonoBehaviour:
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
+--- !u!114 &3317827109410804684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df98330b33f04834286754f130913d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isTransitioning: 0
+  isFinished: 0
+  sprite: {fileID: 555200299348408392}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
+  EndColor: {r: 0, g: 0, b: 0, a: 0}
+  timeRemaining: 0
+  timeToTransition: 0
 --- !u!1001 &282885831393030418
 PrefabInstance:
   m_ObjectHideFlags: 0
