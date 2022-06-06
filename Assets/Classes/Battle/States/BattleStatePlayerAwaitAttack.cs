@@ -12,7 +12,8 @@ public class BattleStatePlayerAwaitAttack : BattleState
         if(battleObjManager.battleSystemHud.selection != null){
             battleObjManager.battleSystemMenu.OpenSubmenu(battleObjManager.battleSystemHud.selection, battleObjManager.battleSystemHud.selectionButton);
             battleObjManager.battleSystemHud.selection = null;
-        } else if(battleObjManager.chosenAttack != "" & battleObjManager.chosenAttack != null) {
+        } else if(battleObjManager.chosenBattleMove != "" & battleObjManager.chosenBattleMove != null) {
+            battleObjManager.battleSystemHud.RefreshAllHUDs();
             newState = new BattleStatePlayerAttack();
         }
 

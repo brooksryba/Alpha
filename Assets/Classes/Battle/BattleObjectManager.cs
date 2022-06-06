@@ -38,7 +38,7 @@ public class BattleObjectManager : MonoBehaviour
     public List<Character> allCharacters;
 
 
-    public string chosenAttack;
+    public string chosenBattleMove;
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
 

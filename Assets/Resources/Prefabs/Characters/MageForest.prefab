@@ -113,6 +113,8 @@ MonoBehaviour:
   attackNames:
   - Basic Attack
   - Spread Attack
+  spellNames:
+  - Heal
   dialogIndex: 0
   dialogText:
   - What are you doing wandering the forest alone?
@@ -158,6 +160,7 @@ MonoBehaviour:
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
+  yComp: 0
 --- !u!114 &8522677594209292016
 MonoBehaviour:
   m_ObjectHideFlags: 0

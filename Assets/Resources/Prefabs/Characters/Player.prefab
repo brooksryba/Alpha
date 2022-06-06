@@ -65,6 +65,9 @@ MonoBehaviour:
   - Heavy Attack
   - Very Heavy Attack
   - Spread Attack
+  spellNames:
+  - Heal
+  - Boost Attack
   dialogIndex: 0
   dialogText: []
 --- !u!212 &8988213778532503585
@@ -156,6 +159,7 @@ MonoBehaviour:
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
+  yComp: 0
 --- !u!50 &948129397536585258
 Rigidbody2D:
   serializedVersion: 4

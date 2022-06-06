@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 public class SpreadAttack : Attack
 {
-    public string name = "Spread Attack";
+
     public SpreadAttack(){
+        moveName = "Spread Attack";
+        needsTarget = false;
         minigameName = "BattleMinigameBasic";
         defenseMinigameName = "BattleMinigameBasic";
     }
 
-    public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
-
     public List<string> defenderList;
 
-    private void _setDefenders(){
+    public void SetDefenders(){
         List<string> startingList = new List<string>();
         defenderList = new List<string>();
-        if(battleObjManager.playerParty.Contains(attackerName)){
+        if(!IsEnemyUser()){
             startingList = battleObjManager.enemyParty;
         } else {
             startingList = battleObjManager.playerParty;
@@ -29,36 +29,31 @@ public class SpreadAttack : Attack
         }
     }
 
-    private int _GetAttackDamage(){
+    public int GetAttackDamage(){
         return 5;
     }
 
-    override public bool CheckAttackInputs()
+    override public bool CheckFeasibility()
     {
         return true;
     }
 
-    override public bool CheckAttackFeasible()
-    {
-        return true;
-    }
-
-    public override int GetTotalDamageAi()
+    public override int GetMoveValueForAi()
     {
 
         int damage = 0;
-        _setDefenders();
+        SetDefenders();
         foreach(var d in defenderList){
-            damage += Mathf.Min(GetCharacter(d).currentHP, _GetAttackDamage());
+            damage += Mathf.Min(GetCharacter(d).currentHP, GetAttackDamage());
         }
 
         return damage;
         
     }
-    override public void _DoAttack() {
-        _setDefenders();
+    override public void _ExecuteBattleMove() {
+        SetDefenders();
         foreach(var d in defenderList){
-            GetCharacter(d).TakeDamage((int)(_GetAttackDamage()*damageMultiplier));
+            GetCharacter(d).TakeDamage((int)(GetAttackDamage()*minigameMultiplier));
         }
     }
 }

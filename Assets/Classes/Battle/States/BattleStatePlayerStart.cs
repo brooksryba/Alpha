@@ -7,6 +7,7 @@ public class BattleStatePlayerStart : BattleState
     override public IEnumerator execute()
     {
         newState = this;
+        battleObjManager.battleSystemHud.disableUnusableHuds(battleObjManager.playerUnit.title, battleObjManager.playerParty);
 
         battleObjManager.dialogueText.text = "It's "+battleObjManager.playerUnit.title+" turn to attack!";
         battleObjManager.battleSystemHud.canSelect = true;

@@ -11,11 +11,11 @@ public class BattleStatePlayerAttack : BattleState
 
         battleObjManager.battleSystemMenu.closeOptionSubmenu();
         battleObjManager.battleSystemHud.canSelect = true;
-        if(battleSystemUtils.ConfirmAttackInputs(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.battleSystemHud.selection)){
+        if(battleSystemUtils.ConfirmBattleMoveInputs(battleObjManager.chosenBattleMove, battleObjManager.playerUnit, battleObjManager.battleSystemHud.selection)){
             battleObjManager.battleSystemHud.canSelect = false;        
             battleObjManager.enemyUnit = battleObjManager.battleSystemHud.selection;
            
-            bool isAccepted = battleSystemUtils.ConfirmCanUseAttack(battleObjManager.chosenAttack, battleObjManager.playerUnit, battleObjManager.enemyUnit); 
+            bool isAccepted = battleSystemUtils.ConfirmBattleMoveFeasibility(battleObjManager.chosenBattleMove, battleObjManager.playerUnit, battleObjManager.enemyUnit); 
             battleObjManager.battleSystemHud.selection = null;
 
             battleObjManager.battleSystemHud.RefreshAllHUDs();

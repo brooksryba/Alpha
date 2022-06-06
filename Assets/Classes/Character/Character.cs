@@ -24,6 +24,7 @@ public class Character : MonoBehaviour
 
     public List<string> partyMembers;
     public List<string> attackNames;
+    public List<string> spellNames;
 
     public int dialogIndex;
     public List<string> dialogText;
