@@ -24,6 +24,14 @@ public class BattleStateAttackAnimationEffects : BattleState
             effect.SetActive(false);
             effect.transform.eulerAngles = originalRotation;
         }
+        battleObjManager.battleSystemHud.RefreshAllHUDs();
+
+        for(int i = 0; i < battleObjManager.allPlayers.Count; i++){
+            if(battleSystemUtils.CheckPlayerDeadAndAnimate(battleObjManager.allPlayers[i]))
+                battleObjManager.deadPlayerList.Add(battleObjManager.allPlayers[i]);
+        }
+
+
 
         newState = new BattleStateAttackAnimationRetreat();
         yield return newState;

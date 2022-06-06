@@ -20,7 +20,10 @@ public class BattleStatePlayerAttack : BattleState
 
             battleObjManager.battleSystemHud.RefreshAllHUDs();
             if(isAccepted){
-
+                battleObjManager.attacker = GameObject.Find(battleObjManager.playerUnit.title);
+                battleObjManager.defender = null;
+                if(battleObjManager.enemyUnit) battleObjManager.defender = GameObject.Find(battleObjManager.enemyUnit.title);
+                
                 newState = new BattleStateAttackMinigame();
 
             }

@@ -13,14 +13,16 @@ public class BattleStateEnemyAttack : BattleState
         List<string> chosenAttackList = attackChooser.GetAttack(battleObjManager.enemyUnit.title);
         battleObjManager.chosenAttack = chosenAttackList[0];
         battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + battleObjManager.chosenAttack + "!";
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
         battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
 
-        battleSystemUtils.DoAttack(battleObjManager.chosenAttack, battleSystemUtils.GetCharacter(battleObjManager.enemyUnit.title), battleSystemUtils.GetCharacter(chosenAttackList[1]));
+        battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
+        battleObjManager.defender = null;
+        if(chosenAttackList[1] != "") battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
         
-        newState = new BattleStateAttackAnimationApproach();
+        newState = new BattleStateAttackMinigame();
             
         yield return new WaitForSeconds(0f);
     }

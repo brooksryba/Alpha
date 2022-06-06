@@ -6,6 +6,7 @@ using TMPro;
 public class BattleObjectManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
+    public TextMeshProUGUI turnCounterText;
     
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
@@ -20,17 +21,22 @@ public class BattleObjectManager : MonoBehaviour
     public BattleSceneScriptable battleScriptable;
 
     public int turnIndex = -1;
+    public int overallTurnNumber;
 
     public Character playerUnit;
     public Character enemyUnit;
 
     public GameObject attacker;
-    public Vector3 attackerPositionStart; // this can be a list of Vector2s, think this through for spread attacks
+    public Vector3 attackerPositionStart; // this can be a list of Vector2s, think this through for spread attacks regarding having one for defender and attacker
     public GameObject defender;
     public Vector3 defenderPositionStart;
 
     public List<string> playerParty;
     public List<string> enemyParty;
+    public List<string> allPlayers;
+    public List<string> deadPlayerList;
+    public List<Character> allCharacters;
+
 
     public string chosenAttack;
     public BattleSystemHud battleSystemHud;
@@ -59,6 +65,7 @@ public class BattleObjectManager : MonoBehaviour
 
         GameObject enemyGO = initializeParty(ref enemyParty, ref enemyPrefab, enemyBattleStation, enemyPartyContainer, true);
         enemyUnit = enemyGO.GetComponent<Character>();
+
     }
 
     public GameObject initializeParty(ref List<string> partyList, ref GameObject partyLeaderPrefab, GameObject battleStationContainer, GameObject partyContainer, bool flip=false)
@@ -71,6 +78,7 @@ public class BattleObjectManager : MonoBehaviour
         partyLeaderObj.name = partyLeader.title;
         partyLeader.LoadState();
         partyList.Add(partyLeader.title);
+        allPlayers.Add(partyLeader.title);
 
         battleSystemHud.createSingleHUD(ref partyLeaderObj, ref partyLeader, partyContainer);
 
@@ -82,6 +90,7 @@ public class BattleObjectManager : MonoBehaviour
             partyMemberObject.name = partyMemberChar.title;
             partyMemberChar.LoadState();
             partyList.Add(partyMemberChar.title);
+            allPlayers.Add(partyMemberChar.title);
 
             // @todo - right now it puts next party member down 2 * its height. Should try and make this more flexible
             partyMemberObject.transform.SetParent(battleStationContainer.transform);
@@ -94,5 +103,8 @@ public class BattleObjectManager : MonoBehaviour
         }
         return partyLeaderObj;
     }
+
+
+
 
 }

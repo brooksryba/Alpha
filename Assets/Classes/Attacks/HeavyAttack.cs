@@ -5,6 +5,7 @@ public class HeavyAttack : Attack
     public string name = "Heavy Attack";
     public HeavyAttack(){
         minigameName = "BattleMinigameBasic";
+        defenseMinigameName = "BattleMinigameBasic";
     }
 
     private int _GetAttackDamage(){

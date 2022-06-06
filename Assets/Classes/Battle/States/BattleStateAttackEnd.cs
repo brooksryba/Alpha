@@ -14,9 +14,7 @@ public class BattleStateAttackEnd : BattleState
 
         yield return new WaitForSeconds(2f);
 
-        bool allDeadEnemies = battleSystemUtils.PartyDead(battleObjManager.enemyParty);
-        bool allDeadPlayers = battleSystemUtils.PartyDead(battleObjManager.playerParty);
-        if(allDeadEnemies || allDeadPlayers){
+        if(battleSystemUtils.PartyDead(battleObjManager.enemyParty) || battleSystemUtils.PartyDead(battleObjManager.playerParty)){
             newState = new BattleStateEnd();
         }      
 

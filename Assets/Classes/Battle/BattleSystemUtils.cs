@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 public class BattleSystemUtils
 {
     public Attack attackLibrary = new Attack();
@@ -11,11 +12,24 @@ public class BattleSystemUtils
         return GameObject.Find(id).GetComponent<Character>();
     }
 
-    public string GetMinigameNameFromAttack(string attackName){
+    public string GetMinigameNameFromAttack(string attackName, bool isEnemy){
         Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
-        return chosenAttack.minigameName;
+        if(!isEnemy)
+            return chosenAttack.minigameName;
+        return chosenAttack.defenseMinigameName;
     }
 
+    public bool CheckPlayerDeadAndAnimate(string id){
+        // check dead players and handles death animation
+        GameObject playerObj = GameObject.Find(id);
+        Character player = playerObj.GetComponent<Character>();
+        if(player.currentHP == 0){
+            BattleSpriteController spriteController = playerObj.GetComponent<BattleSpriteController>();
+            spriteController.TransitionColors(spriteController.sprite.color, new Color (0.25f, 0.25f, 0.25f, 0.25f), 3.0f);
+            return true;
+        }
+        return false;
+    }
 
     public Attack PrepChosenAttack(string attackName, Character attacker, Character defender){
         Attack chosenAttack = attackLibrary.GetAttackClass(attackName);

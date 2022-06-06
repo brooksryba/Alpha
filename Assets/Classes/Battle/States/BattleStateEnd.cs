@@ -29,6 +29,8 @@ public class BattleStateEnd : BattleState
             go.GetComponent<Character>().SaveState();
         }
 
+        yield return new WaitForSeconds(2f);
+
         SceneManager.LoadScene(sceneName:"World");
         yield return new WaitForSeconds(0f);
     }

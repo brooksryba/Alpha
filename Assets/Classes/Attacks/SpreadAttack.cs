@@ -6,6 +6,7 @@ public class SpreadAttack : Attack
     public string name = "Spread Attack";
     public SpreadAttack(){
         minigameName = "BattleMinigameBasic";
+        defenseMinigameName = "BattleMinigameBasic";
     }
 
     public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();

@@ -4,47 +4,49 @@ using UnityEngine;
 
 public class BattleStateGetAttacker : BattleState
 {
-
-    
     override public IEnumerator execute()
     {
-        // Loops through ordered list of all characters by speed and selects the next in order to attack
-        // Potential concerns - Are we allowing speed changes mid-battle, if so how do we handle that? Currently, the order of the list will change, but turn number does not reset
-        // hold a variable in object manager for whole turns so that it runs through each character before recalcing speed list
         newState = this;
 
-        battleObjManager.turnIndex += 1;
-        int totalPlayers = battleObjManager.playerParty.Count + battleObjManager.enemyParty.Count;
-        if(battleObjManager.turnIndex >= totalPlayers)
-            battleObjManager.turnIndex = 0;
-        List<Character> allCharacters = new List<Character>();
-        foreach(var p in battleObjManager.playerParty){
-            allCharacters.Add(battleSystemUtils.GetCharacter(p));
-        }
-        foreach(var p in battleObjManager.enemyParty){
-            allCharacters.Add(battleSystemUtils.GetCharacter(p));
+        // initialize the list if this is called the first time a battle starts only, gathers all players once initialized, checks for dead players, sets turn
+        if(battleObjManager.turnIndex == -1){
+            battleObjManager.allCharacters = new List<Character>();
+            foreach(var p in battleObjManager.allPlayers){
+                battleObjManager.allCharacters.Add(battleSystemUtils.GetCharacter(p));
+            }
+
+            for(int i = 0; i < battleObjManager.allPlayers.Count; i++){
+                if(battleSystemUtils.CheckPlayerDeadAndAnimate(battleObjManager.allPlayers[i]))
+                    battleObjManager.deadPlayerList.Add(battleObjManager.allPlayers[i]);
+            }
+            battleObjManager.overallTurnNumber = 0;
+            
         }
 
-        allCharacters.Sort(delegate(Character a, Character b){
-            return (b.speed).CompareTo(a.speed); // highest speed first (a comp to b is lowest)
-        });
+        //coninually add 1 to turn index until a non-dead play is picked. If we hit the whole list of players, reset the speed list and add to overall turn count
+        // It loops through 2*# of players as the speeds might change mid battle. Due to order change, going through size of list twice guarantees selection
+        for(int i = 1; i <= 2*battleObjManager.allCharacters.Count; i++){
+            battleObjManager.turnIndex = (battleObjManager.turnIndex + 1) % (battleObjManager.allCharacters.Count);
+            if(battleObjManager.turnIndex == 0){
+                battleObjManager.allCharacters.Sort(delegate(Character a, Character b){return (b.speed).CompareTo(a.speed);}); // highest speed first (a comp to b is lowest)
+                battleObjManager.overallTurnNumber += 1;
+                battleObjManager.turnCounterText.text = "Overall Turn: " + battleObjManager.overallTurnNumber.ToString();
 
-        for(int i = 0; i < allCharacters.Count; i++){
-            int indexToCheck = (battleObjManager.turnIndex + i) % allCharacters.Count;
-            if(allCharacters[indexToCheck].currentHP > 0){
-                battleObjManager.turnIndex = indexToCheck;
+            }
+            if(!battleObjManager.deadPlayerList.Contains(battleObjManager.allCharacters[battleObjManager.turnIndex].title)){
                 break;
             }
+
         }
         
-        Character nextUp = allCharacters[battleObjManager.turnIndex];
+        Character nextUp = battleObjManager.allCharacters[battleObjManager.turnIndex];
+        battleObjManager.dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
+
         if(battleObjManager.playerParty.Contains(nextUp.title)){
-            battleObjManager.dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
             battleObjManager.playerUnit = nextUp;
             battleObjManager.battleSystemHud.disableUnusableHuds(nextUp.title, battleObjManager.playerParty);
             newState =  new BattleStatePlayerStart();
         } else {
-            battleObjManager.dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
             battleObjManager.enemyUnit = nextUp;
             newState =  new BattleStateEnemyStart();
         }
