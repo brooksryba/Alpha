@@ -29,6 +29,8 @@ public class BattleStateEnd : BattleState
             go.GetComponent<Character>().SaveState();
         }
 
+        battleObjManager.battleBonusManager.DestroyAllBonuses();
+
         yield return new WaitForSeconds(2f);
 
         SceneManager.LoadScene(sceneName:"World");

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using TMPro;
+
 
 public class BattleSystemMenu
 {
@@ -46,15 +46,15 @@ public class BattleSystemMenu
         Dictionary<string, Action> strategies = new Dictionary<string, Action>();
 
         foreach( var attackName in character.attackNames ) {
-            attacks.Add(attackName, () => { battleObjManager.chosenAttack = attackName; });
+            attacks.Add(attackName, () => { battleObjManager.chosenBattleMove = attackName; });
         }
         attacks.Add("Return", () => { });
-        
-        spells.Add("Heal", () => { });
-        spells.Add("Fire Damage", () => { });
-        spells.Add("Return", () => { });
 
-        strategies.Add("Charge Mana", () => { });
+        foreach( var spellName in character.spellNames ) {
+            spells.Add(spellName, () => { battleObjManager.chosenBattleMove = spellName; });
+        }
+        spells.Add("Return", () => { });
+        
         strategies.Add("Return", () => { });
 
         Dictionary<string, Action> items = new Dictionary<string, Action>();

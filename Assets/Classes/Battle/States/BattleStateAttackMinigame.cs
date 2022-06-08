@@ -26,7 +26,7 @@ public class BattleStateAttackMinigame : BattleState
             if(battleObjManager.defender) defenderName = battleObjManager.defender.GetComponent<Character>().title;
             isEnemyTurn = battleObjManager.enemyParty.Contains(attackerName);
 
-            string minigameName = battleSystemUtils.GetMinigameNameFromAttack(battleObjManager.chosenAttack, isEnemyTurn);
+            string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(battleObjManager.chosenBattleMove, isEnemyTurn);
 
             if(minigameName != null & minigameName != ""){
                 if(isEnemyTurn) battleObjManager.dialogueText.text = "Complete the Minigame to boost your defense!";
@@ -50,18 +50,20 @@ public class BattleStateAttackMinigame : BattleState
             yield return new WaitForSeconds(1f);
             if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
-            battleSystemUtils.DoAttack(battleObjManager.chosenAttack, 
+            battleSystemUtils.ExecuteBattleMove(battleObjManager.chosenBattleMove, 
                                        battleSystemUtils.GetCharacter(attackerName), 
-                                       battleObjManager.defender ? battleSystemUtils.GetCharacter(defenderName) : null, 
-                                       isEnemyTurn ? 1.0f / ongoingMinigameData.bonusMultiplier: ongoingMinigameData.bonusMultiplier);
+                                       battleSystemUtils.GetCharacter(defenderName), 
+                                       isEnemyTurn ? 1.0f / ongoingMinigameData.bonusMultiplier: ongoingMinigameData.bonusMultiplier,
+                                       ongoingMinigameData.completedSuccessfully);
 
 
-            
+            string moveType = battleSystemUtils.PrepChosenBattleMove(battleObjManager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveType;
+            string moveName = battleSystemUtils.PrepChosenBattleMove(battleObjManager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveName;
             if(ongoingMinigameData.completedSuccessfully){
-                if(isEnemyTurn) battleObjManager.dialogueText.text = "The attack hits, but you increase your defense!";
-                else battleObjManager.dialogueText.text = "The attack hits with boosted power!";
+                if(isEnemyTurn) battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful, but you decreased it's effect!";
+                else battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful with an increased effect!";
             } else {
-                battleObjManager.dialogueText.text = "The attack hits!";
+                battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful!";
             }
 
 

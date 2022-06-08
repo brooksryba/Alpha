@@ -22,8 +22,14 @@ public class Character : MonoBehaviour
     public int speed;
     public int earnedXp;
 
+    public int physicalAttack;
+    public int magicAttack;
+    public int physicalDefense;
+    public int magicDefense;
+
     public List<string> partyMembers;
     public List<string> attackNames;
+    public List<string> spellNames;
 
     public int dialogIndex;
     public List<string> dialogText;
@@ -50,6 +56,10 @@ public class Character : MonoBehaviour
             this.earnedXp = data.earnedXp;
             this.partyMembers = data.partyMembers;
             this.dialogIndex = data.dialogIndex;
+            this.physicalAttack = data.physicalAttack;
+            this.magicAttack = data.magicAttack;
+            this.physicalDefense = data.physicalDefense;
+            this.magicDefense = data.magicDefense;
             this.items = new List<ItemData>();
 
             if( data.items != null ) {
@@ -64,6 +74,10 @@ public class Character : MonoBehaviour
 			this.currentHP = this.level * 10;
         	this.currentMana = this.level * 5;
             this.speed = this.level * 3;
+            this.physicalAttack = this.level * 3;
+            this.magicAttack = this.level * 3;
+            this.physicalDefense = this.level * 3;
+            this.magicDefense = this.level * 3;
 		}
 		this.maxHP = this.level * 10;
 		this.maxMana = this.level * 5;

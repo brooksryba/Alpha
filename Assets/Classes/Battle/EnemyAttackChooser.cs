@@ -8,7 +8,7 @@ public class EnemyAttackChooser
 {
     public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
     public BattleSystemUtils utils = new BattleSystemUtils();
-    public Attack attackLibrary = new Attack();
+    public BattleMoveBase battleMoveLibrary = new BattleMoveBase();
 
     public List<string> GetPossibleAttackTargets(){
         List<string> possibleTargets = new List<string>();
@@ -23,24 +23,24 @@ public class EnemyAttackChooser
 
 
     public Dictionary<string, int> GetAllAttackOptions(string enemyName){
-        Dictionary<string, int> attackOptions = new Dictionary<string, int>();
+        Dictionary<string, int> allOptions = new Dictionary<string, int>();
         foreach(var t in GetPossibleAttackTargets()){
             foreach(var a in utils.GetCharacter(enemyName).attackNames){
-                Attack attackRef = attackLibrary.GetAttackClass(a);
-                attackRef.attackerName = enemyName;
-                attackRef.defenderName = t;
-                if(attackRef.CheckAttackFeasible()){
-                    int attackPointsAi = attackRef.GetTotalDamageAi();
+                BattleMoveBase battleMoveRef = battleMoveLibrary.GetBattleMoveClass(a);
+                battleMoveRef.userName = enemyName;
+                battleMoveRef.targetName = t;
+                if(battleMoveRef.CheckFeasibility()){
+                    int attackPointsAi = battleMoveRef.GetMoveValueForAi();
                     if(attackPointsAi <= 0)
                         continue;
                     if(t == "Forest Mage")
                         attackPointsAi = attackPointsAi + 25;
-                    attackOptions.Add(a + "|" + t, attackPointsAi);
+                    allOptions.Add(a + "|" + t, attackPointsAi);
                 }
             }
         }
 
-        return attackOptions; 
+        return allOptions;
     }
 
     public List<string> GetAttack(string enemyName){
@@ -56,6 +56,18 @@ public class EnemyAttackChooser
 
         return new List<string>(attack_target);
     }
+
+    public List<int> changeAiAttackChances(List<int> listOfPoints){
+        List<int> pointsAi = new List<int>();
+
+        for(int i = 0; i < listOfPoints.Count; i++){
+            // Change points here to make more or less difficult
+            pointsAi.Add(listOfPoints[i]);
+        }
+
+        return pointsAi;
+    }
+
 
 
     public int GetRandomWeightedIndex(List<int> weights)
@@ -86,16 +98,6 @@ public class EnemyAttackChooser
         return index;
     }
 
-    public List<int> changeAiAttackChances(List<int> listOfPoints){
-        List<int> pointsAi = new List<int>();
-
-        for(int i = 0; i < listOfPoints.Count; i++){
-            // Change points here to make more or less difficult
-            pointsAi.Add(listOfPoints[i]);
-        }
-
-        return pointsAi;
-    }
 
 
 }

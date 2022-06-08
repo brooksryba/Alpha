@@ -38,16 +38,18 @@ public class BattleObjectManager : MonoBehaviour
     public List<Character> allCharacters;
 
 
-    public string chosenAttack;
+    public string chosenBattleMove;
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
 
     public BattleStateMachine battleStateMachine;
+    public BattleBonusManager battleBonusManager;
 
     public void Start()
     {
         battleSystemHud = new BattleSystemHud();
         battleSystemMenu = new BattleSystemMenu();
+        battleBonusManager = new BattleBonusManager();
     }
 
     public void Init()

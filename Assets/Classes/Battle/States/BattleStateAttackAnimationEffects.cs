@@ -7,8 +7,12 @@ public class BattleStateAttackAnimationEffects : BattleState
     override public IEnumerator execute()
     {
         newState = this;
+        GameObject effect;
 
-        GameObject effect = battleObjManager.attacker.transform.GetChild(0).Find(battleObjManager.chosenAttack).gameObject;
+        if(battleObjManager.attacker.transform.GetChild(0).Find(battleObjManager.chosenBattleMove))
+            effect = battleObjManager.attacker.transform.GetChild(0).Find(battleObjManager.chosenBattleMove).gameObject;
+        else 
+            effect = battleObjManager.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
 
         if(effect) {
             Vector3 originalRotation = effect.transform.eulerAngles;
@@ -26,12 +30,11 @@ public class BattleStateAttackAnimationEffects : BattleState
         }
         battleObjManager.battleSystemHud.RefreshAllHUDs();
 
+        // animate players who have died
         for(int i = 0; i < battleObjManager.allPlayers.Count; i++){
             if(battleSystemUtils.CheckPlayerDeadAndAnimate(battleObjManager.allPlayers[i]))
                 battleObjManager.deadPlayerList.Add(battleObjManager.allPlayers[i]);
-        }
-
-
+        }        
 
         newState = new BattleStateAttackAnimationRetreat();
         yield return newState;

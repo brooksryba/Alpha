@@ -44,7 +44,6 @@ public class BattleStateGetAttacker : BattleState
 
         if(battleObjManager.playerParty.Contains(nextUp.title)){
             battleObjManager.playerUnit = nextUp;
-            battleObjManager.battleSystemHud.disableUnusableHuds(nextUp.title, battleObjManager.playerParty);
             newState =  new BattleStatePlayerStart();
         } else {
             battleObjManager.enemyUnit = nextUp;

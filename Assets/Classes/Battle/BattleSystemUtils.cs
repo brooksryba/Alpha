@@ -1,26 +1,24 @@
 using UnityEngine;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.UI;
 public class BattleSystemUtils
 {
-    public Attack attackLibrary = new Attack();
+    public BattleMoveBase battleMoveLibrary = new BattleMoveBase();
 
     public Character GetCharacter(string id)
     {
-        return GameObject.Find(id).GetComponent<Character>();
+        if(id!="" && id!=null)
+            return GameObject.Find(id).GetComponent<Character>();
+        return null;
     }
 
-    public string GetMinigameNameFromAttack(string attackName, bool isEnemy){
-        Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
+    public string GetMinigameNameFromBattleMove(string moveName, bool isEnemy){
+        BattleMoveBase chosenMove = battleMoveLibrary.GetBattleMoveClass(moveName);
         if(!isEnemy)
-            return chosenAttack.minigameName;
-        return chosenAttack.defenseMinigameName;
+            return chosenMove.minigameName;
+        return chosenMove.defenseMinigameName;
     }
 
     public bool CheckPlayerDeadAndAnimate(string id){
-        // check dead players and handles death animation
         GameObject playerObj = GameObject.Find(id);
         Character player = playerObj.GetComponent<Character>();
         if(player.currentHP == 0){
@@ -31,32 +29,34 @@ public class BattleSystemUtils
         return false;
     }
 
-    public Attack PrepChosenAttack(string attackName, Character attacker, Character defender){
-        Attack chosenAttack = attackLibrary.GetAttackClass(attackName);
-        chosenAttack.attackerName = attacker.title;
-        if(defender == null){
-            chosenAttack.defenderName = "";
+
+    public BattleMoveBase PrepChosenBattleMove(string moveName, Character user, Character target){
+        BattleMoveBase chosenMove = battleMoveLibrary.GetBattleMoveClass(moveName);
+        chosenMove.userName = user.title;
+        if(target == null){
+            chosenMove.targetName = "";
         } else {
-            chosenAttack.defenderName = defender.title;
+            chosenMove.targetName = target.title;
         }
-        return chosenAttack;
+        return chosenMove;
     }
 
 
-    public void DoAttack(string attackName, Character attacker, Character defender, double damageMultiplier=1.0){
-        Attack chosenAttack = PrepChosenAttack(attackName, attacker, defender);
-        chosenAttack.damageMultiplier = damageMultiplier;
-        chosenAttack.DoAttack();
+    public void ExecuteBattleMove(string moveName, Character user, Character target, double minigameMultiplier=1.0, bool minigameSuccess=false){
+        BattleMoveBase chosenMove = PrepChosenBattleMove(moveName, user, target);
+        chosenMove.minigameMultiplier = minigameMultiplier;
+        chosenMove.minigameSuccess = minigameSuccess;
+        chosenMove.ExecuteBattleMove();
     }
 
-    public bool ConfirmAttackInputs(string attackName, Character attacker, Character defender){
-        Attack chosenAttack = PrepChosenAttack(attackName, attacker, defender);
-        return chosenAttack.CheckAttackInputs();
+    public bool ConfirmBattleMoveInputs(string moveName, Character user, Character target){
+        BattleMoveBase chosenMove = PrepChosenBattleMove(moveName, user, target);
+        return chosenMove.CheckInputs();
     }
 
-    public bool ConfirmCanUseAttack(string attackName, Character attacker, Character defender){
-        Attack chosenAttack = PrepChosenAttack(attackName, attacker, defender);
-        return chosenAttack.CanUseAttack();
+    public bool ConfirmBattleMoveFeasibility(string moveName, Character user, Character target){
+        BattleMoveBase chosenMove = PrepChosenBattleMove(moveName, user, target);
+        return chosenMove.CheckFeasibility();
     }
 
 

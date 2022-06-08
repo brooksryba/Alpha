@@ -11,8 +11,8 @@ public class BattleStateEnemyAttack : BattleState
 
         EnemyAttackChooser attackChooser = new EnemyAttackChooser();
         List<string> chosenAttackList = attackChooser.GetAttack(battleObjManager.enemyUnit.title);
-        battleObjManager.chosenAttack = chosenAttackList[0];
-        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + battleObjManager.chosenAttack + "!";
+        battleObjManager.chosenBattleMove = chosenAttackList[0];
+        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + battleObjManager.chosenBattleMove + "!";
         yield return new WaitForSeconds(2f);
 
         battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
