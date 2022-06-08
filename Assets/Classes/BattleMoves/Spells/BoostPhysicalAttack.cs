@@ -1,21 +1,23 @@
 using UnityEngine;
-public class Heal : Spell
+public class BoostPhysicalAttack : Spell
 {
-    public string name = "Heal";
-
-    public Heal(){
-        moveName = "Spell";
+   public BoostPhysicalAttack(){
+        moveName = "Boost Physical Attack";
         needsTarget = true;
         minigameName = "";
         defenseMinigameName = "";
     }
 
-    public int GetHealthValue(){
-        return 5;
+    public double GetBoostAddition(){
+        return 5.0;
+    }
+
+    public double GetBoostMultiplier(){
+        return 2.0;
     }
 
     public int GetManaCost(){
-        return 5;
+        return 10;
     }
 
     override public bool CheckFeasibility()
@@ -23,7 +25,7 @@ public class Heal : Spell
         return GetCharacter(userName).currentMana >= GetManaCost();
     }
 
-    public override int GetMoveValueForAi()
+    override public int GetMoveValueForAi()
     {
         if(IsUserAndTargetSameTeam())
             return 5;
@@ -34,6 +36,7 @@ public class Heal : Spell
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
         caster.useMana(GetManaCost());
-        target.Heal((int)(GetHealthValue()));
+        battleObjManager.battleBonusManager.AddBonus(targetName, "physicalAttack", GetBoostMultiplier(), GetBoostAddition(), 3);
+        
     }
 }

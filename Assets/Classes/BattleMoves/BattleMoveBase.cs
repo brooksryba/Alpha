@@ -76,8 +76,8 @@ public class BattleMoveBase
                 return new SpreadAttack();
             case "Heal":
                 return new Heal();
-            case "Boost Attack":
-                return this;
+            case "Boost Physical Attack":
+                return new BoostPhysicalAttack();
             default:
                 return this;
         }

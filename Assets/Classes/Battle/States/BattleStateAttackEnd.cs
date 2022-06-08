@@ -8,6 +8,7 @@ public class BattleStateAttackEnd : BattleState
         newState = this;
 
         battleObjManager.battleSystemHud.RefreshAllHUDs();
+        battleObjManager.battleBonusManager.IncrementPlayerTurn(battleObjManager.attacker.GetComponent<Character>().title);
     
         battleObjManager.chosenBattleMove = null;
         newState = new BattleStateGetAttacker();

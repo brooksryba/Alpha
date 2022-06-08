@@ -58,11 +58,12 @@ public class BattleStateAttackMinigame : BattleState
 
 
             string moveType = battleSystemUtils.PrepChosenBattleMove(battleObjManager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveType;
+            string moveName = battleSystemUtils.PrepChosenBattleMove(battleObjManager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveName;
             if(ongoingMinigameData.completedSuccessfully){
-                if(isEnemyTurn) battleObjManager.dialogueText.text = "The " + moveType + " is successful, but you increase your defense!";
-                else battleObjManager.dialogueText.text = "The " + moveType + " is successful with boosted power!";
+                if(isEnemyTurn) battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful, but you decreased it's effect!";
+                else battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful with an increased effect!";
             } else {
-                battleObjManager.dialogueText.text = "The " + moveType + " is successful!";
+                battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful!";
             }
 
 

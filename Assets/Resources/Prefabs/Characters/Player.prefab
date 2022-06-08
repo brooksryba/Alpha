@@ -59,6 +59,10 @@ MonoBehaviour:
   currentMana: 25
   speed: 0
   earnedXp: 0
+  physicalAttack: 0
+  magicAttack: 0
+  physicalDefense: 0
+  magicDefense: 0
   partyMembers: []
   attackNames:
   - Basic Attack
@@ -67,7 +71,7 @@ MonoBehaviour:
   - Spread Attack
   spellNames:
   - Heal
-  - Boost Attack
+  - Boost Physical Attack
   dialogIndex: 0
   dialogText: []
 --- !u!212 &8988213778532503585

@@ -13,7 +13,10 @@ public class BasicAttack : Attack
     }
 
     public int GetAttackDamage(){
-        return 5;
+        int baseDamage = 5;
+        Debug.Log("Calling basic attack. Users phys attack " + GetCharacter(userName).physicalAttack.ToString() + 
+        "| Attack dealt: " + (battleObjManager.battleBonusManager.GetBattleStat(userName, "physicalAttack", GetCharacter(userName).physicalAttack + baseDamage)).ToString());
+        return battleObjManager.battleBonusManager.GetBattleStat(userName, "physicalAttack", GetCharacter(userName).physicalAttack + baseDamage);
     }
 
 

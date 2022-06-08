@@ -16,6 +16,11 @@ public class CharacterData {
 
     public int dialogIndex;
 
+    public int physicalAttack;
+    public int magicAttack;
+    public int physicalDefense;
+    public int magicDefense;
+
 
     public CharacterData(Character character) {
         level = character.level;
@@ -26,6 +31,10 @@ public class CharacterData {
         earnedXp = character.earnedXp;
         partyMembers = character.partyMembers;
         dialogIndex = character.dialogIndex;
+        physicalAttack = character.physicalAttack;
+        magicAttack = character.magicAttack;
+        physicalDefense = character.physicalDefense;
+        magicDefense = character.magicDefense;
     }
 
 }

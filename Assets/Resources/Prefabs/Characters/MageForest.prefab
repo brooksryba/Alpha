@@ -109,12 +109,17 @@ MonoBehaviour:
   currentMana: 0
   speed: 0
   earnedXp: 0
+  physicalAttack: 0
+  magicAttack: 0
+  physicalDefense: 0
+  magicDefense: 0
   partyMembers: []
   attackNames:
   - Basic Attack
   - Spread Attack
   spellNames:
   - Heal
+  - Boost Physical Attack
   dialogIndex: 0
   dialogText:
   - What are you doing wandering the forest alone?

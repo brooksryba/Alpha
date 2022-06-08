@@ -43,11 +43,13 @@ public class BattleObjectManager : MonoBehaviour
     public BattleSystemMenu battleSystemMenu;
 
     public BattleStateMachine battleStateMachine;
+    public BattleBonusManager battleBonusManager;
 
     public void Start()
     {
         battleSystemHud = new BattleSystemHud();
         battleSystemMenu = new BattleSystemMenu();
+        battleBonusManager = new BattleBonusManager();
     }
 
     public void Init()
