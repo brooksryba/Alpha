@@ -7,8 +7,7 @@ public class BattleBonusManager
     public List<BattleBonus> battleBonuses = new List<BattleBonus>();
 
     public void AddBonus(string playerName, string statName, double statMultiplier, double statAddition, int bonusDuration){
-        BattleBonus newBonus = new BattleBonus();
-        newBonus.SetBonusProperties(playerName, statName, statMultiplier, statAddition, bonusDuration);
+        BattleBonus newBonus = new BattleBonus(playerName, statName, statMultiplier, statAddition, bonusDuration);
         battleBonuses.Add(newBonus);
     }
 
@@ -17,7 +16,7 @@ public class BattleBonusManager
             BattleBonus checkBonus = battleBonuses[i];
             if(checkBonus.playerName==playerName){
                 battleBonuses[i].bonusDuration -= 1;
-                Debug.Log("Just removed turn from bonus " + playerName + "| stat " + battleBonuses[i].statName + "| turns left " + battleBonuses[i].bonusDuration.ToString());
+                // Debug.Log("Just removed turn from bonus " + playerName + "| stat " + battleBonuses[i].statName + "| turns left " + battleBonuses[i].bonusDuration.ToString());
                 if(battleBonuses[i].bonusDuration==0){
                     battleBonuses.RemoveAt(i);
                 }

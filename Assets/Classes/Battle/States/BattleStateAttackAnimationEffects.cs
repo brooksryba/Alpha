@@ -30,12 +30,11 @@ public class BattleStateAttackAnimationEffects : BattleState
         }
         battleObjManager.battleSystemHud.RefreshAllHUDs();
 
+        // animate players who have died
         for(int i = 0; i < battleObjManager.allPlayers.Count; i++){
             if(battleSystemUtils.CheckPlayerDeadAndAnimate(battleObjManager.allPlayers[i]))
                 battleObjManager.deadPlayerList.Add(battleObjManager.allPlayers[i]);
-        }
-
-
+        }        
 
         newState = new BattleStateAttackAnimationRetreat();
         yield return newState;
