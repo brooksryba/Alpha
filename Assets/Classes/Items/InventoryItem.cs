@@ -7,6 +7,7 @@ public class InventoryItem : MonoBehaviour
     public string title;
     public bool active;
 
+
     void Start()
     {
         LoadState();

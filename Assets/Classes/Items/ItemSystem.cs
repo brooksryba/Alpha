@@ -9,6 +9,7 @@ public class InventoryItemData
     public double mana;
     public string message;
 
+
     public InventoryItemData(double hp, double mana, string message)
     {
         this.hp = hp;
@@ -21,16 +22,8 @@ public static class WorldItems
 {
     public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
         {"Revive", new InventoryItemData(1.0, 0.0, "Health was increased by 100%.")},
-        {"Gem", new InventoryItemData(0.0, 0.25, "Mana was increased by 25%.")},
+        {"Gem", new InventoryItemData(0, 0.25, "Mana was increased by 25%.")},
         {"Toxic Gem", new InventoryItemData(-0.1, 0.25, "Mana was increased by 25%, but HP decreased by 10%.")}
     };
 }
 
-public static class BattleItems
-{
-    public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
-        {"Revive", new InventoryItemData(1.0, 0.0, "Health was increased by 100%.")},
-        {"Gem", new InventoryItemData(0.0, 0.25, "Mana was increased by 25%.")},
-        {"Toxic Gem", new InventoryItemData(-0.1, 0.25, "Mana was increased by 25%, but HP decreased by 10%.")}
-    };
-}
