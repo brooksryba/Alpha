@@ -20,6 +20,10 @@ public class BoostPhysicalAttack : Spell
         return 10;
     }
 
+    public int GetTurnDuration(){
+        return 3;
+    }
+
     override public bool CheckFeasibility()
     {
         return GetCharacter(userName).currentMana >= GetManaCost();
@@ -36,7 +40,7 @@ public class BoostPhysicalAttack : Spell
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
         caster.useMana(GetManaCost());
-        battleObjManager.battleBonusManager.AddBonus(targetName, "physicalAttack", GetBoostMultiplier(), GetBoostAddition(), 3);
+        battleObjManager.battleBonusManager.AddBonus(targetName, "physicalAttack", GetBoostMultiplier(), GetBoostAddition(), GetTurnDuration());
         
     }
 }

@@ -19,6 +19,7 @@ public class BattleBonusManager
                 // Debug.Log("Just removed turn from bonus " + playerName + "| stat " + battleBonuses[i].statName + "| turns left " + battleBonuses[i].bonusDuration.ToString());
                 if(battleBonuses[i].bonusDuration==0){
                     battleBonuses.RemoveAt(i);
+                    i--; //ensures that if multiple are removed, it removes the correct bonuses
                 }
             }
         }
