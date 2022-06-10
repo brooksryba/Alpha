@@ -91,6 +91,10 @@ public class BattleMoveBase
                 return new Heal();
             case "Boost Physical Attack":
                 return new BoostPhysicalAttack();
+            case "Poison Spell":
+                return new PoisonSpell();
+            case "Immobilize Spell":
+                return new ImmobilizeSpell();
             case "Gem":
                 return new BattleItemGem();
             default:
