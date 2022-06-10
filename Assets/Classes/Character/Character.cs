@@ -132,8 +132,6 @@ public class Character : MonoBehaviour
 
     public bool useMana(int amount)
     {
-
-
         if (currentMana - amount < 0)
             return false;
         else
@@ -141,8 +139,13 @@ public class Character : MonoBehaviour
             currentMana -= amount;
             return true;
         }
+    }
 
-
+    public void AddMana(int amount)
+    {
+        currentMana += amount;
+        if (currentMana > maxMana)
+            currentMana = maxMana;
     }
 
 }

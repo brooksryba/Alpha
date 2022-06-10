@@ -31,6 +31,19 @@ public class BattleBonus
             }
             
         }
+
+        if(statName == "currentMana"){
+            Character currentPlayer = GameObject.Find(playerName).GetComponent<Character>();
+            currentPlayer.multiplyHP(statMultiplier);
+            if(statAddition > 0){
+                currentPlayer.useMana((int)statAddition);
+            } else {
+                currentPlayer.AddMana((int)statAddition);
+            }
+            
+        }
+
+
     }
 
 
