@@ -6,7 +6,7 @@ using UnityEngine;
 public class Jack : BaseCharacterClass
 {
     public Jack(){
-        className = "Warrior";
+        className = "Jack";
         baseStats.Add("maxHp", 15);
         statProgression.Add("maxHp", 10);
 
@@ -20,13 +20,13 @@ public class Jack : BaseCharacterClass
         statProgression.Add("physicalDefense", 2);
 
         baseStats.Add("magicAttack", 7);
-        statProgression.Add("physicalAttack", 2);
+        statProgression.Add("magicAttack", 2);
 
         baseStats.Add("magicDefense", 7);
         statProgression.Add("magicDefense", 2);
 
         baseStats.Add("speed", 7);
-        statProgression.Add("speed", 3);
+        statProgression.Add("speed", 10);
         
 
     }

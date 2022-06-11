@@ -61,16 +61,6 @@ public class BattleMoveBase
     public void ExecuteBattleMove() {
         if(CanUseBattleMove()){
             this._ExecuteBattleMove();
-            if(this.moveType=="Item"){
-                Character itemUser = GetCharacter(this.userName);
-                List<ItemData> usersItems = itemUser.items;
-                for(int i = 0; i < usersItems.Count; i++){
-                    if(usersItems[i].title==this.moveName){
-                        GetCharacter(this.userName).items.RemoveAt(i);
-                        break;
-                    }
-                }
-            }
         }
         
             
@@ -95,8 +85,6 @@ public class BattleMoveBase
                 return new PoisonSpell();
             case "Immobilize Spell":
                 return new ImmobilizeSpell();
-            case "Gem":
-                return new BattleItemGem();
             default:
                 return this;
         }

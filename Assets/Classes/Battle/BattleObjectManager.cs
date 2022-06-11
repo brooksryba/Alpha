@@ -39,6 +39,7 @@ public class BattleObjectManager : MonoBehaviour
 
 
     public string chosenBattleMove;
+    public string chosenItem;
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
 
@@ -50,6 +51,7 @@ public class BattleObjectManager : MonoBehaviour
         battleSystemHud = new BattleSystemHud();
         battleSystemMenu = new BattleSystemMenu();
         battleBonusManager = new BattleBonusManager();
+        Init();
     }
 
     public void Init()
@@ -68,6 +70,7 @@ public class BattleObjectManager : MonoBehaviour
         GameObject enemyGO = initializeParty(ref enemyParty, ref enemyPrefab, enemyBattleStation, enemyPartyContainer, true);
         enemyUnit = enemyGO.GetComponent<Character>();
 
+
     }
 
     public GameObject initializeParty(ref List<string> partyList, ref GameObject partyLeaderPrefab, GameObject battleStationContainer, GameObject partyContainer, bool flip=false)
@@ -78,7 +81,8 @@ public class BattleObjectManager : MonoBehaviour
             partyLeaderObj.GetComponent<SpriteRenderer>().flipX = true;
         Character partyLeader = partyLeaderPrefab.GetComponent<Character>();
         partyLeaderObj.name = partyLeader.title;
-        partyLeader.LoadState();
+        //partyLeader.LoadCharacterClass();
+        //partyLeader.LoadState();
         partyList.Add(partyLeader.title);
         allPlayers.Add(partyLeader.title);
 
@@ -90,7 +94,8 @@ public class BattleObjectManager : MonoBehaviour
             GameObject partyMemberObject = Instantiate(Resources.Load<GameObject>("Prefabs/" + pm), battleStationContainer.transform);
             Character partyMemberChar = partyMemberObject.GetComponent<Character>();
             partyMemberObject.name = partyMemberChar.title;
-            partyMemberChar.LoadState();
+            //partyMemberChar.LoadCharacterClass();
+            //partyMemberChar.LoadState();
             partyList.Add(partyMemberChar.title);
             allPlayers.Add(partyMemberChar.title);
 

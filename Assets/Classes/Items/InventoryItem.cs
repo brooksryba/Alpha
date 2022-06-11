@@ -24,5 +24,5 @@ public class InventoryItem : MonoBehaviour
         if( data != null ) {
             gameObject.SetActive(data.active);
         }
-    }    
+    }
 }

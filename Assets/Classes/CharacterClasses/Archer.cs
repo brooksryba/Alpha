@@ -20,7 +20,7 @@ public class Archer : BaseCharacterClass
         statProgression.Add("physicalDefense", 2);
 
         baseStats.Add("magicAttack", 3);
-        statProgression.Add("physicalAttack", 2);
+        statProgression.Add("magicAttack", 2);
 
         baseStats.Add("magicDefense", 5);
         statProgression.Add("magicDefense", 2);

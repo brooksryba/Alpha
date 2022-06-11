@@ -20,7 +20,7 @@ public class Mage : BaseCharacterClass
         statProgression.Add("physicalDefense", 1.5);
 
         baseStats.Add("magicAttack", 10);
-        statProgression.Add("physicalAttack", 3);
+        statProgression.Add("magicAttack", 3);
 
         baseStats.Add("magicDefense", 10);
         statProgression.Add("magicDefense", 2);

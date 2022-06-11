@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Rune Mage
   level: 2
+  className: Mage
   items: []
   damage: 0
   maxHP: 0
@@ -109,9 +110,14 @@ MonoBehaviour:
   currentMana: 0
   speed: 0
   earnedXp: 0
+  physicalAttack: 0
+  magicAttack: 0
+  physicalDefense: 0
+  magicDefense: 0
   partyMembers: []
   attackNames:
   - Basic Attack
+  spellNames: []
   dialogIndex: 0
   dialogText:
   - I was just polishing some of my new runes.
@@ -157,6 +163,7 @@ MonoBehaviour:
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
+  yComp: 0
 --- !u!114 &3480582840886689619
 MonoBehaviour:
   m_ObjectHideFlags: 0

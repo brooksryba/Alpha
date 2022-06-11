@@ -11,7 +11,21 @@ public class BaseCharacterClass
     
 
     public int getCurrentStatValue(string statName, int currentLevel){
-
         return (int)(baseStats[statName] + currentLevel*statProgression[statName]) ;
+    }
+
+    static public BaseCharacterClass GetCharacterClass(string className){
+        switch(className){
+            case "Jack":
+                return new Jack();
+            case "Warrior":
+                return new Warrior();
+            case "Mage":
+                return new Mage();
+            case "Archer":
+                return new Archer();
+            default:
+                return new Jack();
+        }
     }
 }

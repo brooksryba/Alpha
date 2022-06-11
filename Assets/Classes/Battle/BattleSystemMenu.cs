@@ -70,7 +70,7 @@ public class BattleSystemMenu
             }
 
             foreach(KeyValuePair<string, int> item in itemCount ) {
-                items.Add(item.Key + "(x" + item.Value.ToString() + ")", () => { battleObjManager.chosenBattleMove = item.Key; });
+                items.Add(item.Key + "(x" + item.Value.ToString() + ")", () => { battleObjManager.chosenItem = item.Key; });
             }
 
         }

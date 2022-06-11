@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Warrior
   level: 4
+  className: Warrior
   items: []
   damage: 0
   maxHP: 0
@@ -109,10 +110,15 @@ MonoBehaviour:
   currentMana: 0
   speed: 0
   earnedXp: 0
+  physicalAttack: 0
+  magicAttack: 0
+  physicalDefense: 0
+  magicDefense: 0
   partyMembers: []
   attackNames:
   - Basic Attack
   - Heavy Attack
+  spellNames: []
   dialogIndex: 0
   dialogText: []
 --- !u!50 &3833707400123226569
@@ -155,6 +161,7 @@ MonoBehaviour:
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
+  yComp: 0
 --- !u!114 &3317827109410804684
 MonoBehaviour:
   m_ObjectHideFlags: 0

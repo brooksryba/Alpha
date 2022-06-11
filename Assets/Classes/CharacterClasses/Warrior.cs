@@ -20,7 +20,7 @@ public class Warrior : BaseCharacterClass
         statProgression.Add("physicalDefense", 3);
 
         baseStats.Add("magicAttack", 3);
-        statProgression.Add("physicalAttack", 1);
+        statProgression.Add("magicAttack", 1);
 
         baseStats.Add("magicDefense", 5);
         statProgression.Add("magicDefense", 1.5);

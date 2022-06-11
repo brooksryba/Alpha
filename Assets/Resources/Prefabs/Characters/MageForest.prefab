@@ -101,6 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Forest Mage
   level: 7
+  className: Mage
   items: []
   damage: 0
   maxHP: 0
