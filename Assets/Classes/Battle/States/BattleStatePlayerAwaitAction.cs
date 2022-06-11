@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleStatePlayerAwaitAttack : BattleState
+public class BattleStatePlayerAwaitAction : BattleState
 {
     override public IEnumerator execute()
     {
@@ -15,7 +15,11 @@ public class BattleStatePlayerAwaitAttack : BattleState
         } else if(battleObjManager.chosenBattleMove != "" & battleObjManager.chosenBattleMove != null) {
             battleObjManager.battleSystemHud.RefreshAllHUDs();
             newState = new BattleStatePlayerAttack();
+        } else if(battleObjManager.chosenItem != "" & battleObjManager.chosenItem != null) {
+            battleObjManager.battleSystemHud.RefreshAllHUDs();
+            newState = new BattleStateUseItem();
         }
+
 
         yield return new WaitForSeconds(0f);
         

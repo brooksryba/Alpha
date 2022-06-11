@@ -8,6 +8,7 @@ public class Character : MonoBehaviour
 
     public string title;
     public int level;
+    public string className;
 
     public List<ItemData> items;
 
@@ -33,33 +34,41 @@ public class Character : MonoBehaviour
 
     public int dialogIndex;
     public List<string> dialogText;
+    public BaseCharacterClass characterClass;
+
 
     void Start()
     {
+        LoadCharacterClass();
         LoadState();
     }
+
+
 
     public void SaveState()
     {
         SaveSystem.SaveState<CharacterData>(new CharacterData(this), this.title);
     }
 
+    public void LoadCharacterClass()
+    {
+        characterClass = BaseCharacterClass.GetCharacterClass(className);
+    }
+
     public void LoadState()
     {
         CharacterData data = SaveSystem.LoadState<CharacterData>(this.title) as CharacterData;
+
         if (data != null)
         {
             this.level = data.level;
             this.currentHP = data.currentHP;
             this.currentMana = data.currentMana;
-            this.speed = data.speed;
             this.earnedXp = data.earnedXp;
             this.partyMembers = data.partyMembers;
             this.dialogIndex = data.dialogIndex;
-            this.physicalAttack = data.physicalAttack;
-            this.magicAttack = data.magicAttack;
-            this.physicalDefense = data.physicalDefense;
-            this.magicDefense = data.magicDefense;
+
+
             this.items = new List<ItemData>();
 
             if( data.items != null ) {
@@ -71,16 +80,37 @@ public class Character : MonoBehaviour
         }
 		else 
 		{
-			this.currentHP = this.level * 10;
-        	this.currentMana = this.level * 5;
-            this.speed = this.level * 3;
-            this.physicalAttack = this.level * 3;
-            this.magicAttack = this.level * 3;
-            this.physicalDefense = this.level * 3;
-            this.magicDefense = this.level * 3;
+			this.currentHP = characterClass.getCurrentStatValue("maxHp", this.level);;
+        	this.currentMana = characterClass.getCurrentStatValue("maxMana", this.level);
 		}
-		this.maxHP = this.level * 10;
-		this.maxMana = this.level * 5;
+        this.speed = characterClass.getCurrentStatValue("speed", this.level);
+        this.physicalAttack = characterClass.getCurrentStatValue("physicalAttack", this.level);
+        this.magicAttack = characterClass.getCurrentStatValue("magicAttack", this.level);
+        this.physicalDefense = characterClass.getCurrentStatValue("physicalDefense", this.level);
+        this.magicDefense = characterClass.getCurrentStatValue("magicDefense", this.level);
+        this.maxHP = characterClass.getCurrentStatValue("maxHp", this.level);
+        this.maxMana = characterClass.getCurrentStatValue("maxMana", this.level);
+
+    }
+
+    public Dictionary<string, int> GetInventoryItemCounts() {
+        Dictionary<string, int> itemCount = new Dictionary<string, int>();
+        foreach( var item in items ) {
+            if( itemCount.ContainsKey(item.title) ) {
+                itemCount[item.title] += 1;
+            } else {
+                itemCount.Add(item.title, 1);
+            }
+        }
+        return itemCount;
+    }
+
+    public Dictionary<string, ItemData> GetInventoryItemRefs() {
+        Dictionary<string, ItemData> itemRefs = new Dictionary<string, ItemData>();
+        foreach( var item in items ) {
+            itemRefs[item.title] = item;
+        }
+        return itemRefs;
     }
 
     public void AddInventoryItem(InventoryItem item)
@@ -132,8 +162,6 @@ public class Character : MonoBehaviour
 
     public bool useMana(int amount)
     {
-
-
         if (currentMana - amount < 0)
             return false;
         else
@@ -141,8 +169,13 @@ public class Character : MonoBehaviour
             currentMana -= amount;
             return true;
         }
+    }
 
-
+    public void AddMana(int amount)
+    {
+        currentMana += amount;
+        if (currentMana > maxMana)
+            currentMana = maxMana;
     }
 
 }

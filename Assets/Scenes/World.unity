@@ -140,6 +140,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7713525804107715046, guid: cb213a43cebdeb245ba7ca5be29b261e,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8620067899578566026, guid: cb213a43cebdeb245ba7ca5be29b261e,
         type: 3}
       propertyPath: m_Name
@@ -7200,6 +7205,11 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4700401674714742959, guid: 63e6bcf8b5003434ba94b7510ae03a57,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8620067899578566026, guid: 63e6bcf8b5003434ba94b7510ae03a57,
         type: 3}
       propertyPath: m_Name
@@ -7688,6 +7698,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4285036244626313821, guid: 4aa29eabd95c156468abc1f296e21faf,
         type: 3}
+      propertyPath: className
+      value: Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285036244626313821, guid: 4aa29eabd95c156468abc1f296e21faf,
+        type: 3}
       propertyPath: dialogText.Array.data[0]
       value: What are you doing wandering the forest alone?
       objectReference: {fileID: 0}
@@ -7700,6 +7715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: dialogText.Array.data[2]
       value: I look forward to fighting with you.
+      objectReference: {fileID: 0}
+    - target: {fileID: 4558127953280398186, guid: 4aa29eabd95c156468abc1f296e21faf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8620067899578566026, guid: 4aa29eabd95c156468abc1f296e21faf,
         type: 3}
@@ -7859,6 +7879,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BodyType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5743683653969506683, guid: 6efa3accea12d684ba68234ecae75e2d,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8620067899578566026, guid: 6efa3accea12d684ba68234ecae75e2d,
         type: 3}
@@ -8280,6 +8305,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7091320736354970565, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8643284994398649998, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
         type: 3}

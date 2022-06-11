@@ -59,8 +59,11 @@ public class BattleMoveBase
     }
 
     public void ExecuteBattleMove() {
-        if(CanUseBattleMove())
+        if(CanUseBattleMove()){
             this._ExecuteBattleMove();
+        }
+        
+            
     }
 
 
@@ -78,6 +81,10 @@ public class BattleMoveBase
                 return new Heal();
             case "Boost Physical Attack":
                 return new BoostPhysicalAttack();
+            case "Poison Spell":
+                return new PoisonSpell();
+            case "Immobilize Spell":
+                return new ImmobilizeSpell();
             default:
                 return this;
         }

@@ -55,49 +55,30 @@ public class BattleSystemMenu
         }
         spells.Add("Return", () => { });
         
-        strategies.Add("Return", () => { });
-
         Dictionary<string, Action> items = new Dictionary<string, Action>();
         Dictionary<string, int> itemCount = new Dictionary<string, int>();
         Dictionary<string, ItemData> itemRefs = new Dictionary<string, ItemData>();
 
-        foreach( var item in character.items ) {
+        if(character.items.Count > 0){
+            foreach( var item in character.items ) {               
             itemRefs[item.title] = item;
             if( itemCount.ContainsKey(item.title) ) {
                 itemCount[item.title] += 1;
             } else {
                 itemCount.Add(item.title, 1);
             }
+            }
+
+            foreach(KeyValuePair<string, int> item in itemCount ) {
+                items.Add(item.Key + "(x" + item.Value.ToString() + ")", () => { battleObjManager.chosenItem = item.Key; });
+            }
+
         }
 
-        foreach( KeyValuePair<string, int> item in itemCount )
-        {
-            items.Add(item.Key + " (x" + item.Value + ")", () => {
-                if( BattleItems.lookup.ContainsKey(item.Key) )
-                {
-                    InventoryItemData itemData = BattleItems.lookup[item.Key];
 
-                    string message = "Player used a";
-                    if("aeiou".Contains(item.Key.ToLower()[0].ToString())) {
-                        message += "n";
-                    }
-                    message += " " + item.Key.ToLower() + ".";                                
-                    if( itemData.message != "" )
-                    {
-                        message += "\n" + itemData.message;
-                    }
-
-                    character.items.Remove(itemRefs[item.Key]);
-                    character.SaveState();
-                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);                        
-                } 
-                else
-                {
-                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Can't use this item now.");
-                }
-            });
-        }
         items.Add("Return", () => { });
+
+        strategies.Add("Return", () => { });
 
         menu.Open(new Dictionary<string, Action>(){
         {"Attacks >>", delegate { menu.SubMenu(attacks); }},

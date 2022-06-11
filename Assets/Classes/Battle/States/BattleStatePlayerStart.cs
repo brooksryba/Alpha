@@ -14,7 +14,7 @@ public class BattleStatePlayerStart : BattleState
 
         if(battleObjManager.battleSystemHud.selection != null){
             battleObjManager.battleSystemHud.canSelect = false;
-            newState = new BattleStatePlayerAwaitAttack();
+            newState = new BattleStatePlayerAwaitAction();
         }
 
         yield return new WaitForSeconds(0f);

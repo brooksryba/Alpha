@@ -51,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Hero
   level: 8
+  className: Jack
   items: []
   damage: 0
   maxHP: 50
@@ -72,6 +73,8 @@ MonoBehaviour:
   spellNames:
   - Heal
   - Boost Physical Attack
+  - Poison Spell
+  - Immobilize Spell
   dialogIndex: 0
   dialogText: []
 --- !u!212 &8988213778532503585

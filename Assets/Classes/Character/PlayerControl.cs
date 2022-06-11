@@ -17,20 +17,12 @@ public class PlayerControl : MonoBehaviour
             if( GameObject.Find("Menu(Clone)") ) { return; }
             
             GameObject obj = Instantiate(Resources.Load("Prefabs/Menu"), transform.position, transform.rotation) as GameObject;
+            Character character = GameObject.Find("Player").GetComponent<Character>();
             DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
             Dictionary<string, Action> items = new Dictionary<string, Action>();
-            Dictionary<string, int> itemCount = new Dictionary<string, int>();
-            Dictionary<string, ItemData> itemRefs = new Dictionary<string, ItemData>();
-
-            foreach( var item in transform.GetComponent<Character>().items ) {
-                itemRefs[item.title] = item;
-                if( itemCount.ContainsKey(item.title) ) {
-                    itemCount[item.title] += 1;
-                } else {
-                    itemCount.Add(item.title, 1);
-                }
-            }
+            Dictionary<string, int> itemCount = character.GetInventoryItemCounts();
+            Dictionary<string, ItemData> itemRefs = character.GetInventoryItemRefs();
 
             foreach( KeyValuePair<string, int> item in itemCount )
             {
@@ -39,32 +31,10 @@ public class PlayerControl : MonoBehaviour
                     {
                         InventoryItemData itemData = WorldItems.lookup[item.Key];
                         Character character = GameObject.Find("Player").GetComponent<Character>();
-                        bool hpAllowed = character.multiplyHP(itemData.hp);
+                        string message = itemData.Execute(character);
 
-                        if( hpAllowed ) {
-                            bool manaAllowed = character.multiplyMana(itemData.mana);
-                            
-                            if( manaAllowed ) {
-                                string message = "Player used a";
-                                if("aeiou".Contains(item.Key.ToLower()[0].ToString())) {
-                                    message += "n";
-                                }
-                                message += " " + item.Key.ToLower() + ".";                                
-                                if( itemData.message != "" )
-                                {
-                                    message += "\n" + itemData.message;
-                                }
-
-                                character.items.Remove(itemRefs[item.Key]);
-                                character.SaveState();
-                                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
-                                Destroy(GameObject.Find("Menu(Clone)"));
-                            } else {
-                                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not enough mana to use this item.");
-                            }
-                        } else {
-                            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not enough HP to use this item.");
-                        }
+                        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
+                        Destroy(GameObject.Find("Menu(Clone)"));
                     } 
                     else
                     {

@@ -1,27 +1,26 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
-public class BoostPhysicalAttack : Spell
+
+public class PoisonSpell : Spell
 {
-   public BoostPhysicalAttack(){
-        moveName = "Boost Physical Attack";
+ public PoisonSpell(){
+        moveName = "Poison Spell";
         needsTarget = true;
         minigameName = "";
         defenseMinigameName = "";
     }
 
-    public double GetBoostAddition(){
-        return 5.0;
+    public int GetTurnDuration(){
+        return 3;
     }
 
-    public double GetBoostMultiplier(){
-        return 2.0;
+    public double GetDamage(){
+        return 5.0;
     }
 
     public int GetManaCost(){
         return 10;
-    }
-
-    public int GetTurnDuration(){
-        return 3;
     }
 
     override public bool CheckFeasibility()
@@ -32,15 +31,15 @@ public class BoostPhysicalAttack : Spell
     override public int GetMoveValueForAi()
     {
         if(IsUserAndTargetSameTeam())
-            return 5;
-        return -5;
+            return -5;
+        return (int)(GetDamage()*GetTurnDuration());
     }
 
     override public void _ExecuteBattleMove() {
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
         caster.useMana(GetManaCost());
-        battleObjManager.battleBonusManager.AddBonus(targetName, "physicalAttack", GetBoostMultiplier(), GetBoostAddition(), GetTurnDuration());
+        battleObjManager.battleBonusManager.AddBonus(targetName, "currentHp", 0.0, -1*GetDamage(), GetTurnDuration());
         
     }
 }

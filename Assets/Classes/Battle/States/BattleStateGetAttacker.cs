@@ -40,14 +40,26 @@ public class BattleStateGetAttacker : BattleState
         }
         
         Character nextUp = battleObjManager.allCharacters[battleObjManager.turnIndex];
-        battleObjManager.dialogueText.text = "It is "+nextUp.title+"'s turn to attack!";
+        string attackerName = nextUp.title;
 
-        if(battleObjManager.playerParty.Contains(nextUp.title)){
+        battleObjManager.dialogueText.text = "It is " + attackerName + "'s turn to attack!";
+        
+
+        if(battleObjManager.playerParty.Contains(attackerName)){
             battleObjManager.playerUnit = nextUp;
+            battleObjManager.attacker = GameObject.Find(battleObjManager.playerUnit.title);
             newState =  new BattleStatePlayerStart();
         } else {
             battleObjManager.enemyUnit = nextUp;
+            battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
             newState =  new BattleStateEnemyStart();
+        }
+
+        if(battleObjManager.battleBonusManager.CheckSkipTurn(attackerName)){
+            yield return new WaitForSeconds(1.5f);
+            battleObjManager.dialogueText.text = attackerName + " cannot attack this round!";
+            newState = new BattleStateAttackEnd();
+
         }
 
         yield return new WaitForSeconds(0f);

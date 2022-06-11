@@ -15,10 +15,6 @@ public class BattleStateEnemyAttack : BattleState
         battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " attacks " + chosenAttackList[1] + " with " + battleObjManager.chosenBattleMove + "!";
         yield return new WaitForSeconds(2f);
 
-        battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
-        battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
-
-        battleObjManager.attacker = GameObject.Find(battleObjManager.enemyUnit.title);
         battleObjManager.defender = null;
         if(chosenAttackList[1] != "") battleObjManager.defender = GameObject.Find(chosenAttackList[1]);
         

@@ -13,7 +13,7 @@ public class BattleStateMachine : MonoBehaviour
 
     public void Update()
     {
-        if (!stateLock) {
+        if (state != null && !stateLock) {
             StartCoroutine(Step());
         }
     }

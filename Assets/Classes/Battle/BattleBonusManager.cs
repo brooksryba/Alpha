@@ -16,9 +16,10 @@ public class BattleBonusManager
             BattleBonus checkBonus = battleBonuses[i];
             if(checkBonus.playerName==playerName){
                 battleBonuses[i].bonusDuration -= 1;
-                // Debug.Log("Just removed turn from bonus " + playerName + "| stat " + battleBonuses[i].statName + "| turns left " + battleBonuses[i].bonusDuration.ToString());
+                battleBonuses[i].BattleBonusAction();
                 if(battleBonuses[i].bonusDuration==0){
                     battleBonuses.RemoveAt(i);
+                    i--; //ensures that if multiple are removed, it removes the correct bonuses
                 }
             }
         }
@@ -43,6 +44,17 @@ public class BattleBonusManager
             }
         }
         return (int)(initialValue*multiplier + addition);
+    }
+
+    public bool CheckSkipTurn(string playerName){
+        // @todo - no way to stack skip turns, but it might not be something we would always want anyway
+        for(int i = 0; i < battleBonuses.Count; i++){
+            BattleBonus checkBonus = battleBonuses[i];
+            if(checkBonus.playerName==playerName && checkBonus.statName == "skipTurn" && checkBonus.bonusDuration > 0){
+                return true;
+            }
+        }
+        return false;
     }
 
 
