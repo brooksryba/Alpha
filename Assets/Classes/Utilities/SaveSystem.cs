@@ -13,7 +13,7 @@ public static class SaveSystem {
     {
         foreach (var path in Directory.GetFiles(Application.persistentDataPath))
         {
-            if( path.Contains(".bin") ) {
+            if( path.Contains(".bin") && !path.Contains("SettingsData") ) {
                 FileInfo file = new FileInfo(path);
                 file.Delete();
             }
