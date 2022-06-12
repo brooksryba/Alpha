@@ -8,7 +8,7 @@ public class BattleStateEnemyStart : BattleState
     {
         newState = this;
 
-        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title+" is about to attack!";
+        _manager.dialogueText.text = _manager.attackerName+" is about to attack!";
         newState = new BattleStateEnemyAttack();
         yield return new WaitForSeconds(2f);
     }

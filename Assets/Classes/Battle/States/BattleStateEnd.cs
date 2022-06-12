@@ -14,12 +14,12 @@ public class BattleStateEnd : BattleState
     {
         newState = this;
 
-        if(battleSystemUtils.PartyDead(battleObjManager.enemyParty))
+        if(battleSystemUtils.PartyDead(_manager.enemyParty))
         {
-            battleObjManager.dialogueText.text = "You won the battle!";
-        } else if (battleSystemUtils.PartyDead(battleObjManager.playerParty))
+            _manager.dialogueText.text = "You won the battle!";
+        } else if (battleSystemUtils.PartyDead(_manager.playerParty))
         {
-            battleObjManager.dialogueText.text = "You were defeated";
+            _manager.dialogueText.text = "You were defeated";
         } 
 
         GameObject.FindWithTag("Player").GetComponent<Character>().SaveState();
@@ -29,7 +29,7 @@ public class BattleStateEnd : BattleState
             go.GetComponent<Character>().SaveState();
         }
 
-        battleObjManager.battleBonusManager.DestroyAllBonuses();
+        _manager.battleBonusManager.DestroyAllBonuses();
 
         yield return new WaitForSeconds(2f);
 

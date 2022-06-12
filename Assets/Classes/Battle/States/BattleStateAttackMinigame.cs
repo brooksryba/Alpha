@@ -22,15 +22,15 @@ public class BattleStateAttackMinigame : BattleState
         if(!minigameStarted){
             
             minigameStarted = true;
-            attackerName = battleObjManager.attacker.GetComponent<Character>().title;
-            if(battleObjManager.defender) defenderName = battleObjManager.defender.GetComponent<Character>().title;
-            isEnemyTurn = battleObjManager.enemyParty.Contains(attackerName);
+            attackerName = _manager.attacker.GetComponent<Character>().title;
+            if(_manager.defender) defenderName = _manager.defender.GetComponent<Character>().title;
+            isEnemyTurn = _manager.enemyParty.Contains(attackerName);
 
-            string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(battleObjManager.chosenBattleMove, isEnemyTurn);
+            string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenBattleMove, isEnemyTurn);
 
             if(minigameName != null & minigameName != ""){
-                if(isEnemyTurn) battleObjManager.dialogueText.text = "Complete the Minigame to boost your defense!";
-                else battleObjManager.dialogueText.text = "Complete the Minigame to boost your attack!";
+                if(isEnemyTurn) _manager.dialogueText.text = "Complete the Minigame to boost your defense!";
+                else _manager.dialogueText.text = "Complete the Minigame to boost your attack!";
                 minigamePrefab = Resources.Load("Prefabs/BattleMinigames/" + minigameName) as GameObject;
                 minigameContainer = GameObject.Find("BattleMinigameContainer");
                 minigameObj = GameObject.Instantiate(minigamePrefab, minigameContainer.transform);
@@ -50,24 +50,26 @@ public class BattleStateAttackMinigame : BattleState
             yield return new WaitForSeconds(1f);
             if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
-            battleSystemUtils.ExecuteBattleMove(battleObjManager.chosenBattleMove, 
+            battleSystemUtils.ExecuteBattleMove(_manager.chosenBattleMove, 
                                        battleSystemUtils.GetCharacter(attackerName), 
                                        battleSystemUtils.GetCharacter(defenderName), 
                                        isEnemyTurn ? 1.0f / ongoingMinigameData.bonusMultiplier: ongoingMinigameData.bonusMultiplier,
                                        ongoingMinigameData.completedSuccessfully);
 
 
-            string moveType = battleSystemUtils.PrepChosenBattleMove(battleObjManager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveType;
-            string moveName = battleSystemUtils.PrepChosenBattleMove(battleObjManager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveName;
+            string moveType = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveType;
+            string moveName = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveName;
             if(ongoingMinigameData.completedSuccessfully){
-                if(isEnemyTurn) battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful, but you decreased it's effect!";
-                else battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful with an increased effect!";
+                if(isEnemyTurn) _manager.dialogueText.text = "The " + moveType + " " + moveName + " is successful, but you decreased it's effect!";
+                else _manager.dialogueText.text = "The " + moveType + " " + moveName + " is successful with an increased effect!";
             } else {
-                battleObjManager.dialogueText.text = "The " + moveType + " " + moveName + " is successful!";
+                _manager.dialogueText.text = "The " + moveType + " " + moveName + " is successful!";
             }
 
-
-            newState = new BattleStateAttackAnimationApproach();
+            if(moveType=="Attack")
+                newState = new BattleStateAttackAnimationApproach();
+            else 
+                newState = new BattleStateSpellAnimationApproach();
             
 
 

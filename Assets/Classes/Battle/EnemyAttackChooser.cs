@@ -6,13 +6,12 @@ using UnityEngine;
 
 public class EnemyAttackChooser
 {
-    public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
     public BattleSystemUtils utils = new BattleSystemUtils();
-    public BattleMoveBase battleMoveLibrary = new BattleMoveBase();
 
     public List<string> GetPossibleAttackTargets(){
         List<string> possibleTargets = new List<string>();
-        foreach(var pm in battleObjManager.playerParty){
+        foreach(var pm in _manager.allPlayers){
             if(utils.GetCharacter(pm).currentHP > 0){
                 possibleTargets.Add(pm);
             }
@@ -24,20 +23,41 @@ public class EnemyAttackChooser
 
     public Dictionary<string, int> GetAllAttackOptions(string enemyName){
         Dictionary<string, int> allOptions = new Dictionary<string, int>();
-        foreach(var t in GetPossibleAttackTargets()){
-            foreach(var a in utils.GetCharacter(enemyName).attackNames){
-                BattleMoveBase battleMoveRef = battleMoveLibrary.GetBattleMoveClass(a);
-                battleMoveRef.userName = enemyName;
-                battleMoveRef.targetName = t;
+        List<string> allBattleMoves = new List<string>();
+        List<string> allTargets = GetPossibleAttackTargets();
+
+        foreach(var attack in utils.GetCharacter(enemyName).attackNames)
+            allBattleMoves.Add(attack);
+
+        foreach(var spell in utils.GetCharacter(enemyName).spellNames)
+            allBattleMoves.Add(spell);
+
+        // NOTE: this gives only 1 instance of an attack that does not require a target, so scaling might be needed for smarter AI
+
+        foreach(var a in allBattleMoves){
+            BattleMoveBase battleMoveRef = BattleMoveBase.GetBattleMoveClass(a);
+            battleMoveRef.userName = enemyName;
+            if(battleMoveRef.needsTarget){
+                foreach(var t in allTargets){
+                    battleMoveRef.targetName = t;
+                    if(battleMoveRef.CheckFeasibility()){
+                        int attackPointsAi = battleMoveRef.GetMoveValueForAi();
+                        if(attackPointsAi <= 0)
+                            continue;
+                        allOptions.Add(a + "|" + t, attackPointsAi);
+                    }
+                }
+
+            } else {
                 if(battleMoveRef.CheckFeasibility()){
                     int attackPointsAi = battleMoveRef.GetMoveValueForAi();
                     if(attackPointsAi <= 0)
                         continue;
-                    if(t == "Forest Mage")
-                        attackPointsAi = attackPointsAi + 25;
-                    allOptions.Add(a + "|" + t, attackPointsAi);
+                    allOptions.Add(a + "|", attackPointsAi);
                 }
+
             }
+
         }
 
         return allOptions;

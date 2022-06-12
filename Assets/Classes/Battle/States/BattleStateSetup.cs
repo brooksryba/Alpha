@@ -7,10 +7,10 @@ public class BattleStateSetup : BattleState
 
     override public IEnumerator execute()
     {
-        //battleObjManager.Init();
-        battleObjManager.battleSystemHud.RefreshAllHUDs();
+        //_manager.Init();
+        _manager.battleSystemHud.RefreshAllHUDs();
 
-        battleObjManager.dialogueText.text = battleObjManager.enemyUnit.title + " engages in battle...";
+        _manager.dialogueText.text = _manager.enemyParty[0] + " engages in battle...";
 
         yield return new WaitForSeconds(1f);
 

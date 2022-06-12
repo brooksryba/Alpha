@@ -295,7 +295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 530, y: 0}
+  m_AnchoredPosition: {x: 606.00006, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200048343
@@ -391,7 +391,11 @@ MonoBehaviour:
   allPlayers: []
   deadPlayerList: []
   allCharacters: []
+  startColor: {r: 0, g: 0, b: 0, a: 0}
   chosenBattleMove: 
+  chosenItem: 
+  spellPrefab: {fileID: 0}
+  spellObj: {fileID: 0}
   battleStateMachine: {fileID: 1626255951}
 --- !u!4 &213897747
 Transform:

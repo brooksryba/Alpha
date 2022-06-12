@@ -2,7 +2,6 @@ using UnityEngine;
 using System.Collections.Generic;
 public class BattleSystemUtils
 {
-    public BattleMoveBase battleMoveLibrary = new BattleMoveBase();
 
     public Character GetCharacter(string id)
     {
@@ -12,7 +11,7 @@ public class BattleSystemUtils
     }
 
     public string GetMinigameNameFromBattleMove(string moveName, bool isEnemy){
-        BattleMoveBase chosenMove = battleMoveLibrary.GetBattleMoveClass(moveName);
+        BattleMoveBase chosenMove = BattleMoveBase.GetBattleMoveClass(moveName);
         if(!isEnemy)
             return chosenMove.minigameName;
         return chosenMove.defenseMinigameName;
@@ -31,7 +30,7 @@ public class BattleSystemUtils
 
 
     public BattleMoveBase PrepChosenBattleMove(string moveName, Character user, Character target){
-        BattleMoveBase chosenMove = battleMoveLibrary.GetBattleMoveClass(moveName);
+        BattleMoveBase chosenMove = BattleMoveBase.GetBattleMoveClass(moveName);
         chosenMove.userName = user.title;
         if(target == null){
             chosenMove.targetName = "";

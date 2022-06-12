@@ -9,28 +9,25 @@ public class BattleStatePlayerAttack : BattleState
     {
         newState = this;
 
-        battleObjManager.battleSystemMenu.closeOptionSubmenu();
-        battleObjManager.battleSystemHud.canSelect = true;
-        if(battleSystemUtils.ConfirmBattleMoveInputs(battleObjManager.chosenBattleMove, battleObjManager.playerUnit, battleObjManager.battleSystemHud.selection)){
-            battleObjManager.battleSystemHud.canSelect = false;        
-            battleObjManager.enemyUnit = battleObjManager.battleSystemHud.selection;
+        _manager.battleSystemMenu.closeOptionSubmenu();
+        _manager.battleSystemHud.canSelect = true;
+        if(battleSystemUtils.ConfirmBattleMoveInputs(_manager.chosenBattleMove, _manager.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection)){
+            _manager.battleSystemHud.canSelect = false;        
            
-            bool isAccepted = battleSystemUtils.ConfirmBattleMoveFeasibility(battleObjManager.chosenBattleMove, battleObjManager.playerUnit, battleObjManager.enemyUnit); 
-            battleObjManager.battleSystemHud.selection = null;
+            bool isAccepted = battleSystemUtils.ConfirmBattleMoveFeasibility(_manager.chosenBattleMove, _manager.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection); 
 
-            battleObjManager.battleSystemHud.RefreshAllHUDs();
+            _manager.battleSystemHud.RefreshAllHUDs();
             if(isAccepted){
-                
-                battleObjManager.defender = null;
-                if(battleObjManager.enemyUnit) battleObjManager.defender = GameObject.Find(battleObjManager.enemyUnit.title);
-                
+                _manager.SetDefender(_manager.battleSystemHud.selection.title);
                 newState = new BattleStateAttackMinigame();
+                _manager.battleSystemHud.selection = null;
 
             }
             else {
-                battleObjManager.dialogueText.text = battleObjManager.playerUnit.title + " cannot choose this attack";
+                _manager.dialogueText.text = _manager.attackerName + " cannot choose this attack";
                 yield return new WaitForSeconds(2f);
                 newState = new BattleStatePlayerStart();
+                _manager.battleSystemHud.selection = null;
             }
         }
 

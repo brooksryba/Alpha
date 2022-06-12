@@ -4,7 +4,7 @@ using UnityEngine;
 public class BattleState
 {
     public BattleState newState;
-    public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
     public BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
 

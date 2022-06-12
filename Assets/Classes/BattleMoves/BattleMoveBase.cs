@@ -14,7 +14,7 @@ public class BattleMoveBase
     public string animationName = "";
     public string moveType = "";
     public string moveName = "";
-    public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
     
     virtual public void _ExecuteBattleMove() {
         // executes the effects of whatever move is selected, overriden in sub classes
@@ -47,14 +47,14 @@ public class BattleMoveBase
     }
 
     public bool IsEnemyUser(){
-        return battleObjManager.enemyParty.Contains(userName);    
+        return _manager.enemyParty.Contains(userName);    
     }
 
     public bool IsUserAndTargetSameTeam(){
         if(targetName=="")
             return false;
-        bool bothEnemies = (IsEnemyUser() && battleObjManager.enemyParty.Contains(targetName));
-        bool bothFriendlies = (!IsEnemyUser() && battleObjManager.playerParty.Contains(targetName));
+        bool bothEnemies = (IsEnemyUser() && _manager.enemyParty.Contains(targetName));
+        bool bothFriendlies = (!IsEnemyUser() && _manager.playerParty.Contains(targetName));
         return (bothEnemies || bothFriendlies);   
     }
 
@@ -67,7 +67,7 @@ public class BattleMoveBase
     }
 
 
-    public BattleMoveBase GetBattleMoveClass(string moveName){
+    static public BattleMoveBase GetBattleMoveClass(string moveName){
         switch(moveName){
             case "Basic Attack":
                 return new BasicAttack();
@@ -86,7 +86,7 @@ public class BattleMoveBase
             case "Immobilize Spell":
                 return new ImmobilizeSpell();
             default:
-                return this;
+                return new BattleMoveBase();
         }
     }
 

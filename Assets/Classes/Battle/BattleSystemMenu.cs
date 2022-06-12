@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleSystemMenu
 {
-    public BattleObjectManager battleObjManager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
 
     public void OpenSubmenu(Character character, GameObject target)
     {
@@ -46,12 +46,12 @@ public class BattleSystemMenu
         Dictionary<string, Action> strategies = new Dictionary<string, Action>();
 
         foreach( var attackName in character.attackNames ) {
-            attacks.Add(attackName, () => { battleObjManager.chosenBattleMove = attackName; });
+            attacks.Add(attackName, () => { _manager.chosenBattleMove = attackName; });
         }
         attacks.Add("Return", () => { });
 
         foreach( var spellName in character.spellNames ) {
-            spells.Add(spellName, () => { battleObjManager.chosenBattleMove = spellName; });
+            spells.Add(spellName, () => { _manager.chosenBattleMove = spellName; });
         }
         spells.Add("Return", () => { });
         
@@ -70,7 +70,7 @@ public class BattleSystemMenu
             }
 
             foreach(KeyValuePair<string, int> item in itemCount ) {
-                items.Add(item.Key + "(x" + item.Value.ToString() + ")", () => { battleObjManager.chosenItem = item.Key; });
+                items.Add(item.Key + "(x" + item.Value.ToString() + ")", () => { _manager.chosenItem = item.Key; });
             }
 
         }
@@ -85,7 +85,7 @@ public class BattleSystemMenu
         {"Spells >>", delegate { menu.SubMenu(spells); }},
         {"Items >>", delegate { menu.SubMenu(items); }},
         {"Strategies >>", delegate { menu.SubMenu(strategies); }},
-        {"Resign", delegate { battleObjManager.battleStateMachine.Transition(new BattleStateResign()); }},
+        {"Resign", delegate { _manager.battleStateMachine.Transition(new BattleStateResign()); }},
         {"Return", () => {}},
         });
     

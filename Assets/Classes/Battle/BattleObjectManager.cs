@@ -23,23 +23,25 @@ public class BattleObjectManager : MonoBehaviour
     public int turnIndex = -1;
     public int overallTurnNumber;
 
-    public Character playerUnit;
-    public Character enemyUnit;
-
     public GameObject attacker;
-    public Vector3 attackerPositionStart; // this can be a list of Vector2s, think this through for spread attacks regarding having one for defender and attacker
+    public string attackerName;
     public GameObject defender;
-    public Vector3 defenderPositionStart;
+    public string defenderName;
+    public Dictionary<string, Vector3> originalPositions = new Dictionary<string, Vector3>();
+    public Dictionary<string, Color> originalSpriteColors = new Dictionary<string, Color>();
+
 
     public List<string> playerParty;
     public List<string> enemyParty;
     public List<string> allPlayers;
     public List<string> deadPlayerList;
-    public List<Character> allCharacters;
+    public List<Character> characterTurnOrder;
 
 
     public string chosenBattleMove;
     public string chosenItem;
+    public GameObject spellPrefab;
+    public GameObject spellObj;
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
 
@@ -65,11 +67,8 @@ public class BattleObjectManager : MonoBehaviour
         }
 
         GameObject playerGO = initializeParty(ref playerParty, ref playerPrefab, playerBattleStation, playerPartyContainer);
-        playerUnit = playerGO.GetComponent<Character>();
-
         GameObject enemyGO = initializeParty(ref enemyParty, ref enemyPrefab, enemyBattleStation, enemyPartyContainer, true);
-        enemyUnit = enemyGO.GetComponent<Character>();
-
+        _SetInitialProperties();
 
     }
 
@@ -81,8 +80,8 @@ public class BattleObjectManager : MonoBehaviour
             partyLeaderObj.GetComponent<SpriteRenderer>().flipX = true;
         Character partyLeader = partyLeaderPrefab.GetComponent<Character>();
         partyLeaderObj.name = partyLeader.title;
-        //partyLeader.LoadCharacterClass();
-        //partyLeader.LoadState();
+        partyLeader.LoadCharacterClass();
+        partyLeader.LoadState();
         partyList.Add(partyLeader.title);
         allPlayers.Add(partyLeader.title);
 
@@ -94,8 +93,8 @@ public class BattleObjectManager : MonoBehaviour
             GameObject partyMemberObject = Instantiate(Resources.Load<GameObject>("Prefabs/" + pm), battleStationContainer.transform);
             Character partyMemberChar = partyMemberObject.GetComponent<Character>();
             partyMemberObject.name = partyMemberChar.title;
-            //partyMemberChar.LoadCharacterClass();
-            //partyMemberChar.LoadState();
+            partyMemberChar.LoadCharacterClass();
+            partyMemberChar.LoadState();
             partyList.Add(partyMemberChar.title);
             allPlayers.Add(partyMemberChar.title);
 
@@ -111,7 +110,25 @@ public class BattleObjectManager : MonoBehaviour
         return partyLeaderObj;
     }
 
+    public void SetAttacker(string attackerName){
+        this.attackerName = attackerName;
+        this.attacker = GameObject.Find(attackerName);
+    }
 
+    public void SetDefender(string defenderName){
+        this.defenderName = defenderName;
+        this.defender = null;
+        if(defenderName!=null && defenderName!=""){
+            this.defender = GameObject.Find(defenderName);
+        }
+    }
 
+    private void _SetInitialProperties(){
+        for(int i = 0; i < allPlayers.Count; i++){
+            GameObject player = GameObject.Find(allPlayers[i]);
+            originalPositions.Add(allPlayers[i], player.transform.position);
+            originalSpriteColors.Add(allPlayers[i], player.GetComponent<SpriteRenderer>().color);
+        }
+    }
 
 }

@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 
         Character player = gameObject.GetComponent<Character>();
         if(player.currentHP == 0) {
-            player.currentHP = (int)(player.maxHP / 2);
+            player.currentHP = (int)(player.characterClass.maxHP / 2);
             player.SaveState();
 
             this.position = new Vector3();

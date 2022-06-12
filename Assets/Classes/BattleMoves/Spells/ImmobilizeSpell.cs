@@ -32,14 +32,14 @@ public class ImmobilizeSpell : Spell
     {
         if(IsUserAndTargetSameTeam())
             return -5;
-        return (int)(GetDamage()*GetTurnDuration());
+        return (int)(GetManaCost()*GetTurnDuration());
     }
 
     override public void _ExecuteBattleMove() {
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
         caster.useMana(GetManaCost());
-        battleObjManager.battleBonusManager.AddBonus(targetName, "skipTurn", 0.0, -1*GetDamage(), GetTurnDuration());
+        _manager.battleBonusManager.AddBonus(targetName, "skipTurn", 0.0, -1*GetDamage(), GetTurnDuration());
         
     }
 }

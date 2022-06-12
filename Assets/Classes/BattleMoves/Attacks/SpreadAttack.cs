@@ -17,9 +17,9 @@ public class SpreadAttack : Attack
         List<string> startingList = new List<string>();
         defenderList = new List<string>();
         if(!IsEnemyUser()){
-            startingList = battleObjManager.enemyParty;
+            startingList = _manager.enemyParty;
         } else {
-            startingList = battleObjManager.playerParty;
+            startingList = _manager.playerParty;
         }
 
         foreach(var p in startingList){

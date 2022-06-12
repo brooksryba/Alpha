@@ -8,15 +8,15 @@ public class BattleStatePlayerAwaitAction : BattleState
     {
         newState = this;
 
-        battleObjManager.dialogueText.text = "Choose a target for "+battleObjManager.playerUnit.title+":";
-        if(battleObjManager.battleSystemHud.selection != null){
-            battleObjManager.battleSystemMenu.OpenSubmenu(battleObjManager.battleSystemHud.selection, battleObjManager.battleSystemHud.selectionButton);
-            battleObjManager.battleSystemHud.selection = null;
-        } else if(battleObjManager.chosenBattleMove != "" & battleObjManager.chosenBattleMove != null) {
-            battleObjManager.battleSystemHud.RefreshAllHUDs();
+        _manager.dialogueText.text = "Choose a target for "+_manager.attackerName+":";
+        if(_manager.battleSystemHud.selection != null){
+            _manager.battleSystemMenu.OpenSubmenu(_manager.battleSystemHud.selection, _manager.battleSystemHud.selectionButton);
+            _manager.battleSystemHud.selection = null;
+        } else if(_manager.chosenBattleMove != "" & _manager.chosenBattleMove != null) {
+            _manager.battleSystemHud.RefreshAllHUDs();
             newState = new BattleStatePlayerAttack();
-        } else if(battleObjManager.chosenItem != "" & battleObjManager.chosenItem != null) {
-            battleObjManager.battleSystemHud.RefreshAllHUDs();
+        } else if(_manager.chosenItem != "" & _manager.chosenItem != null) {
+            _manager.battleSystemHud.RefreshAllHUDs();
             newState = new BattleStateUseItem();
         }
 

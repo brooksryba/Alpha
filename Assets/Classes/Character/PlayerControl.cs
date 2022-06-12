@@ -47,7 +47,7 @@ public class PlayerControl : MonoBehaviour
             menu.Open(new Dictionary<string, Action>(){
                 {"Player", () => {
                     Character player = GameObject.Find("Player").GetComponent<Character>();
-                    string message = "HP: " + player.currentHP + "/" + player.maxHP + "\nMana: " + player.currentMana + "/" + player.maxMana;
+                    string message = "HP: " + player.currentHP + "/" + player.characterClass.maxHP + "\nMana: " + player.currentMana + "/" + player.characterClass.maxMana;
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
                 }},
                 {"Items >>", delegate { menu.SubMenu(items); }},

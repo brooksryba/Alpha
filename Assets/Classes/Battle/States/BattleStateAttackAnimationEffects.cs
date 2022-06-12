@@ -9,14 +9,14 @@ public class BattleStateAttackAnimationEffects : BattleState
         newState = this;
         GameObject effect;
 
-        if(battleObjManager.attacker.transform.GetChild(0).Find(battleObjManager.chosenBattleMove))
-            effect = battleObjManager.attacker.transform.GetChild(0).Find(battleObjManager.chosenBattleMove).gameObject;
+        if(_manager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove))
+            effect = _manager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove).gameObject;
         else 
-            effect = battleObjManager.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
+            effect = _manager.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
 
         if(effect) {
             Vector3 originalRotation = effect.transform.eulerAngles;
-            if(battleObjManager.attackerPositionStart.x > 0) {
+            if(_manager.originalPositions[_manager.attackerName].x > 0) {
                 effect.transform.eulerAngles = new Vector3(
                     effect.transform.eulerAngles.x,
                     effect.transform.eulerAngles.y ,
@@ -28,12 +28,12 @@ public class BattleStateAttackAnimationEffects : BattleState
             effect.SetActive(false);
             effect.transform.eulerAngles = originalRotation;
         }
-        battleObjManager.battleSystemHud.RefreshAllHUDs();
+        _manager.battleSystemHud.RefreshAllHUDs();
 
         // animate players who have died
-        for(int i = 0; i < battleObjManager.allPlayers.Count; i++){
-            if(battleSystemUtils.CheckPlayerDeadAndAnimate(battleObjManager.allPlayers[i]))
-                battleObjManager.deadPlayerList.Add(battleObjManager.allPlayers[i]);
+        for(int i = 0; i < _manager.allPlayers.Count; i++){
+            if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.allPlayers[i]))
+                _manager.deadPlayerList.Add(_manager.allPlayers[i]);
         }        
 
         newState = new BattleStateAttackAnimationRetreat();

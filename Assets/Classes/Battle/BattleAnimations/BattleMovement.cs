@@ -26,6 +26,7 @@ public class BattleMovement : MonoBehaviour
             direction.x = (positionStart.x > positionEnd.x ? -1 : (positionStart.x == positionEnd.x ? 0 : 1)); // left if -1, none if 0, right if 1
             direction.y = (positionStart.y > positionEnd.y ? -1 * yComp : (positionStart.y == positionEnd.y ? 0 : yComp)); // down if -1, none if 0, up if 1
 
+
             if(animator) {
                 animator.SetFloat("Horizontal", direction.x);
                 animator.SetFloat("Vertical", direction.y);
@@ -35,7 +36,7 @@ public class BattleMovement : MonoBehaviour
             if((direction.y > 0 ? rb.position.y >= positionEnd.y : rb.position.y <= positionEnd.y)) direction.y = 0;
             if((direction.x > 0 ? rb.position.x >= positionEnd.x : rb.position.x <= positionEnd.x)) direction.x = 0;
 
-            if(direction.x != 0 || direction.y != 0) {            
+            if(direction.x != 0 || direction.y != 0) {   
                 rb.MovePosition(rb.position + direction * moveSpeed * Time.fixedDeltaTime);
             } else {
                 if(animator) {

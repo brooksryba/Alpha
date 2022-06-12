@@ -7,13 +7,13 @@ public class BattleStatePlayerStart : BattleState
     override public IEnumerator execute()
     {
         newState = this;
-        battleObjManager.battleSystemHud.disableUnusableHuds(battleObjManager.playerUnit.title, battleObjManager.playerParty);
+        _manager.battleSystemHud.disableUnusableHuds(_manager.attackerName, _manager.playerParty);
 
-        battleObjManager.dialogueText.text = "It's "+battleObjManager.playerUnit.title+" turn to attack!";
-        battleObjManager.battleSystemHud.canSelect = true;
+        _manager.dialogueText.text = "It's "+_manager.attackerName+" turn to attack!";
+        _manager.battleSystemHud.canSelect = true;
 
-        if(battleObjManager.battleSystemHud.selection != null){
-            battleObjManager.battleSystemHud.canSelect = false;
+        if(_manager.battleSystemHud.selection != null){
+            _manager.battleSystemHud.canSelect = false;
             newState = new BattleStatePlayerAwaitAction();
         }
 

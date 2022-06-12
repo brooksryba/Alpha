@@ -32,11 +32,11 @@ public class BattleHUD : MonoBehaviour
     {
         nameText.text = character.title;
         levelText.text = "Lv" + character.level;
-        hpSlider.maxValue = character.maxHP;
+        hpSlider.maxValue = character.characterClass.maxHP;
         hpSlider.value = character.currentHP;
         hpText.text = character.currentHP.ToString() + " HP";
 
-        manaSlider.maxValue = character.maxMana;
+        manaSlider.maxValue = character.characterClass.maxMana;
         manaSlider.value = character.currentMana;
         manaText.text = character.currentMana.ToString() + " Mana";
 
