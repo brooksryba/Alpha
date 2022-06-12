@@ -44,10 +44,12 @@ public class PlayerMovement : MonoBehaviour
     {
         PlayerLocationData data = SaveSystem.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
         if( data != null ) {
-            this.position = new Vector3();
-            this.position.x = data.position[0];
-            this.position.y = data.position[1];
-            this.position.z = 0;
+            if(data.scene == SceneManager.GetActiveScene().name) {
+                this.position = new Vector3();
+                this.position.x = data.position[0];
+                this.position.y = data.position[1];
+                this.position.z = 0;
+            }
         }
     }
 
@@ -174,6 +176,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Portal portal = collision.gameObject.GetComponent<Portal>();
         playerScriptable.Write(portal.target);
+        SaveSystem.Deregister();
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
 }

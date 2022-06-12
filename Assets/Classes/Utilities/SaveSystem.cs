@@ -46,6 +46,10 @@ public static class SaveSystem {
         }
     }
 
+    public static void Deregister() {
+        references = new Dictionary<string, Action>();
+    }
+
     public static void Register(string name, Action saver) {
         if(!references.ContainsKey(name))
             references.Add(name, saver);
