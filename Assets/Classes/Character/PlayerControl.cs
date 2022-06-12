@@ -9,10 +9,14 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( Input.GetKeyUp(KeyCode.R) ) {
-            SaveSystem.Reset();
+        if( Input.GetKeyUp(KeyCode.F1) ) {
+            SaveSystem.ResetAndDeregister();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        if( Input.GetKeyUp(KeyCode.F2) ) {
+            SaveSystem.Save();
+            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
+        }        
         if( Input.GetKeyUp(KeyCode.E) ) {
             GameObject.Find("Player").GetComponent<PlayerMovement>().HandleCollisionInteraction();
         }        

@@ -61,4 +61,14 @@ public static class SaveSystem {
         }
     }
 
+    public static void SaveAndDeregister() {
+        Save();
+        Deregister();
+    }
+
+    public static void ResetAndDeregister() {
+        Reset();
+        Deregister();
+    }    
+
 }

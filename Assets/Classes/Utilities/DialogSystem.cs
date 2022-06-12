@@ -7,7 +7,7 @@ using TMPro;
 
 public class DialogSystem : MonoBehaviour
 {
-    public int timeout = 2;
+    int timeout = 2;
     // Start is called before the first frame update
     void Start()
     {

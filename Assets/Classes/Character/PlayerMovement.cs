@@ -109,10 +109,17 @@ public class PlayerMovement : MonoBehaviour
                 GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
             } else if (collision.gameObject.tag == "Enemy" && !dialogLock) {
                 dialogLock = true;
-                movementLock = true;
 
                 Character enemy = collision.gameObject.GetComponent<Character>();
-                GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
+
+                if(enemy.currentHP > 0) {
+                    movementLock = true;
+                    enemy.dialogIndex = 0;
+                    GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
+                } else {
+
+                    GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; }); 
+                }
             }
         }
     }    
@@ -133,11 +140,12 @@ public class PlayerMovement : MonoBehaviour
     void HandleEnemy(Collision2D collision)
     {
         Character enemy = collision.gameObject.GetComponent<Character>();
-        if(enemy.currentHP > 0) {
-            battleScriptable.enemy = collision.gameObject.name;
-            playerScriptable.Write(transform.position);
-            SceneManager.LoadScene(sceneName:"Battle");        
-        }
+
+        battleScriptable.enemy = collision.gameObject.name;
+        battleScriptable.scene = SceneManager.GetActiveScene().name;
+        playerScriptable.Write(transform.position);
+        SaveSystem.SaveAndDeregister();
+        SceneManager.LoadScene(sceneName:"Battle");        
     }
 
     void HandleInventoryItem(Collision2D collision)
@@ -162,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Portal portal = collision.gameObject.GetComponent<Portal>();
         playerScriptable.Write(portal.target);
-        SaveSystem.Deregister();
+        SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
 }

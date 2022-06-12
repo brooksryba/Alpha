@@ -6,17 +6,18 @@ using TMPro;
 
 public class ToastSystem : MonoBehaviour
 {
+    int timeout = 2;
     // Start is called before the first frame update
     void Start()
     {
         Close();
     }
 
-    public void Open(string message, int duration = 3)
+    public void Open(string message)
     {
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
-        StartCoroutine(TimedClose(duration));
+        StartCoroutine(TimedClose());
     }
 
     public void Close()
@@ -25,9 +26,9 @@ public class ToastSystem : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    IEnumerator TimedClose(int duration)
+    IEnumerator TimedClose()
     {
-        yield return new WaitForSeconds(duration);
+        yield return new WaitForSeconds(timeout);
         Close();
     }
 }
