@@ -12,11 +12,11 @@ public class BattleStateSpellAnimationEffects : BattleState
         newState = this;
         if(_manager.spellObj){
             GameObject.Destroy(_manager.spellObj);
-            spriteController = _manager.defender.GetComponent<BattleSpriteController>();
+            spriteController = _manager.charManager.defender.GetComponent<BattleSpriteController>();
             
         }
 
-        if (_manager.defender) {
+        if (_manager.charManager.defender) {
             if(spriteController) {
                 spriteController.TransitionColors(spriteController.sprite.color, new Color (1f, 0f, 0f, 0.75f), 2.0f);
                 yield return new WaitForSeconds(1.5f);
@@ -29,9 +29,9 @@ public class BattleStateSpellAnimationEffects : BattleState
 
 
         // animate players who have died
-        for(int i = 0; i < _manager.allPlayers.Count; i++){
-            if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.allPlayers[i]))
-                _manager.deadPlayerList.Add(_manager.allPlayers[i]);
+        for(int i = 0; i < _manager.charManager.allPlayers.Count; i++){
+            if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.charManager.allPlayers[i]))
+                _manager.charManager.deadPlayerList.Add(_manager.charManager.allPlayers[i]);
         }        
 
         newState = new BattleStateSpellAnimationRetreat();

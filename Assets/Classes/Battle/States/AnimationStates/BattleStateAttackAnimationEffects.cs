@@ -9,14 +9,14 @@ public class BattleStateAttackAnimationEffects : BattleState
         newState = this;
         GameObject effect;
 
-        if(_manager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove))
-            effect = _manager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove).gameObject;
+        if(_manager.charManager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove))
+            effect = _manager.charManager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove).gameObject;
         else 
-            effect = _manager.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
+            effect = _manager.charManager.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
 
         if(effect) {
             Vector3 originalRotation = effect.transform.eulerAngles;
-            if(_manager.originalPositions[_manager.attackerName].x > 0) {
+            if(_manager.charManager.originalPositions[_manager.charManager.attackerName].x > 0) {
                 effect.transform.eulerAngles = new Vector3(
                     effect.transform.eulerAngles.x,
                     effect.transform.eulerAngles.y ,
@@ -31,9 +31,9 @@ public class BattleStateAttackAnimationEffects : BattleState
         _manager.battleSystemHud.RefreshAllHUDs();
 
         // animate players who have died
-        for(int i = 0; i < _manager.allPlayers.Count; i++){
-            if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.allPlayers[i]))
-                _manager.deadPlayerList.Add(_manager.allPlayers[i]);
+        for(int i = 0; i < _manager.charManager.allPlayers.Count; i++){
+            if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.charManager.allPlayers[i]))
+                _manager.charManager.deadPlayerList.Add(_manager.charManager.allPlayers[i]);
         }        
 
         newState = new BattleStateAttackAnimationRetreat();

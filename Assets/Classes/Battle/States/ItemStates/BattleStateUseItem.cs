@@ -12,7 +12,7 @@ public class BattleStateUseItem : BattleState
 
         if(BattleItems.lookup.ContainsKey(_manager.chosenItem)) {
             InventoryItemData itemData = BattleItems.lookup[_manager.chosenItem];
-            Character activeCharacter = _manager.attacker.GetComponent<Character>();
+            Character activeCharacter = _manager.charManager.attacker.GetComponent<Character>();
             _manager.dialogueText.text = itemData.Execute(activeCharacter);
             yield return new WaitForSeconds(1.5f); 
             newState = new BattleStateAttackEnd();

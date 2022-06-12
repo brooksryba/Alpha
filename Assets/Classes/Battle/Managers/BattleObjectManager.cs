@@ -7,7 +7,7 @@ public class BattleObjectManager : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI turnCounterText;
-    
+
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 
@@ -16,32 +16,21 @@ public class BattleObjectManager : MonoBehaviour
 
     public GameObject playerPartyContainer;
     public GameObject enemyPartyContainer;
+    public GameObject spellPrefab;
+    public GameObject spellObj;
 
+    
     public BattleState state;
     public BattleSceneScriptable battleScriptable;
+
+    public BattleCharacterManager charManager = new BattleCharacterManager();
 
     public int turnIndex = -1;
     public int overallTurnNumber;
 
-    public GameObject attacker;
-    public string attackerName;
-    public GameObject defender;
-    public string defenderName;
-    public Dictionary<string, Vector3> originalPositions = new Dictionary<string, Vector3>();
-    public Dictionary<string, Color> originalSpriteColors = new Dictionary<string, Color>();
-
-
-    public List<string> playerParty;
-    public List<string> enemyParty;
-    public List<string> allPlayers;
-    public List<string> deadPlayerList;
-    public List<Character> characterTurnOrder;
-
-
     public string chosenBattleMove;
     public string chosenItem;
-    public GameObject spellPrefab;
-    public GameObject spellObj;
+
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
 
@@ -66,8 +55,8 @@ public class BattleObjectManager : MonoBehaviour
             enemyPrefab = Resources.Load("Prefabs/Characters/" + battleScriptable.enemy) as GameObject;
         }
 
-        GameObject playerGO = initializeParty(ref playerParty, ref playerPrefab, playerBattleStation, playerPartyContainer);
-        GameObject enemyGO = initializeParty(ref enemyParty, ref enemyPrefab, enemyBattleStation, enemyPartyContainer, true);
+        GameObject playerGO = initializeParty(ref charManager.playerParty, ref playerPrefab, playerBattleStation, playerPartyContainer);
+        GameObject enemyGO = initializeParty(ref charManager.enemyParty, ref enemyPrefab, enemyBattleStation, enemyPartyContainer, true);
         _SetInitialProperties();
 
     }
@@ -83,7 +72,7 @@ public class BattleObjectManager : MonoBehaviour
         partyLeader.LoadCharacterClass();
         partyLeader.LoadState();
         partyList.Add(partyLeader.title);
-        allPlayers.Add(partyLeader.title);
+        charManager.allPlayers.Add(partyLeader.title);
 
         battleSystemHud.createSingleHUD(ref partyLeaderObj, ref partyLeader, partyContainer);
 
@@ -96,7 +85,7 @@ public class BattleObjectManager : MonoBehaviour
             partyMemberChar.LoadCharacterClass();
             partyMemberChar.LoadState();
             partyList.Add(partyMemberChar.title);
-            allPlayers.Add(partyMemberChar.title);
+            charManager.allPlayers.Add(partyMemberChar.title);
 
             // @todo - right now it puts next party member down 2 * its height. Should try and make this more flexible
             partyMemberObject.transform.SetParent(battleStationContainer.transform);
@@ -111,23 +100,23 @@ public class BattleObjectManager : MonoBehaviour
     }
 
     public void SetAttacker(string attackerName){
-        this.attackerName = attackerName;
-        this.attacker = GameObject.Find(attackerName);
+        charManager.attackerName = attackerName;
+        charManager.attacker = GameObject.Find(attackerName);
     }
 
     public void SetDefender(string defenderName){
-        this.defenderName = defenderName;
-        this.defender = null;
+        charManager.defenderName = defenderName;
+        charManager.defender = null;
         if(defenderName!=null && defenderName!=""){
-            this.defender = GameObject.Find(defenderName);
+            charManager.defender = GameObject.Find(defenderName);
         }
     }
 
     private void _SetInitialProperties(){
-        for(int i = 0; i < allPlayers.Count; i++){
-            GameObject player = GameObject.Find(allPlayers[i]);
-            originalPositions.Add(allPlayers[i], player.transform.position);
-            originalSpriteColors.Add(allPlayers[i], player.GetComponent<SpriteRenderer>().color);
+        for(int i = 0; i < charManager.allPlayers.Count; i++){
+            GameObject player = GameObject.Find(charManager.allPlayers[i]);
+            charManager.originalPositions.Add(charManager.allPlayers[i], player.transform.position);
+            charManager.originalSpriteColors.Add(charManager.allPlayers[i], player.GetComponent<SpriteRenderer>().color);
         }
     }
 

@@ -7,7 +7,7 @@ public class BattleStateAttackEnd : BattleState
     {
         newState = this;
 
-        _manager.battleBonusManager.IncrementPlayerTurn(_manager.attacker.GetComponent<Character>().title);
+        _manager.battleBonusManager.IncrementPlayerTurn(_manager.charManager.attacker.GetComponent<Character>().title);
 
         _manager.battleSystemHud.RefreshAllHUDs();
     
@@ -16,7 +16,7 @@ public class BattleStateAttackEnd : BattleState
 
         yield return new WaitForSeconds(2f);
 
-        if(battleSystemUtils.PartyDead(_manager.enemyParty) || battleSystemUtils.PartyDead(_manager.playerParty)){
+        if(battleSystemUtils.PartyDead(_manager.charManager.enemyParty) || battleSystemUtils.PartyDead(_manager.charManager.playerParty)){
             newState = new BattleStateEnd();
         }      
 

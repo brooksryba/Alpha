@@ -11,7 +11,7 @@ public class EnemyAttackChooser
 
     public List<string> GetPossibleAttackTargets(){
         List<string> possibleTargets = new List<string>();
-        foreach(var pm in _manager.allPlayers){
+        foreach(var pm in _manager.charManager.allPlayers){
             if(utils.GetCharacter(pm).currentHP > 0){
                 possibleTargets.Add(pm);
             }

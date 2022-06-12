@@ -7,20 +7,20 @@ public class BattleStateAttackAnimationApproach : BattleState
     override public IEnumerator execute()
     {
         newState = this;
-        bool isPlayer = (_manager.playerParty.Contains(_manager.attackerName));
+        bool isPlayer = (_manager.charManager.playerParty.Contains(_manager.charManager.attackerName));
 
 
-        BattleMovement battleMovement = _manager.attacker.GetComponent<BattleMovement>();
+        BattleMovement battleMovement = _manager.charManager.attacker.GetComponent<BattleMovement>();
         if(battleMovement && !battleMovement.isFinished && !battleMovement.isAnimating) {
             Vector3 offset = new Vector3(isPlayer ? 2 : -2, 0, 0);
             Vector3 targetPosition = new Vector3();
-            if(_manager.defender) {
-                targetPosition = _manager.defender.transform.position;
+            if(_manager.charManager.defender) {
+                targetPosition = _manager.charManager.defender.transform.position;
             }
             else {
                 targetPosition = offset + new Vector3(0, 2, 0);
             }
-            battleMovement.Animate(_manager.attacker.transform.position, targetPosition - offset); 
+            battleMovement.Animate(_manager.charManager.attacker.transform.position, targetPosition - offset); 
             // @todo - The subtraction in the above line is not a fix and should be fixed
         }
 

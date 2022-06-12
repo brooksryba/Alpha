@@ -47,14 +47,14 @@ public class BattleMoveBase
     }
 
     public bool IsEnemyUser(){
-        return _manager.enemyParty.Contains(userName);    
+        return _manager.charManager.enemyParty.Contains(userName);    
     }
 
     public bool IsUserAndTargetSameTeam(){
         if(targetName=="")
             return false;
-        bool bothEnemies = (IsEnemyUser() && _manager.enemyParty.Contains(targetName));
-        bool bothFriendlies = (!IsEnemyUser() && _manager.playerParty.Contains(targetName));
+        bool bothEnemies = (IsEnemyUser() && _manager.charManager.enemyParty.Contains(targetName));
+        bool bothFriendlies = (!IsEnemyUser() && _manager.charManager.playerParty.Contains(targetName));
         return (bothEnemies || bothFriendlies);   
     }
 

@@ -7,12 +7,12 @@ public class BattleStateSpellAnimationRetreat : BattleState
     override public IEnumerator execute()
     {
         newState = this;
-        BattleSpriteController spriteController = _manager.defender.GetComponent<BattleSpriteController>();
+        BattleSpriteController spriteController = _manager.charManager.defender.GetComponent<BattleSpriteController>();
 
 
-        if (_manager.defender) {
+        if (_manager.charManager.defender) {
             if(spriteController) {
-                spriteController.TransitionColors(spriteController.sprite.color, _manager.originalSpriteColors[_manager.defenderName], 2.0f);
+                spriteController.TransitionColors(spriteController.sprite.color, _manager.charManager.originalSpriteColors[_manager.charManager.defenderName], 2.0f);
                 yield return new WaitForSeconds(1f);
         
             }

@@ -13,10 +13,10 @@ public class BattleStateSpellAnimationApproach : BattleState
             createSpellObj = false;
             _manager.spellPrefab = Resources.Load("Prefabs/Spells/" + _manager.chosenBattleMove) as GameObject;
             if(_manager.spellPrefab){
-                _manager.spellObj = GameObject.Instantiate(_manager.spellPrefab, _manager.attacker.transform);
+                _manager.spellObj = GameObject.Instantiate(_manager.spellPrefab, _manager.charManager.attacker.transform);
             } else {
                 _manager.spellPrefab = Resources.Load("Prefabs/Spells/SpellOrb") as GameObject;
-                _manager.spellObj = GameObject.Instantiate(_manager.spellPrefab, _manager.attacker.transform);
+                _manager.spellObj = GameObject.Instantiate(_manager.spellPrefab, _manager.charManager.attacker.transform);
             }
 
         }
@@ -25,11 +25,11 @@ public class BattleStateSpellAnimationApproach : BattleState
 
         if(battleMovement && !battleMovement.isFinished && !battleMovement.isAnimating) {
             Vector3 offset = new Vector3(0, 0, 0);
-            int flipInt = (_manager.playerParty.Contains(_manager.attacker.GetComponent<Character>().title)) ? 1 : -1;
+            int flipInt = (_manager.charManager.playerParty.Contains(_manager.charManager.attacker.GetComponent<Character>().title)) ? 1 : -1;
             Vector3 targetPosition = new Vector3();
             _manager.spellObj.transform.position = _manager.spellObj.transform.position + new Vector3(flipInt*1f, 0.0f, 0.0f);
-            if(_manager.defender) {
-                targetPosition = _manager.defender.transform.position;
+            if(_manager.charManager.defender) {
+                targetPosition = _manager.charManager.defender.transform.position;
             }
             else {
                 targetPosition = offset + new Vector3(0, 2, 0);

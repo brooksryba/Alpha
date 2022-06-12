@@ -11,8 +11,6 @@ public class BattleStateAttackMinigame : BattleState
     public GameObject minigameObj;
     public GameObject minigameContainer;
     public BattleMinigameData ongoingMinigameData;
-    public string attackerName;
-    public string defenderName;
 
     override public IEnumerator execute()
     {
@@ -22,9 +20,7 @@ public class BattleStateAttackMinigame : BattleState
         if(!minigameStarted){
             
             minigameStarted = true;
-            attackerName = _manager.attacker.GetComponent<Character>().title;
-            if(_manager.defender) defenderName = _manager.defender.GetComponent<Character>().title;
-            isEnemyTurn = _manager.enemyParty.Contains(attackerName);
+            isEnemyTurn = _manager.charManager.enemyParty.Contains(_manager.charManager.attackerName);
 
             string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenBattleMove, isEnemyTurn);
 
@@ -51,22 +47,22 @@ public class BattleStateAttackMinigame : BattleState
             if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
             battleSystemUtils.ExecuteBattleMove(_manager.chosenBattleMove, 
-                                       battleSystemUtils.GetCharacter(attackerName), 
-                                       battleSystemUtils.GetCharacter(defenderName), 
+                                       battleSystemUtils.GetCharacter(_manager.charManager.attackerName), 
+                                       battleSystemUtils.GetCharacter(_manager.charManager.defenderName), 
                                        isEnemyTurn ? 1.0f / ongoingMinigameData.bonusMultiplier: ongoingMinigameData.bonusMultiplier,
                                        ongoingMinigameData.completedSuccessfully);
 
+            BattleMoveBase chosenMoveDetails = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove,
+                    battleSystemUtils.GetCharacter(_manager.charManager.attackerName), battleSystemUtils.GetCharacter(_manager.charManager.defenderName));
 
-            string moveType = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveType;
-            string moveName = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove, battleSystemUtils.GetCharacter(attackerName), battleSystemUtils.GetCharacter(defenderName)).moveName;
             if(ongoingMinigameData.completedSuccessfully){
-                if(isEnemyTurn) _manager.dialogueText.text = "The " + moveType + " " + moveName + " is successful, but you decreased it's effect!";
-                else _manager.dialogueText.text = "The " + moveType + " " + moveName + " is successful with an increased effect!";
+                if(isEnemyTurn) _manager.dialogueText.text = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful, but you decreased it's effect!";
+                else _manager.dialogueText.text = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful with an increased effect!";
             } else {
-                _manager.dialogueText.text = "The " + moveType + " " + moveName + " is successful!";
+                _manager.dialogueText.text = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful!";
             }
 
-            if(moveType=="Attack")
+            if(chosenMoveDetails.moveType=="Attack")
                 newState = new BattleStateAttackAnimationApproach();
             else 
                 newState = new BattleStateSpellAnimationApproach();
