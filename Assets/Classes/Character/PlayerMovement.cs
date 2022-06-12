@@ -15,6 +15,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 position;
 
     public BattleSceneScriptable battleScriptable;
+    public PlayerScriptable playerScriptable;
     
     Vector2 movement;
     public bool movementLock = false;
@@ -25,8 +26,12 @@ public class PlayerMovement : MonoBehaviour
         SaveSystem.Register("PlayerLocation", () => { SaveState(); });
         if( loadPosition == true ) {
             LoadState();
-            if(!(position.x == 0 && position.y == 0))
-                transform.position = position;
+            if(playerScriptable.ready) {
+                transform.position = playerScriptable.Read();
+            } else {
+                if(!(position.x == 0 && position.y == 0))
+                    transform.position = position;
+            }
         }
     }
     
@@ -167,10 +172,8 @@ public class PlayerMovement : MonoBehaviour
 
     void HandlePortal(Collision2D collision)
     {
-        if( loadPosition == true ) {
-            gameObject.transform.position -= new Vector3(0, 1, 0);
-        } 
-        string gname = collision.gameObject.name.Substring(7);
-        SceneManager.LoadScene(sceneName: gname);        
+        Portal portal = collision.gameObject.GetComponent<Portal>();
+        playerScriptable.Write(portal.target);
+        SceneManager.LoadScene(sceneName: portal.scene);        
     }     
 }

@@ -339,6 +339,7 @@ MonoBehaviour:
   animator: {fileID: 26244351}
   position: {x: 0, y: 0, z: 0}
   battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
+  playerScriptable: {fileID: 11400000, guid: 6b2ca5ef543b10f488665bdc95ae69c6, type: 2}
   movementLock: 0
   dialogLock: 0
 --- !u!4 &26244358 stripped
