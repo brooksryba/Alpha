@@ -22,9 +22,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        if( loadPosition == true) {
+        if( loadPosition == true ) {
             LoadState();
-            transform.position = position;
+            if(!(position.x == 0 && position.y == 0))
+                transform.position = position;
         }
     }
     
@@ -41,7 +42,6 @@ public class PlayerMovement : MonoBehaviour
             this.position.x = data.position[0];
             this.position.y = data.position[1];
             this.position.z = 0;
-
         }
     }
 

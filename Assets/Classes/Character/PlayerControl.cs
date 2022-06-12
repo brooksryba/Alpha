@@ -11,7 +11,7 @@ public class PlayerControl : MonoBehaviour
     {
         if( Input.GetKeyUp(KeyCode.R) ) {
             SaveSystem.Reset();
-            SceneManager.LoadScene("World");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if( Input.GetKeyUp(KeyCode.E) ) {
             GameObject.Find("Player").GetComponent<PlayerMovement>().HandleInteraction();
