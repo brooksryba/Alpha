@@ -55,6 +55,12 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("Horizontal", movement.x);
         animator.SetFloat("Vertical", movement.y);
         animator.SetFloat("Speed", movement.sqrMagnitude);
+
+        Vector2 clamp = new Vector2(
+            Mathf.RoundToInt(transform.position.x * 16), 
+        Mathf.RoundToInt(transform.position.y * 16)) / 16;
+
+        transform.position = clamp;
     }
 
     void FixedUpdate()

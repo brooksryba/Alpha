@@ -333,7 +333,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50314665411570c44ba1442814281afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
+  moveSpeed: 3
   loadPosition: 1
   rb: {fileID: 26244352}
   animator: {fileID: 26244351}
