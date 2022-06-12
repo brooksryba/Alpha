@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    public Collision2D collision;
     public float moveSpeed = 5f;
 
     public bool loadPosition = true; 
@@ -85,30 +85,34 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionEnter2D(Collision2D other) {
+        collision = other;
+    }
+
+    void OnCollisionExit2D(Collision2D other) {
+        collision = null;
+    }    
+
+    public void HandleInteraction()
     {
-        if (collision.gameObject.tag == "Friendly" && !dialogLock) {
-            dialogLock = true;
+        if(collision != null) {
+            if (collision.gameObject.tag == "Friendly" && !dialogLock) {
+                dialogLock = true;
 
-            Character friendly = collision.gameObject.GetComponent<Character>();
-            HandleFriendly(collision);
-            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
-        }
+                Character friendly = collision.gameObject.GetComponent<Character>();
+                HandleFriendly(collision);
+                GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
+            } else if (collision.gameObject.tag == "Enemy" && !dialogLock) {
+                dialogLock = true;
+                movementLock = true;
 
-        if (collision.gameObject.tag == "Enemy" && !dialogLock) {
-            dialogLock = true;
-            movementLock = true;
-
-            Character enemy = collision.gameObject.GetComponent<Character>();
-            GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
-        }
-
-        if (collision.gameObject.tag == "InventoryItem") {
-            HandleInventoryItem(collision);
-        }
-
-        if (collision.gameObject.tag == "Portal"){
-            HandlePortal(collision);
+                Character enemy = collision.gameObject.GetComponent<Character>();
+                GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
+            } else if (collision.gameObject.tag == "InventoryItem") {
+                HandleInventoryItem(collision);
+            } else if (collision.gameObject.tag == "Portal"){
+                HandlePortal(collision);
+            }
         }
     }    
 
@@ -169,5 +173,5 @@ public class PlayerMovement : MonoBehaviour
         } 
         string gname = collision.gameObject.name.Substring(7);
         SceneManager.LoadScene(sceneName: gname);        
-    }
+    }     
 }

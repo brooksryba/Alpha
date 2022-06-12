@@ -13,6 +13,9 @@ public class PlayerControl : MonoBehaviour
             SaveSystem.Reset();
             SceneManager.LoadScene("World");
         }
+        if( Input.GetKeyUp(KeyCode.E) ) {
+            GameObject.Find("Player").GetComponent<PlayerMovement>().HandleInteraction();
+        }        
         if( Input.GetKeyUp(KeyCode.O) ) {
             if( GameObject.Find("Menu(Clone)") ) { return; }
             
@@ -64,5 +67,7 @@ public class PlayerControl : MonoBehaviour
             });
         } 
     }
+   
+
 }
 
