@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        SaveSystem.Register("PlayerLocation", () => { SaveState(); });
         if( loadPosition == true ) {
             LoadState();
             if(!(position.x == 0 && position.y == 0))
@@ -72,14 +73,12 @@ public class PlayerMovement : MonoBehaviour
         Character player = gameObject.GetComponent<Character>();
         if(player.currentHP == 0) {
             player.currentHP = (int)(player.maxHP / 2);
-            player.SaveState();
 
             this.position = new Vector3();
             this.position.x = 0;
             this.position.y = 0;
             this.position.z = 0;
             transform.position = this.position;
-            SaveState();
 
             GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("You have fainted. Your health was reset to 25%");
         }
@@ -132,8 +131,6 @@ public class PlayerMovement : MonoBehaviour
         if(friendly.dialogIndex == 1) {
             if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
                 player.partyMembers.Add("Characters/"+collision.gameObject.name);
-                gameObject.GetComponent<Character>().SaveState();
-
                 GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(friendly.title + " joined your party!");
             }        
         }
@@ -141,15 +138,12 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleEnemy(Collision2D collision)
     {
-        gameObject.GetComponent<PlayerMovement>().SaveState();
-
         Character enemy = collision.gameObject.GetComponent<Character>();
         if(enemy.currentHP > 0) {
             battleScriptable.enemy = collision.gameObject.name;
             SceneManager.LoadScene(sceneName:"Battle");        
         } else {
             collision.gameObject.SetActive(false);
-            collision.gameObject.GetComponent<Enemy>().SaveState();
         }
     }
 
@@ -158,10 +152,8 @@ public class PlayerMovement : MonoBehaviour
         InventoryItem item = collision.gameObject.GetComponent<InventoryItem>();
 
         gameObject.GetComponent<Character>().AddInventoryItem(item);
-        gameObject.GetComponent<Character>().SaveState();
         
         collision.gameObject.SetActive(false);
-        item.SaveState();
 
         string itemName = collision.gameObject.name.ToLower();
         string message = "Picked up a";
@@ -177,7 +169,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if( loadPosition == true ) {
             gameObject.transform.position -= new Vector3(0, 1, 0);
-            SaveState();  
         } 
         string gname = collision.gameObject.name.Substring(7);
         SceneManager.LoadScene(sceneName: gname);        

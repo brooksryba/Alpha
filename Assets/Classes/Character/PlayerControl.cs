@@ -58,8 +58,7 @@ public class PlayerControl : MonoBehaviour
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
                 }},
                 {"Save", () => {
-                    transform.GetComponent<Character>().SaveState();
-                    transform.GetComponent<PlayerMovement>().SaveState();
+                    SaveSystem.Save();
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
                 }},
                 {"Quit", () => SceneManager.LoadScene("Menu")},

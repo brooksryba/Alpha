@@ -39,11 +39,10 @@ public class Character : MonoBehaviour
 
     void Start()
     {
+        SaveSystem.Register(this.title, () => { SaveState(); });
         LoadCharacterClass();
         LoadState();
     }
-
-
 
     public void SaveState()
     {
@@ -61,6 +60,8 @@ public class Character : MonoBehaviour
 
         if (data != null)
         {
+            gameObject.SetActive(data.active);
+            
             this.level = data.level;
             this.currentHP = data.currentHP;
             this.currentMana = data.currentMana;

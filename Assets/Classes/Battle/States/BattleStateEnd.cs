@@ -22,13 +22,6 @@ public class BattleStateEnd : BattleState
             battleObjManager.dialogueText.text = "You were defeated";
         } 
 
-        GameObject.FindWithTag("Player").GetComponent<Character>().SaveState();
-        GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().SaveState();
-
-        foreach(GameObject go in GameObject.FindGameObjectsWithTag("Friendly")) {
-            go.GetComponent<Character>().SaveState();
-        }
-
         battleObjManager.battleBonusManager.DestroyAllBonuses();
 
         yield return new WaitForSeconds(2f);

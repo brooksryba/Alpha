@@ -1,9 +1,14 @@
 using UnityEngine;
+using System;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem {
 
+    public static Dictionary<string, Action> references = new Dictionary<string, Action>();
+    
     public static void Reset()
     {
         foreach (var path in Directory.GetFiles(Application.persistentDataPath))
@@ -38,6 +43,17 @@ public static class SaveSystem {
             return data;
         } else {
             return null; 
+        }
+    }
+
+    public static void Register(string name, Action saver) {
+        if(!references.ContainsKey(name))
+            references.Add(name, saver);
+    }
+
+    public static void Save() {
+        foreach( KeyValuePair<string, Action> item in references ) {
+            item.Value();
         }
     }
 

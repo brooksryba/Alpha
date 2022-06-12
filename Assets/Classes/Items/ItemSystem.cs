@@ -22,7 +22,6 @@ public class InventoryItemData
         }
 
         user.items.Remove(user.GetInventoryItemRefs()[title]);
-        user.SaveState();
 
         return text;
     }
