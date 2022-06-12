@@ -87,13 +87,25 @@ public class PlayerMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other) {
         collision = other;
+        HandleCollisionStatic();
     }
 
     void OnCollisionExit2D(Collision2D other) {
         collision = null;
-    }    
+    } 
 
-    public void HandleInteraction()
+    public void HandleCollisionStatic()
+    {
+        if(collision != null) {
+            if (collision.gameObject.tag == "InventoryItem") {
+                HandleInventoryItem(collision);
+            } else if (collision.gameObject.tag == "Portal"){
+                HandlePortal(collision);
+            }
+        }
+    }           
+
+    public void HandleCollisionInteraction()
     {
         if(collision != null) {
             if (collision.gameObject.tag == "Friendly" && !dialogLock) {
@@ -108,10 +120,6 @@ public class PlayerMovement : MonoBehaviour
 
                 Character enemy = collision.gameObject.GetComponent<Character>();
                 GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
-            } else if (collision.gameObject.tag == "InventoryItem") {
-                HandleInventoryItem(collision);
-            } else if (collision.gameObject.tag == "Portal"){
-                HandlePortal(collision);
             }
         }
     }    

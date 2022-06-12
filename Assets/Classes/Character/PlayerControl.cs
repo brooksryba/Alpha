@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if( Input.GetKeyUp(KeyCode.E) ) {
-            GameObject.Find("Player").GetComponent<PlayerMovement>().HandleInteraction();
+            GameObject.Find("Player").GetComponent<PlayerMovement>().HandleCollisionInteraction();
         }        
         if( Input.GetKeyUp(KeyCode.O) ) {
             if( GameObject.Find("Menu(Clone)") ) { return; }
