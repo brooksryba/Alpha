@@ -108,17 +108,21 @@ public class PlayerMovement : MonoBehaviour
                 HandleFriendly(collision);
                 GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
             } else if (collision.gameObject.tag == "Enemy" && !dialogLock) {
-                dialogLock = true;
 
                 Character enemy = collision.gameObject.GetComponent<Character>();
 
-                if(enemy.currentHP > 0) {
-                    movementLock = true;
-                    enemy.dialogIndex = 0;
-                    GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
+                if(gameObject.GetComponent<Character>().currentHP == 0) {
+                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not enough health to fight!");
                 } else {
+                    dialogLock = true;
+                    if(enemy.currentHP > 0) {
+                        movementLock = true;
+                        enemy.dialogIndex = 0;
+                        GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
+                    } else {
 
-                    GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; }); 
+                        GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; }); 
+                    }
                 }
             }
         }
