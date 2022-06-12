@@ -76,19 +76,6 @@ public class PlayerMovement : MonoBehaviour
         if(!movementLock) {
             rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
         }
-
-        Character player = gameObject.GetComponent<Character>();
-        if(player.currentHP == 0) {
-            player.currentHP = (int)(player.maxHP / 2);
-
-            this.position = new Vector3();
-            this.position.x = 0;
-            this.position.y = 0;
-            this.position.z = 0;
-            transform.position = this.position;
-
-            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("You have fainted. Your health was reset to 25%");
-        }
     }
 
     void OnCollisionEnter2D(Collision2D other) {
@@ -148,9 +135,8 @@ public class PlayerMovement : MonoBehaviour
         Character enemy = collision.gameObject.GetComponent<Character>();
         if(enemy.currentHP > 0) {
             battleScriptable.enemy = collision.gameObject.name;
+            playerScriptable.Write(transform.position);
             SceneManager.LoadScene(sceneName:"Battle");        
-        } else {
-            collision.gameObject.SetActive(false);
         }
     }
 
