@@ -104,22 +104,17 @@ MonoBehaviour:
   className: Archer
   items: []
   damage: 0
-  maxHP: 40
-  currentHP: 40
-  maxMana: 20
-  currentMana: 20
-  speed: 12
+  currentHP: 30
+  currentMana: 13
   earnedXp: 0
-  physicalAttack: 0
-  magicAttack: 0
-  physicalDefense: 0
-  magicDefense: 0
   partyMembers:
   - Characters/Warrior
   attackNames:
   - Basic Attack
   - Spread Attack
-  spellNames: []
+  spellNames:
+  - Heal
+  - Poison Spell
   dialogIndex: 0
   dialogText:
   - The light is no match for me and my gang!

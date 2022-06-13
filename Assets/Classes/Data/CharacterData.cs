@@ -11,17 +11,12 @@ public class CharacterData {
     public List<ItemData> items;
     public int currentHP;
     public int currentMana;
-    public int speed;
     public int earnedXp;
 
     public List<string> partyMembers;
 
     public int dialogIndex;
 
-    public int physicalAttack;
-    public int magicAttack;
-    public int physicalDefense;
-    public int magicDefense;
 
 
     public CharacterData(Character character) {
@@ -31,14 +26,9 @@ public class CharacterData {
         items = character.items;
         currentHP = character.currentHP;
         currentMana = character.currentMana;
-        speed = character.speed;
         earnedXp = character.earnedXp;
         partyMembers = character.partyMembers;
         dialogIndex = character.dialogIndex;
-        physicalAttack = character.physicalAttack;
-        magicAttack = character.magicAttack;
-        physicalDefense = character.physicalDefense;
-        magicDefense = character.magicDefense;
     }
 
 }
