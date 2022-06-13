@@ -28,7 +28,7 @@ public class BattleStateEnd : BattleState
         yield return new WaitForSeconds(2f);
 
         SaveSystem.SaveAndDeregister();
-        SceneManager.LoadScene(sceneName: battleObjManager.battleScriptable.scene);
+        SceneManager.LoadScene(sceneName: _manager.battleScriptable.scene);
         yield return new WaitForSeconds(0f);
     }
 }
