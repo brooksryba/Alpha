@@ -40,7 +40,7 @@ public class BoostPhysicalAttack : Spell
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
         caster.useMana(GetManaCost());
-        battleObjManager.battleBonusManager.AddBonus(targetName, "physicalAttack", GetBoostMultiplier(), GetBoostAddition(), GetTurnDuration());
+        _manager.battleBonusManager.AddBonus(targetName, "physicalAttack", GetBoostMultiplier(), GetBoostAddition(), GetTurnDuration());
         
     }
 }

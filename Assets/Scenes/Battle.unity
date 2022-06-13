@@ -295,7 +295,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 530, y: 0}
+  m_AnchoredPosition: {x: 609, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200048343
@@ -377,21 +377,13 @@ MonoBehaviour:
   enemyBattleStation: {fileID: 623386455}
   playerPartyContainer: {fileID: 1924395105}
   enemyPartyContainer: {fileID: 1306672706}
+  spellPrefab: {fileID: 0}
+  spellObj: {fileID: 0}
   battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
   turnIndex: -1
   overallTurnNumber: 0
-  playerUnit: {fileID: 0}
-  enemyUnit: {fileID: 0}
-  attacker: {fileID: 0}
-  attackerPositionStart: {x: 0, y: 0, z: 0}
-  defender: {fileID: 0}
-  defenderPositionStart: {x: 0, y: 0, z: 0}
-  playerParty: []
-  enemyParty: []
-  allPlayers: []
-  deadPlayerList: []
-  allCharacters: []
   chosenBattleMove: 
+  chosenItem: 
   battleStateMachine: {fileID: 1626255951}
 --- !u!4 &213897747
 Transform:

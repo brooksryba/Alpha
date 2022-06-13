@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Jack : BaseCharacterClass
 {
-    public Jack(){
+    public Jack()
+    {
         className = "Jack";
         baseStats.Add("maxHp", 15);
         statProgression.Add("maxHp", 10);

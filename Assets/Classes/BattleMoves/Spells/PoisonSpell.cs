@@ -39,7 +39,7 @@ public class PoisonSpell : Spell
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
         caster.useMana(GetManaCost());
-        battleObjManager.battleBonusManager.AddBonus(targetName, "currentHp", 0.0, -1*GetDamage(), GetTurnDuration());
+        _manager.battleBonusManager.AddBonus(targetName, "currentHp", 0.0, -1*GetDamage(), GetTurnDuration());
         
     }
 }
