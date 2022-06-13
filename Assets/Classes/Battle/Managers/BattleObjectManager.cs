@@ -50,7 +50,7 @@ public class BattleObjectManager : MonoBehaviour
         playerPrefab = Resources.Load("Prefabs/Characters/Player") as GameObject;
 
         if(battleScriptable.scene == "" || battleScriptable.scene == null)
-            battleScriptable.scene = "World";
+            battleScriptable.scene = "World_Main_2";
 
         BattleSystemController.instance.onBattleHudTitleButton += battleSystemHud.OnHUDTitleButton;
       

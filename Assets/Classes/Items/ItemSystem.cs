@@ -31,7 +31,8 @@ public static class WorldItems
 {
     public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
         {"Revive", new Revive()},
-        {"Gem", new Gem()}
+        {"Gem", new Gem()},
+        {"Toxic Gem", new ToxicGem()},
     };
 }
 
@@ -39,7 +40,8 @@ public static class BattleItems
 {
     public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
         {"Revive", new Revive()},
-        {"Gem", new Gem()}
+        {"Gem", new Gem()},
+        {"Toxic Gem", new ToxicGem()},
     };
 }
 
