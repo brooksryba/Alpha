@@ -12,7 +12,10 @@ public class BattleStateEnemyAttack : BattleState
         EnemyAttackChooser attackChooser = new EnemyAttackChooser();
         List<string> chosenAttackList = attackChooser.GetAttack(_manager.charManager.attackerName);
         _manager.chosenBattleMove = chosenAttackList[0];
-        _manager.dialogueText.text = _manager.charManager.attackerName + " attacks " + chosenAttackList[1] + " with " + _manager.chosenBattleMove + "!";
+        if(chosenAttackList[1] != "")
+            _manager.dialogueText.text = _manager.charManager.attackerName + " attacks " + chosenAttackList[1] + " with " + _manager.chosenBattleMove + "!";
+        else 
+            _manager.dialogueText.text = _manager.charManager.attackerName + " uses " + _manager.chosenBattleMove + "!";
         yield return new WaitForSeconds(2f);
 
         _manager.SetDefender(chosenAttackList[1]);
