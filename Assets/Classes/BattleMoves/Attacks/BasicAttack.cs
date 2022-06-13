@@ -13,8 +13,8 @@ public class BasicAttack : Attack
     }
 
     public int GetAttackDamage(){
-        int baseDamage = 5;
-        return battleObjManager.battleBonusManager.GetBattleStat(userName, "physicalAttack", GetCharacter(userName).physicalAttack + baseDamage);
+        int baseDamage = 0;
+        return _manager.battleBonusManager.GetBattleStat(userName, "physicalAttack", GetCharacter(userName).characterClass.physicalAttack + baseDamage);
     }
 
 

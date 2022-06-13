@@ -26,7 +26,7 @@ public class Heal : Spell
     public override int GetMoveValueForAi()
     {
         if(IsUserAndTargetSameTeam())
-            return 5;
+            return GetHealthValue();
         return -5;
     }
 

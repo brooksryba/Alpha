@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Mage : BaseCharacterClass
 {
-    public Mage(){
+    public Mage()
+    {
         className = "Mage";
         baseStats.Add("maxHp", 10);
         statProgression.Add("maxHp", 5);

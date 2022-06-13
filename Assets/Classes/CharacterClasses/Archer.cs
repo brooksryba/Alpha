@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class Archer : BaseCharacterClass
 {
-    public Archer(){
+    public Archer()
+    {
         className = "Archer";
         baseStats.Add("maxHp", 10);
         statProgression.Add("maxHp", 5);
