@@ -10,6 +10,14 @@ public class SceneSwitch : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
+    public void LoadSavedScene()
+    {
+        PlayerLocationData data = SaveSystem.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
+        if( data != null ) {
+            SceneManager.LoadScene(data.scene);
+        }        
+    }    
+
     public void ResetScenes()
     {
         SaveSystem.Reset();

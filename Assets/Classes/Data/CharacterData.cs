@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class CharacterData {
 
+    public bool active;
+    
     public int level;
     public List<ItemData> items;
     public int currentHP;
@@ -23,6 +25,8 @@ public class CharacterData {
 
 
     public CharacterData(Character character) {
+        active = character.gameObject.activeSelf;
+
         level = character.level;
         items = character.items;
         currentHP = character.currentHP;

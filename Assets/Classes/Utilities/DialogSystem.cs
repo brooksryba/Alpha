@@ -7,7 +7,7 @@ using TMPro;
 
 public class DialogSystem : MonoBehaviour
 {
-    public int timeout = 4;
+    int timeout = 2;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +27,6 @@ public class DialogSystem : MonoBehaviour
             string message = character.title + ": " + character.dialogText[character.dialogIndex];
             if(character.dialogIndex + 1 < character.dialogText.Count) {
                 character.dialogIndex++;
-                character.SaveState();
             }
 
             Open(message, callback);

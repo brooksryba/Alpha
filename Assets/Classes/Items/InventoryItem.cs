@@ -10,17 +10,18 @@ public class InventoryItem : MonoBehaviour
 
     void Start()
     {
+        SaveSystem.Register(gameObject.name + transform.GetSiblingIndex(), () => { SaveState(); });
         LoadState();
     }
 
     public void SaveState()
     {
-        SaveSystem.SaveState<ItemData>(new ItemData(this), gameObject.name);
+        SaveSystem.SaveState<ItemData>(new ItemData(this), gameObject.name + transform.GetSiblingIndex());
     }
 
     public void LoadState()
     {
-        ItemData data = SaveSystem.LoadState<ItemData>(gameObject.name) as ItemData;
+        ItemData data = SaveSystem.LoadState<ItemData>(gameObject.name + transform.GetSiblingIndex()) as ItemData;
         if( data != null ) {
             gameObject.SetActive(data.active);
         }

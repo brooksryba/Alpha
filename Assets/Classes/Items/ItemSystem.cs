@@ -22,7 +22,6 @@ public class InventoryItemData
         }
 
         user.items.Remove(user.GetInventoryItemRefs()[title]);
-        user.SaveState();
 
         return text;
     }
@@ -31,18 +30,16 @@ public class InventoryItemData
 public static class WorldItems
 {
     public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
-        //{"Revive", new InventoryItemData(1.0, 0.0, "Health was increased by 100%.")},
-        {"Gem", new Gem()},
-        //{"Toxic Gem", new InventoryItemData(-0.1, 0.25, "Mana was increased by 25%, but HP decreased by 10%.")}
+        {"Revive", new Revive()},
+        {"Gem", new Gem()}
     };
 }
 
 public static class BattleItems
 {
     public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
-        //{"Revive", new InventoryItemData(1.0, 0.0, "Health was increased by 100%.")},
-        {"Gem", new Gem()},
-        //{"Toxic Gem", new InventoryItemData(-0.1, 0.25, "Mana was increased by 25%, but HP decreased by 10%.")}
+        {"Revive", new Revive()},
+        {"Gem", new Gem()}
     };
 }
 

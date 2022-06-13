@@ -1,14 +1,19 @@
 using UnityEngine;
+using System;
 using System.IO;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public static class SaveSystem {
 
+    public static Dictionary<string, Action> references = new Dictionary<string, Action>();
+    
     public static void Reset()
     {
         foreach (var path in Directory.GetFiles(Application.persistentDataPath))
         {
-            if( path.Contains(".bin") ) {
+            if( path.Contains(".bin") && !path.Contains("SettingsData") ) {
                 FileInfo file = new FileInfo(path);
                 file.Delete();
             }
@@ -40,5 +45,30 @@ public static class SaveSystem {
             return null; 
         }
     }
+
+    public static void Deregister() {
+        references = new Dictionary<string, Action>();
+    }
+
+    public static void Register(string name, Action saver) {
+        if(!references.ContainsKey(name))
+            references.Add(name, saver);
+    }
+
+    public static void Save() {
+        foreach( KeyValuePair<string, Action> item in references ) {
+            item.Value();
+        }
+    }
+
+    public static void SaveAndDeregister() {
+        Save();
+        Deregister();
+    }
+
+    public static void ResetAndDeregister() {
+        Reset();
+        Deregister();
+    }    
 
 }

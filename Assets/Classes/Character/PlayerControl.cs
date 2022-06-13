@@ -9,10 +9,17 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if( Input.GetKeyUp(KeyCode.R) ) {
-            SaveSystem.Reset();
-            SceneManager.LoadScene("World");
+        if( Input.GetKeyUp(KeyCode.F1) ) {
+            SaveSystem.ResetAndDeregister();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        if( Input.GetKeyUp(KeyCode.F2) ) {
+            SaveSystem.Save();
+            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
+        }        
+        if( Input.GetKeyUp(KeyCode.E) ) {
+            GameObject.Find("Player").GetComponent<PlayerMovement>().HandleCollisionInteraction();
+        }        
         if( Input.GetKeyUp(KeyCode.O) ) {
             if( GameObject.Find("Menu(Clone)") ) { return; }
             
@@ -55,8 +62,7 @@ public class PlayerControl : MonoBehaviour
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
                 }},
                 {"Save", () => {
-                    transform.GetComponent<Character>().SaveState();
-                    transform.GetComponent<PlayerMovement>().SaveState();
+                    SaveSystem.Save();
                     GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
                 }},
                 {"Quit", () => SceneManager.LoadScene("Menu")},
@@ -64,5 +70,7 @@ public class PlayerControl : MonoBehaviour
             });
         } 
     }
+   
+
 }
 

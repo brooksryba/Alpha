@@ -5,5 +5,6 @@ using UnityEditor;
 public class BattleSceneScriptable : ScriptableObject
 {
     public string enemy = null;
+    public string scene = null;
 
 }
