@@ -49,6 +49,9 @@ public class BattleObjectManager : MonoBehaviour
     {
         playerPrefab = Resources.Load("Prefabs/Characters/Player") as GameObject;
 
+        if(battleScriptable.scene == "" || battleScriptable.scene == null)
+            battleScriptable.scene = "World";
+
         BattleSystemController.instance.onBattleHudTitleButton += battleSystemHud.OnHUDTitleButton;
       
         if(battleScriptable.enemy != null && battleScriptable.enemy != ""){       

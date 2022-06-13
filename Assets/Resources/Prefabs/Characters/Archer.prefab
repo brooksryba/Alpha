@@ -104,8 +104,8 @@ MonoBehaviour:
   className: Archer
   items: []
   damage: 0
-  currentHP: 40
-  currentMana: 20
+  currentHP: 30
+  currentMana: 13
   earnedXp: 0
   partyMembers:
   - Characters/Warrior

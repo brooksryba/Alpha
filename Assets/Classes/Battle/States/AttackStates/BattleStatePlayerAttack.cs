@@ -18,7 +18,10 @@ public class BattleStatePlayerAttack : BattleState
 
             _manager.battleSystemHud.RefreshAllHUDs();
             if(isAccepted){
-                _manager.SetDefender(_manager.battleSystemHud.selection.title);
+                if(_manager.battleSystemHud.selection)
+                    _manager.SetDefender(_manager.battleSystemHud.selection.title);
+                else
+                    _manager.SetDefender("");
                 newState = new BattleStateAttackMinigame();
                 _manager.battleSystemHud.selection = null;
 
