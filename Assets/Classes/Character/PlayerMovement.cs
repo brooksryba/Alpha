@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public Collision2D collision;
-    public float moveSpeed = 5f;
+    public float baseMoveSpeed = 5f;
+    public float moveSpeed;
 
     public bool loadPosition = true; 
 
@@ -57,6 +58,11 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKey(KeyCode.LeftShift)){
+            moveSpeed = baseMoveSpeed * 2.0f;
+        } else {
+            moveSpeed = baseMoveSpeed;
+        }
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
 
