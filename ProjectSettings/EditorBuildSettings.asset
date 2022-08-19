@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/World_Cave_1.unity
     guid: e5cf57afa4261e44d9f0ab0249091207
   - enabled: 1
+    path: Assets/Scenes/World_Cave_2.unity
+    guid: 49c12d85e29e175469f6daba0d76179a
+  - enabled: 1
     path: Assets/Scenes/World_Main_0.unity
     guid: 3ad5049f6f2568b48b3a74c82c1b97d0
   - enabled: 1
@@ -47,4 +50,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World_Main_8.unity
     guid: a1a4a539c4426794b9de346d3ac0a22c
+  - enabled: 1
+    path: Assets/Scenes/World_Main_9.unity
+    guid: 02490e8e194e4b84789ea91dfdbf40f8
   m_configObjects: {}
