@@ -32,6 +32,9 @@ public class Character : MonoBehaviour
     public List<string> dialogText;
     public BaseCharacterClass characterClass;
 
+    [Header("Ink JSON")]
+    [SerializeField] public TextAsset inkJSON;
+
 
     void Start()
     {
