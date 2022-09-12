@@ -217,9 +217,9 @@ public class PlayerMovement : MonoBehaviour
             }
         }        
     }
-
     void HandleCutsceneEvent(string tag) {
-
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        cutsceneSystem.HandleCutsceneEvent(tag);
     }
 
     void HandleCutsceneEnd() {

@@ -3,9 +3,11 @@
 
 === chapter_1_intro ===
 
+# Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0)
+
 Hero: What's your name?
 
-AF: I'm Archer Friend. Lets join parties! # join_party
+AF: I'm Archer Friend. Lets join parties!
 
 Hero: How do you guys know what your combat affinities will be?
 
