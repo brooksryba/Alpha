@@ -24,6 +24,7 @@ public class CutsceneSystem : MonoBehaviour
         cutsceneIsPlaying = false;
         RestoreCharacterLocations();
         transform.GetChild(0).gameObject.SetActive(false);
+        transform.GetChild(1).gameObject.SetActive(false);
     }
 
     public void RestoreCharacterLocations()

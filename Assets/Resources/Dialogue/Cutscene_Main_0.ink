@@ -48,11 +48,11 @@ Livar: Do you think you are above the practice? # Indicator("Livar")
 -> chapter_1_pre_rival
 
 === chapter_1_pre_rival ===
-Hero: If you think you're so good Livar, let's have a duel to prove it! # Indicator("Player")
+Hero: If you think you're so good Livar, let's<br>have a duel to prove it! # Indicator("Player")
 
 Livar: I accept your challenge! # Indicator("Livar")
 
-AF: I know we normally break these fights up, but perhaps a friendly spar could benefit us all. # Indicator("AF")
+AF: I know we normally break these fights up, but<br>perhaps a friendly spar could benefit us all. # Indicator("AF")
 
 # Battle("Livar", "chapter_1_post_rival")
 MF: The experience would help out for combat school. # Indicator("MF")
