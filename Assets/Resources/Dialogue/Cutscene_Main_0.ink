@@ -29,8 +29,8 @@ AF: Look over there. Let's get some real practice!
 
 Fight the rats?
     * [Yes]
+        # Battle("Rat", "chapter_1_post_rats")
         Hero: Yes, they will be great practice!
-        // trigger battle scene
         -> chapter_1_post_rats
     * [No]
         Hero: No, let's leave them be.
@@ -38,7 +38,7 @@ Fight the rats?
 
 
 === chapter_1_post_rats ===
-# Move("Livar", 25.7, 3.8)
+# Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0) # Move("Livar", 25.7, 3.8)
 Livar: Not bad, but you still need more practice.
 -> chapter_1_pre_rival
 
