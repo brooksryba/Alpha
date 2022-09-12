@@ -43,6 +43,7 @@ public class CutsceneSystem : MonoBehaviour
         //for each C# function we want to access from plaintext:
         script.Globals["Move"] = (Func<string, float, float, bool>)Move;
         script.Globals["Battle"] = (Func<string, string, bool>)Battle;
+        script.Globals["Indicator"] = (Func<string, bool>)Indicator;
     
         //Once all functions have been registered
         script.DoString(tag);
@@ -70,5 +71,18 @@ public class CutsceneSystem : MonoBehaviour
         SceneManager.LoadScene(sceneName:"Battle");     
 
         return true;          
+    }
+
+    private bool Indicator(string charId)
+    {
+        transform.GetChild(1).gameObject.SetActive(true);
+
+        GameObject obj = GameObject.Find(charId);
+        GameObject indicator = GameObject.Find("CutsceneIndicator");
+
+        Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        indicator.transform.position = cam.WorldToScreenPoint(obj.transform.position);
+        indicator.transform.position += new Vector3(0, 30, 0);
+        return true;
     }
 }
