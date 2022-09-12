@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public Collision2D collision;
+    public GameObject collisionObject;
+    public Character collisionCharacter;
     public float baseMoveSpeed = 5f;
     public float moveSpeed;
 
@@ -104,97 +106,57 @@ public class PlayerMovement : MonoBehaviour
         }
     }           
 
-    // public void HandleCollisionInteraction()
-    // {
-    //     if(collision != null) {
-    //         if (collision.gameObject.tag == "Friendly" && !dialogLock) {
-    //             dialogLock = true;
-
-    //             Character friendly = collision.gameObject.GetComponent<Character>();
-    //             HandleFriendly(collision);
-    //             GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
-    //         } else if (collision.gameObject.tag == "Enemy" && !dialogLock) {
-
-    //             Character enemy = collision.gameObject.GetComponent<Character>();
-
-    //             if(gameObject.GetComponent<Character>().currentHP == 0) {
-    //                 GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not enough health to fight!");
-    //             } else {
-    //                 dialogLock = true;
-    //                 if(enemy.currentHP > 0) {
-    //                     movementLock = true;
-    //                     enemy.dialogIndex = 0;
-    //                     GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
-    //                 } else {
-
-    //                     GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; }); 
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }    
-
     public void HandleCollisionInteraction()
     {
         DialogSystem dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
         if(collision != null){
-            if (collision.gameObject.tag == "Friendly" && !dialogLock) {
+            if (dialogSystem.dialogueIsPlaying) {
                 dialogLock = true;
-                
-                Character friendly = collision.gameObject.GetComponent<Character>();
-                if(friendly.inkJSON) {
-                    movementLock = true;
-                    dialogSystem.EnterDialogueMode(friendly.inkJSON);
+                movementLock = true;
+                dialogSystem.ContinueStory();
+            } else {
+                if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Friendly") && !dialogLock) {
+                    dialogLock = true;
+                    
+                    collisionObject = collision.gameObject;
+                    collisionCharacter = collision.gameObject.GetComponent<Character>();
+                    if(collisionCharacter.inkJSON) {
+                        movementLock = true;
+                        dialogSystem.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {HandleDialogEvent(s);}, () => {HandleDialogEnd();});
+                    }
                 }
             }
-
-            if (collision.gameObject.tag == "Enemy" && !dialogLock) {
-                dialogLock = true;
-                
-                Character enemy = collision.gameObject.GetComponent<Character>();
-                HandleEnemy(collision);
-                if(enemy.inkJSON) {
-                    movementLock = true;
-                    dialogSystem.EnterDialogueMode(enemy.inkJSON);
-                }
-            }
-
-
-            if (dialogSystem.dialogueIsPlaying==false && movementLock==true){
-                dialogLock = false;
-                movementLock = false;
-                if (collision.gameObject.tag == "Friendly"){
-                    HandleFriendly(collision);
-                }
-
-                if (collision.gameObject.tag == "Enemy"){
-                    HandleEnemy(collision);
-                }
-                
-            }
-
-            
         }
     }
 
-    void HandleFriendly(Collision2D collision)
+    void HandleDialogEvent(string tag) {
+        if(tag == "join_party") {
+            HandleFriendly();
+        } else if(tag == "battle") {
+            HandleEnemy();
+        } else {
+            Debug.Log("Unhandled Tag: " + tag);
+        }
+    }
+
+    void HandleDialogEnd() {
+        dialogLock = false;
+        movementLock = false;
+    }
+
+    void HandleFriendly()
     {
         Character player = gameObject.GetComponent<Character>();
-        Character friendly = collision.gameObject.GetComponent<Character>();
         
-        if(friendly.dialogIndex == 1) {
-            if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
-                player.partyMembers.Add("Characters/"+collision.gameObject.name);
-                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(friendly.title + " joined your party!");
-            }        
-        }
+        if(!player.partyMembers.Contains("Characters/"+collisionObject.name)) {
+            player.partyMembers.Add("Characters/"+collisionObject.name);
+            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(collisionCharacter.title + " joined your party!");
+        }        
     }
 
-    void HandleEnemy(Collision2D collision)
+    void HandleEnemy()
     {
-        Character enemy = collision.gameObject.GetComponent<Character>();
-
-        battleScriptable.enemy = collision.gameObject.name;
+        battleScriptable.enemy = collisionObject.name;
         battleScriptable.scene = SceneManager.GetActiveScene().name;
         playerScriptable.Write(transform.position);
         SaveSystem.SaveAndDeregister();

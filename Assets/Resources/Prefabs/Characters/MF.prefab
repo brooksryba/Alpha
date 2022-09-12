@@ -120,7 +120,7 @@ MonoBehaviour:
   - What are you doing wandering the forest alone?
   - It's nice to meet you, though.\nI will join your party!
   - I look forward to fighting with you.
-  inkJSON: {fileID: 4900000, guid: 96147d1d717260343b2894acfb094f11, type: 3}
+  inkJSON: {fileID: 4900000, guid: f1acee41a01c0144a91e6b2667786c46, type: 3}
 --- !u!50 &8802388472861513758
 Rigidbody2D:
   serializedVersion: 4
@@ -196,7 +196,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.05}
   serializedVersion: 2
-  m_Radius: 0.2
+  m_Radius: 0.8
 --- !u!1001 &614099548933811373
 PrefabInstance:
   m_ObjectHideFlags: 0

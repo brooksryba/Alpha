@@ -9,31 +9,18 @@ using UnityEngine.SceneManagement;
 
 public class DialogSystem : MonoBehaviour
 {
-    int timeout = 2;
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
     public bool needToMakeChoice;
     public string choiceString;
-
-
+    public Action<String> eventCallback;
+    public Action exitCallback;
 
     void Start()
     {
         Close();
         needToMakeChoice = false;
         dialogueIsPlaying = false;
-    }
-
-    private void Update()
-    {
-        if (!dialogueIsPlaying){
-            return;
-        }
-
-    // TODO this should be handled elsewhere, but needs to be in the update
-        if (Input.GetKeyUp(KeyCode.E)) {
-            ContinueStory();
-        }
     }
 
     public void Open(string message, Action callback = null)
@@ -44,21 +31,6 @@ public class DialogSystem : MonoBehaviour
         
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
-        //StartCoroutine(TimedClose(timeout, callback));
-    }
-
-    public void Next(Character character, Action callback = null)
-    {
-        if(character.dialogText.Count > 0) {
-            string message = character.title + ": " + character.dialogText[character.dialogIndex];
-            if(character.dialogIndex + 1 < character.dialogText.Count) {
-                character.dialogIndex++;
-            }
-
-            Open(message, callback);
-        } else {
-            callback();
-        }
     }
 
     public void Close()
@@ -67,32 +39,22 @@ public class DialogSystem : MonoBehaviour
         transform.GetChild(0).gameObject.SetActive(false);
     }
 
-    IEnumerator TimedClose(int duration, Action callback = null)
-    {
-        yield return new WaitForSeconds(duration);
-        Close();
-
-        if(callback != null) { callback(); }
-    }
-
-    public void EnterDialogueMode(TextAsset inkJSON){
+    public void EnterDialogueMode(TextAsset inkJSON, Action<String> _eventCallback, Action _exitCallback){
         if (!dialogueIsPlaying){
             currentStory = new Story(inkJSON.text);
             dialogueIsPlaying = true;
+            eventCallback = _eventCallback;
+            exitCallback = _exitCallback;
             ContinueStory();
         }
     }
 
-    private void ExitDialogueMode(){
-        dialogueIsPlaying = false;
-        Close();
-    }
-
-    private void ContinueStory()
+    public void ContinueStory()
     {
         if (currentStory.canContinue && !needToMakeChoice){
             string displayText = currentStory.Continue();
             Open(displayText, null);
+            RunTextActions();
             CreateChoiceMenu();
         }
         else if (!currentStory.canContinue && !needToMakeChoice) {
@@ -100,6 +62,11 @@ public class DialogSystem : MonoBehaviour
         }
     }
 
+    private void ExitDialogueMode(){
+        dialogueIsPlaying = false;
+        Close();
+        exitCallback();
+    }
 
     public void SetChoiceString(string choice){
         choiceString = choice;
@@ -116,6 +83,7 @@ public class DialogSystem : MonoBehaviour
         }
         
         needToMakeChoice = false;
+        ContinueStory();
     }
     public void CreateChoiceMenu()
     {
@@ -138,5 +106,9 @@ public class DialogSystem : MonoBehaviour
         menu.Open(choiceDictionary);
     }
 
-
+    public void RunTextActions() {
+        foreach(String tag in currentStory.currentTags) {
+            eventCallback(tag);
+        }
+    }
 }
