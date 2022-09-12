@@ -7,8 +7,8 @@
 
 Hero: How do you guys know what your combat affinities will be? # Indicator("Player")
 
-AF: My dad was an archer in the Great War. Growing up my mom<br>always told me stories of his skills and bravery. I've always<br>wanted to be one ever since, it also just feels natural to <br>use a bow. What about you MF? # Indicator("AF")
-
+AF: My dad was an archer in the Great War. Growing up my mom<br>always told me stories of his skills and bravery. # Indicator("AF")
+AF: I've always wanted to be one ever since, it also just feels<br>natural to use a bow. What about you MF? 
 AF: What about you MF?!
 
 MF: Oh, ugh, sorry about that. I was reading about this cool spell.<br>What was the question again? # Indicator("MF")
@@ -17,11 +17,14 @@ Hero: How do you know what your combat affinity will be? # Indicator("Player")
 
 MF: I've always enjoyed reading and learning spells.<br>I think it's part of my nature. Why do you ask? # Indicator("MF")
 
-Hero: The affinity test is tomorrow and I'm worried because there<br>isn't just one combat style that feels right to me. My grandma<br>tells me that my dad was a warrior and my mom was a mage. She even<br>said my grandpa was an amazing archer.I've tried the different styles<br>and I'm OK with each but I'm not sure which one is the right one for me. # Indicator("Player")
+Hero: The affinity test is tomorrow and I'm worried because there<br>isn't just one combat style that feels right to me. # Indicator("Player")
+Hero: My grandma tells me that my dad was a warrior and my mom was a mage.
+Hero: She even said my grandpa was an amazing archer.I've tried the different styles<br>and I'm OK with each but I'm not sure which one is the right one for me. 
 
 AF: Don't worry about it too much. The whole point of the affinity stone<br>is to let the person know which combat style they will excel at. # Indicator("AF")
 
-MF: She's right. They say the stone is able to look into a person's soul<br>and discover their inner attributes. As far as I know it hasn't been wrong about anyone. # Indicator("MF")
+MF: She's right. They say the stone is able to look into a person's soul<br>and discover their inner attributes. # Indicator("MF")
+MF: As far as I know it hasn't been wrong about anyone.
 
 Hero: I'm sure you guys are right. Regardless of what I get, I'll embrace it. # Indicator("Player")
 
