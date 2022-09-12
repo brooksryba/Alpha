@@ -115,7 +115,7 @@ MonoBehaviour:
   spellNames:
   - Heal
   - Boost Physical Attack
-  inkJSON: {fileID: 4900000, guid: f1acee41a01c0144a91e6b2667786c46, type: 3}
+  inkJSON: {fileID: 4900000, guid: 884c4180780e7a84ca8d76094713c098, type: 3}
 --- !u!50 &8802388472861513758
 Rigidbody2D:
   serializedVersion: 4

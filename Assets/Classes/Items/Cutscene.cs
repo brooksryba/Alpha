@@ -7,15 +7,22 @@ public class Cutscene : MonoBehaviour
     [Header("Ink JSON")]
     [SerializeField] public TextAsset inkJSON;
         
-    // Start is called before the first frame update
     void Start()
     {
-        
+        SaveSystem.Register(gameObject.name + transform.GetSiblingIndex(), () => { SaveState(); });
+        LoadState();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SaveState()
     {
-        
+        SaveSystem.SaveState<CutsceneData>(new CutsceneData(this), gameObject.name + transform.GetSiblingIndex());
+    }
+
+    public void LoadState()
+    {
+        CutsceneData data = SaveSystem.LoadState<CutsceneData>(gameObject.name + transform.GetSiblingIndex()) as CutsceneData;
+        if( data != null ) {
+            gameObject.SetActive(data.active);
+        }
     }
 }
