@@ -25,7 +25,7 @@ public class DialogSystem : MonoBehaviour
 
     public void Open(string message, Action callback = null)
     {
-        if(transform.GetChild(0).gameObject.active){
+        if(transform.GetChild(0).gameObject.activeInHierarchy){
             Close();
         }
         

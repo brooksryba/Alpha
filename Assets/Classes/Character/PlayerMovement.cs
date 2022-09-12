@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public Collision2D collision;
     public GameObject collisionObject;
     public Character collisionCharacter;
+    public Cutscene collisionCutscene;
     public float baseMoveSpeed = 5f;
     public float moveSpeed;
 
@@ -23,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     public bool movementLock = false;
     public bool dialogLock = false;
+    public bool cutsceneLock = false;
 
     void Start()
     {
@@ -102,25 +104,32 @@ public class PlayerMovement : MonoBehaviour
                 HandleInventoryItem(collision);
             } else if (collision.gameObject.tag == "Portal"){
                 HandlePortal(collision);
+            } else if (collision.gameObject.tag == "Cutscene") {
+                HandleCutscene(collision);
             }
         }
     }           
 
     public void HandleCollisionInteraction()
     {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
         DialogSystem dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
-        if(collision != null){
-            if (dialogSystem.dialogueIsPlaying) {
-                dialogLock = true;
-                movementLock = true;
-                dialogSystem.ContinueStory();
-            } else {
+
+        if(cutsceneSystem.cutsceneIsPlaying) {
+            cutsceneLock = true;
+            movementLock = true;
+            dialogSystem.ContinueStory();
+        } else if (dialogSystem.dialogueIsPlaying) {
+            dialogLock = true;
+            movementLock = true;
+            dialogSystem.ContinueStory();
+        } else {
+            if(collision != null){
                 if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Friendly") && !dialogLock) {
-                    dialogLock = true;
-                    
                     collisionObject = collision.gameObject;
                     collisionCharacter = collision.gameObject.GetComponent<Character>();
                     if(collisionCharacter.inkJSON) {
+                        dialogLock = true;
                         movementLock = true;
                         dialogSystem.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {HandleDialogEvent(s);}, () => {HandleDialogEnd();});
                     }
@@ -188,4 +197,38 @@ public class PlayerMovement : MonoBehaviour
         SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
+
+    void HandleCutscene(Collision2D collision)
+    {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        DialogSystem dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
+
+        if(collision != null){
+            if ((collision.gameObject.tag == "Cutscene") && !cutsceneLock) {
+                collisionObject = collision.gameObject;
+                collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+
+                if(collisionCutscene.inkJSON) {
+                    cutsceneLock = true;
+                    movementLock = true;
+                    cutsceneSystem.EnterCutsceneMode();
+                    dialogSystem.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCutsceneEnd();});
+                }
+            }
+        }        
+    }
+
+    void HandleCutsceneEvent(string tag) {
+
+    }
+
+    void HandleCutsceneEnd() {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        cutsceneSystem.ExitCutsceneMode();
+        collisionObject.SetActive(false);
+
+        cutsceneLock = false;
+        movementLock = false;
+    }
+
 }
