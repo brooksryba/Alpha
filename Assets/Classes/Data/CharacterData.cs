@@ -15,10 +15,6 @@ public class CharacterData {
 
     public List<string> partyMembers;
 
-    public int dialogIndex;
-
-
-
     public CharacterData(Character character) {
         active = character.gameObject.activeSelf;
 
@@ -28,7 +24,6 @@ public class CharacterData {
         currentMana = character.currentMana;
         earnedXp = character.earnedXp;
         partyMembers = character.partyMembers;
-        dialogIndex = character.dialogIndex;
     }
 
 }

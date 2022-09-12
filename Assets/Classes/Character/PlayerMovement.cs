@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : MonoBehaviour
 {
     public Collision2D collision;
+    public GameObject collisionObject;
+    public Character collisionCharacter;
+    public Cutscene collisionCutscene;
     public float baseMoveSpeed = 5f;
     public float moveSpeed;
 
@@ -21,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 movement;
     public bool movementLock = false;
     public bool dialogLock = false;
+    public bool cutsceneLock = false;
 
     void Start()
     {
@@ -100,58 +104,79 @@ public class PlayerMovement : MonoBehaviour
                 HandleInventoryItem(collision);
             } else if (collision.gameObject.tag == "Portal"){
                 HandlePortal(collision);
+            } else if (collision.gameObject.tag == "Cutscene") {
+                HandleCutscene(collision);
             }
         }
     }           
 
     public void HandleCollisionInteraction()
     {
-        if(collision != null) {
-            if (collision.gameObject.tag == "Friendly" && !dialogLock) {
-                dialogLock = true;
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        DialogSystem dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
 
-                Character friendly = collision.gameObject.GetComponent<Character>();
-                HandleFriendly(collision);
-                GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(friendly, () => { dialogLock = false; }); 
-            } else if (collision.gameObject.tag == "Enemy" && !dialogLock) {
-
-                Character enemy = collision.gameObject.GetComponent<Character>();
-
-                if(gameObject.GetComponent<Character>().currentHP == 0) {
-                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not enough health to fight!");
-                } else {
-                    dialogLock = true;
-                    if(enemy.currentHP > 0) {
+        if(cutsceneSystem.cutsceneIsPlaying) {
+            cutsceneLock = true;
+            movementLock = true;
+            dialogSystem.ContinueStory();
+        } else if (dialogSystem.dialogueIsPlaying) {
+            dialogLock = true;
+            movementLock = true;
+            dialogSystem.ContinueStory();
+        } else {
+            if(collision != null){
+                if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Friendly") && !dialogLock) {
+                    collisionObject = collision.gameObject;
+                    collisionCharacter = collision.gameObject.GetComponent<Character>();
+                    if(collisionCharacter.inkJSON) {
+                        dialogLock = true;
                         movementLock = true;
-                        enemy.dialogIndex = 0;
-                        GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; movementLock = false; HandleEnemy(collision); }); 
-                    } else {
-
-                        GameObject.Find("DialogSystem").GetComponent<DialogSystem>().Next(enemy, () => { dialogLock = false; }); 
+                        dialogSystem.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {HandleDialogEvent(s);}, () => {HandleDialogEnd();});
+                        dialogSystem.ContinueStory();
                     }
+                } else if(collision.gameObject.tag == "Cuttake" && !cutsceneLock) {
+                    collisionObject = collision.gameObject;
+                    collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+                    if(collisionCutscene.inkJSON) {
+                        cutsceneLock = true;
+                        movementLock = true;
+                        cutsceneSystem.EnterCutsceneMode();
+                        dialogSystem.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCuttakeEnd();});
+                        dialogSystem.ContinueStory();
+                    }                    
                 }
             }
         }
-    }    
+    }
 
-    void HandleFriendly(Collision2D collision)
-    {
-        Character player = gameObject.GetComponent<Character>();
-        Character friendly = collision.gameObject.GetComponent<Character>();
-        
-        if(friendly.dialogIndex == 1) {
-            if(!player.partyMembers.Contains("Characters/"+collision.gameObject.name)) {
-                player.partyMembers.Add("Characters/"+collision.gameObject.name);
-                GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(friendly.title + " joined your party!");
-            }        
+    void HandleDialogEvent(string tag) {
+        if(tag == "join_party") {
+            HandleFriendly();
+        } else if(tag == "battle") {
+            HandleEnemy();
+        } else {
+            Debug.Log("Unhandled Tag: " + tag);
         }
     }
 
-    void HandleEnemy(Collision2D collision)
-    {
-        Character enemy = collision.gameObject.GetComponent<Character>();
+    void HandleDialogEnd() {
+        dialogLock = false;
+        movementLock = false;
+    }
 
-        battleScriptable.enemy = collision.gameObject.name;
+    void HandleFriendly()
+    {
+        Character player = gameObject.GetComponent<Character>();
+        
+        if(!player.partyMembers.Contains("Characters/"+collisionObject.name)) {
+            player.partyMembers.Add("Characters/"+collisionObject.name);
+            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(collisionCharacter.title + " joined your party!");
+        }        
+    }
+
+    void HandleEnemy()
+    {
+        battleScriptable.enemy = collisionObject.name;
         battleScriptable.scene = SceneManager.GetActiveScene().name;
         playerScriptable.Write(transform.position);
         SaveSystem.SaveAndDeregister();
@@ -183,4 +208,51 @@ public class PlayerMovement : MonoBehaviour
         SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
+
+    void HandleCutscene(Collision2D collision)
+    {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        DialogSystem dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
+
+        if(collision != null){
+            if ((collision.gameObject.tag == "Cutscene") && !cutsceneLock) {
+                collisionObject = collision.gameObject;
+                collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+
+                if(collisionCutscene.inkJSON) {
+                    cutsceneLock = true;
+                    movementLock = true;
+                    cutsceneSystem.EnterCutsceneMode();
+                    dialogSystem.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCutsceneEnd();});
+                    if(battleScriptable.scenePath != "") {
+                        dialogSystem.SetStoryCurrentPath(battleScriptable.scenePath);
+                        battleScriptable.scenePath = null;
+                    }
+                    dialogSystem.ContinueStory();
+                }
+            }
+        }        
+    }
+    void HandleCutsceneEvent(string tag) {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        cutsceneSystem.HandleCutsceneEvent(tag);
+    }
+
+    void HandleCutsceneEnd() {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        cutsceneSystem.ExitCutsceneMode();
+        collisionObject.SetActive(false);
+
+        cutsceneLock = false;
+        movementLock = false;
+    }
+
+    void HandleCuttakeEnd() {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        cutsceneSystem.ExitCutsceneMode();
+
+        cutsceneLock = false;
+        movementLock = false;
+    }    
+
 }

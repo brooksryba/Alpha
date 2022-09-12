@@ -28,9 +28,10 @@ public class Character : MonoBehaviour
     public List<string> attackNames;
     public List<string> spellNames;
 
-    public int dialogIndex;
-    public List<string> dialogText;
     public BaseCharacterClass characterClass;
+
+    [Header("Ink JSON")]
+    [SerializeField] public TextAsset inkJSON;
 
 
     void Start()
@@ -65,7 +66,6 @@ public class Character : MonoBehaviour
             this.currentMana = data.currentMana;
             this.earnedXp = data.earnedXp;
             this.partyMembers = data.partyMembers;
-            this.dialogIndex = data.dialogIndex;
             characterClass.SetStats(this.level);
 
 

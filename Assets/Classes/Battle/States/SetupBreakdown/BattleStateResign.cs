@@ -16,8 +16,6 @@ public class BattleStateResign : BattleState
 
         _manager.dialogueText.text = "You resigned the battle";
 
-        GameObject.Find("EnemyBattleStation").transform.GetChild(0).GetComponent<Character>().dialogIndex = 0;
-
         GameObject.FindWithTag("Player").GetComponent<Character>().currentHP = 0;
 
         _manager.battleSystemHud.RefreshAllHUDs();
