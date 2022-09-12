@@ -11,6 +11,7 @@ TagManager:
   - Friendly
   - Menu
   - Cutscene
+  - Cuttake
   layers:
   - Default
   - TransparentFX

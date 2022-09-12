@@ -134,6 +134,16 @@ public class PlayerMovement : MonoBehaviour
                         dialogSystem.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {HandleDialogEvent(s);}, () => {HandleDialogEnd();});
                         dialogSystem.ContinueStory();
                     }
+                } else if(collision.gameObject.tag == "Cuttake" && !cutsceneLock) {
+                    collisionObject = collision.gameObject;
+                    collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+                    if(collisionCutscene.inkJSON) {
+                        cutsceneLock = true;
+                        movementLock = true;
+                        cutsceneSystem.EnterCutsceneMode();
+                        dialogSystem.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCuttakeEnd();});
+                        dialogSystem.ContinueStory();
+                    }                    
                 }
             }
         }
@@ -236,5 +246,13 @@ public class PlayerMovement : MonoBehaviour
         cutsceneLock = false;
         movementLock = false;
     }
+
+    void HandleCuttakeEnd() {
+        CutsceneSystem cutsceneSystem = GameObject.Find("CutsceneSystem").GetComponent<CutsceneSystem>();
+        cutsceneSystem.ExitCutsceneMode();
+
+        cutsceneLock = false;
+        movementLock = false;
+    }    
 
 }
