@@ -62,11 +62,11 @@ MF: The experience would help out for combat school. # Indicator("MF")
 # Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0) # Move("Livar", 25.7, 3.8)
 All: Good match!
 
-MF: That's enough training for me today.
+MF: That's enough training for me today. # Indicator("MF")
 
-AF: Same here, we should get some rest for tomorrow.
+AF: Same here, we should get some rest for tomorrow. # Indicator("AF")
 
-Hero: You're right, I'll see you guys in the morning.
+Hero: You're right, I'll see you guys in the morning. # Indicator("Player")
 
 -> DONE
 
