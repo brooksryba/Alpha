@@ -115,11 +115,6 @@ MonoBehaviour:
   spellNames:
   - Heal
   - Boost Physical Attack
-  dialogIndex: 0
-  dialogText:
-  - What are you doing wandering the forest alone?
-  - It's nice to meet you, though.\nI will join your party!
-  - I look forward to fighting with you.
   inkJSON: {fileID: 4900000, guid: f1acee41a01c0144a91e6b2667786c46, type: 3}
 --- !u!50 &8802388472861513758
 Rigidbody2D:
@@ -129,7 +124,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8620067899578566026}
-  m_BodyType: 2
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

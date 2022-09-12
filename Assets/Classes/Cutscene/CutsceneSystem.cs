@@ -2,10 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using MoonSharp.Interpreter;
 
 public class CutsceneSystem : MonoBehaviour
 {
+    public BattleSceneScriptable battleScriptable;
+    public PlayerScriptable playerScriptable;
     public bool cutsceneIsPlaying { get; private set; }
     public Dictionary<String, Vector3> originalPosition;
 
@@ -39,6 +42,7 @@ public class CutsceneSystem : MonoBehaviour
     
         //for each C# function we want to access from plaintext:
         script.Globals["Move"] = (Func<string, float, float, bool>)Move;
+        script.Globals["Battle"] = (Func<string, string, bool>)Battle;
     
         //Once all functions have been registered
         script.DoString(tag);
@@ -53,4 +57,18 @@ public class CutsceneSystem : MonoBehaviour
         character.transform.position = new Vector3(x, y, 0);
         return true;
     }    
+
+    private bool Battle(string enemyID, string storyPath)
+    {
+        DialogSystem dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
+
+        battleScriptable.enemy = enemyID;
+        battleScriptable.scene = SceneManager.GetActiveScene().name;
+        battleScriptable.scenePath = storyPath;
+        playerScriptable.Write(transform.position);
+        SaveSystem.SaveAndDeregister();
+        SceneManager.LoadScene(sceneName:"Battle");     
+
+        return true;          
+    }
 }

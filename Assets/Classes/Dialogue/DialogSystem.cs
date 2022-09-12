@@ -45,7 +45,6 @@ public class DialogSystem : MonoBehaviour
             dialogueIsPlaying = true;
             eventCallback = _eventCallback;
             exitCallback = _exitCallback;
-            ContinueStory();
         }
     }
 
@@ -60,6 +59,16 @@ public class DialogSystem : MonoBehaviour
         else if (!currentStory.canContinue && !needToMakeChoice) {
             ExitDialogueMode();
         }
+    }
+
+    public string GetStoryCurrentPath()
+    {
+        return currentStory.currentFlowName;
+    }
+    
+    public void SetStoryCurrentPath(string path) 
+    {
+        currentStory.ChoosePathString(path);
     }
 
     private void ExitDialogueMode(){

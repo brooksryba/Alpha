@@ -6,5 +6,6 @@ public class BattleSceneScriptable : ScriptableObject
 {
     public string enemy = null;
     public string scene = null;
+    public string scenePath = null;
 
 }

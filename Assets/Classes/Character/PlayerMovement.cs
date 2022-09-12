@@ -132,6 +132,7 @@ public class PlayerMovement : MonoBehaviour
                         dialogLock = true;
                         movementLock = true;
                         dialogSystem.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {HandleDialogEvent(s);}, () => {HandleDialogEnd();});
+                        dialogSystem.ContinueStory();
                     }
                 }
             }
@@ -213,6 +214,11 @@ public class PlayerMovement : MonoBehaviour
                     movementLock = true;
                     cutsceneSystem.EnterCutsceneMode();
                     dialogSystem.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCutsceneEnd();});
+                    if(battleScriptable.scenePath != "") {
+                        dialogSystem.SetStoryCurrentPath(battleScriptable.scenePath);
+                        battleScriptable.scenePath = null;
+                    }
+                    dialogSystem.ContinueStory();
                 }
             }
         }        

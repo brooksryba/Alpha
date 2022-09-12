@@ -5,10 +5,6 @@
 
 # Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0)
 
-Hero: What's your name?
-
-AF: I'm Archer Friend. Lets join parties!
-
 Hero: How do you guys know what your combat affinities will be?
 
 AF: My dad was an archer in the Great War. Growing up my mom<br>always told me stories of his skills and bravery. I've always<br>wanted to be one ever since, it also just feels natural to <br>use a bow. What about you MF?
@@ -42,10 +38,12 @@ Fight the rats?
 
 
 === chapter_1_post_rats ===
+# Move("Livar", 25.7, 3.8)
 Livar: Not bad, but you still need more practice.
 -> chapter_1_pre_rival
 
 === chapter_1_no_rats ===
+# Move("Livar", 25.7, 3.8)
 Livar: Do you think you are above the practice?
 -> chapter_1_pre_rival
 
@@ -56,10 +54,12 @@ Livar: I accept your challenge!
 
 AF: I know we normally break these fights up, but perhaps a friendly spar could benefit us all.
 
+# Battle("Livar", "chapter_1_post_rival")
 MF: The experience would help out for combat school.
+-> chapter_1_post_rival
 
-// trigger battle scene
-
+=== chapter_1_post_rival ===
+# Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0) # Move("Livar", 25.7, 3.8)
 All: Good match!
 
 MF: That's enough training for me today.

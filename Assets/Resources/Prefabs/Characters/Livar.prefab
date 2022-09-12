@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8522677594209292016}
   - component: {fileID: 900490567096679845}
   m_Layer: 0
-  m_Name: AF
+  m_Name: Livar
   m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: b830636751fe16b42aaf6fba80451bf3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c0668c6c5d5d4814b9d9191bd539a1b3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,13 +100,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9518d13259db2134c9218f639c53f1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Forest Mage
+  title: Livar
   level: 7
   className: Mage
   items: []
   damage: 0
-  currentHP: 0
-  currentMana: 0
+  currentHP: 45
+  currentMana: 90
   earnedXp: 0
   partyMembers: []
   attackNames:
