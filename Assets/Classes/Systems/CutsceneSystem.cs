@@ -70,7 +70,9 @@ public class CutsceneSystem : MonoBehaviour
         battleScriptable.enemy = enemyID;
         battleScriptable.scene = SceneManager.GetActiveScene().name;
         battleScriptable.scenePath = storyPath;
-        playerScriptable.Write(transform.position);
+
+        GameObject player = GameObject.Find("Player");
+        playerScriptable.Write(player.transform.position);
         SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");     
 

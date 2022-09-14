@@ -38,7 +38,7 @@ public class BattleSystemMenu
 
     public void createOptionSubmenu(Character character)
     {
-        GameObject obj = GameObject.Instantiate(Resources.Load("Prefabs/Menu")) as GameObject;
+        GameObject obj = GameObject.Instantiate(Resources.Load("Prefabs/Widgets/Menu")) as GameObject;
         DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
         Dictionary<string, Action> attacks = new Dictionary<string, Action>();

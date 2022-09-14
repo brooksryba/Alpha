@@ -27,7 +27,7 @@ public class BattleStateAttackMinigame : BattleState
             if(minigameName != null & minigameName != ""){
                 if(isEnemyTurn) _manager.dialogueText.text = "Complete the Minigame to boost your defense!";
                 else _manager.dialogueText.text = "Complete the Minigame to boost your attack!";
-                minigamePrefab = Resources.Load("Prefabs/BattleMinigames/" + minigameName) as GameObject;
+                minigamePrefab = Resources.Load("Prefabs/Battle/Minigames/" + minigameName) as GameObject;
                 minigameContainer = GameObject.Find("BattleMinigameContainer");
                 minigameObj = GameObject.Instantiate(minigamePrefab, minigameContainer.transform);
                 minigameObj.transform.SetParent(minigameContainer.transform);

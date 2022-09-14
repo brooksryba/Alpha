@@ -108,7 +108,7 @@ public class DialogSystem : MonoBehaviour
 
         if( GameObject.Find("Menu(Clone)") ) { return; }
         
-        GameObject obj = Instantiate(Resources.Load("Prefabs/Menu"), transform.position, transform.rotation) as GameObject;
+        GameObject obj = Instantiate(Resources.Load("Prefabs/Widgets/Menu"), transform.position, transform.rotation) as GameObject;
         DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
         Dictionary<string, Action> choiceDictionary = new Dictionary<string, Action>();

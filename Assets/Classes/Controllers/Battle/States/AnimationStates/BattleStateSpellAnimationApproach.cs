@@ -11,11 +11,11 @@ public class BattleStateSpellAnimationApproach : BattleState
 
         if(createSpellObj){
             createSpellObj = false;
-            _manager.spellPrefab = Resources.Load("Prefabs/Spells/" + _manager.chosenBattleMove) as GameObject;
+            _manager.spellPrefab = Resources.Load("Prefabs/Battle/Spells/" + _manager.chosenBattleMove) as GameObject;
             if(_manager.spellPrefab){
                 _manager.spellObj = GameObject.Instantiate(_manager.spellPrefab, _manager.charManager.attacker.transform);
             } else {
-                _manager.spellPrefab = Resources.Load("Prefabs/Spells/SpellOrb") as GameObject;
+                _manager.spellPrefab = Resources.Load("Prefabs/Battle/Spells/SpellOrb") as GameObject;
                 _manager.spellObj = GameObject.Instantiate(_manager.spellPrefab, _manager.charManager.attacker.transform);
             }
 

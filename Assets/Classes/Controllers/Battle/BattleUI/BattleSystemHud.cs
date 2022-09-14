@@ -14,7 +14,7 @@ public class BattleSystemHud
     public GameObject selectionButton;
     public void createSingleHUD(ref GameObject partyMember, ref Character hudCharacter, GameObject partyContainer)
     {
-        GameObject battleHudPrefab = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/BattleHUD"), partyContainer.transform);
+        GameObject battleHudPrefab = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Battle/BattleHUD"), partyContainer.transform);
         battleHudPrefab.transform.SetParent(partyContainer.transform);
         BattleHUD hud = battleHudPrefab.GetComponent<BattleHUD>();
         hud.character = hudCharacter;
