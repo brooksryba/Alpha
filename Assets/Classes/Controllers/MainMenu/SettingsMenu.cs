@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class SettingsMenu : MonoBehaviour {
     public Slider slider;
-    public SettingsSystem system;
+    public Settings system;
 
     void Start() {
         system.LoadState();
