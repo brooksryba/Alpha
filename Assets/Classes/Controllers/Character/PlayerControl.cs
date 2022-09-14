@@ -15,7 +15,7 @@ public class PlayerControl : MonoBehaviour
         }
         if( Input.GetKeyUp(KeyCode.F2) ) {
             SaveSystem.Save();
-            GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
+            ToastSystem.instance.Open("Saving...");
         }        
         if( Input.GetKeyUp(KeyCode.E) ) {
             GameObject.Find("Player").GetComponent<PlayerMovement>().HandleCollisionInteraction();
@@ -40,12 +40,12 @@ public class PlayerControl : MonoBehaviour
                         Character character = GameObject.Find("Player").GetComponent<Character>();
                         string message = itemData.Execute(character);
 
-                        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
+                        ToastSystem.instance.Open(message);
                         Destroy(GameObject.Find("Menu(Clone)"));
                     } 
                     else
                     {
-                        GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Can't use this item now.");
+                        ToastSystem.instance.Open("Can't use this item now.");
                     }
                 });
             }
@@ -55,15 +55,15 @@ public class PlayerControl : MonoBehaviour
                 {"Player", () => {
                     Character player = GameObject.Find("Player").GetComponent<Character>();
                     string message = "HP: " + player.currentHP + "/" + player.characterClass.maxHP + "\nMana: " + player.currentMana + "/" + player.characterClass.maxMana;
-                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open(message);
+                    ToastSystem.instance.Open(message);
                 }},
                 {"Items >>", delegate { menu.SubMenu(items); }},
                 {"Map", () => {
-                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Not implemented.");
+                    ToastSystem.instance.Open("Not implemented.");
                 }},
                 {"Save", () => {
                     SaveSystem.Save();
-                    GameObject.Find("ToastSystem").GetComponent<ToastSystem>().Open("Saving...");
+                    ToastSystem.instance.Open("Saving...");
                 }},
                 {"Quit", () => SceneManager.LoadScene("Menu")},
                 {"Return", () => {}},

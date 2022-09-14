@@ -9,12 +9,17 @@ using UnityEngine.SceneManagement;
 
 public class DialogSystem : MonoBehaviour
 {
+    private static DialogSystem _instance;
+    public static DialogSystem instance { get { return _instance; } }
+
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
     public bool needToMakeChoice;
     public string choiceString;
     public Action<String> eventCallback;
     public Action exitCallback;
+
+    private void Awake() { _instance = this; }
 
     void Start()
     {
