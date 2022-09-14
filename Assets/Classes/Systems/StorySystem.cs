@@ -73,20 +73,24 @@ public class StorySystem : MonoBehaviour
     private void UpdateBlocks()
     {
         GameObject parent = GameObject.Find("Blocks");
-        foreach(Component block in parent.GetComponentsInChildren(typeof(Transform), true))
-        {
-            if(block.gameObject.name == "Blocks") { continue; }
-            block.gameObject.SetActive(block.gameObject.name == "Block_Chapter_"+chapter+"_"+mark);
+        if(parent != null) {
+            foreach(Component block in parent.GetComponentsInChildren(typeof(Transform), true))
+            {
+                if(block.gameObject.name == "Blocks") { continue; }
+                block.gameObject.SetActive(block.gameObject.name == "Block_Chapter_"+chapter+"_"+mark);
+            }
         }
     }
 
     private void UpdateCutscenes()
     {
         GameObject parent = GameObject.Find("Cutscenes");
-        foreach(Component cutscene in parent.GetComponentsInChildren(typeof(Transform), true))
-        {
-            if(cutscene.gameObject.name == "Cutscenes") { continue; }
-            cutscene.gameObject.SetActive(cutscene.gameObject.name == "Cutscene_Chapter_"+chapter+"_"+mark);
+        if(parent != null) {
+            foreach(Component cutscene in parent.GetComponentsInChildren(typeof(Transform), true))
+            {
+                if(cutscene.gameObject.name == "Cutscenes") { continue; }
+                cutscene.gameObject.SetActive(cutscene.gameObject.name == "Cutscene_Chapter_"+chapter+"_"+mark);
+            }
         }
     }
 }
