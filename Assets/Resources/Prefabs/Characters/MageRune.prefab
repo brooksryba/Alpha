@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8620067899578566029}
   - component: {fileID: 3851121602351010879}
   - component: {fileID: 7040330356839086554}
-  - component: {fileID: 418818292024215502}
   - component: {fileID: 3930090533358201007}
   - component: {fileID: 3480582840886689619}
+  - component: {fileID: 418818292024215502}
   m_Layer: 0
   m_Name: MageRune
   m_TagString: Friendly
@@ -104,46 +104,14 @@ MonoBehaviour:
   className: Mage
   items: []
   damage: 0
-  maxHP: 0
   currentHP: 0
-  maxMana: 0
   currentMana: 0
-  speed: 0
   earnedXp: 0
-  physicalAttack: 0
-  magicAttack: 0
-  physicalDefense: 0
-  magicDefense: 0
   partyMembers: []
   attackNames:
   - Basic Attack
   spellNames: []
-  dialogIndex: 0
-  dialogText:
-  - I was just polishing some of my new runes.
-  - Oh, you'd like me to join your party? Ok, I guess...
-  - These runes will be ready to use in battle soon.
---- !u!50 &418818292024215502
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8620067899578566026}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  inkJSON: {fileID: 0}
 --- !u!114 &3930090533358201007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -183,6 +151,27 @@ MonoBehaviour:
   EndColor: {r: 0, g: 0, b: 0, a: 0}
   timeRemaining: 0
   timeToTransition: 0
+--- !u!50 &418818292024215502
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1001 &8574624010122633064
 PrefabInstance:
   m_ObjectHideFlags: 0

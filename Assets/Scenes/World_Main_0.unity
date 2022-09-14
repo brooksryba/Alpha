@@ -135,25 +135,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1533016928}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &26244351
+--- !u!95 &26244351 stripped
 Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 3071125907342343965, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1533016928}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 26244350}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 39d0dc20f492eab49bae19eaf983bab6, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &26244352
 Rigidbody2D:
   serializedVersion: 4
@@ -200,9 +187,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 26244350}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f44661514e82234ca2df5fd86fb959e, type: 3}
+  m_Script: {fileID: 11500000, guid: 3542345f5505c66418e3cb60444bedc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
+  playerScriptable: {fileID: 11400000, guid: 6b2ca5ef543b10f488665bdc95ae69c6, type: 2}
+  movementLock: 0
+  dialogLock: 0
+  cutsceneLock: 0
 --- !u!114 &26244355
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,20 +207,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50314665411570c44ba1442814281afd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionObject: {fileID: 0}
-  collisionCharacter: {fileID: 0}
-  collisionCutscene: {fileID: 0}
   baseMoveSpeed: 5
   moveSpeed: 3
   loadPosition: 1
   rb: {fileID: 26244352}
   animator: {fileID: 26244351}
   position: {x: 0, y: 0, z: 0}
-  battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
   playerScriptable: {fileID: 11400000, guid: 6b2ca5ef543b10f488665bdc95ae69c6, type: 2}
-  movementLock: 0
-  dialogLock: 0
-  cutsceneLock: 0
+  playerInteraction: {fileID: 26244354}
+--- !u!114 &26244356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26244350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f44661514e82234ca2df5fd86fb959e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &26244358 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5619778278270914738, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
@@ -22249,7 +22247,7 @@ Transform:
   m_LocalScale: {x: 1.2106, y: 1.2106, z: 1.2106}
   m_Children: []
   m_Father: {fileID: 26244358}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &879001584
 MonoBehaviour:

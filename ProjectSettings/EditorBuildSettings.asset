@@ -9,17 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: a9a23428da5f1374f9e402187db171d3
   - enabled: 1
-    path: Assets/Scenes/World_Main_2.unity
-    guid: b25356e660de7e548a4cbe959f5febdf
-  - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 2b77c8cb5078c6043b6ced84a1bb421d
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/World_Cave_0.unity
     guid: bc55f29eef76ca54286c5b7b35e4e7c7
@@ -32,6 +23,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World_Main_0.unity
     guid: 3ad5049f6f2568b48b3a74c82c1b97d0
+  - enabled: 1
+    path: Assets/Scenes/World_Main_1.unity
+    guid: a8511f91b61afe947adef716ac528c2e
+  - enabled: 1
+    path: Assets/Scenes/World_Main_2.unity
+    guid: b25356e660de7e548a4cbe959f5febdf
   - enabled: 1
     path: Assets/Scenes/World_Main_3.unity
     guid: 391b7fc179675984bb0a6b69915aaa61

@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8620067899578566029}
   - component: {fileID: 555200299348408392}
   - component: {fileID: 4285036244626313821}
-  - component: {fileID: 8802388472861513758}
   - component: {fileID: 2211358280249566477}
   - component: {fileID: 8522677594209292016}
+  - component: {fileID: 8802388472861513758}
   m_Layer: 0
   m_Name: MageForest
   m_TagString: Friendly
@@ -104,16 +104,9 @@ MonoBehaviour:
   className: Mage
   items: []
   damage: 0
-  maxHP: 0
   currentHP: 0
-  maxMana: 0
   currentMana: 0
-  speed: 0
   earnedXp: 0
-  physicalAttack: 0
-  magicAttack: 0
-  physicalDefense: 0
-  magicDefense: 0
   partyMembers: []
   attackNames:
   - Basic Attack
@@ -121,32 +114,7 @@ MonoBehaviour:
   spellNames:
   - Heal
   - Boost Physical Attack
-  dialogIndex: 0
-  dialogText:
-  - What are you doing wandering the forest alone?
-  - It's nice to meet you, though.\nI will join your party!
-  - I look forward to fighting with you.
---- !u!50 &8802388472861513758
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8620067899578566026}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  inkJSON: {fileID: 0}
 --- !u!114 &2211358280249566477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,6 +154,27 @@ MonoBehaviour:
   EndColor: {r: 0, g: 0, b: 0, a: 0}
   timeRemaining: 0
   timeToTransition: 0
+--- !u!50 &8802388472861513758
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1001 &614099548933811373
 PrefabInstance:
   m_ObjectHideFlags: 0
