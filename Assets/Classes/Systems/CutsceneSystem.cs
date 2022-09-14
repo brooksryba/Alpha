@@ -27,7 +27,6 @@ public class CutsceneSystem : MonoBehaviour
     public void ExitCutsceneMode()
     {
         cutsceneIsPlaying = false;
-        StorySystem.instance.MoveToNextMark();
         RestoreCharacterLocations();
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);

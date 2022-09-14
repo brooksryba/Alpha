@@ -105,7 +105,7 @@ MonoBehaviour:
   className: Mage
   items: []
   damage: 0
-  currentHP: 45
+  currentHP: 0
   currentMana: 90
   earnedXp: 0
   partyMembers: []

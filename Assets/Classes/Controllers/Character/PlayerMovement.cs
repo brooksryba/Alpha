@@ -104,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
                 HandleInventoryItem(collision);
             } else if (collision.gameObject.tag == "Portal"){
                 HandlePortal(collision);
-            } else if (collision.gameObject.tag == "Cutscene") {
+            } else if (collision.gameObject.tag == "Cutscene" || collision.gameObject.tag == "Block") {
                 HandleCutscene(collision);
             }
         }
@@ -208,8 +208,8 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleCutscene(Collision2D collision)
     {
-        if(collision != null){
-            if ((collision.gameObject.tag == "Cutscene") && !cutsceneLock) {
+        if(collision != null && !cutsceneLock){
+            if (collision.gameObject.tag == "Cutscene") {
                 collisionObject = collision.gameObject;
                 collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
 
@@ -224,6 +224,17 @@ public class PlayerMovement : MonoBehaviour
                     }
                     DialogSystem.instance.ContinueStory();
                 }
+            } else if(collision.gameObject.tag == "Block") {
+                collisionObject = collision.gameObject;
+                collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+
+                if(collisionCutscene.inkJSON) {
+                    cutsceneLock = true;
+                    movementLock = true;
+                    CutsceneSystem.instance.EnterCutsceneMode();
+                    DialogSystem.instance.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCuttakeEnd();});
+                    DialogSystem.instance.ContinueStory();
+                }                     
             }
         }        
     }
@@ -233,7 +244,8 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleCutsceneEnd() {
         CutsceneSystem.instance.ExitCutsceneMode();
-
+        StorySystem.instance.MoveToNextMark();
+        
         cutsceneLock = false;
         movementLock = false;
     }
