@@ -5,6 +5,9 @@ using TMPro;
 
 public class BattleObjectManager : MonoBehaviour
 {
+    private static BattleObjectManager _instance;
+    public static BattleObjectManager instance { get { return _instance; } }
+
     public TextMeshProUGUI dialogueText;
     public TextMeshProUGUI turnCounterText;
 
@@ -36,6 +39,8 @@ public class BattleObjectManager : MonoBehaviour
 
     public BattleStateMachine battleStateMachine;
     public BattleBonusManager battleBonusManager;
+
+    private void Awake() { _instance = this; }
 
     public void Start()
     {

@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleSystemMenu
 {
-    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = BattleObjectManager.instance;
 
     public void OpenSubmenu(Character character, GameObject target)
     {
