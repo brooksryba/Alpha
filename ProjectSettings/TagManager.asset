@@ -12,6 +12,7 @@ TagManager:
   - Menu
   - Cutscene
   - Cuttake
+  - Block
   layers:
   - Default
   - TransparentFX

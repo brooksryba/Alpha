@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: PlayerScriptable
   m_EditorClassIdentifier: 
   ready: 0
-  position: {x: 0, y: 0, z: 0}
+  position: {x: 21.4375, y: 3.9375, z: 0}

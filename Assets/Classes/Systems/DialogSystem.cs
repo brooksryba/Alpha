@@ -48,6 +48,8 @@ public class DialogSystem : MonoBehaviour
         if (!dialogueIsPlaying){
             currentStory = new Story(inkJSON.text);
             dialogueIsPlaying = true;
+            eventCallback = null;
+            exitCallback = null;
             eventCallback = _eventCallback;
             exitCallback = _exitCallback;
         }

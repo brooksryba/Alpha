@@ -218,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
                     movementLock = true;
                     CutsceneSystem.instance.EnterCutsceneMode();
                     DialogSystem.instance.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCutsceneEnd();});
-                    if(battleScriptable.scenePath != "") {
+                    if(battleScriptable.scenePath != null && battleScriptable.scenePath != "") {
                         DialogSystem.instance.SetStoryCurrentPath(battleScriptable.scenePath);
                         battleScriptable.scenePath = null;
                     }
@@ -233,7 +233,6 @@ public class PlayerMovement : MonoBehaviour
 
     void HandleCutsceneEnd() {
         CutsceneSystem.instance.ExitCutsceneMode();
-        collisionObject.SetActive(false);
 
         cutsceneLock = false;
         movementLock = false;

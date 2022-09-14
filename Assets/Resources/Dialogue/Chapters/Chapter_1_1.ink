@@ -1,7 +1,7 @@
--> chapter_1_intro
+-> chapter_1_1_intro
 
 
-=== chapter_1_intro ===
+=== chapter_1_1_intro ===
 
 # Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0)
 
@@ -32,36 +32,36 @@ AF: Look over there. Let's get some real practice! # Indicator("AF")
 
 Fight the rats? 
     * [Yes]
-        # Battle("Rat", "chapter_1_post_rats")
+        # Battle("Rat", "chapter_1_1_post_rats")
         Hero: Yes, they will be great practice! # Indicator("Player")
-        -> chapter_1_post_rats
+        -> chapter_1_1_post_rats
     * [No]
         Hero: No, let's leave them be. # Indicator("Player")
-        -> chapter_1_no_rats
+        -> chapter_1_1_no_rats
 
 
-=== chapter_1_post_rats ===
+=== chapter_1_1_post_rats ===
 # Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0) # Move("Livar", 25.7, 3.8)
 Livar: Not bad, but you still need more practice. # Indicator("Livar")
--> chapter_1_pre_rival
+-> chapter_1_1_pre_rival
 
-=== chapter_1_no_rats ===
+=== chapter_1_1_no_rats ===
 # Move("Livar", 25.7, 3.8)
 Livar: Do you think you are above the practice? # Indicator("Livar")
--> chapter_1_pre_rival
+-> chapter_1_1_pre_rival
 
-=== chapter_1_pre_rival ===
+=== chapter_1_1_pre_rival ===
 Hero: If you think you're so good Livar, let's<br>have a duel to prove it! # Indicator("Player")
 
 Livar: I accept your challenge! # Indicator("Livar")
 
 AF: I know we normally break these fights up, but<br>perhaps a friendly spar could benefit us all. # Indicator("AF")
 
-# Battle("Livar", "chapter_1_post_rival")
+# Battle("Livar", "chapter_1_1_post_rival")
 MF: The experience would help out for combat school. # Indicator("MF")
--> chapter_1_post_rival
+-> chapter_1_1_post_rival
 
-=== chapter_1_post_rival ===
+=== chapter_1_1_post_rival ===
 # Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0) # Move("Livar", 25.7, 3.8)
 All: Good match!
 
