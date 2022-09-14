@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 8620067899578566029}
   - component: {fileID: 3851121602351010879}
   - component: {fileID: 1758589926555978252}
-  - component: {fileID: 370051859557069467}
   - component: {fileID: 7765376628152518156}
   - component: {fileID: 4830619023053835864}
+  - component: {fileID: 370051859557069467}
   m_Layer: 0
   m_Name: Mage
   m_TagString: Enemy
@@ -104,45 +104,14 @@ MonoBehaviour:
   className: Mage
   items: []
   damage: 0
-  maxHP: 30
   currentHP: 30
-  maxMana: 15
   currentMana: 15
-  speed: 9
   earnedXp: 0
-  physicalAttack: 0
-  magicAttack: 0
-  physicalDefense: 0
-  magicDefense: 0
   partyMembers: []
   attackNames:
   - Basic Attack
   spellNames: []
-  dialogIndex: 0
-  dialogText:
-  - Mwuhahah! Eat my magic fire!
-  - How could this happen?
---- !u!50 &370051859557069467
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8620067899578566026}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
+  inkJSON: {fileID: 0}
 --- !u!114 &7765376628152518156
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +151,27 @@ MonoBehaviour:
   EndColor: {r: 0, g: 0, b: 0, a: 0}
   timeRemaining: 0
   timeToTransition: 0
+--- !u!50 &370051859557069467
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1001 &3931705347337877985
 PrefabInstance:
   m_ObjectHideFlags: 0

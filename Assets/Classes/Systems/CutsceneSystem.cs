@@ -32,6 +32,7 @@ public class CutsceneSystem : MonoBehaviour
         transform.GetChild(1).gameObject.SetActive(false);
     }
 
+
     public void RestoreCharacterLocations()
     {
         foreach(string moverID in originalPosition.Keys) {
