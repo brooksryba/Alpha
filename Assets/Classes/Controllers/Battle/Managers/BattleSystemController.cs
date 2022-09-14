@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BattleSystemController : MonoBehaviour
-{
-    public static BattleSystemController instance;
+{    
+    private static BattleSystemController _instance;
+    public static BattleSystemController instance { get { return _instance; } }
 
-    public void Awake()
-    {
-        instance = this;
-    }
-
+    private void Awake() { _instance = this; }
     public event Action<string, GameObject> onBattleHudTitleButton;
     public void BattleHudTitleButton(string character, GameObject target)
     {

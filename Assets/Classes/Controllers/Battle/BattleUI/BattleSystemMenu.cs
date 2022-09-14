@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class BattleSystemMenu
 {
-    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = BattleObjectManager.instance;
 
     public void OpenSubmenu(Character character, GameObject target)
     {
@@ -38,7 +38,7 @@ public class BattleSystemMenu
 
     public void createOptionSubmenu(Character character)
     {
-        GameObject obj = GameObject.Instantiate(Resources.Load("Prefabs/Menu")) as GameObject;
+        GameObject obj = GameObject.Instantiate(Resources.Load("Prefabs/Widgets/Menu")) as GameObject;
         DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
         Dictionary<string, Action> attacks = new Dictionary<string, Action>();

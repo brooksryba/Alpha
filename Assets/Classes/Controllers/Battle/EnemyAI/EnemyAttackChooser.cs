@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class EnemyAttackChooser
 {
-    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = BattleObjectManager.instance;
     public BattleSystemUtils utils = new BattleSystemUtils();
 
     public List<string> GetPossibleAttackTargets(){

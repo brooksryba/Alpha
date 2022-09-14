@@ -7,10 +7,15 @@ using MoonSharp.Interpreter;
 
 public class CutsceneSystem : MonoBehaviour
 {
+    private static CutsceneSystem _instance;
+    public static CutsceneSystem instance { get { return _instance; } }
+
     public BattleSceneScriptable battleScriptable;
     public PlayerScriptable playerScriptable;
     public bool cutsceneIsPlaying { get; private set; }
     public Dictionary<String, Vector3> originalPosition;
+
+    private void Awake() { _instance = this; }
 
     public void EnterCutsceneMode()
     {
@@ -62,12 +67,12 @@ public class CutsceneSystem : MonoBehaviour
 
     private bool Battle(string enemyID, string storyPath)
     {
-        DialogSystem dialogSystem = GameObject.Find("DialogSystem").GetComponent<DialogSystem>();
-
         battleScriptable.enemy = enemyID;
         battleScriptable.scene = SceneManager.GetActiveScene().name;
         battleScriptable.scenePath = storyPath;
-        playerScriptable.Write(transform.position);
+
+        GameObject player = GameObject.Find("Player");
+        playerScriptable.Write(player.transform.position);
         SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");     
 

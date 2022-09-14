@@ -14,7 +14,7 @@ public class BattleMoveBase
     public string animationName = "";
     public string moveType = "";
     public string moveName = "";
-    public BattleObjectManager _manager = GameObject.Find("BattleObjectManager").GetComponent<BattleObjectManager>();
+    public BattleObjectManager _manager = BattleObjectManager.instance;
     
     virtual public void _ExecuteBattleMove() {
         // executes the effects of whatever move is selected, overriden in sub classes

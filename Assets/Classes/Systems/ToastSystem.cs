@@ -6,8 +6,13 @@ using TMPro;
 
 public class ToastSystem : MonoBehaviour
 {
+    private static ToastSystem _instance;
+    public static ToastSystem instance { get { return _instance; } }
+
     int timeout = 2;
-    // Start is called before the first frame update
+
+    private void Awake() { _instance = this; }
+
     void Start()
     {
         Close();

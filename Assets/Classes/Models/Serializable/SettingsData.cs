@@ -6,7 +6,7 @@ using UnityEngine;
 public class SettingsData {
     public float volume;
 
-    public SettingsData(SettingsSystem settings) {
+    public SettingsData(Settings settings) {
         volume = settings.volume;
     }
 }

@@ -9,12 +9,17 @@ using UnityEngine.SceneManagement;
 
 public class DialogSystem : MonoBehaviour
 {
+    private static DialogSystem _instance;
+    public static DialogSystem instance { get { return _instance; } }
+
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
     public bool needToMakeChoice;
     public string choiceString;
     public Action<String> eventCallback;
     public Action exitCallback;
+
+    private void Awake() { _instance = this; }
 
     void Start()
     {
@@ -103,7 +108,7 @@ public class DialogSystem : MonoBehaviour
 
         if( GameObject.Find("Menu(Clone)") ) { return; }
         
-        GameObject obj = Instantiate(Resources.Load("Prefabs/Menu"), transform.position, transform.rotation) as GameObject;
+        GameObject obj = Instantiate(Resources.Load("Prefabs/Widgets/Menu"), transform.position, transform.rotation) as GameObject;
         DynamicMenu menu = obj.GetComponent<DynamicMenu>();
 
         Dictionary<string, Action> choiceDictionary = new Dictionary<string, Action>();
