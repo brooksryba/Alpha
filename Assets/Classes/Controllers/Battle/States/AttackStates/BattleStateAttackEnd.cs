@@ -11,7 +11,7 @@ public class BattleStateAttackEnd : BattleState
 
         _manager.battleSystemHud.RefreshAllHUDs();
     
-        _manager.chosenBattleMove = null;
+        _manager.chosenBattleMove = "";
         newState = new BattleStateGetAttacker();
 
         yield return new WaitForSeconds(2f);
