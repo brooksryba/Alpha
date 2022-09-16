@@ -30,7 +30,6 @@ public class BattleStateGetAttacker : BattleState
             if(_manager.turnIndex == 0){
                 _manager.charManager.characterTurnOrder.Sort(delegate(Character a, Character b){return (b.characterClass.speed).CompareTo(a.characterClass.speed);}); // highest speed first (a comp to b is lowest)
                 _manager.overallTurnNumber += 1;
-                _manager.turnCounterText.text = "Overall Turn: " + _manager.overallTurnNumber.ToString();
 
             }
             if(!_manager.charManager.deadPlayerList.Contains(_manager.charManager.characterTurnOrder[_manager.turnIndex].title)){
@@ -41,7 +40,7 @@ public class BattleStateGetAttacker : BattleState
         
         Character nextUp = _manager.charManager.characterTurnOrder[_manager.turnIndex];
         _manager.SetAttacker(nextUp.title);
-        _manager.dialogueText.text = "It is " + _manager.charManager.attackerName + "'s turn to attack!";
+        newMessage = "It is " + _manager.charManager.attackerName + "'s turn to attack!";
         
 
         if(_manager.charManager.playerParty.Contains(_manager.charManager.attackerName)){
@@ -52,7 +51,7 @@ public class BattleStateGetAttacker : BattleState
 
         if(_manager.battleBonusManager.CheckSkipTurn(_manager.charManager.attackerName)){
             yield return new WaitForSeconds(1.5f);
-            _manager.dialogueText.text = _manager.charManager.attackerName + " cannot attack this round!";
+            newMessage = _manager.charManager.attackerName + " cannot attack this round!";
             newState = new BattleStateAttackEnd();
 
         }

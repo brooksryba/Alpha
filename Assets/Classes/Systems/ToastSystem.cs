@@ -9,7 +9,7 @@ public class ToastSystem : MonoBehaviour
     private static ToastSystem _instance;
     public static ToastSystem instance { get { return _instance; } }
 
-    int timeout = 2;
+    int timeout = 5;
 
     private void Awake() { _instance = this; }
 
@@ -18,11 +18,15 @@ public class ToastSystem : MonoBehaviour
         Close();
     }
 
-    public void Open(string message)
+    public void Open(string message, bool doTimeout=true)
     {
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
-        StartCoroutine(TimedClose());
+        if(doTimeout)
+        {
+            StopCoroutine(TimedClose());
+            StartCoroutine(TimedClose());
+        }
     }
 
     public void Close()

@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class BattleHUD : MonoBehaviour
 {
-    public Text nameText;
-    public Text levelText;
-    public Text hpText;
+    public GameObject nameText;
+    public GameObject levelText;
+    public GameObject hpText;
     public Slider hpSlider;
 
-    public Text manaText;
+    public GameObject manaText;
     public Slider manaSlider;
     public Button playerButton;
 
@@ -30,15 +31,16 @@ public class BattleHUD : MonoBehaviour
 
     public void Refresh()
     {
-        nameText.text = character.title;
-        levelText.text = "Lv" + character.level;
+        nameText.GetComponent<TMP_Text>().SetText(character.title);
+        levelText.GetComponent<TMP_Text>().SetText("Lv" + character.level);
+
         hpSlider.maxValue = character.characterClass.maxHP;
         hpSlider.value = character.currentHP;
-        hpText.text = character.currentHP.ToString() + " HP";
+        hpText.GetComponent<TMP_Text>().SetText(character.currentHP.ToString() + " HP");
 
         manaSlider.maxValue = character.characterClass.maxMana;
         manaSlider.value = character.currentMana;
-        manaText.text = character.currentMana.ToString() + " Mana";
+        manaText.GetComponent<TMP_Text>().SetText(character.currentMana.ToString() + " Mana");
 
         playerButton.interactable = character.currentHP > 0;
     }

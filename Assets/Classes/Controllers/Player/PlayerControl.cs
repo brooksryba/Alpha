@@ -51,21 +51,23 @@ public class PlayerControl : MonoBehaviour
             }
             items.Add("Return", () => {});
 
+            Character player = GameObject.Find("Player").GetComponent<Character>();
+            Dictionary<string, Action> playerSub = new Dictionary<string, Action>();
+            playerSub.Add("HP: " + player.currentHP + "/" + player.characterClass.maxHP, () => {});
+            playerSub.Add("Mana: " + player.currentMana + "/" + player.characterClass.maxMana, () => {});
+            playerSub.Add("Return", () => {});
+
             menu.Open(new Dictionary<string, Action>(){
-                {"Player", () => {
-                    Character player = GameObject.Find("Player").GetComponent<Character>();
-                    string message = "HP: " + player.currentHP + "/" + player.characterClass.maxHP + "\nMana: " + player.currentMana + "/" + player.characterClass.maxMana;
-                    ToastSystem.instance.Open(message);
-                }},
-                {"Items >>", delegate { menu.SubMenu(items); }},
-                {"Map", () => {
+                {">> Player", delegate { menu.SubMenu(playerSub); }},
+                {">> Items", delegate { menu.SubMenu(items); }},
+                {"> Map", () => {
                     ToastSystem.instance.Open("Not implemented.");
                 }},
-                {"Save", () => {
+                {"> Save", () => {
                     SaveSystem.Save();
                     ToastSystem.instance.Open("Saving...");
                 }},
-                {"Quit", () => SceneManager.LoadScene("Menu")},
+                {"> Quit", () => SceneManager.LoadScene("Menu")},
                 {"Return", () => {}},
             });
         } 

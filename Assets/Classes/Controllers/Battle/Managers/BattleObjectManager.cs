@@ -8,9 +8,6 @@ public class BattleObjectManager : MonoBehaviour
     private static BattleObjectManager _instance;
     public static BattleObjectManager instance { get { return _instance; } }
 
-    public TextMeshProUGUI dialogueText;
-    public TextMeshProUGUI turnCounterText;
-
     public GameObject playerPrefab;
     public GameObject enemyPrefab;
 

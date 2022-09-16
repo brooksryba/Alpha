@@ -11,6 +11,7 @@ public class BattleStatePlayerAttack : BattleState
 
         _manager.battleSystemMenu.closeOptionSubmenu();
         _manager.battleSystemHud.canSelect = true;
+        newMessage = "Choose a target for "+_manager.charManager.attackerName+":";
         if(battleSystemUtils.ConfirmBattleMoveInputs(_manager.chosenBattleMove, _manager.charManager.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection)){
             _manager.battleSystemHud.canSelect = false;        
            
@@ -27,7 +28,7 @@ public class BattleStatePlayerAttack : BattleState
 
             }
             else {
-                _manager.dialogueText.text = _manager.charManager.attackerName + " cannot choose this attack";
+                newMessage = _manager.charManager.attackerName + " cannot choose this attack";
                 yield return new WaitForSeconds(2f);
                 newState = new BattleStatePlayerStart();
                 _manager.battleSystemHud.selection = null;

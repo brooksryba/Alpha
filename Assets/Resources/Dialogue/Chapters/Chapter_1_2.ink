@@ -3,7 +3,7 @@
 
 === chapter_1_2_intro ===
 
-# Move("Livar", 6.55, -13.44) 
+# Move("Livar", 6.55, -10.8) 
 
 Hero: You again? We just fought # Indicator("Player")
 
@@ -16,7 +16,7 @@ Hero: Ok... # Indicator("Player")
 
 === chapter_1_2_post_rival ===
 
-# Move("Livar", 6.55, -13.44) 
+# Move("Livar", 6.55, -10.8) 
 
 Livar: Until we meet next time! # Indicator("Livar")
 

@@ -22,7 +22,7 @@ public class BattleSystemMenu
         GameObject obj = GameObject.Find("MenuList");
         Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         obj.transform.position = cam.WorldToScreenPoint(target.transform.position);
-        obj.transform.position += new Vector3(0, 100, 0);
+        obj.transform.position += new Vector3(0, 200, 0);
     }
 
     public void closeOptionSubmenu()
@@ -46,12 +46,12 @@ public class BattleSystemMenu
         Dictionary<string, Action> strategies = new Dictionary<string, Action>();
 
         foreach( var attackName in character.attackNames ) {
-            attacks.Add(attackName, () => { _manager.chosenBattleMove = attackName; });
+            attacks.Add("> "+attackName, () => { _manager.chosenBattleMove = attackName; });
         }
         attacks.Add("Return", () => { });
 
         foreach( var spellName in character.spellNames ) {
-            spells.Add(spellName, () => { _manager.chosenBattleMove = spellName; });
+            spells.Add("> "+spellName, () => { _manager.chosenBattleMove = spellName; });
         }
         spells.Add("Return", () => { });
         
@@ -70,7 +70,7 @@ public class BattleSystemMenu
             }
 
             foreach(KeyValuePair<string, int> item in itemCount ) {
-                items.Add(item.Key + "(x" + item.Value.ToString() + ")", () => { _manager.chosenItem = item.Key; });
+                items.Add("> "+item.Key + " (x" + item.Value.ToString() + ")", () => { _manager.chosenItem = item.Key; });
             }
 
         }
@@ -80,12 +80,12 @@ public class BattleSystemMenu
 
         strategies.Add("Return", () => { });
 
-        menu.Open(new Dictionary<string, Action>(){
-        {"Attacks >>", delegate { menu.SubMenu(attacks); }},
-        {"Spells >>", delegate { menu.SubMenu(spells); }},
-        {"Items >>", delegate { menu.SubMenu(items); }},
-        {"Strategies >>", delegate { menu.SubMenu(strategies); }},
-        {"Resign", delegate { _manager.battleStateMachine.Transition(new BattleStateResign()); }},
+        menu.OpenWithTag(new Dictionary<string, Action>(){
+        {">> Attacks", delegate { menu.SubMenu(attacks); }},
+        {">> Spells", delegate { menu.SubMenu(spells); }},
+        {">> Items", delegate { menu.SubMenu(items); }},
+        {">> Strategies", delegate { menu.SubMenu(strategies); }},
+        {"> Resign", delegate { _manager.battleStateMachine.Transition(new BattleStateResign()); }},
         {"Return", () => {}},
         });
     

@@ -142,7 +142,7 @@ public class PlayerInteraction : MonoBehaviour
                 collisionObject = collision.gameObject;
                 collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
 
-                if(collisionCutscene.inkJSON) {
+                if(collisionCutscene != null && collisionCutscene.inkJSON) {
                     cutsceneLock = true;
                     movementLock = true;
                     CutsceneSystem.instance.EnterCutsceneMode();
@@ -157,7 +157,7 @@ public class PlayerInteraction : MonoBehaviour
                 collisionObject = collision.gameObject;
                 collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
 
-                if(collisionCutscene.inkJSON) {
+                if(collisionCutscene != null && collisionCutscene.inkJSON) {
                     cutsceneLock = true;
                     movementLock = true;
                     CutsceneSystem.instance.EnterCutsceneMode();
