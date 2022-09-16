@@ -48,7 +48,7 @@ public class CutsceneSystem : MonoBehaviour
         Script script = new Script();
     
         //for each C# function we want to access from plaintext:
-        script.Globals["Move"] = (Func<string, float, float, bool>)Move;
+        script.Globals["Move"] = (Func<string, int, int, bool>)Move;
         script.Globals["Battle"] = (Func<string, string, bool>)Battle;
         script.Globals["Indicator"] = (Func<string, bool>)Indicator;
     
@@ -56,13 +56,37 @@ public class CutsceneSystem : MonoBehaviour
         script.DoString(tag);
     }    
 
-    private bool Move(string moverID, float x, float y)
+    // PlayerMovement - this would need to apply to call animated chars
+        // similar targetLocation to video except ours is a list
+        // that could have more than one entry. when the destination
+        // is reached the item is removed from the call stack 
+        // FIFO (first in, first out)
+
+    // Update Loop
+        // if all events not done (each PlayerMovent.targetLocations.length != 0)
+            // DialogSystem.instance.event_block = true
+        // else
+            // DialogSystem.instance.event_block = false
+            
+
+    //  MoveMultiple(moverID, List<int, int> moves)
+        // call move once per item
+        // create a call stack of moves for a character
+        // dont remove this event until all moves completed
+         
+    private bool Move(string moverID, int x, int y)
     {
+
+        // add event to event list
+
+
         GameObject character = GameObject.Find(moverID);
         if(!originalPosition.ContainsKey(moverID)) {
             originalPosition.Add(moverID, character.transform.position);
         }
-        character.transform.position = new Vector3(x, y, 0);
+        // set PlayerMovent.targetLocation to new position
+        //character.transform.position = TileGrid.Translate(x, y);
+        
         return true;
     }    
 
@@ -74,7 +98,7 @@ public class CutsceneSystem : MonoBehaviour
 
         GameObject player = GameObject.Find("Player");
         playerScriptable.Write(player.transform.position);
-        SaveSystem.SaveAndDeregister();
+        SaveSystem.instance.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");     
 
         return true;          

@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        SaveSystem.Register("PlayerLocation", () => { SaveState(); });
+        SaveSystem.instance.Register("PlayerLocation", () => { SaveState(); });
         if( loadPosition == true ) {
             LoadState();
             if(playerScriptable.ready) {
@@ -36,12 +36,12 @@ public class PlayerMovement : MonoBehaviour
     
     public void SaveState()
     {
-        SaveSystem.SaveState<PlayerLocationData>(new PlayerLocationData(this), "PlayerLocation");
+        SaveSystem.instance.SaveState<PlayerLocationData>(new PlayerLocationData(this), "PlayerLocation");
     }
 
     public void LoadState()
     {
-        PlayerLocationData data = SaveSystem.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
+        PlayerLocationData data = SaveSystem.instance.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
         if( data != null ) {
             if(data.scene == SceneManager.GetActiveScene().name) {
                 this.position = new Vector3();

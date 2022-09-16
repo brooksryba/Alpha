@@ -105,7 +105,7 @@ public class PlayerInteraction : MonoBehaviour
         battleScriptable.enemy = collisionObject.name;
         battleScriptable.scene = SceneManager.GetActiveScene().name;
         playerScriptable.Write(transform.position);
-        SaveSystem.SaveAndDeregister();
+        SaveSystem.instance.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");        
     }
 
@@ -131,7 +131,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         Portal portal = collision.gameObject.GetComponent<Portal>();
         playerScriptable.Write(portal.target);
-        SaveSystem.SaveAndDeregister();
+        SaveSystem.instance.SaveAndDeregister();
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
 

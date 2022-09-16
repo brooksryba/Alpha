@@ -16,7 +16,7 @@ public class StorySystem : MonoBehaviour
 
     public void Start()
     {
-        SaveSystem.Register("StoryData", () => { SaveState(); });
+        SaveSystem.instance.Register("StoryData", () => { SaveState(); });
 
         BuildIndex();
         LoadState();
@@ -25,12 +25,12 @@ public class StorySystem : MonoBehaviour
 
     public void SaveState()
     {
-        SaveSystem.SaveState<StoryData>(new StoryData(this), "StoryData");
+        SaveSystem.instance.SaveState<StoryData>(new StoryData(this), "StoryData");
     }
 
     public void LoadState()
     {
-        StoryData data = SaveSystem.LoadState<StoryData>("StoryData") as StoryData;
+        StoryData data = SaveSystem.instance.LoadState<StoryData>("StoryData") as StoryData;
 
         if (data != null)
         {

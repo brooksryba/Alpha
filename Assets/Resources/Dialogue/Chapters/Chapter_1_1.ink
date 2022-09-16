@@ -3,7 +3,7 @@
 
 === chapter_1_1_intro ===
 
-# Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0)
+# Move("MF", 24, 5) # Move("AF", 24, 3)
 
 Hero: How do you guys know what your combat affinities will be? # Indicator("Player")
 
@@ -41,12 +41,12 @@ Fight the rats?
 
 
 === chapter_1_1_post_rats ===
-# Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0) # Move("Livar", 25.7, 3.8)
+# Move("MF", 24, 5) # Move("AF", 24, 3) # Move("Livar", 26, 4)
 Livar: Not bad, but you still need more practice. # Indicator("Livar")
 -> chapter_1_1_pre_rival
 
 === chapter_1_1_no_rats ===
-# Move("Livar", 25.7, 3.8)
+# Move("Livar", 26, 4)
 Livar: Do you think you are above the practice? # Indicator("Livar")
 -> chapter_1_1_pre_rival
 
@@ -62,7 +62,7 @@ MF: The experience would help out for combat school. # Indicator("MF")
 -> chapter_1_1_post_rival
 
 === chapter_1_1_post_rival ===
-# Move("MF", 23.5, 4.5) # Move("AF", 23.5, 3.0) # Move("Livar", 25.7, 3.8)
+# Move("MF", 24, 5) # Move("AF", 24, 3) # Move("Livar", 26, 4)
 All: Good match!
 
 MF: That's enough training for me today. # Indicator("MF")
