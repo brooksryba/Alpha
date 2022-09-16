@@ -119,8 +119,18 @@ public class DialogSystem : MonoBehaviour
             choiceDictionary.Add("> "+choice.text, () =>  {SetChoiceString(choice.text); MakeChoice();} );
         }
 
-        menu.Open(choiceDictionary);
+        menu.OpenWithTag(choiceDictionary);
+        PositionChoiceMenu();
     }
+
+    public void PositionChoiceMenu()
+    {
+        if( !GameObject.Find("Menu(Clone)") ) { return; }
+        GameObject obj = GameObject.Find("MenuList");
+        Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+        obj.transform.position = GameObject.Find("DialogItem").transform.position;
+        obj.transform.position += new Vector3(0, 87, 0);
+    }    
 
     public void RunTextActions() {
         foreach(String tag in currentStory.currentTags) {

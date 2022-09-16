@@ -14,7 +14,7 @@ public class DynamicMenu : MonoBehaviour
     public void Update() 
     {
         PositionConstraint cons = _menu.transform.GetChild(1).GetComponent<PositionConstraint>();
-        cons.translationOffset = new Vector3(0, -1f*(((RectTransform)menuList.transform).rect.height *  menuList.transform.lossyScale.y)/2f - 20f, 0);
+        cons.translationOffset = new Vector3(0, -1f*(((RectTransform)menuList.transform).rect.height *  menuList.transform.lossyScale.y)/2f - 18.5f, 0);
     }
 
     public void Open(Dictionary<string, Action> items)
