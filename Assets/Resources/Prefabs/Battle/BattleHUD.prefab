@@ -64,9 +64,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nameText: {fileID: 1414735917789903275}
   levelText: {fileID: 1414735917993149793}
-  hpText: {fileID: 1760571564295782961}
+  hpText: {fileID: 1414735917867104098}
   hpSlider: {fileID: 1414735918071447304}
-  manaText: {fileID: 1414735917867104098}
+  manaText: {fileID: 1760571564295782961}
   manaSlider: {fileID: 1760571565299665499}
   playerButton: {fileID: 1414735917882178367}
   character: {fileID: 0}
