@@ -13,11 +13,11 @@ public class BattleStateUseItem : BattleState
         if(BattleItems.lookup.ContainsKey(_manager.chosenItem)) {
             InventoryItemData itemData = BattleItems.lookup[_manager.chosenItem];
             Character activeCharacter = _manager.charManager.attacker.GetComponent<Character>();
-            _manager.dialogueText.text = itemData.Execute(activeCharacter);
+            newMessage = itemData.Execute(activeCharacter);
             yield return new WaitForSeconds(1.5f); 
             newState = new BattleStateAttackEnd();
         } else {
-            _manager.dialogueText.text = _manager.chosenItem + " can't be used now!";
+            newMessage = _manager.chosenItem + " can't be used now!";
             yield return new WaitForSeconds(2f);
             newState = new BattleStatePlayerStart();
         }        

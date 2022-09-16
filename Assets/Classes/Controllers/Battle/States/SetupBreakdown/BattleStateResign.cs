@@ -14,7 +14,7 @@ public class BattleStateResign : BattleState
     {
         newState = this;
 
-        _manager.dialogueText.text = "You resigned the battle";
+        newMessage = "You resigned the battle";
 
         GameObject.FindWithTag("Player").GetComponent<Character>().currentHP = 0;
 

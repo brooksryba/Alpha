@@ -8,7 +8,7 @@ public class BattleStatePlayerAwaitAction : BattleState
     {
         newState = this;
 
-        _manager.dialogueText.text = "Choose an action for "+_manager.charManager.attackerName+":";
+        newMessage = "Choose an action for "+_manager.charManager.attackerName+":";
         if(_manager.battleSystemHud.selection != null && 
            _manager.battleSystemHud.selection.title != _manager.charManager.attackerName) {
             _manager.battleSystemHud.selection = null;

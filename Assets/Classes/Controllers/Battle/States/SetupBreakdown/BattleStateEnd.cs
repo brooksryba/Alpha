@@ -16,10 +16,10 @@ public class BattleStateEnd : BattleState
 
         if(battleSystemUtils.PartyDead(_manager.charManager.enemyParty))
         {
-            _manager.dialogueText.text = "You won the battle!";
+            newMessage = "You won the battle!";
         } else if (battleSystemUtils.PartyDead(_manager.charManager.playerParty))
         {
-            _manager.dialogueText.text = "You were defeated";
+            newMessage = "You were defeated";
         } 
 
 

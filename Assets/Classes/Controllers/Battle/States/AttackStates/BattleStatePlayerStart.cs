@@ -9,7 +9,7 @@ public class BattleStatePlayerStart : BattleState
         newState = this;
         _manager.battleSystemHud.disableUnusableHuds(_manager.charManager.attackerName, _manager.charManager.playerParty);
 
-        _manager.dialogueText.text = "It's " + _manager.charManager.attackerName + " turn to attack!";
+        newMessage = "It's " + _manager.charManager.attackerName + " turn to attack!";
         _manager.battleSystemHud.canSelect = true;
 
         if(_manager.battleSystemHud.selection != null){

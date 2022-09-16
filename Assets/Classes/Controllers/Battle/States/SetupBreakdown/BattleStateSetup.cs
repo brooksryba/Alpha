@@ -10,7 +10,7 @@ public class BattleStateSetup : BattleState
         //_manager.Init();
         _manager.battleSystemHud.RefreshAllHUDs();
 
-        _manager.dialogueText.text = _manager.charManager.enemyParty[0] + " engages in battle...";
+        newMessage = _manager.charManager.enemyParty[0] + " engages in battle...";
 
         yield return new WaitForSeconds(1f);
 

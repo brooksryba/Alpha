@@ -25,8 +25,8 @@ public class BattleStateAttackMinigame : BattleState
             string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenBattleMove, isEnemyTurn);
 
             if(minigameName != null & minigameName != ""){
-                if(isEnemyTurn) _manager.dialogueText.text = "Complete the Minigame to boost your defense!";
-                else _manager.dialogueText.text = "Complete the Minigame to boost your attack!";
+                if(isEnemyTurn) newMessage = "Complete the Minigame to boost your defense!";
+                else newMessage = "Complete the Minigame to boost your attack!";
                 minigamePrefab = Resources.Load("Prefabs/Battle/Minigames/" + minigameName) as GameObject;
                 minigameContainer = GameObject.Find("BattleMinigameContainer");
                 minigameObj = GameObject.Instantiate(minigamePrefab, minigameContainer.transform);
@@ -56,10 +56,10 @@ public class BattleStateAttackMinigame : BattleState
                     battleSystemUtils.GetCharacter(_manager.charManager.attackerName), battleSystemUtils.GetCharacter(_manager.charManager.defenderName));
 
             if(ongoingMinigameData.completedSuccessfully){
-                if(isEnemyTurn) _manager.dialogueText.text = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful, but you decreased it's effect!";
-                else _manager.dialogueText.text = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful with an increased effect!";
+                if(isEnemyTurn) newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful, but you decreased it's effect!";
+                else newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful with an increased effect!";
             } else {
-                _manager.dialogueText.text = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful!";
+                newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful!";
             }
 
             if(chosenMoveDetails.moveType=="Attack")
