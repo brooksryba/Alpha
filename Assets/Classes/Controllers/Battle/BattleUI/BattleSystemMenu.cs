@@ -22,7 +22,7 @@ public class BattleSystemMenu
         GameObject obj = GameObject.Find("MenuList");
         Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         obj.transform.position = cam.WorldToScreenPoint(target.transform.position);
-        obj.transform.position += new Vector3(0, 100, 0);
+        obj.transform.position += new Vector3(0, 200, 0);
     }
 
     public void closeOptionSubmenu()
@@ -80,7 +80,7 @@ public class BattleSystemMenu
 
         strategies.Add("Return", () => { });
 
-        menu.Open(new Dictionary<string, Action>(){
+        menu.OpenWithTag(new Dictionary<string, Action>(){
         {">> Attacks", delegate { menu.SubMenu(attacks); }},
         {">> Spells", delegate { menu.SubMenu(spells); }},
         {">> Items", delegate { menu.SubMenu(items); }},

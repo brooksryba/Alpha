@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 
 public class DynamicMenu : MonoBehaviour
 {
@@ -9,6 +10,12 @@ public class DynamicMenu : MonoBehaviour
     public GameObject _menuItem;
 
     public GameObject menuList;
+
+    public void Update() 
+    {
+        PositionConstraint cons = _menu.transform.GetChild(1).GetComponent<PositionConstraint>();
+        cons.translationOffset = new Vector3(0, -1f*(((RectTransform)menuList.transform).rect.height *  menuList.transform.lossyScale.y)/2f - 20f, 0);
+    }
 
     public void Open(Dictionary<string, Action> items)
     {
@@ -18,7 +25,14 @@ public class DynamicMenu : MonoBehaviour
             AddItem(item.Key, item.Value, !(sub));
         }
 
+        _menu.transform.GetChild(1).gameObject.SetActive(false);
         Canvas.ForceUpdateCanvases();            
+    }
+
+    public void OpenWithTag(Dictionary<string, Action> items)
+    {
+        Open(items);
+        _menu.transform.GetChild(1).gameObject.SetActive(true);
     }
 
     public void Close()

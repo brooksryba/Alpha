@@ -12,6 +12,7 @@ public class BattleStatePlayerAwaitAction : BattleState
         if(_manager.battleSystemHud.selection != null && 
            _manager.battleSystemHud.selection.title != _manager.charManager.attackerName) {
             _manager.battleSystemHud.selection = null;
+            newState = new BattleStatePlayerStart();
         }
         
         if(_manager.battleSystemHud.selection != null && 

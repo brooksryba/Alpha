@@ -116,7 +116,7 @@ public class DialogSystem : MonoBehaviour
         Dictionary<string, Action> choiceDictionary = new Dictionary<string, Action>();
 
         foreach(Choice choice in currentChoices){
-            choiceDictionary.Add(choice.text, () =>  {SetChoiceString(choice.text); MakeChoice();} );
+            choiceDictionary.Add("> "+choice.text, () =>  {SetChoiceString(choice.text); MakeChoice();} );
         }
 
         menu.Open(choiceDictionary);
