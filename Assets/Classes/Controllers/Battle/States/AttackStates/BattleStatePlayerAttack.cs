@@ -11,6 +11,7 @@ public class BattleStatePlayerAttack : BattleState
 
         _manager.battleSystemMenu.closeOptionSubmenu();
         _manager.battleSystemHud.canSelect = true;
+        _manager.dialogueText.text = "Choose a target for "+_manager.charManager.attackerName+":";
         if(battleSystemUtils.ConfirmBattleMoveInputs(_manager.chosenBattleMove, _manager.charManager.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection)){
             _manager.battleSystemHud.canSelect = false;        
            

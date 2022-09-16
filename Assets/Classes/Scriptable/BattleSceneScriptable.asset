@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10f70ffd6d7202e42a250ae640744207, type: 3}
   m_Name: BattleSceneScriptable
   m_EditorClassIdentifier: 
-  enemy: Livar
+  enemy: MageDark
   scene: World_Main_0
   scenePath: 
