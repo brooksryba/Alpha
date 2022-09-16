@@ -29,11 +29,11 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1414735917882178366}
   - {fileID: 1414735917789903272}
   - {fileID: 1414735917993149798}
   - {fileID: 122352197526389639}
   - {fileID: 756119836663871188}
-  - {fileID: 1414735917882178366}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,7 +100,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1414735916871081562}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -236,7 +236,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1414735916871081562}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -272,11 +272,11 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
-    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
-    m_PressedColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-    m_SelectedColor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
-    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.6862745}
+    m_NormalColor: {r: 0.6792453, g: 0.6792453, b: 0.6792453, a: 1}
+    m_HighlightedColor: {r: 0.8207547, g: 0.8207547, b: 0.8207547, a: 1}
+    m_PressedColor: {r: 0.8196079, g: 0.8196079, b: 0.8196079, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
+    m_DisabledColor: {r: 0, g: 0, b: 0, a: 0.6745098}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
@@ -320,7 +320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.29411766}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -367,11 +367,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1414735916871081562}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 23.211012}
+  m_AnchoredPosition: {x: 0, y: 19.9}
   m_SizeDelta: {x: 130, y: 18.8224}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1414735917993149796
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -541,18 +541,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 850309862791755166, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 850309862791755166, guid: a9054194425562d4fa16e252c86faf97,
+        type: 3}
       propertyPath: m_Color.b
-      value: 0.9811321
+      value: 0.54901963
       objectReference: {fileID: 0}
     - target: {fileID: 850309862791755166, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
       propertyPath: m_Color.g
-      value: 0.3452321
+      value: 0.6627451
       objectReference: {fileID: 0}
     - target: {fileID: 850309862791755166, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
       propertyPath: m_Color.r
-      value: 0.1527234
+      value: 0.5176471
       objectReference: {fileID: 0}
     - target: {fileID: 850309862791755167, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
@@ -587,7 +592,7 @@ PrefabInstance:
     - target: {fileID: 1301690369566251903, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 1301690369566251903, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
@@ -597,7 +602,7 @@ PrefabInstance:
     - target: {fileID: 1301690369566251903, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 32.6
+      value: 25.999992
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9054194425562d4fa16e252c86faf97, type: 3}
@@ -692,6 +697,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: HPPanel
       objectReference: {fileID: 0}
+    - target: {fileID: 850309862791755166, guid: a9054194425562d4fa16e252c86faf97,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.77254903
+      objectReference: {fileID: 0}
+    - target: {fileID: 850309862791755166, guid: a9054194425562d4fa16e252c86faf97,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8235294
+      objectReference: {fileID: 0}
+    - target: {fileID: 850309862791755166, guid: a9054194425562d4fa16e252c86faf97,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.7921569
+      objectReference: {fileID: 0}
     - target: {fileID: 850309862791755167, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -730,7 +750,7 @@ PrefabInstance:
     - target: {fileID: 1301690369566251903, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1301690369566251903, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
@@ -740,7 +760,7 @@ PrefabInstance:
     - target: {fileID: 1301690369566251903, guid: a9054194425562d4fa16e252c86faf97,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 70.6
+      value: 55.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9054194425562d4fa16e252c86faf97, type: 3}
