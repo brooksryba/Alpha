@@ -5,14 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public bool isMainCharacter = false;
     public float baseMoveSpeed = 5f;
     public float moveSpeed;
 
+    public List<Vector3> targetLocations;
     public bool loadPosition = true; 
 
     public Rigidbody2D rb;
     public Animator animator;
     public Vector3 position;
+    public LayerMask mask;
 
     public PlayerScriptable playerScriptable;
 
@@ -22,32 +25,41 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        SaveSystem.instance.Register("PlayerLocation", () => { SaveState(); });
-        if( loadPosition == true ) {
-            LoadState();
-            if(playerScriptable.ready) {
-                transform.position = playerScriptable.Read();
-            } else {
-                if(!(position.x == 0 && position.y == 0))
-                    transform.position = position;
+        if(isMainCharacter) {
+            SaveSystem.instance.Register("PlayerLocation", () => { SaveState(); });
+            if( loadPosition == true ) {
+                LoadState();
+                if(playerScriptable.ready) {
+                    transform.position = playerScriptable.Read();
+                } else {
+                    if(!(position.x == 0 && position.y == 0)) {
+                        transform.position = position;
+                    } else {
+                        position = transform.position;
+                    }
+                }
             }
         }
     }
     
     public void SaveState()
     {
-        SaveSystem.instance.SaveState<PlayerLocationData>(new PlayerLocationData(this), "PlayerLocation");
+        if(isMainCharacter) {
+            SaveSystem.instance.SaveState<PlayerLocationData>(new PlayerLocationData(this), "PlayerLocation");
+        }
     }
 
     public void LoadState()
     {
-        PlayerLocationData data = SaveSystem.instance.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
-        if( data != null ) {
-            if(data.scene == SceneManager.GetActiveScene().name) {
-                this.position = new Vector3();
-                this.position.x = data.position[0];
-                this.position.y = data.position[1];
-                this.position.z = 0;
+        if(isMainCharacter) {
+            PlayerLocationData data = SaveSystem.instance.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
+            if( data != null ) {
+                if(data.scene == SceneManager.GetActiveScene().name) {
+                    this.position = new Vector3();
+                    this.position.x = data.position[0];
+                    this.position.y = data.position[1];
+                    this.position.z = 0;
+                }
             }
         }
     }
@@ -61,24 +73,34 @@ public class PlayerMovement : MonoBehaviour
         } else {
             moveSpeed = baseMoveSpeed;
         }
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
 
-        animator.SetFloat("Horizontal", movement.x);
-        animator.SetFloat("Vertical", movement.y);
-        animator.SetFloat("Speed", movement.sqrMagnitude);
-
-        Vector2 clamp = new Vector2(
-            Mathf.RoundToInt(transform.position.x * 16), 
-        Mathf.RoundToInt(transform.position.y * 16)) / 16;
-
-        transform.position = clamp;
-    }
-
-    void FixedUpdate()
-    {
-        if(!playerInteraction.movementLock) {
-            rb.MovePosition(rb.position + movement * moveSpeed * Time.fixedDeltaTime);
+        if(targetLocations.Count > 0) {
+            position = targetLocations[0];
         }
+        
+        transform.position = Vector3.MoveTowards(transform.position, position, moveSpeed*Time.deltaTime);
+        
+        if(Vector3.Distance(transform.position, position) == 0) {
+            if(targetLocations.Count > 0) { 
+                targetLocations.RemoveAt(0);
+            } else if (isMainCharacter && !playerInteraction.movementLock) {
+                Vector3 newPosition = position;
+
+                if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f) {
+                    newPosition += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
+                } else if(Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f) {
+                    newPosition += new Vector3(0, Input.GetAxisRaw("Vertical"), 0);
+                }
+
+                Vector3 newPositionFeet = newPosition + new Vector3(0, -0.5f, 0); 
+                if(!Physics2D.OverlapCircle(newPositionFeet, .25f, mask)) {
+                    position = newPosition;
+                }
+            }
+        }
+
+        // animator.SetFloat("Horizontal", movement.x);
+        // animator.SetFloat("Vertical", movement.y);
+        // animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 }
