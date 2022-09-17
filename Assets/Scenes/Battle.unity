@@ -235,7 +235,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 623.0001, y: 0}
+  m_AnchoredPosition: {x: 622, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &200048343
@@ -9889,7 +9889,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: e051fd09515680e438eea2e03bf51a48, type: 3}
+      objectReference: {fileID: 8300000, guid: 0ff6e9e3d52acc544ba33618e77f21aa, type: 3}
     - target: {fileID: 7708735409581667518, guid: 28ff28920a442eb429d8aae957716a90,
         type: 3}
       propertyPath: m_RootOrder
@@ -10119,8 +10119,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d2bb2cbb354b07469c538e2a6c2d073, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogueText: {fileID: 0}
-  turnCounterText: {fileID: 0}
   playerPrefab: {fileID: 5619778278270914741, guid: 9b218ddbc89d4ea4eaebd514e466cfe5,
     type: 3}
   enemyPrefab: {fileID: 8620067899578566026, guid: 6efa3accea12d684ba68234ecae75e2d,
@@ -10176,6 +10174,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateLock: 0
+  oldMessage: 
 --- !u!1 &1641060407
 GameObject:
   m_ObjectHideFlags: 0
