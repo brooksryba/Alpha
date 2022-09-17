@@ -13,9 +13,19 @@ public class CutsceneSystem : MonoBehaviour
     public BattleSceneScriptable battleScriptable;
     public PlayerScriptable playerScriptable;
     public bool cutsceneIsPlaying { get; private set; }
+    public bool cutsceneInEvent { get; private set; }
+    private List<Action> callbackEvents = new List<Action>();
     public Dictionary<String, Vector3> originalPosition;
+    public List<String> spawnedCharacters = new List<String>();
+
 
     private void Awake() { _instance = this; }
+
+    private void Update() {
+        if(cutsceneIsPlaying) {
+            cutsceneInEvent = (callbackEvents.Count > 0);
+        }
+    }
 
     public void EnterCutsceneMode()
     {
@@ -27,11 +37,20 @@ public class CutsceneSystem : MonoBehaviour
     public void ExitCutsceneMode()
     {
         cutsceneIsPlaying = false;
+        DestroySpawnedCharacters();
         RestoreCharacterLocations();
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
     }
 
+
+    public void DestroySpawnedCharacters()
+    {
+        foreach(string charID in spawnedCharacters) {
+            GameObject.Destroy(GameObject.Find(charID));
+        }
+        spawnedCharacters = new List<String>();
+    }
 
     public void RestoreCharacterLocations()
     {
@@ -48,47 +67,59 @@ public class CutsceneSystem : MonoBehaviour
         Script script = new Script();
     
         //for each C# function we want to access from plaintext:
+        script.Globals["Spawn"] = (Func<string, int, int, bool>)Spawn;
         script.Globals["Move"] = (Func<string, int, int, bool>)Move;
+        script.Globals["MoveMultiple"] = (Func<string, List<List<int>>, bool>)MoveMultiple;
         script.Globals["Battle"] = (Func<string, string, bool>)Battle;
         script.Globals["Indicator"] = (Func<string, bool>)Indicator;
     
         //Once all functions have been registered
-        script.DoString(tag);
+        script.DoString(tag); 
     }    
 
-    // PlayerMovement - this would need to apply to call animated chars
-        // similar targetLocation to video except ours is a list
-        // that could have more than one entry. when the destination
-        // is reached the item is removed from the call stack 
-        // FIFO (first in, first out)
-
-    // Update Loop
-        // if all events not done (each PlayerMovent.targetLocations.length != 0)
-            // DialogSystem.instance.event_block = true
-        // else
-            // DialogSystem.instance.event_block = false
-            
-
-    //  MoveMultiple(moverID, List<int, int> moves)
-        // call move once per item
-        // create a call stack of moves for a character
-        // dont remove this event until all moves completed
-         
-    private bool Move(string moverID, int x, int y)
+    private bool Spawn(string charID, int x, int y)
     {
 
-        // add event to event list
+        GameObject characterList = GameObject.Find("Characters");
+        GameObject characterRes = Resources.Load("Prefabs/Characters/"+charID) as GameObject;
+        GameObject character = Instantiate(characterRes, characterList.transform);
+        character.name = charID;
+        character.transform.position = TileGrid.Translate(x, y);
+        spawnedCharacters.Add(charID);
+       
+        return true;
+    }
 
-
+    private void HandleEventCallback(Action self)
+    {
+        callbackEvents.Remove(self);
+    }
+    
+    private bool Move(string moverID, int x, int y)
+    {
         GameObject character = GameObject.Find(moverID);
         if(!originalPosition.ContainsKey(moverID)) {
             originalPosition.Add(moverID, character.transform.position);
         }
-        // set PlayerMovent.targetLocation to new position
-        //character.transform.position = TileGrid.Translate(x, y);
         
+        Action cachedHandler = (() => {});
+        cachedHandler = () => HandleEventCallback(cachedHandler);
+        callbackEvents.Add(cachedHandler);
+
+        CharacterMovement movement = character.GetComponent<CharacterMovement>();
+        movement.targetCallback += cachedHandler;
+        movement.targetLocations.Add(TileGrid.Translate(x, y));
+       
         return true;
-    }    
+    }
+
+    private bool MoveMultiple(string moverID, List<List<int>> xys){
+        foreach(List<int> xy in xys) {
+            Move(moverID, xy[0], xy[1]);
+        }
+
+        return true;
+    }
 
     private bool Battle(string enemyID, string storyPath)
     {

@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 8620067899578566029}
   - component: {fileID: 555200299348408392}
   - component: {fileID: 4285036244626313821}
+  - component: {fileID: 386293953746519459}
   - component: {fileID: 2211358280249566477}
   - component: {fileID: 8522677594209292016}
   - component: {fileID: 8802388472861513758}
   - component: {fileID: 900490567096679845}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: AF
   m_TagString: Friendly
   m_Icon: {fileID: 0}
@@ -116,6 +117,29 @@ MonoBehaviour:
   - Heal
   - Boost Physical Attack
   inkJSON: {fileID: 4900000, guid: 884c4180780e7a84ca8d76094713c098, type: 3}
+--- !u!114 &386293953746519459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50314665411570c44ba1442814281afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMainCharacter: 0
+  baseMoveSpeed: 5
+  moveSpeed: 0
+  targetLocations: []
+  loadPosition: 1
+  rb: {fileID: 8802388472861513758}
+  animator: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &2211358280249566477
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -57,6 +57,8 @@ public class DialogSystem : MonoBehaviour
 
     public void ContinueStory()
     {
+        if(CutsceneSystem.instance.cutsceneIsPlaying && CutsceneSystem.instance.cutsceneInEvent) { return; }
+
         if (currentStory.canContinue && !needToMakeChoice){
             string displayText = currentStory.Continue();
             Open(displayText, null);
