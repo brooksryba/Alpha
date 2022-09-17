@@ -109,8 +109,8 @@ public class CharacterMovement : MonoBehaviour
 
         if( animator != null ) {
             Vector2 movement = new Vector2();
-            movement.x = Input.GetAxisRaw("Horizontal");
-            movement.y = Input.GetAxisRaw("Vertical");
+            movement.x = position.x - transform.position.x;
+            movement.y = position.y - transform.position.y;
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
             animator.SetFloat("Speed", movement.sqrMagnitude);

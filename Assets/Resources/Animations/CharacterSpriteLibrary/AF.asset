@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: AF
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: Idle
+    m_Hash: 2081823275
+    m_CategoryList:
+    - m_Name: Idle
+      m_Hash: 2081823275
+      m_Sprite: {fileID: -7702227401562676085, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+  - m_Name: Walk_Up
+    m_Hash: -126185642
+    m_CategoryList:
+    - m_Name: Walk_Up_0
+      m_Hash: -876216367
+      m_Sprite: {fileID: 951043940247495427, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Up_1
+      m_Hash: -1128083641
+      m_Sprite: {fileID: -8101724020665490427, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Up_2
+      m_Hash: 634101501
+      m_Sprite: {fileID: -3752487378967284845, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+  - m_Name: Walk_Down
+    m_Hash: -443221697
+    m_CategoryList:
+    - m_Name: Walk_Down_0
+      m_Hash: -962795816
+      m_Sprite: {fileID: -1165144736947513752, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Down_1
+      m_Hash: -1315187122
+      m_Sprite: {fileID: -7702227401562676085, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Down_2
+      m_Hash: 680691700
+      m_Sprite: {fileID: 430191857993943312, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+  - m_Name: Walk_Left
+    m_Hash: -2096329108
+    m_CategoryList:
+    - m_Name: Walk_Left_0
+      m_Hash: -1721013688
+      m_Sprite: {fileID: -8542561581572555141, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Left_1
+      m_Hash: -294888738
+      m_Sprite: {fileID: 5057639241779686826, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Left_2
+      m_Hash: 2003110756
+      m_Sprite: {fileID: -1283868204910557432, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+  - m_Name: Walk_Right
+    m_Hash: -1285629340
+    m_CategoryList:
+    - m_Name: Walk_Right_0
+      m_Hash: 1035224575
+      m_Sprite: {fileID: -1892726605613659215, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Right_1
+      m_Hash: 1253274985
+      m_Sprite: {fileID: 2671187515278439649, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}
+    - m_Name: Walk_Right_2
+      m_Hash: -742775597
+      m_Sprite: {fileID: 6721380236271839953, guid: 597eaeba56942ac4381a0f9c94fe52b0,
+        type: 3}

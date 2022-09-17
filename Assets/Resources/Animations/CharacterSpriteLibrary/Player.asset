@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf7c34a0dc4e6348bea04faa70406ee, type: 3}
+  m_Name: Player
+  m_EditorClassIdentifier: 
+  m_Labels:
+  - m_Name: Idle
+    m_Hash: 2081823275
+    m_CategoryList:
+    - m_Name: Idle
+      m_Hash: 2081823275
+      m_Sprite: {fileID: 21300000, guid: 0f39a9205e4394ee1b6ba8269428d176, type: 3}
+  - m_Name: Walk_Up
+    m_Hash: -126185642
+    m_CategoryList:
+    - m_Name: Walk_Up_0
+      m_Hash: -876216367
+      m_Sprite: {fileID: 21300000, guid: b6844b89804364482afc9e85f4c7ead6, type: 3}
+    - m_Name: Walk_Up_1
+      m_Hash: -1128083641
+      m_Sprite: {fileID: 21300000, guid: bf39c8ce7ced841cdadf0334489a8ece, type: 3}
+    - m_Name: Walk_Up_2
+      m_Hash: 634101501
+      m_Sprite: {fileID: 21300000, guid: a7663080596d341069f6dbaaecd4ab9d, type: 3}
+  - m_Name: Walk_Down
+    m_Hash: -443221697
+    m_CategoryList:
+    - m_Name: Walk_Down_0
+      m_Hash: -962795816
+      m_Sprite: {fileID: 21300000, guid: 8f92b2d912773479894490421de2bc04, type: 3}
+    - m_Name: Walk_Down_1
+      m_Hash: -1315187122
+      m_Sprite: {fileID: 21300000, guid: 5365aa814486e4356841731775eab6ec, type: 3}
+    - m_Name: Walk_Down_2
+      m_Hash: 680691700
+      m_Sprite: {fileID: 21300000, guid: 1e624e1a997d8411ebe498d51d9dcc6d, type: 3}
+  - m_Name: Walk_Left
+    m_Hash: -2096329108
+    m_CategoryList:
+    - m_Name: Walk_Left_0
+      m_Hash: -1721013688
+      m_Sprite: {fileID: 21300000, guid: f4e8ee9fcb8d76344a8f93f621ea99a0, type: 3}
+    - m_Name: Walk_Left_1
+      m_Hash: -294888738
+      m_Sprite: {fileID: 21300000, guid: 3de886bd505b3c9469b96a6aaf773018, type: 3}
+    - m_Name: Walk_Left_2
+      m_Hash: 2003110756
+      m_Sprite: {fileID: 21300000, guid: 4cc6ce4ad6db0d2489dfda0631097c6b, type: 3}
+  - m_Name: Walk_Right
+    m_Hash: -1285629340
+    m_CategoryList:
+    - m_Name: Walk_Right_0
+      m_Hash: 1035224575
+      m_Sprite: {fileID: 21300000, guid: 2521b6229a37c4a56b4fd4e12227c2fb, type: 3}
+    - m_Name: Walk_Right_1
+      m_Hash: 1253274985
+      m_Sprite: {fileID: 21300000, guid: becb8a6873c144b738fc9cc5fceece35, type: 3}
+    - m_Name: Walk_Right_2
+      m_Hash: -742775597
+      m_Sprite: {fileID: 21300000, guid: a274e989dc8e043a1b30c36987c3ecb1, type: 3}
