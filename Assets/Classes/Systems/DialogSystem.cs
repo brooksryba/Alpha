@@ -131,7 +131,7 @@ public class DialogSystem : MonoBehaviour
         GameObject obj = GameObject.Find("MenuList");
         Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         obj.transform.position = GameObject.Find("DialogItem").transform.position;
-        obj.transform.position += new Vector3(0, 115, 0);
+        obj.transform.position += new Vector3(0, 75 * obj.transform.lossyScale.y, 0);
     }    
 
     public void RunTextActions() {

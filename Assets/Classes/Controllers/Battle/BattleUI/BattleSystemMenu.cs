@@ -22,7 +22,7 @@ public class BattleSystemMenu
         GameObject obj = GameObject.Find("MenuList");
         Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         obj.transform.position = cam.WorldToScreenPoint(target.transform.position);
-        obj.transform.position += new Vector3(0, 200, 0);
+        obj.transform.position += new Vector3(0, 150 * obj.transform.lossyScale.y, 0);
     }
 
     public void closeOptionSubmenu()
