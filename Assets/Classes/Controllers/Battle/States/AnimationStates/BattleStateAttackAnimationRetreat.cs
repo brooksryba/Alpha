@@ -10,7 +10,7 @@ public class BattleStateAttackAnimationRetreat : BattleState
 
         BattleMovement battleMovement = _manager.charManager.attacker.GetComponent<BattleMovement>();
         if(battleMovement && !battleMovement.isFinished && !battleMovement.isAnimating) {
-            battleMovement.Animate(_manager.charManager.attacker.transform.position, _manager.charManager.originalPositions[_manager.charManager.attackerName]);
+            battleMovement.Animate(_manager.charManager.originalPositions[_manager.charManager.attackerName]);
         }
 
         if(battleMovement == null || (!battleMovement.isAnimating && battleMovement.isFinished)) {
