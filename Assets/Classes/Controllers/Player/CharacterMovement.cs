@@ -81,8 +81,6 @@ public class CharacterMovement : MonoBehaviour
             moveSpeed = baseMoveSpeed; 
         }
 
-        Debug.Log(targetLocations.Count);
-
         if(targetLocations.Count > 0) {
             isAnimating = true;
             position = targetLocations[0];
@@ -93,7 +91,7 @@ public class CharacterMovement : MonoBehaviour
         int componentX = (Mathf.Abs(transform.position.x - position.x) < 0.015f ? 0 : (transform.position.x > position.x ? -1 : 1));
         int componentY = (Mathf.Abs(transform.position.y - position.y) < 0.015f ? 0 : (transform.position.y > position.y ? -1 : 1));
         transform.position = Vector3.MoveTowards(transform.position, position, moveSpeed*Time.deltaTime);
-        
+
         if(Vector3.Distance(transform.position, position) <= 0.01f) {
             if(targetLocations.Count > 0) { 
                 targetLocations.RemoveAt(0);
@@ -113,8 +111,6 @@ public class CharacterMovement : MonoBehaviour
                     position = newPosition;
                 }
             }
-        } else {
-            Debug.Log(Vector3.Distance(transform.position, position));
         }
 
         if( animator != null ) {
