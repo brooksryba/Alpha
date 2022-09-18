@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerInteraction : MonoBehaviour
 {
-    private Collision2D collision;
     private GameObject collisionObject;
     private Character collisionCharacter;
     private Cutscene collisionCutscene;
@@ -18,23 +17,32 @@ public class PlayerInteraction : MonoBehaviour
     public bool cutsceneLock = false;
 
     void OnCollisionEnter2D(Collision2D other) {
-        collision = other;
+        collisionObject = other.gameObject;
         HandleCollisionStatic();
     }
 
     void OnCollisionExit2D(Collision2D other) {
-        collision = null;
+        collisionObject = null;
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        collisionObject = other.gameObject;
+        HandleCollisionStatic();
     } 
+
+    void OnTriggerExit2D(Collider2D other) {
+        collisionObject = null;
+    }
 
     public void HandleCollisionStatic()
     {
-        if(collision != null) {
-            if (collision.gameObject.tag == "InventoryItem") {
-                HandleInventoryItem(collision);
-            } else if (collision.gameObject.tag == "Portal"){
-                HandlePortal(collision);
-            } else if (collision.gameObject.tag == "Cutscene" || collision.gameObject.tag == "Block") {
-                HandleCutscene(collision);
+        if(collisionObject != null) {
+            if (collisionObject.tag == "InventoryItem") {
+                HandleInventoryItem();
+            } else if (collisionObject.tag == "Portal"){
+                HandlePortal();
+            } else if (collisionObject.tag == "Cutscene" || collisionObject.tag == "Block") {
+                HandleCutscene();
             }
         }
     }           
@@ -50,19 +58,17 @@ public class PlayerInteraction : MonoBehaviour
             movementLock = true;
             DialogSystem.instance.ContinueStory();
         } else {
-            if(collision != null){
-                if ((collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Friendly") && !dialogLock) {
-                    collisionObject = collision.gameObject;
-                    collisionCharacter = collision.gameObject.GetComponent<Character>();
+            if(collisionObject != null){
+                if ((collisionObject.tag == "Enemy" || collisionObject.tag == "Friendly") && !dialogLock) {
+                    collisionCharacter = collisionObject.GetComponent<Character>();
                     if(collisionCharacter.inkJSON) {
                         dialogLock = true;
                         movementLock = true;
                         DialogSystem.instance.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {HandleDialogEvent(s);}, () => {HandleDialogEnd();});
                         DialogSystem.instance.ContinueStory();
                     }
-                } else if(collision.gameObject.tag == "Cuttake" && !cutsceneLock) {
-                    collisionObject = collision.gameObject;
-                    collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+                } else if(collisionObject.tag == "Cuttake" && !cutsceneLock) {
+                    collisionCutscene = collisionObject.GetComponent<Cutscene>();
                     if(collisionCutscene.inkJSON) {
                         cutsceneLock = true;
                         movementLock = true;
@@ -109,15 +115,15 @@ public class PlayerInteraction : MonoBehaviour
         SceneManager.LoadScene(sceneName:"Battle");        
     }
 
-    void HandleInventoryItem(Collision2D collision)
+    void HandleInventoryItem()
     {
-        InventoryItem item = collision.gameObject.GetComponent<InventoryItem>();
+        InventoryItem item = collisionObject.GetComponent<InventoryItem>();
 
         gameObject.GetComponent<Character>().AddInventoryItem(item);
         
-        collision.gameObject.SetActive(false);
+        collisionObject.SetActive(false);
 
-        string itemName = collision.gameObject.name.ToLower();
+        string itemName = collisionObject.name.ToLower();
         string message = "Picked up a";
         if("aeiou".Contains(itemName[0].ToString())) {
             message += "n";
@@ -127,20 +133,19 @@ public class PlayerInteraction : MonoBehaviour
         ToastSystem.instance.Open(message);        
     }
 
-    void HandlePortal(Collision2D collision)
+    void HandlePortal()
     {
-        Portal portal = collision.gameObject.GetComponent<Portal>();
+        Portal portal = collisionObject.GetComponent<Portal>();
         playerScriptable.Write(portal.target);
         SaveSystem.instance.SaveAndDeregister();
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
 
-    void HandleCutscene(Collision2D collision)
+    void HandleCutscene()
     {
-        if(collision != null && !cutsceneLock){
-            if (collision.gameObject.tag == "Cutscene") {
-                collisionObject = collision.gameObject;
-                collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+        if(!cutsceneLock){
+            if (collisionObject.tag == "Cutscene") {
+                collisionCutscene = collisionObject.GetComponent<Cutscene>();
 
                 if(collisionCutscene != null && collisionCutscene.inkJSON) {
                     cutsceneLock = true;
@@ -153,9 +158,8 @@ public class PlayerInteraction : MonoBehaviour
                     }
                     DialogSystem.instance.ContinueStory();
                 }
-            } else if(collision.gameObject.tag == "Block") {
-                collisionObject = collision.gameObject;
-                collisionCutscene = collision.gameObject.GetComponent<Cutscene>();
+            } else if(collisionObject.tag == "Block") {
+                collisionCutscene = collisionObject.GetComponent<Cutscene>();
 
                 if(collisionCutscene != null && collisionCutscene.inkJSON) {
                     cutsceneLock = true;

@@ -80,6 +80,9 @@ public class CutsceneSystem : MonoBehaviour
     private bool Spawn(string charID, int x, int y)
     {
 
+        if(GameObject.Find(charID) != null)
+            return true;
+            
         GameObject characterList = GameObject.Find("Characters");
         GameObject characterRes = Resources.Load("Prefabs/Characters/"+charID) as GameObject;
         GameObject character = Instantiate(characterRes, characterList.transform);

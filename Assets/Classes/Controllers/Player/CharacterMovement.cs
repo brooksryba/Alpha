@@ -84,6 +84,8 @@ public class CharacterMovement : MonoBehaviour
             position = targetLocations[0];
         }
         
+        int componentX = (Mathf.Abs(transform.position.x - position.x) < 0.015f ? 0 : (transform.position.x > position.x ? -1 : 1));
+        int componentY = (Mathf.Abs(transform.position.y - position.y) < 0.015f ? 0 : (transform.position.y > position.y ? -1 : 1));
         transform.position = Vector3.MoveTowards(transform.position, position, moveSpeed*Time.deltaTime);
         
         if(Vector3.Distance(transform.position, position) == 0) {
@@ -109,11 +111,11 @@ public class CharacterMovement : MonoBehaviour
 
         if( animator != null ) {
             Vector2 movement = new Vector2();
-            movement.x = position.x - transform.position.x;
-            movement.y = position.y - transform.position.y;
+            movement.x = componentX;
+            movement.y = componentY;
             animator.SetFloat("Horizontal", movement.x);
             animator.SetFloat("Vertical", movement.y);
-            animator.SetFloat("Speed", movement.sqrMagnitude);
+            animator.SetFloat("Speed", movement.sqrMagnitude * (moveSpeed / baseMoveSpeed));
         }
     }
 }

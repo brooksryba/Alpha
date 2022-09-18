@@ -3,7 +3,7 @@
 
 === chapter_1_1_intro ===
 # Spawn("MF", 26, 8) # Spawn("AF", 26, -2) # Spawn("Livar", 38, 7)
-# MoveMultiple("MF", {{26,5}, {24,5}}) # MoveMultiple("AF", {{26,3}, {24,3}})
+# MoveMultiple("MF", {{26,5}, {24,5}}) # MoveMultiple("AF", {{26,4}, {24,4}})
 
 Hero: How do you guys know what your combat affinities will be? # Indicator("Player")
 
@@ -41,12 +41,12 @@ Fight the rats?
 
 
 === chapter_1_1_post_rats ===
-# Spawn("MF", 24, 5) # Spawn("AF", 24, 3) # Spawn("Livar", 38, 7) # MoveMultiple("Livar", {{31,4}, {26,4}})
+# Spawn("MF", 24, 5) # Spawn("AF", 24, 4) # Spawn("Livar", 38, 7) # MoveMultiple("Livar", {{31,4}, {26,4}})
 Livar: Not bad, but you still need more practice. # Indicator("Livar")
 -> chapter_1_1_pre_rival
 
 === chapter_1_1_no_rats ===
-# Spawn("MF", 24, 5) # Spawn("AF", 24, 3) # Spawn("Livar", 38, 7) # MoveMultiple("Livar", {{31,4}, {26,4}})
+# Spawn("MF", 24, 5) # Spawn("AF", 24, 4) # Spawn("Livar", 38, 7) # MoveMultiple("Livar", {{31,4}, {26,4}})
 Livar: Do you think you are above the practice? # Indicator("Livar")
 -> chapter_1_1_pre_rival
 
@@ -62,7 +62,7 @@ MF: The experience would help out for combat school. # Indicator("MF")
 -> chapter_1_1_post_rival
 
 === chapter_1_1_post_rival ===
-# Spawn("MF", 24, 5) # Spawn("AF", 24, 3) # Spawn("Livar", 26, 4)
+# Spawn("MF", 24, 5) # Spawn("AF", 24, 4) # Spawn("Livar", 26, 4)
 All: Good match!
 
 MF: That's enough training for me today. # Indicator("MF")
