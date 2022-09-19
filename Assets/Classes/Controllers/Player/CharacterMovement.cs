@@ -28,7 +28,7 @@ public class CharacterMovement : MonoBehaviour
 
     void Start()
     {
-        if(isMainCharacter) {
+        if(isMainCharacter && SceneManager.GetActiveScene().name != "Battle") {
             playerScriptable = Resources.Load("Scriptable/PlayerScriptable") as PlayerScriptable;
             playerInteraction = gameObject.GetComponent<PlayerInteraction>();
             SaveSystem.instance.Register("PlayerLocation", () => { SaveState(); });

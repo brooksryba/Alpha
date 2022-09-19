@@ -77,7 +77,7 @@ All: Good match!
 
 Livar: You guys got lucky... # Indicator("Livar")
 
-# MoveMultiple("Livar", {{3, 0}}) # MoveMultiple("Murray", {{2, 0}}) # MoveMultiple("Stormy", {{4, 0}})
+# MoveMultiple("Livar", {{3, -10}}) # MoveMultiple("Murray", {{2, -10}}) # MoveMultiple("Stormy", {{4, -10}})
 Hero: What a sore loser. # Indicator("Player")
 
 MF: That's enough training for me today. # Indicator("MF")
