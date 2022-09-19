@@ -12,7 +12,7 @@ public class CharacterMovement : MonoBehaviour
     public float moveSpeed;
 
     public Action targetCallback;
-    public List<Vector3> targetLocations;
+    public List<Vector3> targetLocations = new List<Vector3>();
     public bool loadPosition = true; 
 
     public Rigidbody2D rb;
