@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MoonSharp.Interpreter;
+using Cinemachine;
 
 public class CutsceneSystem : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class CutsceneSystem : MonoBehaviour
     private List<Action> callbackEvents = new List<Action>();
     public Dictionary<String, Vector3> originalPosition;
     public List<String> spawnedCharacters = new List<String>();
+    public GameObject indicatorTarget;
 
 
     private void Awake() { _instance = this; }
@@ -24,6 +26,12 @@ public class CutsceneSystem : MonoBehaviour
     private void Update() {
         if(cutsceneIsPlaying) {
             cutsceneInEvent = (callbackEvents.Count > 0);
+        }
+        if( indicatorTarget != null ) {
+            GameObject indicator = GameObject.Find("CutsceneIndicator");
+            Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            indicator.transform.position = cam.WorldToScreenPoint(indicatorTarget.transform.position);
+            indicator.transform.position += new Vector3(0, 30 * indicator.transform.lossyScale.y, 0);
         }
     }
 
@@ -36,11 +44,15 @@ public class CutsceneSystem : MonoBehaviour
 
     public void ExitCutsceneMode()
     {
+        CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = GameObject.Find("Player").transform;
+
         cutsceneIsPlaying = false;
         DestroySpawnedCharacters();
         RestoreCharacterLocations();
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
+        indicatorTarget = null;
     }
 
 
@@ -142,12 +154,11 @@ public class CutsceneSystem : MonoBehaviour
     {
         transform.GetChild(1).gameObject.SetActive(true);
 
-        GameObject obj = GameObject.Find(charId);
-        GameObject indicator = GameObject.Find("CutsceneIndicator");
+        indicatorTarget = GameObject.Find(charId);
+                
+        CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = indicatorTarget.transform;
 
-        Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        indicator.transform.position = cam.WorldToScreenPoint(obj.transform.position);
-        indicator.transform.position += new Vector3(0, 30, 0);
         return true;
     }
 }

@@ -2,10 +2,12 @@
 
 
 === chapter_1_1_intro ===
-# Spawn("MF", 26, 8) # Spawn("AF", 26, -2) # Spawn("Livar", 38, 7)
-# MoveMultiple("MF", {{26,5}, {24,5}}) # MoveMultiple("AF", {{26,4}, {24,4}})
+# Spawn("MF", 8, -13) # Spawn("AF", 4, -13) 
+# MoveMultiple("Player", {{6,-11}}) 
 
-Hero: How do you guys know what your combat affinities will be? # Indicator("Player")
+Hero: Hey guys, how's the training going? # Indicator("Player")
+
+Hero: How do you guys know what your combat affinities will be?
 
 AF: My dad was an archer in the Great War. Growing up my mom<br>always told me stories of his skills and bravery. # Indicator("AF")
 AF: I've always wanted to be one ever since, it also just feels<br>natural to use a bow. What about you MF? 
@@ -28,7 +30,12 @@ MF: As far as I know it hasn't been wrong about anyone.
 
 Hero: I'm sure you guys are right. Regardless of what I get, I'll embrace it. # Indicator("Player")
 
-AF: Look over there. Let's get some real practice! # Indicator("AF")
+AF: Look over there. # Indicator("AF")
+
+# MoveMultiple("Player", {{3, -11}, {3,-16}}) # MoveMultiple("AF", {{1, -13},{1,-18}}) # MoveMultiple("MF", {{5, -13}, {5,-18}}) # Spawn("Rat", 3,-18)
+AF: Look over there.
+
+AF: Let's get some real practice! # Indicator("AF")
 
 Fight the rats? 
     * [Yes]
@@ -41,12 +48,15 @@ Fight the rats?
 
 
 === chapter_1_1_post_rats ===
-# Spawn("MF", 24, 5) # Spawn("AF", 24, 4) # Spawn("Livar", 38, 7) # MoveMultiple("Livar", {{31,4}, {26,4}})
+# Spawn("MF", 5, -18) # Spawn("AF", 1, -18) # Spawn("Livar", 3, -1) # MoveMultiple("Livar", {{3,-15}}) # Spawn("Murray", 2, 0) # MoveMultiple("Murray", {{2,-14}}) # Spawn("Stormy", 4, 0) # MoveMultiple("Stormy", {{4,-14}})
 Livar: Not bad, but you still need more practice. # Indicator("Livar")
 -> chapter_1_1_pre_rival
 
 === chapter_1_1_no_rats ===
-# Spawn("MF", 24, 5) # Spawn("AF", 24, 4) # Spawn("Livar", 38, 7) # MoveMultiple("Livar", {{31,4}, {26,4}})
+# Move("Rat", 3, -25)
+AF: Shoo rat! # Indicator("AF")
+
+# Spawn("Livar", 3, -1) # MoveMultiple("Livar", {{3,-15}}) # Spawn("Murray", 2, 0) # MoveMultiple("Murray", {{2,-14}, {1, -14}}) # Spawn("Stormy", 4, 0) # MoveMultiple("Stormy", {{4,-14}, {5, -14}})
 Livar: Do you think you are above the practice? # Indicator("Livar")
 -> chapter_1_1_pre_rival
 
@@ -62,8 +72,13 @@ MF: The experience would help out for combat school. # Indicator("MF")
 -> chapter_1_1_post_rival
 
 === chapter_1_1_post_rival ===
-# Spawn("MF", 24, 5) # Spawn("AF", 24, 4) # Spawn("Livar", 26, 4)
+# Spawn("MF", 5, -18) # Spawn("AF", 1, -18) # Spawn("Livar", 3, -15) # Spawn("Murray", 2, -14) # Spawn("Stormy", 4, -14)
 All: Good match!
+
+Livar: You guys got lucky... # Indicator("Livar")
+
+# MoveMultiple("Livar", {{3, 0}}) # MoveMultiple("Murray", {{2, 0}}) # MoveMultiple("Stormy", {{4, 0}})
+Hero: What a sore loser. # Indicator("Player")
 
 MF: That's enough training for me today. # Indicator("MF")
 
