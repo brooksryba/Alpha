@@ -21694,7 +21694,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: World_Main_1
-  target: {x: 6.5, y: 3.5, z: 0}
+  target: {x: 6.5, y: 4, z: 0}
 --- !u!61 &762049445
 BoxCollider2D:
   m_ObjectHideFlags: 0

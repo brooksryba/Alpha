@@ -118,10 +118,7 @@ public class PlayerInteraction : MonoBehaviour
     void HandleInventoryItem()
     {
         InventoryItem item = collisionObject.GetComponent<InventoryItem>();
-
         gameObject.GetComponent<Character>().AddInventoryItem(item);
-        
-        collisionObject.SetActive(false);
 
         string itemName = collisionObject.name.ToLower();
         string message = "Picked up a";
@@ -131,6 +128,7 @@ public class PlayerInteraction : MonoBehaviour
         message += " " + itemName + ".";
 
         ToastSystem.instance.Open(message);        
+        collisionObject.SetActive(false);
     }
 
     void HandlePortal()
