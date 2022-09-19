@@ -10,11 +10,11 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
         if( Input.GetKeyUp(KeyCode.F1) ) {
-            SaveSystem.ResetAndDeregister();
+            SaveSystem.instance.ResetAndDeregister();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if( Input.GetKeyUp(KeyCode.F2) ) {
-            SaveSystem.Save();
+            SaveSystem.instance.Save();
             ToastSystem.instance.Open("Saving...");
         }        
         if( Input.GetKeyUp(KeyCode.E) ) {
@@ -64,7 +64,7 @@ public class PlayerControl : MonoBehaviour
                     ToastSystem.instance.Open("Not implemented.");
                 }},
                 {"> Save", () => {
-                    SaveSystem.Save();
+                    SaveSystem.instance.Save();
                     ToastSystem.instance.Open("Saving...");
                 }},
                 {"> Quit", () => SceneManager.LoadScene("Menu")},

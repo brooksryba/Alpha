@@ -10,6 +10,10 @@ public class DynamicMenuItem : MonoBehaviour
 {
     public GameObject menuText;
 
+    public void Start(){
+        transform.localScale = new Vector3(1,1,1);
+    }
+
     public void SetLabel(string label)
     {
         menuText.GetComponent<TMP_Text>().SetText(label);

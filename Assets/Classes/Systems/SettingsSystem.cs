@@ -16,12 +16,12 @@ public class SettingsSystem : MonoBehaviour {
 
     public void SaveState()
     {
-        SaveSystem.SaveState<SettingsData>(new SettingsData(this), "SettingsData");
+        SaveSystem.instance.SaveState<SettingsData>(new SettingsData(this), "SettingsData");
     }
 
     public void LoadState()
     {
-        SettingsData data = SaveSystem.LoadState<SettingsData>("SettingsData") as SettingsData;
+        SettingsData data = SaveSystem.instance.LoadState<SettingsData>("SettingsData") as SettingsData;
 
         if (data != null)
         {

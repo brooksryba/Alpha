@@ -20,7 +20,7 @@ public class BattleStateAttackAnimationApproach : BattleState
             else {
                 targetPosition = offset + new Vector3(0, 2, 0);
             }
-            battleMovement.Animate(_manager.charManager.attacker.transform.position, targetPosition - offset); 
+            battleMovement.Animate(targetPosition - offset); 
             // @todo - The subtraction in the above line is not a fix and should be fixed
         }
 

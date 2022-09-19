@@ -10,7 +10,7 @@ public class PlayerLocationData {
     public string scene;
 
 
-    public PlayerLocationData(PlayerMovement player) {
+    public PlayerLocationData(CharacterMovement player) {
         scene = SceneManager.GetActiveScene().name;
 
         position = new float[2];

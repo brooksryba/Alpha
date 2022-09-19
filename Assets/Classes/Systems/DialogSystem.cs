@@ -57,6 +57,8 @@ public class DialogSystem : MonoBehaviour
 
     public void ContinueStory()
     {
+        if(CutsceneSystem.instance.cutsceneIsPlaying && CutsceneSystem.instance.cutsceneInEvent) { return; }
+
         if (currentStory.canContinue && !needToMakeChoice){
             string displayText = currentStory.Continue();
             Open(displayText, null);
@@ -129,7 +131,7 @@ public class DialogSystem : MonoBehaviour
         GameObject obj = GameObject.Find("MenuList");
         Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
         obj.transform.position = GameObject.Find("DialogItem").transform.position;
-        obj.transform.position += new Vector3(0, 87, 0);
+        obj.transform.position += new Vector3(0, 75 * obj.transform.lossyScale.y, 0);
     }    
 
     public void RunTextActions() {

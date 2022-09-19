@@ -34,8 +34,7 @@ public class BattleStateSpellAnimationApproach : BattleState
             else {
                 targetPosition = offset + new Vector3(0, 2, 0);
             }
-            battleMovement.moveSpeed = 10.0f;
-            battleMovement.Animate(_manager.spellObj.transform.position, targetPosition - offset); 
+            battleMovement.Animate(targetPosition - offset); 
 
         }
 

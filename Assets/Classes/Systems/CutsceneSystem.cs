@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using MoonSharp.Interpreter;
+using Cinemachine;
 
 public class CutsceneSystem : MonoBehaviour
 {
@@ -13,9 +14,26 @@ public class CutsceneSystem : MonoBehaviour
     public BattleSceneScriptable battleScriptable;
     public PlayerScriptable playerScriptable;
     public bool cutsceneIsPlaying { get; private set; }
+    public bool cutsceneInEvent { get; private set; }
+    private List<Action> callbackEvents = new List<Action>();
     public Dictionary<String, Vector3> originalPosition;
+    public List<String> spawnedCharacters = new List<String>();
+    public GameObject indicatorTarget;
+
 
     private void Awake() { _instance = this; }
+
+    private void Update() {
+        if(cutsceneIsPlaying) {
+            cutsceneInEvent = (callbackEvents.Count > 0);
+        }
+        if( indicatorTarget != null ) {
+            GameObject indicator = GameObject.Find("CutsceneIndicator");
+            Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
+            indicator.transform.position = cam.WorldToScreenPoint(indicatorTarget.transform.position);
+            indicator.transform.position += new Vector3(0, 30 * indicator.transform.lossyScale.y, 0);
+        }
+    }
 
     public void EnterCutsceneMode()
     {
@@ -26,12 +44,25 @@ public class CutsceneSystem : MonoBehaviour
 
     public void ExitCutsceneMode()
     {
+        CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = GameObject.Find("Player").transform;
+
         cutsceneIsPlaying = false;
+        DestroySpawnedCharacters();
         RestoreCharacterLocations();
         transform.GetChild(0).gameObject.SetActive(false);
         transform.GetChild(1).gameObject.SetActive(false);
+        indicatorTarget = null;
     }
 
+
+    public void DestroySpawnedCharacters()
+    {
+        foreach(string charID in spawnedCharacters) {
+            GameObject.Destroy(GameObject.Find(charID));
+        }
+        spawnedCharacters = new List<String>();
+    }
 
     public void RestoreCharacterLocations()
     {
@@ -48,23 +79,62 @@ public class CutsceneSystem : MonoBehaviour
         Script script = new Script();
     
         //for each C# function we want to access from plaintext:
-        script.Globals["Move"] = (Func<string, float, float, bool>)Move;
+        script.Globals["Spawn"] = (Func<string, int, int, bool>)Spawn;
+        script.Globals["Move"] = (Func<string, int, int, bool>)Move;
+        script.Globals["MoveMultiple"] = (Func<string, List<List<int>>, bool>)MoveMultiple;
         script.Globals["Battle"] = (Func<string, string, bool>)Battle;
         script.Globals["Indicator"] = (Func<string, bool>)Indicator;
     
         //Once all functions have been registered
-        script.DoString(tag);
+        script.DoString(tag); 
     }    
 
-    private bool Move(string moverID, float x, float y)
+    private bool Spawn(string charID, int x, int y)
+    {
+
+        if(GameObject.Find(charID) != null)
+            return true;
+            
+        GameObject characterList = GameObject.Find("Characters");
+        GameObject characterRes = Resources.Load("Prefabs/Characters/"+charID) as GameObject;
+        GameObject character = Instantiate(characterRes, characterList.transform);
+        character.name = charID;
+        character.transform.position = TileGrid.Translate(x, y);
+        spawnedCharacters.Add(charID);
+       
+        return true;
+    }
+
+    private void HandleEventCallback(Action self)
+    {
+        callbackEvents.Remove(self);
+    }
+    
+    private bool Move(string moverID, int x, int y)
     {
         GameObject character = GameObject.Find(moverID);
         if(!originalPosition.ContainsKey(moverID)) {
             originalPosition.Add(moverID, character.transform.position);
         }
-        character.transform.position = new Vector3(x, y, 0);
+        
+        Action cachedHandler = (() => {});
+        cachedHandler = () => HandleEventCallback(cachedHandler);
+        callbackEvents.Add(cachedHandler);
+
+        CharacterMovement movement = character.GetComponent<CharacterMovement>();
+        movement.targetCallback += cachedHandler;
+        movement.targetLocations.Add(TileGrid.Translate(x, y));
+       
         return true;
-    }    
+    }
+
+    private bool MoveMultiple(string moverID, List<List<int>> xys){
+        foreach(List<int> xy in xys) {
+            Move(moverID, xy[0], xy[1]);
+        }
+
+        return true;
+    }
 
     private bool Battle(string enemyID, string storyPath)
     {
@@ -74,7 +144,7 @@ public class CutsceneSystem : MonoBehaviour
 
         GameObject player = GameObject.Find("Player");
         playerScriptable.Write(player.transform.position);
-        SaveSystem.SaveAndDeregister();
+        SaveSystem.instance.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");     
 
         return true;          
@@ -84,12 +154,11 @@ public class CutsceneSystem : MonoBehaviour
     {
         transform.GetChild(1).gameObject.SetActive(true);
 
-        GameObject obj = GameObject.Find(charId);
-        GameObject indicator = GameObject.Find("CutsceneIndicator");
+        indicatorTarget = GameObject.Find(charId);
+                
+        CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = indicatorTarget.transform;
 
-        Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-        indicator.transform.position = cam.WorldToScreenPoint(obj.transform.position);
-        indicator.transform.position += new Vector3(0, 30, 0);
         return true;
     }
 }

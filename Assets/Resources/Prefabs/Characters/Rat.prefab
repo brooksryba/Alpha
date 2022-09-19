@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8620067899578566029}
   - component: {fileID: 555200299348408392}
   - component: {fileID: 4285036244626313821}
+  - component: {fileID: -2610527133410803789}
   - component: {fileID: 2211358280249566477}
   - component: {fileID: 8522677594209292016}
   - component: {fileID: 8802388472861513758}
@@ -116,6 +117,30 @@ MonoBehaviour:
   - Heal
   - Boost Physical Attack
   inkJSON: {fileID: 4900000, guid: f1acee41a01c0144a91e6b2667786c46, type: 3}
+--- !u!114 &-2610527133410803789
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50314665411570c44ba1442814281afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMainCharacter: 0
+  isAnimating: 0
+  baseMoveSpeed: 5
+  moveSpeed: 0
+  targetLocations: []
+  loadPosition: 1
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &2211358280249566477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,14 +153,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d376ab275cfc1c43badc66358f8f2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rb: {fileID: 8802388472861513758}
-  animator: {fileID: 0}
   positionStart: {x: 0, y: 0, z: 0}
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
-  yComp: 0
 --- !u!114 &8522677594209292016
 MonoBehaviour:
   m_ObjectHideFlags: 0

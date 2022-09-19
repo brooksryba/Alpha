@@ -11,10 +11,14 @@ GameObject:
   - component: {fileID: 5619778278270914738}
   - component: {fileID: 8988213778532503585}
   - component: {fileID: 8643284994398649998}
+  - component: {fileID: 5365925650195630899}
   - component: {fileID: 8471061860960730489}
   - component: {fileID: 535100152604814730}
   - component: {fileID: 3071125907342343965}
   - component: {fileID: 948129397536585258}
+  - component: {fileID: 3953656462419517083}
+  - component: {fileID: 1423242519034816784}
+  - component: {fileID: 8161711778173131146}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -76,8 +80,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 21ae12909dfa64464820da55fc494021, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 0f39a9205e4394ee1b6ba8269428d176, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -110,9 +114,15 @@ MonoBehaviour:
   - title: Toxic Gem
     itemName: 
     active: 1
+  - title: Arrow
+    itemName: 
+    active: 1
+  - title: Arrow
+    itemName: 
+    active: 0
   damage: 0
-  currentHP: 95
-  currentMana: 29
+  currentHP: 90
+  currentMana: 19
   earnedXp: 0
   partyMembers:
   - Characters/MageForest
@@ -128,6 +138,30 @@ MonoBehaviour:
   - Poison Spell
   - Immobilize Spell
   inkJSON: {fileID: 0}
+--- !u!114 &5365925650195630899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50314665411570c44ba1442814281afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMainCharacter: 1
+  isAnimating: 0
+  baseMoveSpeed: 5
+  moveSpeed: 3
+  targetLocations: []
+  loadPosition: 1
+  rb: {fileID: 948129397536585258}
+  animator: {fileID: 3071125907342343965}
+  position: {x: 0, y: 0, z: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &8471061860960730489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,14 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d376ab275cfc1c43badc66358f8f2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rb: {fileID: 948129397536585258}
-  animator: {fileID: 3071125907342343965}
   positionStart: {x: 0, y: 0, z: 0}
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
-  yComp: 0
 --- !u!114 &535100152604814730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +207,7 @@ Animator:
   m_GameObject: {fileID: 5619778278270914741}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 39d0dc20f492eab49bae19eaf983bab6, type: 2}
+  m_Controller: {fileID: 9100000, guid: e1a49175773013b44a7f7cc968494a4f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -207,6 +237,60 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!61 &3953656462419517083
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2, y: 2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
+--- !u!114 &1423242519034816784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: 7d6691a95f34cd44f9d6d1d3e9a67e93,
+    type: 2}
+--- !u!114 &8161711778173131146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 3.117501e+36
+  m_labelHash: 3.117501e+36
 --- !u!1001 &6173713617837339650
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,11 +11,15 @@ GameObject:
   - component: {fileID: 8620067899578566029}
   - component: {fileID: 555200299348408392}
   - component: {fileID: 4285036244626313821}
+  - component: {fileID: 4980448434061402652}
   - component: {fileID: 2211358280249566477}
   - component: {fileID: 8522677594209292016}
   - component: {fileID: 8802388472861513758}
   - component: {fileID: 900490567096679845}
-  m_Layer: 0
+  - component: {fileID: 317314677484117286}
+  - component: {fileID: 2595511395686161800}
+  - component: {fileID: 6904736571689780107}
+  m_Layer: 3
   m_Name: MF
   m_TagString: Friendly
   m_Icon: {fileID: 0}
@@ -116,6 +120,29 @@ MonoBehaviour:
   - Heal
   - Boost Physical Attack
   inkJSON: {fileID: 4900000, guid: ad602327dac0bef4aae1a2be5612b743, type: 3}
+--- !u!114 &4980448434061402652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50314665411570c44ba1442814281afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMainCharacter: 0
+  baseMoveSpeed: 5
+  moveSpeed: 0
+  targetLocations: []
+  loadPosition: 1
+  rb: {fileID: 8802388472861513758}
+  animator: {fileID: 317314677484117286}
+  position: {x: 0, y: 0, z: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &2211358280249566477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -192,6 +219,53 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -0.05}
   serializedVersion: 2
   m_Radius: 0.8
+--- !u!95 &317314677484117286
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e1a49175773013b44a7f7cc968494a4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2595511395686161800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 0
+  m_labelHash: 0
+--- !u!114 &6904736571689780107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: 395d6431447cccb4f964999688d6bb89,
+    type: 2}
 --- !u!1001 &614099548933811373
 PrefabInstance:
   m_ObjectHideFlags: 0

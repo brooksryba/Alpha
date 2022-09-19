@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8620067899578566029}
   - component: {fileID: 3851121602351010879}
   - component: {fileID: 1758589926555978252}
+  - component: {fileID: 3563137934290561385}
   - component: {fileID: 1651682121430187748}
   - component: {fileID: 3489781713821198228}
   - component: {fileID: 163532980136778394}
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 94dcd1753bf177c44b582d776194de68, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -115,6 +116,30 @@ MonoBehaviour:
   - Heavy Attack
   spellNames: []
   inkJSON: {fileID: 0}
+--- !u!114 &3563137934290561385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8620067899578566026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50314665411570c44ba1442814281afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isMainCharacter: 0
+  isAnimating: 0
+  baseMoveSpeed: 5
+  moveSpeed: 0
+  targetLocations: []
+  loadPosition: 1
+  rb: {fileID: 0}
+  animator: {fileID: 0}
+  position: {x: 0, y: 0, z: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1651682121430187748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,14 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d376ab275cfc1c43badc66358f8f2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rb: {fileID: 163532980136778394}
-  animator: {fileID: 0}
   positionStart: {x: 0, y: 0, z: 0}
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
-  yComp: 0
 --- !u!114 &3489781713821198228
 MonoBehaviour:
   m_ObjectHideFlags: 0

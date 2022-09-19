@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: BattleSceneScriptable
   m_EditorClassIdentifier: 
   enemy: MageDark
-  scene: World_Main_0
+  scene: World_Main_2
   scenePath: 
