@@ -54,6 +54,7 @@ public class BattleStateAttackMinigame : BattleState
 
             BattleMoveBase chosenMoveDetails = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove,
                     battleSystemUtils.GetCharacter(_manager.charManager.attackerName), battleSystemUtils.GetCharacter(_manager.charManager.defenderName));
+            _manager.chosenMoveDetails = chosenMoveDetails;
 
             if(ongoingMinigameData.completedSuccessfully){
                 if(isEnemyTurn) newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful, but you decreased it's effect!";
@@ -62,11 +63,9 @@ public class BattleStateAttackMinigame : BattleState
                 newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful!";
             }
 
-            if(chosenMoveDetails.moveType=="Attack")
-                newState = new BattleStateAttackAnimationApproach();
-            else 
-                newState = new BattleStateSpellAnimationApproach();
-            
+
+            newState = new BattleStateAttackAnimationApproach();
+           
 
 
         }

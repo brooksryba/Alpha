@@ -11,7 +11,9 @@ public class BattleStateEnemyAttack : BattleState
 
         EnemyAttackChooser attackChooser = new EnemyAttackChooser();
         List<string> chosenAttackList = attackChooser.GetAttack(_manager.charManager.attackerName);
+
         _manager.chosenBattleMove = chosenAttackList[0];
+
         if(chosenAttackList[1] != "")
             newMessage = _manager.charManager.attackerName + " attacks " + chosenAttackList[1] + " with " + _manager.chosenBattleMove + "!";
         else 
