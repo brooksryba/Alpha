@@ -30,6 +30,7 @@ public class BattleObjectManager : MonoBehaviour
 
     public string chosenBattleMove;
     public string chosenItem;
+    public BattleMoveBase chosenMoveDetails;
 
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
