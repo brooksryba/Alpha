@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 3953656462419517083}
   - component: {fileID: 1423242519034816784}
   - component: {fileID: 8161711778173131146}
+  - component: {fileID: 1345367574715681623}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -132,6 +133,36 @@ MonoBehaviour:
   - title: Arrow
     itemName: 
     active: 0
+  - title: Arrow
+    itemName: 
+    active: 1
+  - title: Arrow
+    itemName: 
+    active: 0
+  - title: Arrow
+    itemName: 
+    active: 1
+  - title: Arrow
+    itemName: 
+    active: 0
+  - title: Arrow
+    itemName: 
+    active: 1
+  - title: Arrow
+    itemName: 
+    active: 0
+  - title: Arrow
+    itemName: 
+    active: 1
+  - title: Arrow
+    itemName: 
+    active: 0
+  - title: Arrow
+    itemName: 
+    active: 1
+  - title: Arrow
+    itemName: 
+    active: 0
   damage: 0
   currentHP: 95
   currentMana: 29
@@ -166,6 +197,7 @@ MonoBehaviour:
   isAnimating: 0
   baseMoveSpeed: 5
   moveSpeed: 3
+  targetVector: {x: 0, y: 0}
   targetLocations: []
   loadPosition: 1
   rb: {fileID: 948129397536585258}
@@ -174,6 +206,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 8
+  isSprinting: 0
 --- !u!114 &8471061860960730489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,6 +336,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_CategoryHash: 3.117501e+36
   m_labelHash: 3.117501e+36
+--- !u!114 &1345367574715681623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: b2d433f7cb1bfe543a09a8d802f828dc,
+    type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: World
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1001 &6173713617837339650
 PrefabInstance:
   m_ObjectHideFlags: 0
