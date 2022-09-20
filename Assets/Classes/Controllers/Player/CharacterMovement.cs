@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class CharacterMovement : MonoBehaviour
@@ -11,6 +12,7 @@ public class CharacterMovement : MonoBehaviour
     public float baseMoveSpeed = 5f;
     public float moveSpeed;
 
+    public Vector2 targetVector = new Vector2();
     public Action targetCallback;
     public List<Vector3> targetLocations = new List<Vector3>();
     public bool loadPosition = true; 
@@ -24,6 +26,7 @@ public class CharacterMovement : MonoBehaviour
 
     private PlayerInteraction playerInteraction;
     
+    public bool isSprinting = false;
     Vector2 movement;
 
     void Start()
@@ -71,11 +74,19 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
+    public void OnMove(InputValue input)
+    {
+        targetVector = input.Get<Vector2>();
+    }
 
-    // Update is called once per frame
+    public void OnSprint(InputValue input)
+    {
+        isSprinting = !isSprinting;
+    }
+
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftShift)){
+        if (isSprinting){
             moveSpeed = baseMoveSpeed * 2.0f;
         } else {
             moveSpeed = baseMoveSpeed; 
@@ -100,10 +111,10 @@ public class CharacterMovement : MonoBehaviour
             } else if (isMainCharacter && playerInteraction != null && !playerInteraction.movementLock) {
                 Vector3 newPosition = position;
 
-                if(Mathf.Abs(Input.GetAxisRaw("Horizontal")) == 1f) {
-                    newPosition += new Vector3(Input.GetAxisRaw("Horizontal"), 0, 0);
-                } else if(Mathf.Abs(Input.GetAxisRaw("Vertical")) == 1f) {
-                    newPosition += new Vector3(0, Input.GetAxisRaw("Vertical"), 0);
+                if(Mathf.Abs(targetVector.x) == 1f) {
+                    newPosition += new Vector3(targetVector.x, 0, 0);
+                } else if(Mathf.Abs(targetVector.y) == 1f) {
+                    newPosition += new Vector3(0, targetVector.y, 0);
                 }
 
                 Vector3 newPositionFeet = newPosition + new Vector3(0, -0.5f, 0); 

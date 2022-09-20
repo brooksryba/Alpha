@@ -106,7 +106,7 @@ MonoBehaviour:
   className: Mage
   items: []
   damage: 0
-  currentHP: 0
+  currentHP: 45
   currentMana: 90
   earnedXp: 0
   partyMembers: []
@@ -133,6 +133,7 @@ MonoBehaviour:
   isAnimating: 0
   baseMoveSpeed: 5
   moveSpeed: 0
+  targetVector: {x: 0, y: 0}
   targetLocations: []
   loadPosition: 1
   rb: {fileID: 8802388472861513758}
@@ -141,6 +142,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 8
+  isSprinting: 0
 --- !u!114 &2211358280249566477
 MonoBehaviour:
   m_ObjectHideFlags: 0
