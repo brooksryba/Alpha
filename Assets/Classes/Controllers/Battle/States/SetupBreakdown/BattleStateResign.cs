@@ -22,6 +22,7 @@ public class BattleStateResign : BattleState
 
         yield return new WaitForSeconds(3f);
 
+        SaveSystem.instance.Deregister();
         SceneManager.LoadScene(sceneName: _manager.battleScriptable.scene);
     }
 }
