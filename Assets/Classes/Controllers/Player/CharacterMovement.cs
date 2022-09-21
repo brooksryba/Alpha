@@ -100,8 +100,8 @@ public class CharacterMovement : MonoBehaviour
             isAnimating = false;
         }
         
-        int componentX = (Mathf.Abs(transform.position.x - position.x) < 0.015f ? 0 : (transform.position.x > position.x ? -1 : 1));
-        int componentY = (Mathf.Abs(transform.position.y - position.y) < 0.015f ? 0 : (transform.position.y > position.y ? -1 : 1));
+        int componentX = (Mathf.Abs(transform.position.x - position.x) < 0.02f ? 0 : (transform.position.x > position.x ? -1 : 1));
+        int componentY = (Mathf.Abs(transform.position.y - position.y) < 0.02f ? 0 : (transform.position.y > position.y ? -1 : 1));
         transform.position = Vector3.MoveTowards(transform.position, position, moveSpeed*Time.deltaTime);
 
         if(Vector3.Distance(transform.position, position) <= 0.01f) {
@@ -119,7 +119,7 @@ public class CharacterMovement : MonoBehaviour
                 }
 
                 Vector3 newPositionFeet = newPosition + new Vector3(0, -0.5f, 0); 
-                if(!Physics2D.OverlapCircle(newPositionFeet, .25f, mask)) {
+                if(!Physics2D.OverlapBox(newPositionFeet, new Vector2(.5f, .5f), 0, mask)) {
                     position = newPosition;
                 }
             }
