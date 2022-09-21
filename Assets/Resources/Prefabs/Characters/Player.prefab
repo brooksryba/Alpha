@@ -9,16 +9,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5619778278270914738}
+  - component: {fileID: 3071125907342343965}
   - component: {fileID: 8988213778532503585}
+  - component: {fileID: 8161711778173131146}
+  - component: {fileID: 1423242519034816784}
   - component: {fileID: 8643284994398649998}
   - component: {fileID: 5365925650195630899}
   - component: {fileID: 8471061860960730489}
   - component: {fileID: 535100152604814730}
-  - component: {fileID: 3071125907342343965}
   - component: {fileID: 948129397536585258}
   - component: {fileID: 3953656462419517083}
-  - component: {fileID: 1423242519034816784}
-  - component: {fileID: 8161711778173131146}
   - component: {fileID: 1345367574715681623}
   m_Layer: 0
   m_Name: Player
@@ -42,6 +42,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &3071125907342343965
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e1a49175773013b44a7f7cc968494a4f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!212 &8988213778532503585
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -81,7 +100,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 0f39a9205e4394ee1b6ba8269428d176, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -93,6 +112,34 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &8161711778173131146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_CategoryHash: 3.117501e+36
+  m_labelHash: 3.117501e+36
+--- !u!114 &1423242519034816784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5619778278270914741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SpriteLibraryAsset: {fileID: 11400000, guid: 7d6691a95f34cd44f9d6d1d3e9a67e93,
+    type: 2}
 --- !u!114 &8643284994398649998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -108,68 +155,14 @@ MonoBehaviour:
   title: Hero
   level: 8
   className: Jack
-  items:
-  - title: Revive
-    itemName: 
-    active: 1
-  - title: Toxic Gem
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
-  - title: Arrow
-    itemName: 
-    active: 1
-  - title: Arrow
-    itemName: 
-    active: 0
+  items: []
   damage: 0
   currentHP: 95
   currentMana: 29
   earnedXp: 0
   partyMembers:
-  - Characters/MageForest
-  - Characters/MageRune
+  - Characters/AF
+  - Characters/MF
   attackNames:
   - Basic Attack
   - Heavy Attack
@@ -242,25 +235,6 @@ MonoBehaviour:
   EndColor: {r: 0, g: 0, b: 0, a: 0}
   timeRemaining: 0
   timeToTransition: 0
---- !u!95 &3071125907342343965
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5619778278270914741}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: e1a49175773013b44a7f7cc968494a4f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!50 &948129397536585258
 Rigidbody2D:
   serializedVersion: 4
@@ -308,34 +282,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &1423242519034816784
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5619778278270914741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c29cff538c195c249b69c6f2236de67b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SpriteLibraryAsset: {fileID: 11400000, guid: 7d6691a95f34cd44f9d6d1d3e9a67e93,
-    type: 2}
---- !u!114 &8161711778173131146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5619778278270914741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed8b1ae4e4e52b34ea557c1c11e076fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CategoryHash: 3.117501e+36
-  m_labelHash: 3.117501e+36
 --- !u!114 &1345367574715681623
 MonoBehaviour:
   m_ObjectHideFlags: 0

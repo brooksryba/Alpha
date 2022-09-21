@@ -29,11 +29,13 @@ public class BattleStateMachine : MonoBehaviour
         stateLock = true;
         oldMessage = state.newMessage;
         yield return state.execute();
-        if(state.GetType().Name != state.newState.GetType().Name)
-            Debug.Log("From: " + state.GetType().Name + " To: " + state.newState.GetType().Name);
-        if(oldMessage != state.newMessage)
-            ToastSystem.instance.Open(state.newMessage, false);
-        state = state.newState;
+        if(state.newState != null) {
+            if(state.GetType().Name != state.newState.GetType().Name)
+                Debug.Log("From: " + state.GetType().Name + " To: " + state.newState.GetType().Name);
+            if(oldMessage != state.newMessage)
+                ToastSystem.instance.Open(state.newMessage, false);
+            state = state.newState;
+        }
         yield return new WaitForSeconds(0f);
         stateLock = false;
     }
