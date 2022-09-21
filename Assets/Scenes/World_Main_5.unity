@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 415984771}
   - component: {fileID: 415984770}
   - component: {fileID: 415984769}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Solids
   m_TagString: Untagged
   m_Icon: {fileID: 0}

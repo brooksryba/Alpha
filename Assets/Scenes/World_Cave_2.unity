@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 859382088}
   - component: {fileID: 859382087}
   - component: {fileID: 859382089}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Solids
   m_TagString: Untagged
   m_Icon: {fileID: 0}

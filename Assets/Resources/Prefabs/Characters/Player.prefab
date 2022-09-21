@@ -157,8 +157,8 @@ MonoBehaviour:
   className: Jack
   items: []
   damage: 0
-  currentHP: 83
-  currentMana: 19
+  currentHP: 95
+  currentMana: 29
   earnedXp: 0
   partyMembers:
   - Characters/AF
