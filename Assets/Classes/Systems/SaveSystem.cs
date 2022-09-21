@@ -59,7 +59,11 @@ public class SaveSystem : MonoBehaviour {
     }
 
     public void Deregister() {
-        references = new Dictionary<string, Action>();
+        references.Clear();
+    }
+
+    public void Unregister(string name) {
+        references.Remove(name);
     }
 
     public void Register(string name, Action saver) {

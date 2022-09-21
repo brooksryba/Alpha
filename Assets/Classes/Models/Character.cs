@@ -42,6 +42,11 @@ public class Character : MonoBehaviour
 
     }
 
+    void OnDestroy()
+    {
+        SaveSystem.instance.Unregister(this.title);
+    }
+
     public void SaveState()
     {
         SaveSystem.instance.SaveState<CharacterData>(new CharacterData(this), this.title);

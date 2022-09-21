@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9518d13259db2134c9218f639c53f1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Rat
+  title: Stormy
   level: 4
   className: Mage
   items: []
@@ -133,6 +133,7 @@ MonoBehaviour:
   isAnimating: 0
   baseMoveSpeed: 5
   moveSpeed: 0
+  targetVector: {x: 0, y: 0}
   targetLocations: []
   loadPosition: 1
   rb: {fileID: 0}
@@ -141,6 +142,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 0
+  isSprinting: 0
 --- !u!114 &2211358280249566477
 MonoBehaviour:
   m_ObjectHideFlags: 0

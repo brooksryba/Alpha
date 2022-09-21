@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9518d13259db2134c9218f639c53f1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: Forest Mage
+  title: AF
   level: 7
   className: Mage
   items: []
@@ -134,8 +134,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMainCharacter: 0
+  isAnimating: 0
   baseMoveSpeed: 5
   moveSpeed: 0
+  targetVector: {x: 0, y: 0}
   targetLocations: []
   loadPosition: 1
   rb: {fileID: 8802388472861513758}
@@ -144,6 +146,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 8
+  isSprinting: 0
 --- !u!114 &2211358280249566477
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,14 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d376ab275cfc1c43badc66358f8f2a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 5
-  rb: {fileID: 8802388472861513758}
-  animator: {fileID: 1617480832027822083}
   positionStart: {x: 0, y: 0, z: 0}
   positionEnd: {x: 0, y: 0, z: 0}
   isAnimating: 0
   isFinished: 0
-  yComp: 0
 --- !u!114 &8522677594209292016
 MonoBehaviour:
   m_ObjectHideFlags: 0
