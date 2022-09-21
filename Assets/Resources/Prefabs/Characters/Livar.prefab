@@ -106,10 +106,12 @@ MonoBehaviour:
   className: Mage
   items: []
   damage: 0
-  currentHP: 45
+  currentHP: 0
   currentMana: 90
   earnedXp: 0
-  partyMembers: []
+  partyMembers:
+  - Characters/Murray
+  - Characters/Stormy
   attackNames:
   - Basic Attack
   - Spread Attack
@@ -281,6 +283,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AttackEffects
+      objectReference: {fileID: 0}
+    - target: {fileID: 9186419697202184621, guid: f09e593b5112e4145ab33e5cf649d883,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f09e593b5112e4145ab33e5cf649d883, type: 3}
