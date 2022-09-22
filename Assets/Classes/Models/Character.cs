@@ -83,6 +83,7 @@ public class Character : MonoBehaviour
         }
 		else 
 		{
+            this.items = new List<ItemData>();
             this.level = 3;
             characterClass.SetStats(this.level);
             this.currentHP = characterClass.maxHP;
