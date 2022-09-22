@@ -263,6 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b9272727a4f456448c6abdc78222fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  toastObject: {fileID: 2460646344487415066}
+  textObject: {fileID: 2460646343681269028}
 --- !u!1 &2460646344487415066
 GameObject:
   m_ObjectHideFlags: 0

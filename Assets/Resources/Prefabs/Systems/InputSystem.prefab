@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2d7190c2e6063e4abc7ca74cd65d2f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overlayObject: {fileID: 4595592598330848925}
 --- !u!1 &4595592598330848925
 GameObject:
   m_ObjectHideFlags: 0

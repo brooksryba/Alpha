@@ -10,7 +10,7 @@ public class SaveSystem : MonoBehaviour {
     private static SaveSystem _instance;
     public static SaveSystem instance { get { return _instance; } }
 
-    public Dictionary<string, Action> references = new Dictionary<string, Action>();
+    private Dictionary<string, Action> references = new Dictionary<string, Action>();
     public BattleSceneScriptable battleSceneScriptable;
     public PlayerScriptable playerScriptable;
 

@@ -9,7 +9,10 @@ public class ToastSystem : MonoBehaviour
     private static ToastSystem _instance;
     public static ToastSystem instance { get { return _instance; } }
 
-    int timeout = 5;
+    public GameObject toastObject;
+    public GameObject textObject;
+
+    private int timeout = 5;
 
     private void Awake() { _instance = this; }
 
@@ -20,8 +23,8 @@ public class ToastSystem : MonoBehaviour
 
     public void Open(string message, bool doTimeout=true)
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
+        toastObject.gameObject.SetActive(true);
+        textObject.GetComponent<TMP_Text>().SetText(message);
         if(doTimeout)
         {
             StopCoroutine(TimedClose());
@@ -31,8 +34,8 @@ public class ToastSystem : MonoBehaviour
 
     public void Close()
     {
-        transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText("");
-        transform.GetChild(0).gameObject.SetActive(false);
+        textObject.GetComponent<TMP_Text>().SetText("");
+        toastObject.gameObject.SetActive(false);
     }
 
     IEnumerator TimedClose()
