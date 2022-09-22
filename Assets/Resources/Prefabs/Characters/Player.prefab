@@ -153,13 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Hero
-  level: 8
   className: Jack
-  items: []
-  damage: 0
-  currentHP: 95
-  currentMana: 29
-  earnedXp: 0
   partyMembers:
   - Characters/AF
   - Characters/MF
