@@ -152,13 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: MF
-  level: 7
   className: Mage
-  items: []
-  damage: 0
-  currentHP: 0
-  currentMana: 0
-  earnedXp: 0
   partyMembers: []
   attackNames:
   - Basic Attack

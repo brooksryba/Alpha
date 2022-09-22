@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class InputSystem : MonoBehaviour
 {
+    public GameObject overlayObject;
     void Start()
     {
         if(SystemInfo.deviceType != DeviceType.Handheld){
-            GameObject.Find("JoystickOverlay").SetActive(false);
+            overlayObject.SetActive(false);
         }        
     }
 }

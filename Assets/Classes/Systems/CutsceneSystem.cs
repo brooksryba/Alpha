@@ -16,9 +16,11 @@ public class CutsceneSystem : MonoBehaviour
     public bool cutsceneIsPlaying { get; private set; }
     public bool cutsceneInEvent { get; private set; }
     private List<Action> callbackEvents = new List<Action>();
-    public Dictionary<String, Vector3> originalPosition;
-    public List<String> spawnedCharacters = new List<String>();
-    public GameObject indicatorTarget;
+    private Dictionary<String, Vector3> originalPosition;
+    private List<String> spawnedCharacters = new List<String>();
+    private GameObject indicatorTarget;
+    public GameObject indicatorObject;
+    public GameObject borderObject;
 
 
     private void Awake() { _instance = this; }
@@ -28,10 +30,9 @@ public class CutsceneSystem : MonoBehaviour
             cutsceneInEvent = (callbackEvents.Count > 0);
         }
         if( indicatorTarget != null ) {
-            GameObject indicator = GameObject.Find("CutsceneIndicator");
             Camera cam = GameObject.Find("Main Camera").GetComponent<Camera>();
-            indicator.transform.position = cam.WorldToScreenPoint(indicatorTarget.transform.position);
-            indicator.transform.position += new Vector3(0, 30 * indicator.transform.lossyScale.y, 0);
+            indicatorObject.transform.position = cam.WorldToScreenPoint(indicatorTarget.transform.position);
+            indicatorObject.transform.position += new Vector3(0, 30 * indicatorObject.transform.lossyScale.y, 0);
         }
     }
 
@@ -39,7 +40,7 @@ public class CutsceneSystem : MonoBehaviour
     {
         cutsceneIsPlaying = true;
         originalPosition = new Dictionary<string, Vector3>();
-        transform.GetChild(0).gameObject.SetActive(true);
+        borderObject.gameObject.SetActive(true);
     }
 
     public void ExitCutsceneMode()
@@ -50,8 +51,8 @@ public class CutsceneSystem : MonoBehaviour
         cutsceneIsPlaying = false;
         DestroySpawnedCharacters();
         RestoreCharacterLocations();
-        transform.GetChild(0).gameObject.SetActive(false);
-        transform.GetChild(1).gameObject.SetActive(false);
+        borderObject.gameObject.SetActive(false);
+        indicatorObject.gameObject.SetActive(false);
         indicatorTarget = null;
     }
 
@@ -152,8 +153,7 @@ public class CutsceneSystem : MonoBehaviour
 
     private bool Indicator(string charId)
     {
-        transform.GetChild(1).gameObject.SetActive(true);
-
+        indicatorObject.gameObject.SetActive(true);
         indicatorTarget = GameObject.Find(charId);
                 
         CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();

@@ -191,6 +191,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
   playerScriptable: {fileID: 11400000, guid: 6b2ca5ef543b10f488665bdc95ae69c6, type: 2}
+  indicatorObject: {fileID: 8889880457457540000}
+  borderObject: {fileID: 4299197966813456491}
 --- !u!1 &4299197966813456491
 GameObject:
   m_ObjectHideFlags: 0

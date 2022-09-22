@@ -14,10 +14,13 @@ public class DialogSystem : MonoBehaviour
 
     private Story currentStory;
     public bool dialogueIsPlaying { get; private set; }
-    public bool needToMakeChoice;
-    public string choiceString;
-    public Action<String> eventCallback;
-    public Action exitCallback;
+    private bool needToMakeChoice;
+    private string choiceString;
+    private Action<String> eventCallback;
+    private Action exitCallback;
+
+    public GameObject dialogObject;
+    public GameObject textObject;
 
     private void Awake() { _instance = this; }
 
@@ -30,18 +33,18 @@ public class DialogSystem : MonoBehaviour
 
     public void Open(string message, Action callback = null)
     {
-        if(transform.GetChild(0).gameObject.activeInHierarchy){
+        if(dialogObject.gameObject.activeInHierarchy){
             Close();
         }
         
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText(message);
+        dialogObject.gameObject.SetActive(true);
+        textObject.GetComponent<TMP_Text>().SetText(message);
     }
 
     public void Close()
     {
-        transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().SetText("");
-        transform.GetChild(0).gameObject.SetActive(false);
+        textObject.GetComponent<TMP_Text>().SetText("");
+        dialogObject.gameObject.SetActive(false);
     }
 
     public void EnterDialogueMode(TextAsset inkJSON, Action<String> _eventCallback, Action _exitCallback){

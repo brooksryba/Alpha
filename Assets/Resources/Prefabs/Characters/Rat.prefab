@@ -102,14 +102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   title: Rat
-  level: 4
   className: Mage
-  items: []
-  damage: 0
-  currentHP: 45
-  currentMana: 90
-  earnedXp: 0
-  partyMembers: []
   attackNames:
   - Basic Attack
   - Spread Attack

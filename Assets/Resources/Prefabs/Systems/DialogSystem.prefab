@@ -263,8 +263,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0dbdf3ebd8ba434ba721010b59766e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  needToMakeChoice: 0
-  choiceString: 
+  dialogObject: {fileID: 2460646344487415066}
+  textObject: {fileID: 2460646343681269028}
 --- !u!1 &2460646344487415066
 GameObject:
   m_ObjectHideFlags: 0

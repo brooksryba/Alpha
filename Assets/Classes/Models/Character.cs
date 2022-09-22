@@ -7,22 +7,20 @@ public class Character : MonoBehaviour
 {
 
     public string title;
-    public int level;
     public string className;
 
+    [System.NonSerialized]
+    public int level;
+    [System.NonSerialized]
     public List<ItemData> items;
-
+    [System.NonSerialized]
     public int damage;
-
-
+    [System.NonSerialized]
     public int currentHP;
-
-
+    [System.NonSerialized]
     public int currentMana;
-
+    [System.NonSerialized]
     public int earnedXp;
-
-
 
     public List<string> partyMembers;
     public List<string> attackNames;
@@ -85,6 +83,7 @@ public class Character : MonoBehaviour
         }
 		else 
 		{
+            this.level = 3;
             characterClass.SetStats(this.level);
             this.currentHP = characterClass.maxHP;
             this.currentMana = characterClass.maxMana;
