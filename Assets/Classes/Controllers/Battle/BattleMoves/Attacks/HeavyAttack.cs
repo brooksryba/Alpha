@@ -37,7 +37,7 @@ public class HeavyAttack : Attack
         Character attacker = GetCharacter(userName);
         Character defender = GetCharacter(targetName);
 
-        if(attacker.useMana(GetManaCost())){
+        if(attacker.UseMana(GetManaCost())){
             defender.TakeDamage((int)(GetAttackDamage()*minigameMultiplier));
         } else {
             return;

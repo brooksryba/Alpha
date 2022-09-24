@@ -22,15 +22,18 @@ public class Character : MonoBehaviour
     [System.NonSerialized]
     public int earnedXp;
 
-    public List<string> partyMembers;
+    [System.NonSerialized]
     public List<string> attackNames;
+
+    [System.NonSerialized]
     public List<string> spellNames;
+
+    public List<string> partyMembers;
 
     public BaseCharacterClass characterClass;
 
     [Header("Ink JSON")]
     [SerializeField] public TextAsset inkJSON;
-
 
     void Start()
     {
@@ -64,11 +67,14 @@ public class Character : MonoBehaviour
         {
             gameObject.SetActive(data.active);
             
-            this.level = data.level;
+            
             this.currentHP = data.currentHP;
             this.currentMana = data.currentMana;
             this.earnedXp = data.earnedXp;
+            this.level = LevelSystem.instance.GetLevel(this.earnedXp);
             this.partyMembers = data.partyMembers;
+            this.attackNames = data.attackNames;
+            this.spellNames = data.spellNames;
             characterClass.SetStats(this.level);
 
 
@@ -84,10 +90,13 @@ public class Character : MonoBehaviour
 		else 
 		{
             this.items = new List<ItemData>();
-            this.level = 3;
+            this.earnedXp = 200;
+            this.level = LevelSystem.instance.GetLevel(this.earnedXp);
             characterClass.SetStats(this.level);
             this.currentHP = characterClass.maxHP;
             this.currentMana = characterClass.maxMana;
+            this.attackNames = characterClass.GetBaseAttackNames(this.level);
+            this.spellNames = characterClass.GetBaseSpellNames(this.level);
 		}
 
     }
@@ -127,7 +136,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    public bool multiplyMana(double mana)
+    public bool MultiplyMana(double mana)
     {
         int newMana = currentMana + (int)((double)characterClass.maxMana * mana);
         if( newMana > 0 ) {
@@ -159,7 +168,7 @@ public class Character : MonoBehaviour
             currentHP = characterClass.maxHP;
     }
 
-    public bool useMana(int amount)
+    public bool UseMana(int amount)
     {
         if (currentMana - amount < 0)
             return false;
@@ -175,6 +184,37 @@ public class Character : MonoBehaviour
         currentMana += amount;
         if (currentMana > characterClass.maxMana)
             currentMana = characterClass.maxMana;
+    }
+
+    // @TODO - this might need to be an Ienumerator to confirm user receives all messages
+    public IEnumerator AddXp(int amount){
+        earnedXp += amount;
+        int newLevel = LevelSystem.instance.GetLevel(earnedXp);
+        for(int lvl = this.level; lvl < newLevel; lvl++){
+            this.level += 1;
+            ToastSystem.instance.Open(this.name + " is now level " + this.level.ToString() + "!");
+            yield return new WaitForSeconds(1f);
+            characterClass.SetStats(this.level);
+            if(characterClass.attackProgression.ContainsKey(this.level)){
+                if(!attackNames.Contains(characterClass.attackProgression[this.level])){
+                    this.attackNames.Add(characterClass.attackProgression[this.level]);
+                    ToastSystem.instance.Open(this.name + " has learned attack " + characterClass.attackProgression[this.level] + "!");
+                    yield return new WaitForSeconds(1f);
+                }
+
+            }
+
+            if(characterClass.spellProgression.ContainsKey(this.level)){
+                if(!spellNames.Contains(characterClass.spellProgression[this.level])){
+                    this.spellNames.Add(characterClass.spellProgression[this.level]);
+                    ToastSystem.instance.Open(this.name + " has learned spell " + characterClass.spellProgression[this.level] + "!");
+                    yield return new WaitForSeconds(1f);
+                }
+
+            }
+
+        }
+        yield return new WaitForSeconds(0f);
     }
 
 }

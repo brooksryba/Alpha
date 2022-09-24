@@ -33,7 +33,7 @@ public class Heal : Spell
     override public void _ExecuteBattleMove() {
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
-        caster.useMana(GetManaCost());
+        caster.UseMana(GetManaCost());
         target.Heal((int)(GetHealthValue()));
     }
 }

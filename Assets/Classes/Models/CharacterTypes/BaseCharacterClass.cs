@@ -8,6 +8,8 @@ public class BaseCharacterClass
     public string className;
     public Dictionary<string, double> baseStats = new Dictionary<string, double>();
     public Dictionary<string, double> statProgression = new Dictionary<string, double>();
+    public Dictionary<int, string> attackProgression = new Dictionary<int, string>();
+    public Dictionary<int, string> spellProgression = new Dictionary<int, string>();
 
     public int speed;
     public int physicalAttack;
@@ -16,6 +18,7 @@ public class BaseCharacterClass
     public int magicDefense;
     public int maxHP;
     public int maxMana;
+
 
     public void SetStats(int level){
         this.speed = GetCurrentStatValue("speed", level);
@@ -30,6 +33,29 @@ public class BaseCharacterClass
 
     public int GetCurrentStatValue(string statName, int currentLevel){
         return (int)(baseStats[statName] + currentLevel*statProgression[statName]) ;
+    }
+
+    public List<string> GetBaseAttackNames(int level){
+        List<string> baseAttackNames = new List<string>();
+        baseAttackNames.Add("Basic Attack");
+        for(int i = 0; i <= level; i++){
+            if(spellProgression.ContainsKey(i)){
+                baseAttackNames.Add(spellProgression[i]);
+            }
+        }
+        return baseAttackNames;
+    }
+
+    public List<string> GetBaseSpellNames(int level){
+        List<string> baseSpellNames = new List<string>();
+        baseSpellNames.Add("Heal");
+        baseSpellNames.Add("Posion Spell");
+        for(int i = 0; i <= level; i++){
+            if(spellProgression.ContainsKey(i)){
+                baseSpellNames.Add(spellProgression[i]);
+            }
+        }
+        return baseSpellNames;
     }
 
     static public BaseCharacterClass GetCharacterClass(string className){

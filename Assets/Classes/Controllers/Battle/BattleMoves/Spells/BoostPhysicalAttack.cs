@@ -39,7 +39,7 @@ public class BoostPhysicalAttack : Spell
     override public void _ExecuteBattleMove() {
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
-        caster.useMana(GetManaCost());
+        caster.UseMana(GetManaCost());
         _manager.battleBonusManager.AddBonus(targetName, "physicalAttack", GetBoostMultiplier(), GetBoostAddition(), GetTurnDuration());
         
     }
