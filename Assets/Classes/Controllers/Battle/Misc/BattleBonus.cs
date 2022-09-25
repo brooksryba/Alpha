@@ -36,7 +36,7 @@ public class BattleBonus
             Character currentPlayer = GameObject.Find(playerName).GetComponent<Character>();
             currentPlayer.multiplyHP(statMultiplier);
             if(statAddition > 0){
-                currentPlayer.useMana((int)statAddition);
+                currentPlayer.UseMana((int)statAddition);
             } else {
                 currentPlayer.AddMana((int)statAddition);
             }

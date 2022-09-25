@@ -28,6 +28,13 @@ public class Jack : BaseCharacterClass
 
         baseStats.Add("speed", 7);
         statProgression.Add("speed", 10);
+
+
+        attackProgression.Add(4, "Heavy Attack");
+        attackProgression.Add(6, "Spread Attack");
+
+        spellProgression.Add(3, "Boost Physical Attack");
+        spellProgression.Add(5, "Immobilize Spell");
         
 
     }

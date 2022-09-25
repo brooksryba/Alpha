@@ -159,13 +159,9 @@ MonoBehaviour:
   - Characters/MF
   attackNames:
   - Basic Attack
-  - Heavy Attack
   - Very Heavy Attack
-  - Spread Attack
   spellNames:
-  - Heal
   - Boost Physical Attack
-  - Poison Spell
   - Immobilize Spell
   inkJSON: {fileID: 0}
 --- !u!114 &5365925650195630899

@@ -12,6 +12,8 @@ public class CharacterData {
     public int currentHP;
     public int currentMana;
     public int earnedXp;
+    public List<string> attackNames;
+    public List<string> spellNames;
 
     public List<string> partyMembers;
 
@@ -24,6 +26,8 @@ public class CharacterData {
         currentHP = character.currentHP;
         currentMana = character.currentMana;
         earnedXp = character.earnedXp;
+        attackNames = character.attackNames;
+        spellNames = character.spellNames;
         partyMembers = character.partyMembers;
     }
 

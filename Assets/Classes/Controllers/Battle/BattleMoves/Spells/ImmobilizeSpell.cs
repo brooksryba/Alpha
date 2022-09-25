@@ -38,7 +38,7 @@ public class ImmobilizeSpell : Spell
     override public void _ExecuteBattleMove() {
         Character caster = GetCharacter(userName);
         Character target = GetCharacter(targetName);
-        caster.useMana(GetManaCost());
+        caster.UseMana(GetManaCost());
         _manager.battleBonusManager.AddBonus(targetName, "skipTurn", 0.0, -1*GetDamage(), GetTurnDuration());
         
     }

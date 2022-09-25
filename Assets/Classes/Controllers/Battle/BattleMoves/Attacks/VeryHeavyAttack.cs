@@ -35,7 +35,7 @@ public class VeryHeavyAttack : Attack
         Character attacker = GetCharacter(userName);
         Character defender = GetCharacter(targetName);
 
-        if(attacker.useMana(GetManaCost())){
+        if(attacker.UseMana(GetManaCost())){
             attacker.TakeDamage(GetHealthCost());
             defender.TakeDamage(defender.currentHP);
         } else {

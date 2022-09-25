@@ -14,7 +14,7 @@ public class ToxicGem : InventoryItemData
 
     override public string Execute(Character user){
         user.multiplyHP(hp);
-        user.multiplyMana(mana);
+        user.MultiplyMana(mana);
         return base.Execute(user);
     }
 }

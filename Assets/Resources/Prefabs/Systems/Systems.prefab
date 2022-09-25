@@ -33,6 +33,7 @@ Transform:
   - {fileID: 4870153977103948068}
   - {fileID: 7040177270132974398}
   - {fileID: 9175987916078940945}
+  - {fileID: 6483245499605344712}
   - {fileID: 7040177270605922042}
   - {fileID: 7240945440406450186}
   - {fileID: 2437291162697829205}
@@ -167,7 +168,7 @@ PrefabInstance:
     - target: {fileID: 2460646344076525313, guid: 7e8f4951185bc4a4cbd6d1fcb70d9a11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2460646344076525313, guid: 7e8f4951185bc4a4cbd6d1fcb70d9a11,
         type: 3}
