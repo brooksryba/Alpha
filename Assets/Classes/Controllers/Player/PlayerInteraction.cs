@@ -8,10 +8,6 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject collisionObject;
     private Character collisionCharacter;
     private Cutscene collisionCutscene;
-
-    public BattleSceneScriptable battleScriptable;
-    public PlayerScriptable playerScriptable;
-    
     public bool movementLock = false;
     public bool dialogLock = false;
     public bool cutsceneLock = false;
@@ -108,10 +104,9 @@ public class PlayerInteraction : MonoBehaviour
 
     void HandleEnemy()
     {
-        battleScriptable.enemy = collisionObject.name;
-        battleScriptable.scene = SceneManager.GetActiveScene().name;
-        playerScriptable.Write(transform.position);
-        SaveSystem.instance.SaveAndDeregister();
+        SceneSystem.battle = new BattleData(collisionObject.name, SceneManager.GetActiveScene().name, null);
+        SceneSystem.world = new PlayerLocationData(GetComponent<CharacterMovement>());
+        SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");        
     }
 
@@ -134,8 +129,8 @@ public class PlayerInteraction : MonoBehaviour
     void HandlePortal()
     {
         Portal portal = collisionObject.GetComponent<Portal>();
-        playerScriptable.Write(portal.target);
-        SaveSystem.instance.SaveAndDeregister();
+        SceneSystem.world = new PlayerLocationData(portal.target, null);
+        SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
 
@@ -150,9 +145,9 @@ public class PlayerInteraction : MonoBehaviour
                     movementLock = true;
                     CutsceneSystem.instance.EnterCutsceneMode();
                     DialogSystem.instance.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCutsceneEnd();});
-                    if(battleScriptable.scenePath != null && battleScriptable.scenePath != "") {
-                        DialogSystem.instance.SetStoryCurrentPath(battleScriptable.scenePath);
-                        battleScriptable.scenePath = null;
+                    if(SceneSystem.battle != null && SceneSystem.battle.scenePath != null && SceneSystem.battle.scenePath != "") {
+                        DialogSystem.instance.SetStoryCurrentPath(SceneSystem.battle.scenePath);
+                        SceneSystem.battle.scenePath = null;
                     }
                     DialogSystem.instance.ContinueStory();
                 }

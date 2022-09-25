@@ -22,8 +22,6 @@ public class CharacterMovement : MonoBehaviour
     public Vector3 position;
     public LayerMask mask;
 
-    private PlayerScriptable playerScriptable;
-
     private PlayerInteraction playerInteraction;
     
     public bool isSprinting = false;
@@ -32,14 +30,15 @@ public class CharacterMovement : MonoBehaviour
     void Start()
     {
         if(isMainCharacter && SceneManager.GetActiveScene().name != "Battle") {
-            playerScriptable = Resources.Load("Scriptable/PlayerScriptable") as PlayerScriptable;
             playerInteraction = gameObject.GetComponent<PlayerInteraction>();
-            SaveSystem.instance.Register("PlayerLocation", () => { SaveState(); });
+            SaveSystem.Register("PlayerLocation", () => { SaveState(); });
             if( loadPosition == true ) {
                 LoadState();
-                if(playerScriptable.ready) {
-                    transform.position = playerScriptable.Read();
+                if(SceneSystem.world != null) {
+                    transform.position = new Vector3(SceneSystem.world.position[0], SceneSystem.world.position[1], 0f);
                     position = transform.position;
+
+                    SceneSystem.world = null;
                 } else {
                     if(!(position.x == 0 && position.y == 0)) {
                         transform.position = position;
@@ -56,14 +55,14 @@ public class CharacterMovement : MonoBehaviour
     public void SaveState()
     {
         if(isMainCharacter) {
-            SaveSystem.instance.SaveState<PlayerLocationData>(new PlayerLocationData(this), "PlayerLocation");
+            SaveSystem.SaveState<PlayerLocationData>(new PlayerLocationData(this), "PlayerLocation");
         }
     }
 
     public void LoadState()
     {
         if(isMainCharacter) {
-            PlayerLocationData data = SaveSystem.instance.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
+            PlayerLocationData data = SaveSystem.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
             if( data != null ) {
                 if(data.scene == SceneManager.GetActiveScene().name) {
                     this.position = new Vector3();

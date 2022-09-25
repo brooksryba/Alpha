@@ -5,18 +5,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
-public class SaveSystem : MonoBehaviour {
+public static class SaveSystem {
 
-    private static SaveSystem _instance;
-    public static SaveSystem instance { get { return _instance; } }
+    private static Dictionary<string, Action> references = new Dictionary<string, Action>();
 
-    private Dictionary<string, Action> references = new Dictionary<string, Action>();
-    public BattleSceneScriptable battleSceneScriptable;
-    public PlayerScriptable playerScriptable;
-
-    private void Awake() { _instance = this; }
     
-    public void Reset()
+    public static void Reset()
     {
         foreach (var path in Directory.GetFiles(Application.persistentDataPath))
         {
@@ -25,14 +19,9 @@ public class SaveSystem : MonoBehaviour {
                 file.Delete();
             }
         }
-
-        battleSceneScriptable.enemy = null;
-        battleSceneScriptable.scene = null;
-        battleSceneScriptable.scenePath = null;
-        
     }
 
-    public void SaveState<T>(T data, string name)
+    public static void SaveState<T>(T data, string name)
     {
         string PATH_SAVEFILE = Application.persistentDataPath + "/state-"+name+".bin";
         FileStream stream = new FileStream(PATH_SAVEFILE, FileMode.Create);
@@ -42,7 +31,7 @@ public class SaveSystem : MonoBehaviour {
         stream.Close();
     }
 
-    public T LoadState<T>(string name) where T : class
+    public static T LoadState<T>(string name) where T : class
     {
         string PATH_SAVEFILE = Application.persistentDataPath + "/state-"+name+".bin";
         if( File.Exists(PATH_SAVEFILE) ) {
@@ -58,31 +47,31 @@ public class SaveSystem : MonoBehaviour {
         }
     }
 
-    public void Deregister() {
+    public static void Deregister() {
         references.Clear();
     }
 
-    public void Unregister(string name) {
+    public static void Unregister(string name) {
         references.Remove(name);
     }
 
-    public void Register(string name, Action saver) {
+    public static void Register(string name, Action saver) {
         if(!references.ContainsKey(name))
             references.Add(name, saver);
     }
 
-    public void Save() {
+    public static void Save() {
         foreach( KeyValuePair<string, Action> item in references ) {
             item.Value();
         }
     }
 
-    public void SaveAndDeregister() {
+    public static void SaveAndDeregister() {
         Save();
         Deregister();
     }
 
-    public void ResetAndDeregister() {
+    public static void ResetAndDeregister() {
         Reset();
         Deregister();
     }    

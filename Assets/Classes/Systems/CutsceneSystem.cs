@@ -11,8 +11,6 @@ public class CutsceneSystem : MonoBehaviour
     private static CutsceneSystem _instance;
     public static CutsceneSystem instance { get { return _instance; } }
 
-    public BattleSceneScriptable battleScriptable;
-    public PlayerScriptable playerScriptable;
     public bool cutsceneIsPlaying { get; private set; }
     public bool cutsceneInEvent { get; private set; }
     private List<Action> callbackEvents = new List<Action>();
@@ -111,7 +109,7 @@ public class CutsceneSystem : MonoBehaviour
         GameObject characterRes = Resources.Load("Prefabs/Characters/"+charID) as GameObject;
         GameObject character = Instantiate(characterRes, characterList.transform);
         character.name = charID;
-        character.transform.position = TileGrid.Translate(x, y);
+        character.transform.position = new Vector3(x, y, 0f);
         spawnedCharacters.Add(charID);
        
         return true;
@@ -135,7 +133,7 @@ public class CutsceneSystem : MonoBehaviour
 
         CharacterMovement movement = character.GetComponent<CharacterMovement>();
         movement.targetCallback += cachedHandler;
-        movement.targetLocations.Add(TileGrid.Translate(x, y));
+        movement.targetLocations.Add(new Vector3(x, y, 0f));
        
         return true;
     }
@@ -150,13 +148,9 @@ public class CutsceneSystem : MonoBehaviour
 
     private bool Battle(string enemyID, string storyPath)
     {
-        battleScriptable.enemy = enemyID;
-        battleScriptable.scene = SceneManager.GetActiveScene().name;
-        battleScriptable.scenePath = storyPath;
-
-        GameObject player = GameObject.Find("Player");
-        playerScriptable.Write(player.transform.position);
-        SaveSystem.instance.SaveAndDeregister();
+        SceneSystem.battle = new BattleData(enemyID, SceneManager.GetActiveScene().name, storyPath);
+        SceneSystem.world = new PlayerLocationData(GameObject.Find("Player").GetComponent<CharacterMovement>());
+        SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");     
 
         return true;          
