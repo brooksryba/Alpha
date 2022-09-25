@@ -10,19 +10,16 @@ using TMPro;
 
 public class BattleStateResign : BattleState
 {
+    public override IEnumerator enter()
+    {
+        Toast("You resigned the battle");
+        GameObject.FindWithTag("Player").GetComponent<Character>().currentHP = 0;
+        return base.enter(3f);
+    }
     override public IEnumerator execute()
     {
-        newState = this;
-
-        newMessage = "You resigned the battle";
-
-        GameObject.FindWithTag("Player").GetComponent<Character>().currentHP = 0;
-
-        _manager.battleSystemHud.RefreshAllHUDs();
-
-        yield return new WaitForSeconds(3f);
-
         SaveSystem.instance.Deregister();
         SceneManager.LoadScene(sceneName: _manager.battleScriptable.scene);
+        return base.execute();
     }
 }

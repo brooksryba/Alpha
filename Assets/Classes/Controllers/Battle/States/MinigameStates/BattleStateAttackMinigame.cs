@@ -12,38 +12,34 @@ public class BattleStateAttackMinigame : BattleState
     public GameObject minigameContainer;
     public BattleMinigameData ongoingMinigameData;
 
+    public override IEnumerator enter()
+    {
+        minigameStarted = true;
+        isEnemyTurn = _manager.charManager.enemyParty.Contains(_manager.charManager.attackerName);
+
+        string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenBattleMove, isEnemyTurn);
+
+        if(minigameName != null & minigameName != ""){
+            if(isEnemyTurn) Toast("Complete the Minigame to boost your defense!");
+            else Toast("Complete the Minigame to boost your attack!");
+            minigamePrefab = Resources.Load("Prefabs/Battle/Minigames/" + minigameName) as GameObject;
+            minigameContainer = GameObject.Find("BattleMinigameContainer");
+            minigameObj = GameObject.Instantiate(minigamePrefab, minigameContainer.transform);
+            minigameObj.transform.SetParent(minigameContainer.transform);
+            ongoingMinigameData = minigameObj.GetComponent<BattleMinigameBase>().minigameData;
+        } else {
+            ongoingMinigameData = new BattleMinigameData();
+            ongoingMinigameData.minigameComplete = true;
+            ongoingMinigameData.completedSuccessfully = false;
+            keepMinigameRunning = false;
+        }        
+
+        return base.enter();
+    }
+
     override public IEnumerator execute()
     {
-        newState = this;
-        
-        // this will always execute when the state is reached
-        if(!minigameStarted){
-            
-            minigameStarted = true;
-            isEnemyTurn = _manager.charManager.enemyParty.Contains(_manager.charManager.attackerName);
-
-            string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenBattleMove, isEnemyTurn);
-
-            if(minigameName != null & minigameName != ""){
-                if(isEnemyTurn) newMessage = "Complete the Minigame to boost your defense!";
-                else newMessage = "Complete the Minigame to boost your attack!";
-                minigamePrefab = Resources.Load("Prefabs/Battle/Minigames/" + minigameName) as GameObject;
-                minigameContainer = GameObject.Find("BattleMinigameContainer");
-                minigameObj = GameObject.Instantiate(minigamePrefab, minigameContainer.transform);
-                minigameObj.transform.SetParent(minigameContainer.transform);
-                ongoingMinigameData = minigameObj.GetComponent<BattleMinigameBase>().minigameData;
-
-            } else {
-                ongoingMinigameData = new BattleMinigameData();
-                ongoingMinigameData.minigameComplete = true;
-                ongoingMinigameData.completedSuccessfully = false;
-                keepMinigameRunning = false;
-
-            }
-        }
-
         if(ongoingMinigameData.minigameComplete){
-            yield return new WaitForSeconds(1f);
             if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
             battleSystemUtils.ExecuteBattleMove(_manager.chosenBattleMove, 
@@ -57,19 +53,15 @@ public class BattleStateAttackMinigame : BattleState
             _manager.chosenMoveDetails = chosenMoveDetails;
 
             if(ongoingMinigameData.completedSuccessfully){
-                if(isEnemyTurn) newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful, but you decreased it's effect!";
-                else newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful with an increased effect!";
+                if(isEnemyTurn) Toast("The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful, but you decreased it's effect!");
+                else Toast("The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful with an increased effect!");
             } else {
-                newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful!";
+                Toast("The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful!");
             }
 
-
-            newState = new BattleStateAttackAnimationApproach();
-           
-
-
+            Transition(new BattleStateAttackAnimationApproach());
         }
 
-        yield return new WaitForSeconds(0f);
+        return base.execute();
     }
 }

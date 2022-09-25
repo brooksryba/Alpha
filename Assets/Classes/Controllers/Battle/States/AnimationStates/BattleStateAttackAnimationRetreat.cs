@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 public class BattleStateAttackAnimationRetreat : BattleState
 {
-
+    public BattleMovement battleMovement;
+    public override IEnumerator enter()
+    {
+        battleMovement = _manager.charManager.attacker.GetComponent<BattleMovement>();
+        battleMovement.Animate(_manager.charManager.originalPositions[_manager.charManager.attackerName]);
+        return base.enter();
+    }
     override public IEnumerator execute()
     {
-        newState = this;
-
-        BattleMovement battleMovement = _manager.charManager.attacker.GetComponent<BattleMovement>();
-        if(battleMovement && !battleMovement.isFinished && !battleMovement.isAnimating) {
-            battleMovement.Animate(_manager.charManager.originalPositions[_manager.charManager.attackerName]);
+        if(!battleMovement.isAnimating && battleMovement.isFinished) {
+            battleMovement.Reset();
+            Transition(new BattleStateAttackEnd());
         }
 
-        if(battleMovement == null || (!battleMovement.isAnimating && battleMovement.isFinished)) {
-            if(battleMovement) battleMovement.Reset();
-            newState = new BattleStateAttackEnd();
-            yield return newState;
-        }
+        return base.execute();
     }
 }

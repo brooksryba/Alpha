@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class BattleStateGetAttacker : BattleState
 {
-    override public IEnumerator execute()
+    public override IEnumerator enter()
     {
-        newState = this;
-
         // initialize the list if this is called the first time a battle starts only, gathers all players once initialized, checks for dead players, sets turn
         if(_manager.turnIndex == -1){
             _manager.charManager.characterTurnOrder = new List<Character>();
@@ -37,25 +35,27 @@ public class BattleStateGetAttacker : BattleState
             }
 
         }
-        
+
+        return base.enter();
+    }
+
+    override public IEnumerator execute()
+    {
         Character nextUp = _manager.charManager.characterTurnOrder[_manager.turnIndex];
         _manager.SetAttacker(nextUp.title);
-        newMessage = "It is " + _manager.charManager.attackerName + "'s turn to attack!";
-        
+        Toast("It is " + _manager.charManager.attackerName + "'s turn to attack!");
 
         if(_manager.charManager.playerParty.Contains(_manager.charManager.attackerName)){
-            newState =  new BattleStatePlayerStart();
+            Transition(new BattleStatePlayerStart());
         } else {
-            newState =  new BattleStateEnemyStart();
+            Transition(new BattleStateEnemyStart());
         }
 
         if(_manager.battleBonusManager.CheckSkipTurn(_manager.charManager.attackerName)){
-            yield return new WaitForSeconds(1.5f);
-            newMessage = _manager.charManager.attackerName + " cannot attack this round!";
-            newState = new BattleStateAttackEnd();
-
+            Toast(_manager.charManager.attackerName + " cannot attack this round!");
+            Transition(new BattleStateAttackEnd());
         }
 
-        yield return new WaitForSeconds(0f);
+        return base.execute();
     }
 }

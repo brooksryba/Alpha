@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class BattleStatePlayerStart : BattleState
 {
+    public override IEnumerator enter()
+    {
+        Toast("It's " + _manager.charManager.attackerName + "'s turn to attack!");
+
+        _manager.battleSystemHud.canSelect = true;
+        _manager.battleSystemHud.disableUnusableHuds(_manager.charManager.attackerName, _manager.charManager.playerParty);
+        return base.enter();
+    }
+
     override public IEnumerator execute()
     {
-        newState = this;
-        _manager.battleSystemHud.disableUnusableHuds(_manager.charManager.attackerName, _manager.charManager.playerParty);
-
-        newMessage = "It's " + _manager.charManager.attackerName + "'s turn to attack!";
-        _manager.battleSystemHud.canSelect = true;
-
-        if(_manager.battleSystemHud.selection != null){
+        if(_manager.battleSystemHud.selection != null && _manager.battleSystemHud.selection.title == _manager.charManager.attackerName){
             _manager.battleSystemHud.canSelect = false;
-            newState = new BattleStatePlayerAwaitAction();
+            Transition(new BattleStatePlayerAwaitAction());
         }
 
-        yield return new WaitForSeconds(0f);
+        return base.execute();
     }
 }

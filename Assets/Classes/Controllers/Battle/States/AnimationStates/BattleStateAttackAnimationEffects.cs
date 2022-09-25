@@ -6,7 +6,6 @@ public class BattleStateAttackAnimationEffects : BattleState
 
     override public IEnumerator execute()
     {
-        newState = this;
         GameObject effect;
 
         if(_manager.charManager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove))
@@ -55,7 +54,7 @@ public class BattleStateAttackAnimationEffects : BattleState
                 _manager.charManager.deadPlayerList.Add(_manager.charManager.allPlayers[i]);
         }        
 
-        newState = new BattleStateAttackAnimationRetreat();
-        yield return newState;
+        Transition(new BattleStateAttackAnimationRetreat());
+        yield return base.execute();
     }
 }

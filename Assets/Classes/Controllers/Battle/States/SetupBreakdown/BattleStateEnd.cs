@@ -10,25 +10,16 @@ using TMPro;
 
 public class BattleStateEnd : BattleState
 {
+    public override IEnumerator enter()
+    {
+        Toast(battleSystemUtils.PartyDead(_manager.charManager.enemyParty) ? "You won the battle!" : "You were defeated");
+        _manager.battleBonusManager.DestroyAllBonuses();
+        return base.enter(2f);
+    }
     override public IEnumerator execute()
     {
-        newState = this;
-
-        if(battleSystemUtils.PartyDead(_manager.charManager.enemyParty))
-        {
-            newMessage = "You won the battle!";
-        } else if (battleSystemUtils.PartyDead(_manager.charManager.playerParty))
-        {
-            newMessage = "You were defeated";
-        } 
-
-
-        _manager.battleBonusManager.DestroyAllBonuses();
-
-        yield return new WaitForSeconds(2f);
-
         SaveSystem.instance.SaveAndDeregister();
         SceneManager.LoadScene(sceneName: _manager.battleScriptable.scene);
-        yield return new WaitForSeconds(0f);
+        return base.execute();
     }
 }

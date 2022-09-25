@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class BattleStateSetup : BattleState
 {
+    public override IEnumerator enter()
+    {
+        Toast(_manager.charManager.enemyParty[0] + " engages in battle...");
+        return base.enter();
+    }
 
     override public IEnumerator execute()
     {
-        //_manager.Init();
-        _manager.battleSystemHud.RefreshAllHUDs();
-
-        newMessage = _manager.charManager.enemyParty[0] + " engages in battle...";
-
-        yield return new WaitForSeconds(1f);
-
-        newState = new BattleStateGetAttacker();
+        Transition(new BattleStateGetAttacker());
+        return base.execute(1f);
     }
-
-
-        
 }
