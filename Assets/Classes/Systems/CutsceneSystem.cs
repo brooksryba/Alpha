@@ -100,7 +100,7 @@ public class CutsceneSystem : MonoBehaviour
         GameObject characterRes = Resources.Load("Prefabs/Characters/"+charID) as GameObject;
         GameObject character = Instantiate(characterRes, characterList.transform);
         character.name = charID;
-        character.transform.position = TileGrid.Translate(x, y);
+        character.transform.position = new Vector3(x, y, 0f);
         spawnedCharacters.Add(charID);
        
         return true;
@@ -124,7 +124,7 @@ public class CutsceneSystem : MonoBehaviour
 
         CharacterMovement movement = character.GetComponent<CharacterMovement>();
         movement.targetCallback += cachedHandler;
-        movement.targetLocations.Add(TileGrid.Translate(x, y));
+        movement.targetLocations.Add(new Vector3(x, y, 0f));
        
         return true;
     }
