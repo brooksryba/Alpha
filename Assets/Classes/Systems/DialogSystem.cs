@@ -26,25 +26,28 @@ public class DialogSystem : MonoBehaviour
 
     void Start()
     {
-        Close();
         needToMakeChoice = false;
         dialogueIsPlaying = false;
     }
 
     public void Open(string message, Action callback = null)
     {
-        if(dialogObject.gameObject.activeInHierarchy){
-            Close();
+        if(dialogObject.activeInHierarchy){
+            dialogObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 50f, 0f);
+        } else {
+            dialogObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, -50f, 0f);
+            dialogObject.SetActive(true);
+            LeanTween.moveY(dialogObject.GetComponent<RectTransform>(), 50f, 1f);               
         }
         
-        dialogObject.gameObject.SetActive(true);
         textObject.GetComponent<TMP_Text>().SetText(message);
     }
 
     public void Close()
     {
         textObject.GetComponent<TMP_Text>().SetText("");
-        dialogObject.gameObject.SetActive(false);
+        LeanTween.moveY(dialogObject.GetComponent<RectTransform>(), -50f, 1f).setOnComplete(() =>  dialogObject.gameObject.SetActive(false));
+        
     }
 
     public void EnterDialogueMode(TextAsset inkJSON, Action<String> _eventCallback, Action _exitCallback){

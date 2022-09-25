@@ -6,7 +6,7 @@ using UnityEngine;
 public class CharacterData {
 
     public bool active;
-    
+    public string name;
     public int level;
     public List<ItemData> items;
     public int currentHP;
@@ -19,6 +19,7 @@ public class CharacterData {
 
     public CharacterData(Character character) {
         active = character.gameObject.activeSelf;
+        name = character.gameObject.name;
 
         level = character.level;
         items = character.items;

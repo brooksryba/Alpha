@@ -8,12 +8,12 @@ using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour
 {
     public void OnReset() {
-        SaveSystem.instance.ResetAndDeregister();
+        SaveSystem.ResetAndDeregister();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);        
     }
 
     public void OnSave() {
-        SaveSystem.instance.Save();
+        SaveSystem.Save();
         ToastSystem.instance.Open("Saving...");
     }
 
@@ -68,7 +68,7 @@ public class PlayerControl : MonoBehaviour
                 ToastSystem.instance.Open("Not implemented.");
             }},
             {"> Save", () => {
-                SaveSystem.instance.Save();
+                SaveSystem.Save();
                 ToastSystem.instance.Open("Saving...");
             }},
             {"> Quit", () => SceneManager.LoadScene("Menu")},

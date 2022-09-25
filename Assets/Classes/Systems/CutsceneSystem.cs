@@ -11,8 +11,6 @@ public class CutsceneSystem : MonoBehaviour
     private static CutsceneSystem _instance;
     public static CutsceneSystem instance { get { return _instance; } }
 
-    public BattleSceneScriptable battleScriptable;
-    public PlayerScriptable playerScriptable;
     public bool cutsceneIsPlaying { get; private set; }
     public bool cutsceneInEvent { get; private set; }
     private List<Action> callbackEvents = new List<Action>();
@@ -21,6 +19,8 @@ public class CutsceneSystem : MonoBehaviour
     private GameObject indicatorTarget;
     public GameObject indicatorObject;
     public GameObject borderObject;
+    public GameObject topBorderObject;
+    public GameObject bottomBorderObject;
 
 
     private void Awake() { _instance = this; }
@@ -41,6 +41,12 @@ public class CutsceneSystem : MonoBehaviour
         cutsceneIsPlaying = true;
         originalPosition = new Dictionary<string, Vector3>();
         borderObject.gameObject.SetActive(true);
+
+        topBorderObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 100f, 0f);
+        LeanTween.moveY(topBorderObject.GetComponent<RectTransform>(), 50f, 1f);        
+
+        bottomBorderObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, -100f, 0f);
+        LeanTween.moveY(bottomBorderObject.GetComponent<RectTransform>(), -50f, 1f);             
     }
 
     public void ExitCutsceneMode()
@@ -51,7 +57,10 @@ public class CutsceneSystem : MonoBehaviour
         cutsceneIsPlaying = false;
         DestroySpawnedCharacters();
         RestoreCharacterLocations();
-        borderObject.gameObject.SetActive(false);
+
+        LeanTween.moveY(topBorderObject.GetComponent<RectTransform>(), 100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
+        LeanTween.moveY(bottomBorderObject.GetComponent<RectTransform>(), -100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
+
         indicatorObject.gameObject.SetActive(false);
         indicatorTarget = null;
     }
@@ -100,7 +109,7 @@ public class CutsceneSystem : MonoBehaviour
         GameObject characterRes = Resources.Load("Prefabs/Characters/"+charID) as GameObject;
         GameObject character = Instantiate(characterRes, characterList.transform);
         character.name = charID;
-        character.transform.position = TileGrid.Translate(x, y);
+        character.transform.position = new Vector3(x, y, 0f);
         spawnedCharacters.Add(charID);
        
         return true;
@@ -124,7 +133,7 @@ public class CutsceneSystem : MonoBehaviour
 
         CharacterMovement movement = character.GetComponent<CharacterMovement>();
         movement.targetCallback += cachedHandler;
-        movement.targetLocations.Add(TileGrid.Translate(x, y));
+        movement.targetLocations.Add(new Vector3(x, y, 0f));
        
         return true;
     }
@@ -139,13 +148,9 @@ public class CutsceneSystem : MonoBehaviour
 
     private bool Battle(string enemyID, string storyPath)
     {
-        battleScriptable.enemy = enemyID;
-        battleScriptable.scene = SceneManager.GetActiveScene().name;
-        battleScriptable.scenePath = storyPath;
-
-        GameObject player = GameObject.Find("Player");
-        playerScriptable.Write(player.transform.position);
-        SaveSystem.instance.SaveAndDeregister();
+        SceneSystem.battle = new BattleData(enemyID, SceneManager.GetActiveScene().name, storyPath);
+        SceneSystem.world = new PlayerLocationData(GameObject.Find("Player").GetComponent<CharacterMovement>());
+        SaveSystem.SaveAndDeregister();
         SceneManager.LoadScene(sceneName:"Battle");     
 
         return true;          
