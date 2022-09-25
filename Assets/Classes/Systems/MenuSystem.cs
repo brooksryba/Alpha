@@ -21,7 +21,7 @@ public class MenuSystem : MonoBehaviour
 
     public void LoadSavedScene()
     {
-        PlayerLocationData data = SaveSystem.instance.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
+        PlayerLocationData data = SaveSystem.LoadState<PlayerLocationData>("PlayerLocation") as PlayerLocationData;
         if( data != null ) {
             SceneManager.LoadScene(data.scene);
         }        
@@ -29,7 +29,7 @@ public class MenuSystem : MonoBehaviour
 
     public void ResetScenes()
     {
-        SaveSystem.instance.Reset();
+        SaveSystem.Reset();
     }    
 
     public void Quit()
