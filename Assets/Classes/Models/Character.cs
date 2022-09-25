@@ -34,7 +34,7 @@ public class Character : MonoBehaviour
 
     void Start()
     {
-        SaveSystem.instance.Register(this.title, () => { SaveState(); });
+        SaveSystem.Register(this.title, () => { SaveState(); });
         LoadCharacterClass();
         LoadState();
 
@@ -42,12 +42,12 @@ public class Character : MonoBehaviour
 
     void OnDestroy()
     {
-        SaveSystem.instance.Unregister(this.title);
+        SaveSystem.Unregister(this.title);
     }
 
     public void SaveState()
     {
-        SaveSystem.instance.SaveState<CharacterData>(new CharacterData(this), this.title);
+        SaveSystem.SaveState<CharacterData>(new CharacterData(this), this.title);
     }
 
     public void LoadCharacterClass()
@@ -58,7 +58,7 @@ public class Character : MonoBehaviour
 
     public void LoadState()
     {
-        CharacterData data = SaveSystem.instance.LoadState<CharacterData>(this.title) as CharacterData;
+        CharacterData data = SaveSystem.LoadState<CharacterData>(this.title) as CharacterData;
 
         if (data != null)
         {
