@@ -39,14 +39,19 @@ public class LevelSystem : MonoBehaviour
         return 1;
     }
 
+    public int GetXpFromLevel(int level){
+        if(level < 1)
+            return 0;
+        return experienceLookup[level - 1];
+    }
+
 
     public int GetExperienceFromEnemy(int enemyXp){
         // @TODO - this should be some function to translate the xp amount to an xp earned (eg sqrt)
         return Mathf.FloorToInt(enemyXp);
     }
 
-    public List<int> GetXpInterval(int xp){
-        List<int> xpInterval = new List<int>();
+    public (int, int) GetXpInterval(int xp){
         int level = GetLevel(xp);
         int lowerLimit = 0;
         if(level > 1){
@@ -57,10 +62,7 @@ public class LevelSystem : MonoBehaviour
         int xpProgress = xp - lowerLimit;
         xpForNextLevel -= lowerLimit;
 
-        xpInterval.Add(xpProgress);
-        xpInterval.Add(xpForNextLevel);
-
-        return xpInterval;
+        return (xpProgress, xpForNextLevel);
     }
 
 

@@ -35,7 +35,7 @@ public class BaseCharacterClass
         return (int)(baseStats[statName] + currentLevel*statProgression[statName]) ;
     }
 
-    public List<string> GetBaseAttackNames(int level){
+    public List<string> GetAttackNames(int level){
         List<string> baseAttackNames = new List<string>();
         baseAttackNames.Add("Basic Attack");
         for(int i = 0; i <= level; i++){
@@ -46,7 +46,7 @@ public class BaseCharacterClass
         return baseAttackNames;
     }
 
-    public List<string> GetBaseSpellNames(int level){
+    public List<string> GetSpellNames(int level){
         List<string> baseSpellNames = new List<string>();
         baseSpellNames.Add("Heal");
         baseSpellNames.Add("Posion Spell");

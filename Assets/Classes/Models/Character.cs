@@ -73,15 +73,12 @@ public class Character : MonoBehaviour
             this.earnedXp = data.earnedXp;
             this.level = LevelSystem.instance.GetLevel(this.earnedXp);
             this.partyMembers = data.partyMembers;
-            this.attackNames = data.attackNames;
-            this.spellNames = data.spellNames;
             characterClass.SetStats(this.level);
-
 
             this.items = new List<ItemData>();
 
             if( data.items != null ) {
-                foreach( var item in data.items )
+                foreach( ItemData item in data.items )
                 {
                     this.items.Add(item);
                 }            
@@ -95,9 +92,10 @@ public class Character : MonoBehaviour
             characterClass.SetStats(this.level);
             this.currentHP = characterClass.maxHP;
             this.currentMana = characterClass.maxMana;
-            this.attackNames = characterClass.GetBaseAttackNames(this.level);
-            this.spellNames = characterClass.GetBaseSpellNames(this.level);
+
 		}
+        this.attackNames = characterClass.GetAttackNames(this.level);
+        this.spellNames = characterClass.GetSpellNames(this.level);
 
     }
 

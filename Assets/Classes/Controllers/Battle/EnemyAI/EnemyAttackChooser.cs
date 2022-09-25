@@ -26,25 +26,25 @@ public class EnemyAttackChooser
         List<string> allBattleMoves = new List<string>();
         List<string> allTargets = GetPossibleAttackTargets();
 
-        foreach(var attack in utils.GetCharacter(enemyName).attackNames)
+        foreach(string attack in utils.GetCharacter(enemyName).attackNames)
             allBattleMoves.Add(attack);
 
-        foreach(var spell in utils.GetCharacter(enemyName).spellNames)
+        foreach(string spell in utils.GetCharacter(enemyName).spellNames)
             allBattleMoves.Add(spell);
 
         // NOTE: this gives only 1 instance of an attack that does not require a target, so scaling might be needed for smarter AI
 
-        foreach(var a in allBattleMoves){
-            BattleMoveBase battleMoveRef = BattleMoveBase.GetBattleMoveClass(a);
+        foreach(string battleMove in allBattleMoves){
+            BattleMoveBase battleMoveRef = BattleMoveBase.GetBattleMoveClass(battleMove);
             battleMoveRef.userName = enemyName;
             if(battleMoveRef.needsTarget){
-                foreach(var t in allTargets){
-                    battleMoveRef.targetName = t;
+                foreach(string target in allTargets){
+                    battleMoveRef.targetName = target;
                     if(battleMoveRef.CheckFeasibility()){
                         int attackPointsAi = battleMoveRef.GetMoveValueForAi();
                         if(attackPointsAi <= 0)
                             continue;
-                        allOptions.Add(a + "|" + t, attackPointsAi);
+                        allOptions.Add(battleMove + "|" + target, attackPointsAi);
                     }
                 }
 
@@ -53,7 +53,7 @@ public class EnemyAttackChooser
                     int attackPointsAi = battleMoveRef.GetMoveValueForAi();
                     if(attackPointsAi <= 0)
                         continue;
-                    allOptions.Add(a + "|", attackPointsAi);
+                    allOptions.Add(battleMove + "|", attackPointsAi);
                 }
 
             }
@@ -63,7 +63,7 @@ public class EnemyAttackChooser
         return allOptions;
     }
 
-    public List<string> GetAttack(string enemyName){
+    public (string, string) GetAttack(string enemyName){
         string[] attack_target;
         Dictionary<string, int> attackOptions = GetAllAttackOptions(enemyName);
 
@@ -74,7 +74,10 @@ public class EnemyAttackChooser
         string chosenAttackKey = attackNames[randomlyChosenAttackIndex];
         attack_target = chosenAttackKey.Split(char.Parse("|"));
 
-        return new List<string>(attack_target);
+        string battleMove = attack_target[0];
+        string targetName = attack_target[1];
+
+        return (battleMove, targetName);
     }
 
     public List<int> changeAiAttackChances(List<int> listOfPoints){

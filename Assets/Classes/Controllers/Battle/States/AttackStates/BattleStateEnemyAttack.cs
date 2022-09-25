@@ -10,19 +10,19 @@ public class BattleStateEnemyAttack : BattleState
         newState = this;
 
         EnemyAttackChooser attackChooser = new EnemyAttackChooser();
-        List<string> chosenAttackList = attackChooser.GetAttack(_manager.charManager.attackerName);
+        (string battleMove, string targetName) = attackChooser.GetAttack(_manager.charManager.attackerName);
 
-        _manager.chosenBattleMove = chosenAttackList[0];
+        _manager.chosenBattleMove = battleMove;
 
-        if(chosenAttackList[1] != "")
-            newMessage = _manager.charManager.attackerName + " attacks " + chosenAttackList[1] + " with " + _manager.chosenBattleMove + "!";
+        if(targetName != "")
+            newMessage = _manager.charManager.attackerName + " attacks " + targetName + " with " + _manager.chosenBattleMove + "!";
         else 
             newMessage = _manager.charManager.attackerName + " uses " + _manager.chosenBattleMove + "!";
         yield return new WaitForSeconds(2f);
 
-        _manager.SetDefender(chosenAttackList[1]);
+        _manager.SetDefender(targetName);
 
-        if(chosenAttackList[1] != "") _manager.charManager.defender = GameObject.Find(chosenAttackList[1]);
+        if(targetName != "") _manager.charManager.defender = GameObject.Find(targetName);
         
         newState = new BattleStateAttackMinigame();
             
