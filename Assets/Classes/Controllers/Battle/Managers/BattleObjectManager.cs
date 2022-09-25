@@ -21,7 +21,6 @@ public class BattleObjectManager : MonoBehaviour
 
     
     public BattleState state;
-    public BattleSceneScriptable battleScriptable;
 
     public BattleCharacterManager charManager = new BattleCharacterManager();
 
@@ -52,13 +51,13 @@ public class BattleObjectManager : MonoBehaviour
     {
         playerPrefab = Resources.Load("Prefabs/Characters/Player") as GameObject;
 
-        if(battleScriptable.scene == "" || battleScriptable.scene == null)
-            battleScriptable.scene = "World_Main_2";
+        if(SceneSystem.battle == null || SceneSystem.battle.scene == "" || SceneSystem.battle.scene == null)
+            SceneSystem.battle.scene = "World_Main_2";
 
         BattleSystemController.instance.onBattleHudTitleButton += battleSystemHud.OnHUDTitleButton;
       
-        if(battleScriptable.enemy != null && battleScriptable.enemy != ""){       
-            enemyPrefab = Resources.Load("Prefabs/Characters/" + battleScriptable.enemy) as GameObject;
+        if(SceneSystem.battle != null && SceneSystem.battle.enemy != null && SceneSystem.battle.enemy != ""){       
+            enemyPrefab = Resources.Load("Prefabs/Characters/" + SceneSystem.battle.enemy) as GameObject;
         }
 
         GameObject playerGO = initializeParty(ref charManager.playerParty, ref playerPrefab, playerBattleStation, playerPartyContainer);

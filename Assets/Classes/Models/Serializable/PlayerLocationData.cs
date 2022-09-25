@@ -17,6 +17,14 @@ public class PlayerLocationData {
         position[0] = player.transform.position.x;
         position[1] = player.transform.position.y;
     }
+
+    public PlayerLocationData(Vector3 transform, string sceneID) {
+        scene = sceneID;
+        
+        position = new float[2];
+        position[0] = transform.x;
+        position[1] = transform.y;
+    }
   
 
 }
