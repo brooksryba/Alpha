@@ -23,19 +23,25 @@ public class ToastSystem : MonoBehaviour
 
     public void Open(string message, bool doTimeout=true)
     {
-        toastObject.gameObject.SetActive(true);
         textObject.GetComponent<TMP_Text>().SetText(message);
+
         if(doTimeout)
         {
+            toastObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 50f, 0f);
+            toastObject.SetActive(true);
+            LeanTween.moveY(toastObject.GetComponent<RectTransform>(), -50f, .2f);            
+
             StopCoroutine(TimedClose());
             StartCoroutine(TimedClose());
+        } else {
+            toastObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, -50f, 0f);
+            toastObject.SetActive(true);            
         }
     }
 
     public void Close()
     {
-        textObject.GetComponent<TMP_Text>().SetText("");
-        toastObject.gameObject.SetActive(false);
+        LeanTween.moveY(toastObject.GetComponent<RectTransform>(), 50f, .2f).setOnComplete(() =>  toastObject.gameObject.SetActive(false));
     }
 
     IEnumerator TimedClose()
