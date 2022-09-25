@@ -262,6 +262,14 @@ MonoBehaviour:
   m_ClearDynamicDataOnBuild: 1
   m_UsedGlyphRects:
   - m_X: 0
+    m_Y: 33
+    m_Width: 51
+    m_Height: 89
+  - m_X: 79
+    m_Y: 30
+    m_Width: 46
+    m_Height: 89
+  - m_X: 187
     m_Y: 0
     m_Width: 59
     m_Height: 91
