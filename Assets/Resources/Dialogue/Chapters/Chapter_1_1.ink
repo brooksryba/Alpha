@@ -84,7 +84,9 @@ MF: That's enough training for me today. # Indicator("MF")
 
 AF: Same here, we should get some rest for tomorrow. # Indicator("AF")
 
+# Move("MF", 5, -8) # Move("AF", 1, -8)
 Hero: You're right, I'll see you guys in the morning. # Indicator("Player")
+
 
 -> DONE
 

@@ -21,6 +21,8 @@ public class CutsceneSystem : MonoBehaviour
     private GameObject indicatorTarget;
     public GameObject indicatorObject;
     public GameObject borderObject;
+    public GameObject topBorderObject;
+    public GameObject bottomBorderObject;
 
 
     private void Awake() { _instance = this; }
@@ -41,6 +43,12 @@ public class CutsceneSystem : MonoBehaviour
         cutsceneIsPlaying = true;
         originalPosition = new Dictionary<string, Vector3>();
         borderObject.gameObject.SetActive(true);
+
+        topBorderObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 100f, 0f);
+        LeanTween.moveY(topBorderObject.GetComponent<RectTransform>(), 50f, 1f);        
+
+        bottomBorderObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, -100f, 0f);
+        LeanTween.moveY(bottomBorderObject.GetComponent<RectTransform>(), -50f, 1f);             
     }
 
     public void ExitCutsceneMode()
@@ -51,7 +59,10 @@ public class CutsceneSystem : MonoBehaviour
         cutsceneIsPlaying = false;
         DestroySpawnedCharacters();
         RestoreCharacterLocations();
-        borderObject.gameObject.SetActive(false);
+
+        LeanTween.moveY(topBorderObject.GetComponent<RectTransform>(), 100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
+        LeanTween.moveY(bottomBorderObject.GetComponent<RectTransform>(), -100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
+
         indicatorObject.gameObject.SetActive(false);
         indicatorTarget = null;
     }
