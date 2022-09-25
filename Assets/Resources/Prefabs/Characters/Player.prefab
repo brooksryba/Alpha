@@ -157,12 +157,6 @@ MonoBehaviour:
   partyMembers:
   - Characters/AF
   - Characters/MF
-  attackNames:
-  - Basic Attack
-  - Very Heavy Attack
-  spellNames:
-  - Boost Physical Attack
-  - Immobilize Spell
   inkJSON: {fileID: 0}
 --- !u!114 &5365925650195630899
 MonoBehaviour:
