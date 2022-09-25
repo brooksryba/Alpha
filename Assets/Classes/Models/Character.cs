@@ -192,13 +192,13 @@ public class Character : MonoBehaviour
         int newLevel = LevelSystem.instance.GetLevel(earnedXp);
         for(int lvl = this.level; lvl < newLevel; lvl++){
             this.level += 1;
-            ToastSystem.instance.Open(this.name + " is now level " + this.level.ToString() + "!");
+            ToastSystem.instance.Open(this.name + " is now level " + this.level.ToString() + "!", false);
             yield return new WaitForSeconds(1f);
             characterClass.SetStats(this.level);
             if(characterClass.attackProgression.ContainsKey(this.level)){
                 if(!attackNames.Contains(characterClass.attackProgression[this.level])){
                     this.attackNames.Add(characterClass.attackProgression[this.level]);
-                    ToastSystem.instance.Open(this.name + " has learned attack " + characterClass.attackProgression[this.level] + "!");
+                    ToastSystem.instance.Open(this.name + " has learned attack " + characterClass.attackProgression[this.level] + "!", false);
                     yield return new WaitForSeconds(1f);
                 }
 
@@ -207,7 +207,7 @@ public class Character : MonoBehaviour
             if(characterClass.spellProgression.ContainsKey(this.level)){
                 if(!spellNames.Contains(characterClass.spellProgression[this.level])){
                     this.spellNames.Add(characterClass.spellProgression[this.level]);
-                    ToastSystem.instance.Open(this.name + " has learned spell " + characterClass.spellProgression[this.level] + "!");
+                    ToastSystem.instance.Open(this.name + " has learned spell " + characterClass.spellProgression[this.level] + "!", false);
                     yield return new WaitForSeconds(1f);
                 }
 

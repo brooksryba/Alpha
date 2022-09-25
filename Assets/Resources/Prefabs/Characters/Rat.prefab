@@ -103,12 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   title: Rat
   className: Mage
-  attackNames:
-  - Basic Attack
-  - Spread Attack
-  spellNames:
-  - Heal
-  - Boost Physical Attack
+  partyMembers: []
   inkJSON: {fileID: 4900000, guid: f1acee41a01c0144a91e6b2667786c46, type: 3}
 --- !u!114 &-2610527133410803789
 MonoBehaviour:
