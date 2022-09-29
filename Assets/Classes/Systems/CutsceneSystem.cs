@@ -151,6 +151,7 @@ public class CutsceneSystem : MonoBehaviour
         SceneSystem.battle = new BattleData(enemyID, SceneManager.GetActiveScene().name, storyPath);
         SceneSystem.world = new PlayerLocationData(GameObject.Find("Player").GetComponent<CharacterMovement>());
         SaveSystem.SaveAndDeregister();
+        StateSystem.instance.machine.SetTrigger("Battle");
         SceneManager.LoadScene(sceneName:"Battle");     
 
         return true;          
