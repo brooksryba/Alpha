@@ -99,8 +99,8 @@ public class CharacterMovement : MonoBehaviour
             isAnimating = false;
         }
         
-        int componentX = (Mathf.Abs(transform.position.x - position.x) < 0.02f ? 0 : (transform.position.x > position.x ? -1 : 1));
-        int componentY = (Mathf.Abs(transform.position.y - position.y) < 0.02f ? 0 : (transform.position.y > position.y ? -1 : 1));
+        int componentX = (Mathf.Abs(transform.position.x - position.x) < 0.01f ? 0 : (transform.position.x > position.x ? -1 : 1));
+        int componentY = (Mathf.Abs(transform.position.y - position.y) < 0.01f ? 0 : (transform.position.y > position.y ? -1 : 1));
         transform.position = Vector3.MoveTowards(transform.position, position, moveSpeed*Time.deltaTime);
 
         if(Vector3.Distance(transform.position, position) <= 0.01f) {
