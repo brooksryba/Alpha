@@ -13,6 +13,8 @@ public class StateSystem : MonoBehaviour
     {
         _instance = this;
         machine = GetComponent<Animator>();
+
+        DontDestroyOnLoad(gameObject);
     }
 
     void Start()
@@ -35,5 +37,10 @@ public class StateSystem : MonoBehaviour
     public void SetBool(string title, bool value)
     {
         machine.SetBool(title, value);
+    }
+
+    public void SetInteger(string title, int value)
+    {
+        machine.SetInteger(title, value);
     }
 }

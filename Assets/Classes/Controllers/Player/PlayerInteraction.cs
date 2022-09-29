@@ -8,9 +8,7 @@ public class PlayerInteraction : MonoBehaviour
     private GameObject collisionObject;
     private Character collisionCharacter;
     private Cutscene collisionCutscene;
-    public bool movementLock = false;
-    public bool dialogLock = false;
-    public bool cutsceneLock = false;
+    private Cuttake collisionCuttake;
 
     void OnCollisionEnter2D(Collision2D other) {
         collisionObject = other.gameObject;
@@ -46,68 +44,18 @@ public class PlayerInteraction : MonoBehaviour
     public void HandleCollisionInteraction()
     {
         if(CutsceneSystem.instance.cutsceneIsPlaying) {
-            cutsceneLock = true;
-            movementLock = true;
             DialogSystem.instance.ContinueStory();
         } else if (DialogSystem.instance.dialogueIsPlaying) {
-            dialogLock = true;
-            movementLock = true;
             DialogSystem.instance.ContinueStory();
         } else {
             if(collisionObject != null){
-                if ((collisionObject.tag == "Enemy" || collisionObject.tag == "Friendly") && !dialogLock) {
-                    collisionCharacter = collisionObject.GetComponent<Character>();
-                    if(collisionCharacter.inkJSON) {
-                        dialogLock = true;
-                        movementLock = true;
-                        DialogSystem.instance.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {HandleDialogEvent(s);}, () => {HandleDialogEnd();});
-                        DialogSystem.instance.ContinueStory();
-                    }
-                } else if(collisionObject.tag == "Cuttake" && !cutsceneLock) {
-                    collisionCutscene = collisionObject.GetComponent<Cutscene>();
-                    if(collisionCutscene.inkJSON) {
-                        cutsceneLock = true;
-                        movementLock = true;
-                        CutsceneSystem.instance.EnterCutsceneMode();
-                        DialogSystem.instance.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCuttakeEnd();});
-                        DialogSystem.instance.ContinueStory();
-                    }                    
+                if ((collisionObject.tag == "Enemy" || collisionObject.tag == "Friendly")) {
+                    HandleDialog();
+                } else if(collisionObject.tag == "Cuttake") {
+                    HandleCuttake();
                 }
             }
         }
-    }
-
-    void HandleDialogEvent(string tag) {
-        if(tag == "join_party") {
-            HandleFriendly();
-        } else if(tag == "battle") {
-            HandleEnemy();
-        } else {
-            Debug.Log("Unhandled Tag: " + tag);
-        }
-    }
-
-    void HandleDialogEnd() {
-        dialogLock = false;
-        movementLock = false;
-    }
-
-    void HandleFriendly()
-    {
-        Character player = gameObject.GetComponent<Character>();
-        
-        if(!player.partyMembers.Contains("Characters/"+collisionObject.name)) {
-            player.partyMembers.Add("Characters/"+collisionObject.name);
-            ToastSystem.instance.Open(collisionCharacter.title + " joined your party!");
-        }        
-    }
-
-    void HandleEnemy()
-    {
-        SceneSystem.battle = new BattleData(collisionObject.name, SceneManager.GetActiveScene().name, null);
-        SceneSystem.world = new PlayerLocationData(GetComponent<CharacterMovement>());
-        SaveSystem.SaveAndDeregister();
-        SceneManager.LoadScene(sceneName:"Battle");        
     }
 
     void HandleInventoryItem()
@@ -134,53 +82,30 @@ public class PlayerInteraction : MonoBehaviour
         SceneManager.LoadScene(sceneName: portal.scene);        
     }     
 
-    void HandleCutscene()
+    void HandleDialog()
     {
-        if(!cutsceneLock){
-            if (collisionObject.tag == "Cutscene") {
-                collisionCutscene = collisionObject.GetComponent<Cutscene>();
-
-                if(collisionCutscene != null && collisionCutscene.inkJSON) {
-                    cutsceneLock = true;
-                    movementLock = true;
-                    CutsceneSystem.instance.EnterCutsceneMode();
-                    DialogSystem.instance.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCutsceneEnd();});
-                    if(SceneSystem.battle != null && SceneSystem.battle.scenePath != null && SceneSystem.battle.scenePath != "") {
-                        DialogSystem.instance.SetStoryCurrentPath(SceneSystem.battle.scenePath);
-                        SceneSystem.battle.scenePath = null;
-                    }
-                    DialogSystem.instance.ContinueStory();
-                }
-            } else if(collisionObject.tag == "Block") {
-                collisionCutscene = collisionObject.GetComponent<Cutscene>();
-
-                if(collisionCutscene != null && collisionCutscene.inkJSON) {
-                    cutsceneLock = true;
-                    movementLock = true;
-                    CutsceneSystem.instance.EnterCutsceneMode();
-                    DialogSystem.instance.EnterDialogueMode(collisionCutscene.inkJSON, (s) => {HandleCutsceneEvent(s);}, () => {HandleCuttakeEnd();});
-                    DialogSystem.instance.ContinueStory();
-                }                     
-            }
-        }        
-    }
-    void HandleCutsceneEvent(string tag) {
-        CutsceneSystem.instance.HandleCutsceneEvent(tag);
+        collisionCharacter = collisionObject.GetComponent<Character>();
+        if(collisionCharacter.inkJSON) {
+            DialogSystem.instance.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {}, () => {});
+            DialogSystem.instance.ContinueStory();
+        }
     }
 
-    void HandleCutsceneEnd() {
-        CutsceneSystem.instance.ExitCutsceneMode();
-        StorySystem.instance.MoveToNextMark();
-        
-        cutsceneLock = false;
-        movementLock = false;
+    void HandleCutscene(bool advanceStory = true)
+    {
+        collisionCutscene = collisionObject.GetComponent<Cutscene>();
+
+        StateSystem.instance.SetInteger("cutsceneChapter", collisionCutscene.chapter);
+        StateSystem.instance.SetInteger("cutsceneMark", collisionCutscene.mark);
+        StateSystem.instance.SetBool("cutsceneAdvance", advanceStory);
+        StateSystem.instance.Trigger("Cutscene");
     }
 
-    void HandleCuttakeEnd() {
-        CutsceneSystem.instance.ExitCutsceneMode();
+    void HandleCuttake()
+    {
+        collisionCuttake = collisionObject.GetComponent<Cuttake>();
 
-        cutsceneLock = false;
-        movementLock = false;
-    }    
-
+        StateSystem.instance.SetInteger("cuttakeID", collisionCuttake.id);
+        StateSystem.instance.Trigger("Cuttake");        
+    }
 }

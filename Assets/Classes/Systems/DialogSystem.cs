@@ -45,9 +45,7 @@ public class DialogSystem : MonoBehaviour
 
     public void Close()
     {
-        textObject.GetComponent<TMP_Text>().SetText("");
-        LeanTween.moveY(dialogObject.GetComponent<RectTransform>(), -50f, 1f).setOnComplete(() =>  dialogObject.gameObject.SetActive(false));
-        
+        LeanTween.moveY(dialogObject.GetComponent<RectTransform>(), -50f, 1f).setOnComplete(() => dialogObject.gameObject.SetActive(false));
     }
 
     public void EnterDialogueMode(TextAsset inkJSON, Action<String> _eventCallback, Action _exitCallback){

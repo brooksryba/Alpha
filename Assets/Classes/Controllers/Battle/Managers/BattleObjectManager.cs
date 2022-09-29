@@ -43,6 +43,7 @@ public class BattleObjectManager : MonoBehaviour
         battleSystemMenu = new BattleSystemMenu();
         battleBonusManager = new BattleBonusManager();
         Init();
+        Debug.Log("Init");
     }
 
     public void Init()

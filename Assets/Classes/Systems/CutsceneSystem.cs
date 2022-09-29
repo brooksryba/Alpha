@@ -37,10 +37,7 @@ public class CutsceneSystem : MonoBehaviour
     }
 
     public void EnterCutsceneMode()
-    {
-        StateSystem.instance.Trigger("Cutscene");
-        StateSystem.instance.SetBool("worldInCutscene", true);
-        
+    {    
         cutsceneIsPlaying = true;
         originalPosition = new Dictionary<string, Vector3>();
         borderObject.gameObject.SetActive(true);
@@ -54,18 +51,22 @@ public class CutsceneSystem : MonoBehaviour
 
     public void ExitCutsceneMode()
     {
-        CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
-        vcam.Follow = GameObject.Find("Player").transform;
-
-        cutsceneIsPlaying = false;
-        DestroySpawnedCharacters();
-        RestoreCharacterLocations();
-
         LeanTween.moveY(topBorderObject.GetComponent<RectTransform>(), 100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
         LeanTween.moveY(bottomBorderObject.GetComponent<RectTransform>(), -100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
 
         indicatorObject.gameObject.SetActive(false);
         indicatorTarget = null;
+        
+        cutsceneIsPlaying = false;
+        
+        if( SceneManager.GetActiveScene().name == "Battle" )
+            return;
+
+        CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
+        vcam.Follow = GameObject.Find("Player").transform;
+
+        DestroySpawnedCharacters();
+        RestoreCharacterLocations();
     }
 
 

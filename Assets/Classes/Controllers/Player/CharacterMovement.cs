@@ -108,7 +108,7 @@ public class CharacterMovement : MonoBehaviour
                 targetLocations.RemoveAt(0);
                 if(targetCallback != null && targetLocations.Count == 0)
                     targetCallback();
-            } else if (isMainCharacter && playerInteraction != null && !playerInteraction.movementLock) {
+            } else if (isMainCharacter && playerInteraction != null) {
                 Vector3 newPosition = position;
 
                 if(Mathf.Abs(targetVector.x) == 1f) {
