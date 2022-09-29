@@ -22,15 +22,12 @@ public class CharacterMovement : MonoBehaviour
     public Vector3 position;
     public LayerMask mask;
 
-    private PlayerInteraction playerInteraction;
-    
     public bool isSprinting = false;
     Vector2 movement;
 
     void Start()
     {
         if(isMainCharacter && SceneManager.GetActiveScene().name != "Battle") {
-            playerInteraction = gameObject.GetComponent<PlayerInteraction>();
             SaveSystem.Register("PlayerLocation", () => { SaveState(); });
             if( loadPosition == true ) {
                 LoadState();
@@ -108,7 +105,7 @@ public class CharacterMovement : MonoBehaviour
                 targetLocations.RemoveAt(0);
                 if(targetCallback != null && targetLocations.Count == 0)
                     targetCallback();
-            } else if (isMainCharacter && playerInteraction != null) {
+            } else if (isMainCharacter && !CutsceneSystem.instance.cutsceneIsPlaying && !DialogSystem.instance.dialogueIsPlaying) {
                 Vector3 newPosition = position;
 
                 if(Mathf.Abs(targetVector.x) == 1f) {

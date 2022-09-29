@@ -97,7 +97,6 @@ public class PlayerInteraction : MonoBehaviour
 
         StateSystem.instance.SetInteger("cutsceneChapter", collisionCutscene.chapter);
         StateSystem.instance.SetInteger("cutsceneMark", collisionCutscene.mark);
-        StateSystem.instance.SetBool("cutsceneAdvance", advanceStory);
         StateSystem.instance.Trigger("Cutscene");
     }
 

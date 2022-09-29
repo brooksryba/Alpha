@@ -28,11 +28,11 @@ public class StateCutscene : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        bool advanceStory = animator.GetBool("cutsceneAdvance");
+        bool worldInBattle = animator.GetBool("worldInBattle");
 
         if( CutsceneSystem.instance != null )
             CutsceneSystem.instance.ExitCutsceneMode();
-        if( StorySystem.instance != null && advanceStory )
+        if( StorySystem.instance != null && !worldInBattle)
             StorySystem.instance.MoveToNextMark();       
     }
 }

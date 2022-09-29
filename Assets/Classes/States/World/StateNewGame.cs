@@ -9,6 +9,5 @@ public class StateNewGame : StateMachineBehaviour
     {
         animator.SetInteger("cutsceneChapter", 1);
         animator.SetInteger("cutsceneMark", 1);
-        animator.SetBool("cutsceneAdvance", true);
     }
 }

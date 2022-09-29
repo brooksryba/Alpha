@@ -106,12 +106,6 @@ MonoBehaviour:
   partyMembers:
   - Characters/Murray
   - Characters/Stormy
-  attackNames:
-  - Basic Attack
-  - Spread Attack
-  spellNames:
-  - Heal
-  - Boost Physical Attack
   inkJSON: {fileID: 4900000, guid: f2116464fb8fd3942879e81fca2e5d74, type: 3}
 --- !u!114 &9166747368692629571
 MonoBehaviour:

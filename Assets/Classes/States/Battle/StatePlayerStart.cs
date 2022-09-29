@@ -18,13 +18,7 @@ public class StatePlayerStart : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BattleObjectManager _manager = BattleObjectManager.instance;
-        
-        if(_manager.battleSystemHud.selection != null && 
-           _manager.battleSystemHud.selection.title != _manager.charManager.attackerName) {
-            _manager.battleSystemHud.selection = null;
-            //newState = new BattleStatePlayerStart();
-        }
-        
+
         if(_manager.battleSystemHud.selection != null && 
            _manager.battleSystemHud.selection.title == _manager.charManager.attackerName){
             _manager.battleSystemMenu.OpenSubmenu(_manager.battleSystemHud.selection, _manager.battleSystemHud.selectionButton);
@@ -32,34 +26,9 @@ public class StatePlayerStart : StateMachineBehaviour
         } else if(_manager.chosenBattleMove != "" && _manager.chosenBattleMove != null) {
             _manager.battleSystemHud.RefreshAllHUDs();
             animator.SetTrigger("BattleAttack");
-            //newState = new BattleStatePlayerAttack();
         } else if(_manager.chosenItem != "" && _manager.chosenItem != null) {
             _manager.battleSystemHud.RefreshAllHUDs();
             animator.SetTrigger("BattleItem");
-            //newState = new BattleStateUseItem();
-        } else if(
-            (_manager.battleSystemHud.selection == null) && 
-            ((_manager.chosenBattleMove == "") && (_manager.chosenItem == "")) &&
-            (GameObject.Find("Menu(Clone)") == null)) {
-               // newState = new BattleStatePlayerStart();
-            }       
+        }
     }
-
-    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
-    //override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    
-    //}
-
-    // OnStateMove is called right after Animator.OnAnimatorMove()
-    //override public void OnStateMove(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that processes and affects root motion
-    //}
-
-    // OnStateIK is called right after Animator.OnAnimatorIK()
-    //override public void OnStateIK(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
-    //{
-    //    // Implement code that sets up animation IK (inverse kinematics)
-    //}
 }
