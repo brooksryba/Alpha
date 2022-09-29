@@ -9,7 +9,6 @@ public class BattleStateMachine : MonoBehaviour
     public string oldMessage;
 
     public void Start() {
-        state = new BattleStateSetup();
     }
 
     public void Update()

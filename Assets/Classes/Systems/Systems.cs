@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class Systems : MonoBehaviour
 {
-
+    public void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 }

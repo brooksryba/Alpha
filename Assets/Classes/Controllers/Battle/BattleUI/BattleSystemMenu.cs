@@ -85,7 +85,7 @@ public class BattleSystemMenu
         {">> Spells", delegate { menu.SubMenu(spells); }},
         {">> Items", delegate { menu.SubMenu(items); }},
         {">> Strategies", delegate { menu.SubMenu(strategies); }},
-        {"> Resign", delegate { _manager.battleStateMachine.Transition(new BattleStateResign()); }},
+        {"> Resign", delegate { }},
         {"Return", () => {}},
         });
     
