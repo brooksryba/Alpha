@@ -19,9 +19,6 @@ public class BattleObjectManager : MonoBehaviour
     public GameObject spellPrefab;
     public GameObject spellObj;
 
-    
-    public BattleState state;
-
     public BattleCharacterManager charManager = new BattleCharacterManager();
 
     public int turnIndex = -1;
@@ -43,7 +40,6 @@ public class BattleObjectManager : MonoBehaviour
         battleSystemMenu = new BattleSystemMenu();
         battleBonusManager = new BattleBonusManager();
         Init();
-        Debug.Log("Init");
     }
 
     public void Init()
