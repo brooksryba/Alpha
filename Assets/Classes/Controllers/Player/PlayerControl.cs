@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class PlayerControl : MonoBehaviour
 {
     public void OnReset() {
+        StateSystem.instance.Reset();
         SaveSystem.ResetAndDeregister();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);        
     }

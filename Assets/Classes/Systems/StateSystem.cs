@@ -8,6 +8,7 @@ public class StateSystem : MonoBehaviour
     private static StateSystem _instance;
     public static StateSystem instance { get { return _instance; } }    
     public Animator machine;
+    public bool reset = false;
 
     void Awake()
     {
@@ -17,8 +18,14 @@ public class StateSystem : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void Reset()
+    {
+        reset = true;
+    }
+
     void Start()
     {
+        Debug.Log(StorySystem.instance.mark);
         if( StorySystem.instance.chapter == 1 && StorySystem.instance.mark == 1 ) {
             machine.SetBool("newGame", true);
         }

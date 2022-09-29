@@ -29,6 +29,8 @@ public class MenuSystem : MonoBehaviour
 
     public void ResetScenes()
     {
+        if(StateSystem.instance)
+            StateSystem.instance.Reset();
         SaveSystem.Reset();
     }    
 
