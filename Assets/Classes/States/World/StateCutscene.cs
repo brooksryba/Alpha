@@ -16,6 +16,12 @@ public class StateCutscene : StateMachineBehaviour
 
         CutsceneSystem.instance.EnterCutsceneMode();
         DialogSystem.instance.EnterDialogueMode(ink, (s) => {CutsceneSystem.instance.HandleCutsceneEvent(s);}, () => {animator.ResetTrigger("Cutscene"); animator.SetBool("worldInCutscene", false);});
+
+        if(SceneSystem.battle != null && SceneSystem.battle.scenePath != null && SceneSystem.battle.scenePath != "") {
+            DialogSystem.instance.SetStoryCurrentPath(SceneSystem.battle.scenePath);
+            SceneSystem.battle.scenePath = null;
+        }
+
         DialogSystem.instance.ContinueStory();       
     }
 
