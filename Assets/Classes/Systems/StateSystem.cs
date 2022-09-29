@@ -17,9 +17,27 @@ public class StateSystem : MonoBehaviour
 
     void Start()
     {
+        if( true) {
+            machine.SetBool("newGame", true);
+        }
         if( SceneManager.GetActiveScene().name == "Battle" ) {
             Invoke("GoToBattle", 1f);
         }
+    }
+
+    public void Trigger(string title)
+    {
+        machine.SetTrigger(title);
+    }
+
+    public void Reset(string title)
+    {
+        machine.ResetTrigger(title);
+    }
+
+    public void SetBool(string title, bool value)
+    {
+        machine.SetBool(title, value);
     }
 
     void GoToBattle()

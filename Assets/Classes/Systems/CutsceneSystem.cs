@@ -38,6 +38,9 @@ public class CutsceneSystem : MonoBehaviour
 
     public void EnterCutsceneMode()
     {
+        StateSystem.instance.Trigger("Cutscene");
+        StateSystem.instance.SetBool("worldInCutscene", true);
+        
         cutsceneIsPlaying = true;
         originalPosition = new Dictionary<string, Vector3>();
         borderObject.gameObject.SetActive(true);
@@ -151,7 +154,7 @@ public class CutsceneSystem : MonoBehaviour
         SceneSystem.battle = new BattleData(enemyID, SceneManager.GetActiveScene().name, storyPath);
         SceneSystem.world = new PlayerLocationData(GameObject.Find("Player").GetComponent<CharacterMovement>());
         SaveSystem.SaveAndDeregister();
-        StateSystem.instance.machine.SetTrigger("Battle");
+        StateSystem.instance.Trigger("Battle");
         SceneManager.LoadScene(sceneName:"Battle");     
 
         return true;          
