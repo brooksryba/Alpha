@@ -25,7 +25,6 @@ public class StateSystem : MonoBehaviour
 
     void Start()
     {
-        Debug.Log(StorySystem.instance.mark);
         if( StorySystem.instance.chapter == 1 && StorySystem.instance.mark == 1 ) {
             machine.SetBool("newGame", true);
         }
