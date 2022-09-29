@@ -17,11 +17,8 @@ public class StateSystem : MonoBehaviour
 
     void Start()
     {
-        if( true) {
+        if( StorySystem.instance.chapter == 1 && StorySystem.instance.mark == 1 ) {
             machine.SetBool("newGame", true);
-        }
-        if( SceneManager.GetActiveScene().name == "Battle" ) {
-            Invoke("GoToBattle", 1f);
         }
     }
 
@@ -38,15 +35,5 @@ public class StateSystem : MonoBehaviour
     public void SetBool(string title, bool value)
     {
         machine.SetBool(title, value);
-    }
-
-    void GoToBattle()
-    {
-        machine.SetTrigger("Battle");
-    }
-
-    void Update()
-    {
-        
     }
 }

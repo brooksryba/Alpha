@@ -10,8 +10,6 @@ public class StorySystem : MonoBehaviour
     public int chapter = 1;
     public int mark = 1;
 
-    public bool newGame = true;
-
     private Dictionary<int, int> _index;
 
     private void Awake() { _instance = this; }
@@ -38,7 +36,6 @@ public class StorySystem : MonoBehaviour
         {
             chapter = data.chapter;
             mark = data.mark;
-            newGame = data.newGame;
         }
     }    
 

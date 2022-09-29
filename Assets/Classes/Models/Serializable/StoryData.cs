@@ -6,11 +6,9 @@ using UnityEngine;
 public class StoryData {
     public int chapter;
     public int mark;
-    public bool newGame;
 
     public StoryData(StorySystem story) {
         chapter = story.chapter;
         mark = story.mark;
-        newGame = story.newGame;
     }
 }

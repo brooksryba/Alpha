@@ -8,8 +8,4 @@ public class Systems : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
-
-    public void Start() {
-
-    }
 }
