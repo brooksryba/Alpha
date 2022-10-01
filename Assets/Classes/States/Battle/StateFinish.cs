@@ -13,7 +13,7 @@ public class StateFinish : StateMachineBehaviour
 
         if(battleSystemUtils.PartyDead(_manager.charManager.enemyParty))
         {
-            ToastSystem.instance.Open("You won the battle!", false);
+            ToastSystem.instance.Queue("You won the battle!");
 
             // @TODO, currently it splits total xp into thirds and distributed evenly, will need to confirm 
             int totalXp = 0;
@@ -25,7 +25,7 @@ public class StateFinish : StateMachineBehaviour
 
             if(xpToAdd > 0){
                 foreach(string characterName in _manager.charManager.playerParty){
-                    ToastSystem.instance.Open(characterName + " earned " + xpToAdd.ToString() + " EXP!");
+                    ToastSystem.instance.Queue(characterName + " earned " + xpToAdd.ToString() + " EXP!");
                     Character playerCharacter = battleSystemUtils.GetCharacter(characterName);
                     playerCharacter.AddXp(xpToAdd);
                     _manager.battleSystemHud.RefreshAllHUDs();
@@ -35,12 +35,20 @@ public class StateFinish : StateMachineBehaviour
         }
         else if (battleSystemUtils.PartyDead(_manager.charManager.playerParty))
         {
-            ToastSystem.instance.Open("You were defeated", false);
+            ToastSystem.instance.Queue("You were defeated");
         } 
 
-        animator.SetBool("worldInBattle", false);
         _manager.battleBonusManager.DestroyAllBonuses();
-        SaveSystem.SaveAndDeregister();
-        SceneManager.LoadScene(sceneName: SceneSystem.battle.scene);
     }
+
+    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        if(ToastSystem.instance.complete) {
+            animator.SetBool("worldInBattle", false);
+            animator.SetTrigger("BattleText");
+            SaveSystem.SaveAndDeregister();
+            SceneManager.LoadScene(sceneName: SceneSystem.battle.scene);            
+        }
+    }    
 }
