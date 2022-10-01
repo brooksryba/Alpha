@@ -36,7 +36,11 @@ public class StateFinish : StateMachineBehaviour
         else if (battleSystemUtils.PartyDead(_manager.charManager.playerParty))
         {
             ToastSystem.instance.Queue("You were defeated");
-        } 
+        }
+        else if (_manager.playerResigned == true) 
+        {
+            ToastSystem.instance.Queue("You resigned!");
+        }
 
         _manager.battleBonusManager.DestroyAllBonuses();
     }
@@ -45,8 +49,20 @@ public class StateFinish : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         if(ToastSystem.instance.complete) {
-            animator.SetBool("worldInBattle", false);
+            animator.ResetTrigger("BattleAttack");
+            animator.ResetTrigger("BattleItem");
+            animator.ResetTrigger("BattleInvalidSelection");
+            animator.ResetTrigger("BattleSelection");
+            animator.ResetTrigger("BattleMinigame");
+            animator.ResetTrigger("BattleApproach");
+            animator.ResetTrigger("BattleEffects");
+            animator.ResetTrigger("BattleRetreat");
+            animator.ResetTrigger("BattleResign");       
             animator.SetTrigger("BattleText");
+            animator.SetBool("battleOver", true);
+            animator.SetBool("battleSkipTurn", false);
+            animator.SetBool("worldInBattle", false);
+
             SaveSystem.SaveAndDeregister();
             SceneManager.LoadScene(sceneName: SceneSystem.battle.scene);            
         }

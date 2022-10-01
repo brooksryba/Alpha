@@ -29,6 +29,9 @@ public class StatePlayerStart : StateMachineBehaviour
         } else if(_manager.chosenItem != "" && _manager.chosenItem != null) {
             _manager.battleSystemHud.RefreshAllHUDs();
             animator.SetTrigger("BattleItem");
+        } else if(_manager.playerResigned == true) {
+            _manager.battleSystemHud.RefreshAllHUDs();
+            animator.SetTrigger("BattleResign");
         }
     }
 }

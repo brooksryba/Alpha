@@ -26,6 +26,7 @@ public class BattleObjectManager : MonoBehaviour
 
     public string chosenBattleMove;
     public string chosenItem;
+    public bool playerResigned; 
     public BattleMoveBase chosenMoveDetails;
 
     public BattleSystemHud battleSystemHud;

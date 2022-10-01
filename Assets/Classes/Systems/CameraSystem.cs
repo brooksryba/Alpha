@@ -14,7 +14,7 @@ public class CameraSystem : MonoBehaviour
 
     public void Refresh() {
         int hour = System.DateTime.Now.Hour;
-        hour = 12;
+
         float percentOfDay = (float)hour/24f;
         float percentOfPi = 2f * Mathf.PI * percentOfDay;
         float curve = Mathf.Cos(percentOfPi);

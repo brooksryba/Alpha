@@ -62,8 +62,6 @@ public class ToastSystem : MonoBehaviour
     {
         if(queue.Count > 0) {
             complete = false;
-
-            yield return new WaitForSeconds(timeout/2);
             textObject.GetComponent<TMP_Text>().SetText(queue[0]);
 
             yield return new WaitForSeconds(timeout/2);

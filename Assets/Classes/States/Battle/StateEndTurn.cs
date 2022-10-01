@@ -17,11 +17,13 @@ public class StateEndTurn : StateMachineBehaviour
 
         animator.ResetTrigger("BattleAttack");
         animator.ResetTrigger("BattleItem");
+        animator.ResetTrigger("BattleInvalidSelection");
         animator.ResetTrigger("BattleSelection");
         animator.ResetTrigger("BattleMinigame");
         animator.ResetTrigger("BattleApproach");
         animator.ResetTrigger("BattleEffects");
         animator.ResetTrigger("BattleRetreat");
+        animator.ResetTrigger("BattleResign");
         animator.SetBool("battleOver", battleSystemUtils.PartyDead(_manager.charManager.enemyParty) || battleSystemUtils.PartyDead(_manager.charManager.playerParty));        
     }
 }
