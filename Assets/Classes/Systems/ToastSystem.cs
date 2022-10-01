@@ -13,6 +13,8 @@ public class ToastSystem : MonoBehaviour
     public GameObject textObject;
 
     private int timeout = 5;
+    public bool complete = true;
+    private List<string> queue = new List<string>();
 
     private void Awake() { _instance = this; }
 
@@ -24,7 +26,6 @@ public class ToastSystem : MonoBehaviour
     public void Open(string message, bool doTimeout=true)
     {
         textObject.GetComponent<TMP_Text>().SetText(message);
-
         if(doTimeout)
         {
             toastObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 50f, 0f);
@@ -39,6 +40,13 @@ public class ToastSystem : MonoBehaviour
         }
     }
 
+    public void Queue(string message)
+    {
+        queue.Add(message);
+        if(queue.Count == 1)
+            StartCoroutine(TimedQueue());
+    }
+
     public void Close()
     {
         LeanTween.moveY(toastObject.GetComponent<RectTransform>(), 50f, .2f).setOnComplete(() =>  toastObject.gameObject.SetActive(false));
@@ -48,5 +56,22 @@ public class ToastSystem : MonoBehaviour
     {
         yield return new WaitForSeconds(timeout);
         Close();
+    }
+
+    IEnumerator TimedQueue()
+    {
+        if(queue.Count > 0) {
+            complete = false;
+            textObject.GetComponent<TMP_Text>().SetText(queue[0]);
+
+            yield return new WaitForSeconds(timeout/2);
+            queue.RemoveAt(0);
+
+            if(queue.Count > 0) {
+                StartCoroutine(TimedQueue());
+            } else {
+                complete = true;
+            }
+        }
     }
 }

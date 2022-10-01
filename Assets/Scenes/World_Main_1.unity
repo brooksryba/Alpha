@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 116604134}
   - component: {fileID: 116604133}
   m_Layer: 0
-  m_Name: Cutscene_Chapter_1_1
+  m_Name: Cutscene_Chapter_1_2
   m_TagString: Cutscene
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -193,7 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61791e3303206a84dbbdc750b39472d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inkJSON: {fileID: 4900000, guid: d0fa73cff4905074e937db45d66a2754, type: 3}
+  chapter: 1
+  mark: 2
 --- !u!1 &147545480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9057,11 +9058,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3542345f5505c66418e3cb60444bedc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
-  playerScriptable: {fileID: 11400000, guid: 6b2ca5ef543b10f488665bdc95ae69c6, type: 2}
-  movementLock: 0
-  dialogLock: 0
-  cutsceneLock: 0
 --- !u!50 &616886767
 Rigidbody2D:
   serializedVersion: 4

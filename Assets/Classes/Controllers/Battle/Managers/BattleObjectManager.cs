@@ -19,9 +19,6 @@ public class BattleObjectManager : MonoBehaviour
     public GameObject spellPrefab;
     public GameObject spellObj;
 
-    
-    public BattleState state;
-
     public BattleCharacterManager charManager = new BattleCharacterManager();
 
     public int turnIndex = -1;
@@ -29,12 +26,11 @@ public class BattleObjectManager : MonoBehaviour
 
     public string chosenBattleMove;
     public string chosenItem;
+    public bool playerResigned; 
     public BattleMoveBase chosenMoveDetails;
 
     public BattleSystemHud battleSystemHud;
     public BattleSystemMenu battleSystemMenu;
-
-    public BattleStateMachine battleStateMachine;
     public BattleBonusManager battleBonusManager;
 
     private void Awake() { _instance = this; }
@@ -51,8 +47,8 @@ public class BattleObjectManager : MonoBehaviour
     {
         playerPrefab = Resources.Load("Prefabs/Characters/Player") as GameObject;
 
-        if(SceneSystem.battle == null || SceneSystem.battle.scene == "" || SceneSystem.battle.scene == null)
-            SceneSystem.battle.scene = "World_Main_2";
+        if(SceneSystem.battle == null)
+            SceneSystem.battle = new BattleData("Livar", "World_Main_2", null);
 
         BattleSystemController.instance.onBattleHudTitleButton += battleSystemHud.OnHUDTitleButton;
       

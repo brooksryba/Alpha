@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Cutscene : MonoBehaviour
 {
-    [Header("Ink JSON")]
-    [SerializeField] public TextAsset inkJSON;
+    public int chapter;
+    public int mark;
 }

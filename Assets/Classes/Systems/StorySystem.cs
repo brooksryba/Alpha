@@ -54,6 +54,9 @@ public class StorySystem : MonoBehaviour
 
     public void MoveToNextMark()
     {
+        if(_index.Count < chapter)
+            return;
+            
         if(_index[chapter] > mark) {
             mark += 1;
         } else {
