@@ -188,11 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3542345f5505c66418e3cb60444bedc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  battleScriptable: {fileID: 11400000, guid: 6b3fa7c01c41dbf49b457835ec120934, type: 2}
-  playerScriptable: {fileID: 11400000, guid: 6b2ca5ef543b10f488665bdc95ae69c6, type: 2}
-  movementLock: 0
-  dialogLock: 0
-  cutsceneLock: 0
 --- !u!114 &26244356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21673,7 +21668,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: World_Main_1
-  target: {x: 6.5, y: 4, z: 0}
+  target: {x: 6, y: 4, z: 0}
 --- !u!61 &762049445
 BoxCollider2D:
   m_ObjectHideFlags: 0

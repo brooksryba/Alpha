@@ -58,13 +58,13 @@ public class StateFinish : StateMachineBehaviour
             animator.ResetTrigger("BattleEffects");
             animator.ResetTrigger("BattleRetreat");
             animator.ResetTrigger("BattleResign");       
-            animator.SetTrigger("BattleText");
             animator.SetBool("battleOver", true);
             animator.SetBool("battleSkipTurn", false);
             animator.SetBool("worldInBattle", false);
 
             SaveSystem.SaveAndDeregister();
-            SceneManager.LoadScene(sceneName: SceneSystem.battle.scene);            
+            SceneManager.LoadScene(sceneName: SceneSystem.battle.scene);          
+            animator.SetTrigger("SceneChange");  
         }
     }    
 }

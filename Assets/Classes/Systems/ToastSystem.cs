@@ -6,8 +6,8 @@ using TMPro;
 
 public class ToastSystem : MonoBehaviour
 {
-    private static ToastSystem _instance;
-    public static ToastSystem instance { get { return _instance; } }
+    public static ToastSystem instance { get; private set; }
+    private void OnEnable() { instance = this; }
 
     public GameObject toastObject;
     public GameObject textObject;
@@ -16,7 +16,6 @@ public class ToastSystem : MonoBehaviour
     public bool complete = true;
     private List<string> queue = new List<string>();
 
-    private void Awake() { _instance = this; }
 
     void Start()
     {

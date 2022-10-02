@@ -8,11 +8,11 @@ using Cinemachine;
 
 public class CutsceneSystem : MonoBehaviour
 {
-    private static CutsceneSystem _instance;
-    public static CutsceneSystem instance { get { return _instance; } }
+    public static CutsceneSystem instance { get; private set; }
+    private void OnEnable() { instance = this; }
 
-    public bool cutsceneIsPlaying { get; private set; }
-    public bool cutsceneInEvent { get; private set; }
+    public static bool cutsceneIsPlaying { get; private set; }
+    public static bool cutsceneInEvent { get; private set; }
     private List<Action> callbackEvents = new List<Action>();
     private Dictionary<String, Vector3> originalPosition;
     private List<String> spawnedCharacters = new List<String>();
@@ -21,9 +21,6 @@ public class CutsceneSystem : MonoBehaviour
     public GameObject borderObject;
     public GameObject topBorderObject;
     public GameObject bottomBorderObject;
-
-
-    private void Awake() { _instance = this; }
 
     private void Update() {
         if(cutsceneIsPlaying) {
@@ -149,16 +146,17 @@ public class CutsceneSystem : MonoBehaviour
 
         return true;
     }
-
+ 
     private bool Battle(string enemyID, string storyPath)
     {
         SceneSystem.battle = new BattleData(enemyID, SceneManager.GetActiveScene().name, storyPath);
         SceneSystem.world = new PlayerLocationData(GameObject.Find("Player").GetComponent<CharacterMovement>());
+        
         SaveSystem.SaveAndDeregister();
+        SceneManager.LoadScene(sceneName:"Battle");     
 
         StateSystem.instance.SetBool("worldInBattle", true);
         StateSystem.instance.Trigger("Battle");
-        SceneManager.LoadScene(sceneName:"Battle");     
         return true;          
     }
 

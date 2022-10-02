@@ -5,16 +5,15 @@ using UnityEngine.SceneManagement;
 
 public class StateSystem : MonoBehaviour
 {
-    private static StateSystem _instance;
-    public static StateSystem instance { get { return _instance; } }    
+    public static StateSystem instance { get; private set; }    
+    private void OnEnable() { instance = this; }
+
     public Animator machine;
     public bool reset = false;
 
     void Awake()
     {
-        _instance = this;
         machine = GetComponent<Animator>();
-
         DontDestroyOnLoad(gameObject);
     }
 

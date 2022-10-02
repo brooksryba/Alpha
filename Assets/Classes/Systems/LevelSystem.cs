@@ -3,20 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelSystem : MonoBehaviour
+public static class LevelSystem
 {
-    private static LevelSystem _instance;
-    public static LevelSystem instance { get { return _instance; } }
-    public Dictionary<int, string> levelUpMoveLookup;
-    public List<int> experienceLookup;
-    public float xpIncrease = 0.1f;
-    public int firstLevelXp = 100;
-    public int levelCap = 100;
-    public int xpCap;
+    public static Dictionary<int, string> levelUpMoveLookup = new Dictionary<int, string>();
+    public static List<int> experienceLookup = new List<int>();
+    public static float xpIncrease = 0.1f;
+    public static int firstLevelXp = 100;
+    public static int levelCap = 100;
+    public static int xpCap;
     
-
-    public void Awake(){
-        _instance = this;
+    static LevelSystem() {
         int runningTotal = 0;
         for(int level = 1; level <= levelCap; level++){
             int nextLevelAmount = Mathf.FloorToInt(firstLevelXp*Mathf.Pow(1.0f + xpIncrease, level - 1));
@@ -26,8 +22,7 @@ public class LevelSystem : MonoBehaviour
         xpCap = runningTotal;
     }
 
-
-    public int GetLevel(int xp){
+    public static int GetLevel(int xp){
         for(int level = 1; level <= levelCap; level++){
             if(xp < experienceLookup[level-1]){
                 return level;
@@ -39,13 +34,12 @@ public class LevelSystem : MonoBehaviour
         return 1;
     }
 
-
-    public int GetExperienceFromEnemy(int enemyXp){
+    public static int GetExperienceFromEnemy(int enemyXp){
         // @TODO - this should be some function to translate the xp amount to an xp earned (eg sqrt)
         return Mathf.FloorToInt(enemyXp);
     }
 
-    public List<int> GetXpInterval(int xp){
+    public static List<int> GetXpInterval(int xp){
         List<int> xpInterval = new List<int>();
         int level = GetLevel(xp);
         int lowerLimit = 0;
@@ -62,6 +56,4 @@ public class LevelSystem : MonoBehaviour
 
         return xpInterval;
     }
-
-
 }
