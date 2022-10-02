@@ -24,7 +24,7 @@ public class StateSystem : MonoBehaviour
 
     void Start()
     {
-        if( StorySystem.instance.chapter == 1 && StorySystem.instance.mark == 1 ) {
+        if( StorySystem.instance != null && StorySystem.instance.chapter == 1 && StorySystem.instance.mark == 1 ) {
             machine.SetBool("newGame", true);
         }
     }
