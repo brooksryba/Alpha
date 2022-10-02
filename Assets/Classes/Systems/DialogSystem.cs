@@ -9,11 +9,11 @@ using UnityEngine.SceneManagement;
 
 public class DialogSystem : MonoBehaviour
 {
-    private static DialogSystem _instance;
-    public static DialogSystem instance { get { return _instance; } }
+    public static DialogSystem instance { get; private set; }
+    private void OnEnable() { instance = this; }
 
     private Story currentStory;
-    public bool dialogueIsPlaying { get; private set; }
+    public static bool dialogueIsPlaying { get; private set; }
     private bool needToMakeChoice;
     private string choiceString;
     private Action<String> eventCallback;
@@ -22,7 +22,6 @@ public class DialogSystem : MonoBehaviour
     public GameObject dialogObject;
     public GameObject textObject;
 
-    private void Awake() { _instance = this; }
 
     void Start()
     {
@@ -61,7 +60,7 @@ public class DialogSystem : MonoBehaviour
 
     public void ContinueStory()
     {
-        if(CutsceneSystem.instance.cutsceneIsPlaying && CutsceneSystem.instance.cutsceneInEvent) { return; }
+        if(CutsceneSystem.cutsceneIsPlaying && CutsceneSystem.cutsceneInEvent) { return; }
 
         if (currentStory.canContinue && !needToMakeChoice){
             string displayText = currentStory.Continue();

@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Runtime.Serialization.Formatters.Binary;
 
 public class SettingsSystem : MonoBehaviour {
+    public static SettingsSystem instance { get; private set; }
+    private void OnEnable() { instance = this; }
+
     public float volume; 
     public AudioMixer audioMixer;
 

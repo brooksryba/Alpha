@@ -100,12 +100,12 @@ public class CharacterMovement : MonoBehaviour
         int componentY = (Mathf.Abs(transform.position.y - position.y) < 0.01f ? 0 : (transform.position.y > position.y ? -1 : 1));
         transform.position = Vector3.MoveTowards(transform.position, position, moveSpeed*Time.deltaTime);
 
-        if(Vector3.Distance(transform.position, position) <= 0.01f) {
+        if(Vector3.Distance(transform.position, position) <= 0.01f) { 
             if(targetLocations.Count > 0) { 
                 targetLocations.RemoveAt(0);
                 if(targetCallback != null && targetLocations.Count == 0)
                     targetCallback();
-            } else if (isMainCharacter && !CutsceneSystem.instance.cutsceneIsPlaying && !DialogSystem.instance.dialogueIsPlaying) {
+            } else if (isMainCharacter && !CutsceneSystem.cutsceneIsPlaying && !DialogSystem.dialogueIsPlaying) {
                 Vector3 newPosition = position;
 
                 if(Mathf.Abs(targetVector.x) == 1f) {

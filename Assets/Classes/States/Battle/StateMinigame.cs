@@ -70,8 +70,6 @@ public class StateMinigame : StateMachineBehaviour
 
             ToastSystem.instance.Open(newMessage, false);
             animator.SetTrigger("BattleMinigame");           
-
-
         }              
     }
 }

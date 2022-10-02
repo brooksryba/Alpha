@@ -71,7 +71,7 @@ public class Character : MonoBehaviour
             this.currentHP = data.currentHP;
             this.currentMana = data.currentMana;
             this.earnedXp = data.earnedXp;
-            this.level = LevelSystem.instance.GetLevel(this.earnedXp);
+            this.level = LevelSystem.GetLevel(this.earnedXp);
             this.partyMembers = data.partyMembers;
             this.attackNames = data.attackNames;
             this.spellNames = data.spellNames;
@@ -91,7 +91,7 @@ public class Character : MonoBehaviour
 		{
             this.items = new List<ItemData>();
             this.earnedXp = 200;
-            this.level = LevelSystem.instance.GetLevel(this.earnedXp);
+            this.level = LevelSystem.GetLevel(this.earnedXp);
             characterClass.SetStats(this.level);
             this.currentHP = characterClass.maxHP;
             this.currentMana = characterClass.maxMana;
@@ -189,7 +189,7 @@ public class Character : MonoBehaviour
     // @TODO - this might need to be an Ienumerator to confirm user receives all messages
     public IEnumerator AddXp(int amount){
         earnedXp += amount;
-        int newLevel = LevelSystem.instance.GetLevel(earnedXp);
+        int newLevel = LevelSystem.GetLevel(earnedXp);
         for(int lvl = this.level; lvl < newLevel; lvl++){
             this.level += 1;
             ToastSystem.instance.Open(this.name + " is now level " + this.level.ToString() + "!", false);

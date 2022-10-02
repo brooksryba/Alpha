@@ -58,7 +58,7 @@ public class PlayerControl : MonoBehaviour
         playerSub.Add("Level: " + player.level, () => {});
         playerSub.Add("HP: " + player.currentHP + "/" + player.characterClass.maxHP, () => {});
         playerSub.Add("Mana: " + player.currentMana + "/" + player.characterClass.maxMana, () => {});
-        List<int> xpInterval = LevelSystem.instance.GetXpInterval(player.earnedXp);
+        List<int> xpInterval = LevelSystem.GetXpInterval(player.earnedXp);
         playerSub.Add("XP: " + xpInterval[0].ToString() + "/" + xpInterval[1].ToString(), () => {});
         playerSub.Add("Return", () => {});
 

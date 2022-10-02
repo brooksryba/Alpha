@@ -43,9 +43,9 @@ public class PlayerInteraction : MonoBehaviour
 
     public void HandleCollisionInteraction()
     {
-        if(CutsceneSystem.instance.cutsceneIsPlaying) {
+        if(CutsceneSystem.cutsceneIsPlaying) {
             DialogSystem.instance.ContinueStory();
-        } else if (DialogSystem.instance.dialogueIsPlaying) {
+        } else if (DialogSystem.dialogueIsPlaying) {
             DialogSystem.instance.ContinueStory();
         } else {
             if(collisionObject != null){

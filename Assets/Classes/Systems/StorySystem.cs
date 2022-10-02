@@ -4,15 +4,12 @@ using UnityEngine;
 
 public class StorySystem : MonoBehaviour
 {
-    private static StorySystem _instance;
-    public static StorySystem instance { get { return _instance; } }
+    public static StorySystem instance { get; private set; }
+    private void OnEnable() { instance = this; }
 
     public int chapter = 1;
     public int mark = 1;
-
     private Dictionary<int, int> _index;
-
-    private void Awake() { _instance = this; }
 
     public void Start()
     {
