@@ -4,9 +4,13 @@ using UnityEngine;
 
 [System.Serializable]
 public class SettingsData {
-    public float volume;
+    public float volumeMaster;
+    public float volumeMusic;
+    public float volumeFX;
 
     public SettingsData(SettingsSystem settings) {
-        volume = settings.volume;
+        volumeMaster = settings.volumeMaster;
+        volumeMusic = settings.volumeMusic;
+        volumeFX = settings.volumeFX;
     }
 }

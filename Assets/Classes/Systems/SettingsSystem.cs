@@ -10,8 +10,15 @@ public class SettingsSystem : MonoBehaviour {
     public static SettingsSystem instance { get; private set; }
     private void OnEnable() { instance = this; }
 
-    public float volume; 
-    public AudioMixer audioMixer;
+    public float volumeMaster; 
+    public float volumeMusic; 
+    public float volumeFX; 
+    public AudioMixer _mixer;
+    public enum mixer {
+        Master,
+        Music,
+        FX
+    };
 
     public void Start() {
         LoadState();
@@ -28,12 +35,26 @@ public class SettingsSystem : MonoBehaviour {
 
         if (data != null)
         {
-            SetVolume(data.volume);
+            SetVolume(data.volumeMaster, mixer.Master);
+            SetVolume(data.volumeMusic, mixer.Music);
+            SetVolume(data.volumeFX, mixer.FX);
         }
     }
 
-    public void SetVolume(float input) {
-        volume = input;
-        audioMixer.SetFloat("volume", volume);
+    public void SetVolume(float input, SettingsSystem.mixer mixerEnum) {
+        switch(mixerEnum) {
+            case mixer.Master:
+                volumeMaster = input;
+                _mixer.SetFloat("volumeMaster", volumeMaster);            
+                return;
+            case mixer.Music:
+                volumeMusic = input;
+                _mixer.SetFloat("volumeMusic", volumeMusic);
+                return;
+            case mixer.FX:
+                volumeFX = input;
+                _mixer.SetFloat("volumeFX", volumeFX);
+                return;
+        }
     }
 }
