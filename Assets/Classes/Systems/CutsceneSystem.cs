@@ -91,6 +91,7 @@ public class CutsceneSystem : MonoBehaviour
     
         //for each C# function we want to access from plaintext:
         script.Globals["Spawn"] = (Func<string, int, int, bool>)Spawn;
+        script.Globals["Unspawn"] = (Func<string, bool>)Unspawn;
         script.Globals["Move"] = (Func<string, int, int, bool>)Move;
         script.Globals["MoveMultiple"] = (Func<string, List<List<int>>, bool>)MoveMultiple;
         script.Globals["Battle"] = (Func<string, string, bool>)Battle;
@@ -116,6 +117,24 @@ public class CutsceneSystem : MonoBehaviour
         return true;
     }
 
+    private bool Unspawn(string charID)
+    {
+        if(GameObject.Find(charID) == null)
+            return true;
+        
+        StartCoroutine(UnspawnHandler(charID));
+        return true;
+    }
+
+    private IEnumerator UnspawnHandler(string charID)
+    {
+        while(callbackEvents.Count > 0) {
+            yield return null;
+        }
+
+        GameObject.Find(charID).SetActive(false);
+    }
+
     private void HandleEventCallback(Action self)
     {
         callbackEvents.Remove(self);
@@ -124,7 +143,7 @@ public class CutsceneSystem : MonoBehaviour
     private bool Move(string moverID, int x, int y)
     {
         GameObject character = GameObject.Find(moverID);
-        if(!originalPosition.ContainsKey(moverID)) {
+        if(!originalPosition.ContainsKey(moverID) && moverID != "Player") {
             originalPosition.Add(moverID, character.transform.position);
         }
         
