@@ -2,12 +2,12 @@
 
 
 === chapter_1_1_intro ===
-It is a period of civil wars in the galaxy.
+Before unification, there was perpetual war between the states.
 
-A brave alliance of underground freedom fighters has challenged the <br>tyranny and oppression of the awesome GALACTIC EMPIRE.
+One day, the Virulent Army appeared from thin air and annihilated one<br>of the states and nearly wiped out the race that inhabited it.
 
-Striking from a fortress hidden among the billion stars of the galaxy,<br>rebel spaceships have won their first victory in a battle with the powerful Imperial Starfleet. The EMPIRE fears that another defeat could bring a thousand more solar systems into the rebellion, and Imperial control over the galaxy would be lost forever.
+Seeing the threat of this army, the King of the humans unified the<br>states under one Kingdom to defeat the Virulent Army.
 
-To crush the rebellion once and for all, the EMPIRE is constructing a<br>sinister new battle station. Powerful enough to destroy an entire planet, its completion spells certain doom for the champions of freedom.
+Since then, there have been years of peace and prosperity under the Unified King.
 
 -> DONE

@@ -21,7 +21,9 @@ AF: Ugh! This is going to take so long!
 # Unspawn("Warrior")
 Unknown Warrior: I can't believe I had a mage affinity. # Indicator("Archer")
 
-Unknown Warrior: Everyone in my family has been an archer for generations <br>and I've already practiced so much with my bow.
+Unknown Warrior: Everyone in my family has been an archer for generations!
+
+Unknown Warrior: I've already practiced so much with my bow.
 
 # MoveMultiple("Archer", {{18,-29}, {5, -29}})
 AF: Poor guy, hopes it turns out well for him  # Indicator("AF")
