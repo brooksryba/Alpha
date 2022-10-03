@@ -123,6 +123,7 @@ public class Character : MonoBehaviour
 
     public void AddInventoryItem(InventoryItem item)
     {
+        Debug.Log("Added");
         items.Add(new ItemData(item));
     }
     public bool multiplyHP(double hp) 
