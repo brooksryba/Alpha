@@ -27,7 +27,30 @@ public class StateFinish : StateMachineBehaviour
                 foreach(string characterName in _manager.charManager.playerParty){
                     ToastSystem.instance.Queue(characterName + " earned " + xpToAdd.ToString() + " EXP!");
                     Character playerCharacter = battleSystemUtils.GetCharacter(characterName);
-                    playerCharacter.AddXp(xpToAdd);
+
+                    playerCharacter.earnedXp += xpToAdd;
+                    int newLevel = LevelSystem.GetLevel(playerCharacter.earnedXp);
+                    for(int lvl = playerCharacter.level; lvl < newLevel; lvl++){
+                        playerCharacter.level += 1;
+                        ToastSystem.instance.Queue(playerCharacter.name + " is now level " + playerCharacter.level.ToString() + "!");
+
+                        playerCharacter.characterClass.SetStats(playerCharacter.level);
+                        if(playerCharacter.characterClass.attackProgression.ContainsKey(playerCharacter.level)){
+                            if(!playerCharacter.attackNames.Contains(playerCharacter.characterClass.attackProgression[playerCharacter.level])){
+                                playerCharacter.attackNames.Add(playerCharacter.characterClass.attackProgression[playerCharacter.level]);
+                                ToastSystem.instance.Queue(this.name + " has learned attack " + playerCharacter.characterClass.attackProgression[playerCharacter.level] + "!");
+                            }
+                        }
+
+                        if(playerCharacter.characterClass.spellProgression.ContainsKey(playerCharacter.level)){
+                            if(!playerCharacter.spellNames.Contains(playerCharacter.characterClass.spellProgression[playerCharacter.level])){
+                                playerCharacter.spellNames.Add(playerCharacter.characterClass.spellProgression[playerCharacter.level]);
+                                ToastSystem.instance.Queue(playerCharacter.name + " has learned spell " + playerCharacter.characterClass.spellProgression[playerCharacter.level] + "!");
+                            }
+                        }
+
+                    }
+
                     _manager.battleSystemHud.RefreshAllHUDs();
                 }
 

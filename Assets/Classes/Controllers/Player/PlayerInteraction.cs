@@ -62,8 +62,9 @@ public class PlayerInteraction : MonoBehaviour
     {
         InventoryItem item = collisionObject.GetComponent<InventoryItem>();
         gameObject.GetComponent<Character>().AddInventoryItem(item);
-
         string itemName = collisionObject.name.ToLower();
+        collisionObject.SetActive(false);
+
         string message = "Picked up a";
         if("aeiou".Contains(itemName[0].ToString())) {
             message += "n";
@@ -71,7 +72,6 @@ public class PlayerInteraction : MonoBehaviour
         message += " " + itemName + ".";
 
         ToastSystem.instance.Open(message);        
-        collisionObject.SetActive(false);
     }
 
     void HandlePortal()

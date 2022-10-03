@@ -41,6 +41,13 @@ public class SettingsSystem : MonoBehaviour {
         }
     }
 
+    public void ToggleMute()
+    {
+        float currentVolume;
+        _mixer.GetFloat("volumeMaster", out currentVolume);
+        _mixer.SetFloat("volumeMaster", (currentVolume == volumeMaster ? -100 : volumeMaster));
+    }
+
     public void SetVolume(float input, SettingsSystem.mixer mixerEnum) {
         switch(mixerEnum) {
             case mixer.Master:

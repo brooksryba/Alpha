@@ -31,6 +31,7 @@ public class DialogSystem : MonoBehaviour
 
     public void Open(string message, Action callback = null)
     {
+        InputSystem.instance.DisableControls();
         if(dialogObject.activeInHierarchy){
             dialogObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 50f, 0f);
         } else {
@@ -44,6 +45,7 @@ public class DialogSystem : MonoBehaviour
 
     public void Close()
     {
+        InputSystem.instance.EnableControls();
         LeanTween.moveY(dialogObject.GetComponent<RectTransform>(), -50f, 1f).setOnComplete(() => dialogObject.gameObject.SetActive(false));
     }
 
