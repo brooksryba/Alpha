@@ -79,7 +79,8 @@ public class CutsceneSystem : MonoBehaviour
     {
         foreach(string moverID in originalPosition.Keys) {
             GameObject character = GameObject.Find(moverID);
-            character.transform.position = originalPosition[moverID];
+            if(character)
+                character.transform.position = originalPosition[moverID];
         }
     }
 
