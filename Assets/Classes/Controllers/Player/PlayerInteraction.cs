@@ -20,7 +20,6 @@ public class PlayerInteraction : MonoBehaviour
     }
 
     void OnTriggerEnter2D(Collider2D other) {
-        Debug.Log(other.gameObject.name);
         collisionObject = other.gameObject;
         HandleCollisionStatic();
     } 
