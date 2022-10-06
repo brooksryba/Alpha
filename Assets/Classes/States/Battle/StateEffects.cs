@@ -11,21 +11,21 @@ public class StateEffects : StateMachineBehaviour
         
         BattleObjectManager _manager = BattleObjectManager.instance;
 
-        if(_manager.charManager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove))
-            effect = _manager.charManager.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove).gameObject;
+        if(_manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove))
+            effect = _manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenBattleMove).gameObject;
         else if (_manager.chosenMoveDetails.moveType == "Spell") {
-            effect = _manager.charManager.attacker.transform.GetChild(0).Find("Spell").gameObject;
+            effect = _manager.condition.attacker.transform.GetChild(0).Find("Spell").gameObject;
             var partSystemMain = effect.GetComponent<ParticleSystem>().main;
-            Vector3 currentPosition = GameObject.Find(_manager.charManager.attackerName).transform.position;
-            if (!_manager.charManager.defender || (_manager.charManager.defender==_manager.charManager.attacker)){
+            Vector3 currentPosition = GameObject.Find(_manager.condition.attackerName).transform.position;
+            if (!_manager.condition.defender || (_manager.condition.defender==_manager.condition.attacker)){
                 effect.transform.eulerAngles = new Vector3(effect.transform.eulerAngles.x, effect.transform.eulerAngles.y, 90);
                 partSystemMain.startSpeed = 0;
                 
             }
             else {
-                float targetAngle = Mathf.Rad2Deg*Mathf.Atan((_manager.charManager.defender.transform.position.y - currentPosition.y) / 
-                    (_manager.charManager.defender.transform.position.x - currentPosition.x));
-                    if(currentPosition.x > _manager.charManager.defender.transform.position.x)
+                float targetAngle = Mathf.Rad2Deg*Mathf.Atan((_manager.condition.defender.transform.position.y - currentPosition.y) / 
+                    (_manager.condition.defender.transform.position.x - currentPosition.x));
+                    if(currentPosition.x > _manager.condition.defender.transform.position.x)
                         targetAngle = targetAngle + 180.0f;
                 effect.transform.eulerAngles = new Vector3(effect.transform.eulerAngles.x, effect.transform.eulerAngles.y, targetAngle);
                 partSystemMain.startSpeed = 3;
@@ -33,11 +33,11 @@ public class StateEffects : StateMachineBehaviour
 
         }
         else 
-            effect = _manager.charManager.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
+            effect = _manager.condition.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
 
         if(effect) {
             Vector3 originalRotation = effect.transform.eulerAngles;
-            if(_manager.charManager.originalPositions[_manager.charManager.attackerName].x > 0 && _manager.chosenMoveDetails.moveType != "Spell") {
+            if(_manager.condition.originalPositions[_manager.condition.attackerName].x > 0 && _manager.chosenMoveDetails.moveType != "Spell") {
                 effect.transform.eulerAngles = new Vector3(
                     effect.transform.eulerAngles.x,
                     effect.transform.eulerAngles.y ,
@@ -66,9 +66,9 @@ public class StateEffects : StateMachineBehaviour
             effect.SetActive(false);
 
         // animate players who have died
-        for(int i = 0; i < _manager.charManager.allPlayers.Count; i++){
-            if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.charManager.allPlayers[i]))
-                _manager.charManager.deadPlayerList.Add(_manager.charManager.allPlayers[i]);
+        for(int i = 0; i < _manager.condition.allPlayers.Count; i++){
+            if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.condition.allPlayers[i]))
+                _manager.condition.deadPlayerList.Add(_manager.condition.allPlayers[i]);
         }            
     }
 }

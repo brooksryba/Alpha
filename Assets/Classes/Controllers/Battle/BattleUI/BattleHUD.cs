@@ -32,17 +32,19 @@ public class BattleHUD : MonoBehaviour
     public void Refresh()
     {
         nameText.GetComponent<TMP_Text>().SetText(character.title);
-        levelText.GetComponent<TMP_Text>().SetText("Lv" + character.level);
+        levelText.GetComponent<TMP_Text>().SetText("Lv" + character.condition.level);
 
-        hpSlider.maxValue = character.characterClass.maxHP;
-        hpSlider.value = character.currentHP;
-        hpText.GetComponent<TMP_Text>().SetText(character.currentHP.ToString() + " HP");
+        (int currentHP, int maxHP) = character.condition.hp;
+        hpSlider.maxValue = (float)maxHP;
+        hpSlider.value = (float)currentHP;
+        hpText.GetComponent<TMP_Text>().SetText(currentHP.ToString() + " HP");
 
-        manaSlider.maxValue = character.characterClass.maxMana;
-        manaSlider.value = character.currentMana;
-        manaText.GetComponent<TMP_Text>().SetText(character.currentMana.ToString() + " Mana");
+        (int currentMana, int maxMana) = character.condition.hp;
+        manaSlider.maxValue = (float)maxMana;
+        manaSlider.value = (float)currentMana;
+        manaText.GetComponent<TMP_Text>().SetText(currentMana.ToString() + " Mana");
 
-        playerButton.interactable = character.currentHP > 0;
+        playerButton.interactable = currentHP > 0;
     }
 
 }

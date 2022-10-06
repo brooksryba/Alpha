@@ -5,14 +5,14 @@ using UnityEngine;
 public class Archetype : ScriptableObject
 {
     public string title;
-    public (int, int) hp;
+    public (int, int) hp; // level 0 hp, increment per level
     public (int, int) mana;
     public (int, int) attackPhysical;
     public (int, int) attackMagic;
     public (int, int) defensePhysical;
     public (int, int) defenseMagic;
     public (int, int) speed;
-    public List<int> attacks;
-    public List<int> spells;
+    public List<(int, int)> attacks; // level, id of attack you receive
+    public List<(int, int)> spells;
 
 }

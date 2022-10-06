@@ -10,7 +10,7 @@ public class StatePlayerAttack : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         _manager.battleSystemMenu.closeOptionSubmenu();
         _manager.battleSystemHud.canSelect = true;
-        ToastSystem.instance.Open("Choose a target for "+_manager.charManager.attackerName+":", false);
+        ToastSystem.instance.Open("Choose a target for "+_manager.condition.attackerName+":", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,10 +20,10 @@ public class StatePlayerAttack : StateMachineBehaviour
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
         if(_manager.battleSystemHud.selection != null) {
-            if(battleSystemUtils.ConfirmBattleMoveInputs(_manager.chosenBattleMove, _manager.charManager.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection)){
+            if(battleSystemUtils.ConfirmBattleMoveInputs(_manager.chosenBattleMove, _manager.condition.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection)){
                 _manager.battleSystemHud.canSelect = false;        
             
-                bool isAccepted = battleSystemUtils.ConfirmBattleMoveFeasibility(_manager.chosenBattleMove, _manager.charManager.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection); 
+                bool isAccepted = battleSystemUtils.ConfirmBattleMoveFeasibility(_manager.chosenBattleMove, _manager.condition.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection); 
 
                 _manager.battleSystemHud.RefreshAllHUDs();
                 if(isAccepted){
@@ -36,7 +36,7 @@ public class StatePlayerAttack : StateMachineBehaviour
 
                 }
                 else {
-                    ToastSystem.instance.Open(_manager.charManager.attackerName + " cannot choose this attack", false);
+                    ToastSystem.instance.Open(_manager.condition.attackerName + " cannot choose this attack", false);
                     _manager.battleSystemHud.selection = null;
                     _manager.battleSystemHud.canSelect = true;
                     animator.SetTrigger("BattleInvalidSelection");

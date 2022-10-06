@@ -17,7 +17,7 @@ public class StateMinigame : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
-        isEnemyTurn = _manager.charManager.enemyParty.Contains(_manager.charManager.attackerName);
+        isEnemyTurn = _manager.condition.enemyParty.Contains(_manager.condition.attackerName);
 
         string newMessage = "";
         string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenBattleMove, isEnemyTurn);
@@ -52,13 +52,13 @@ public class StateMinigame : StateMachineBehaviour
             if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
             battleSystemUtils.ExecuteBattleMove(_manager.chosenBattleMove, 
-                                       battleSystemUtils.GetCharacter(_manager.charManager.attackerName), 
-                                       battleSystemUtils.GetCharacter(_manager.charManager.defenderName), 
+                                       battleSystemUtils.GetCharacter(_manager.condition.attackerName), 
+                                       battleSystemUtils.GetCharacter(_manager.condition.defenderName), 
                                        isEnemyTurn ? 1.0f / ongoingMinigameData.bonusMultiplier: ongoingMinigameData.bonusMultiplier,
                                        ongoingMinigameData.completedSuccessfully);
 
             BattleMoveBase chosenMoveDetails = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove,
-                    battleSystemUtils.GetCharacter(_manager.charManager.attackerName), battleSystemUtils.GetCharacter(_manager.charManager.defenderName));
+                    battleSystemUtils.GetCharacter(_manager.condition.attackerName), battleSystemUtils.GetCharacter(_manager.condition.defenderName));
             _manager.chosenMoveDetails = chosenMoveDetails;
 
             if(ongoingMinigameData.completedSuccessfully){

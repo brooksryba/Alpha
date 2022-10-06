@@ -60,8 +60,11 @@ public class PlayerInteraction : MonoBehaviour
 
     void HandleInventoryItem()
     {
-        InventoryItem item = collisionObject.GetComponent<InventoryItem>();
-        gameObject.GetComponent<Character>().AddInventoryItem(item);
+        Item item = collisionObject.GetComponent<Item>();
+        Character character = CharacterManager.Get(0); // CharacterManager.refs[0];
+        // TODO - conditions will be changing data structure of items and will also be storing references to all characters in character manager
+        character.condition.items.Add((item, 1));
+        //gameObject.GetComponent<Character>().AddInventoryItem(item);
         string itemName = collisionObject.name.ToLower();
         collisionObject.SetActive(false);
 
@@ -85,6 +88,7 @@ public class PlayerInteraction : MonoBehaviour
     void HandleDialog()
     {
         collisionCharacter = collisionObject.GetComponent<Character>();
+        // TODO - This logic should be handled should call out to the story system to see if there an applicable resource
         if(collisionCharacter.inkJSON) {
             DialogSystem.instance.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {}, () => {});
             DialogSystem.instance.ContinueStory();

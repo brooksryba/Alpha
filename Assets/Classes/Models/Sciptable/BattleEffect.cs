@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Battle Effect", menuName = "Assets/New Battle Effect")]
-public class BattleEffects : ScriptableObject
+public class BattleEffect : ScriptableObject
 {
     public string title;
     public string verb;

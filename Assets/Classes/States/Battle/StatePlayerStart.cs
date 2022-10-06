@@ -8,10 +8,10 @@ public class StatePlayerStart : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BattleObjectManager _manager = BattleObjectManager.instance;
-        _manager.battleSystemHud.disableUnusableHuds(_manager.charManager.attackerName, _manager.charManager.playerParty);
+        _manager.battleSystemHud.disableUnusableHuds(_manager.condition.attackerName, _manager.condition.playerParty);
         _manager.battleSystemHud.canSelect = true;
 
-        ToastSystem.instance.Open("Choose an action for "+_manager.charManager.attackerName+":", false);
+        ToastSystem.instance.Open("Choose an action for "+_manager.condition.attackerName+":", false);
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -20,7 +20,7 @@ public class StatePlayerStart : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
 
         if(_manager.battleSystemHud.selection != null && 
-           _manager.battleSystemHud.selection.title == _manager.charManager.attackerName){
+           _manager.battleSystemHud.selection.title == _manager.condition.attackerName){
             _manager.battleSystemMenu.OpenSubmenu(_manager.battleSystemHud.selection, _manager.battleSystemHud.selectionButton);
             _manager.battleSystemHud.selection = null;
         } else if(_manager.chosenBattleMove != "" && _manager.chosenBattleMove != null) {

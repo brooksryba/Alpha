@@ -8,30 +8,27 @@ public class BattleObjectManager : MonoBehaviour
     private static BattleObjectManager _instance;
     public static BattleObjectManager instance { get { return _instance; } }
 
-    public GameObject playerPrefab;
-    public GameObject enemyPrefab;
+    public GameObject playerPrefab; // should be deleted
+    public GameObject enemyPrefab;  // should be deleted
 
-    public GameObject playerBattleStation;
-    public GameObject enemyBattleStation;
+    public GameObject playerBattleStation; // breaking out List<GameObject> > transforms set to each battle location
+    public GameObject enemyBattleStation;   // should be deleted once the above is set to a list
 
-    public GameObject playerPartyContainer;
+    public GameObject playerPartyContainer; // these are for the HUD, consider making this a list to populate
     public GameObject enemyPartyContainer;
-    public GameObject spellPrefab;
-    public GameObject spellObj;
+    public List<int> allCharactersNew;   // should be deleted
 
-    public BattleCharacterManager charManager = new BattleCharacterManager();
+    public BattleCondition condition = new BattleCondition();
 
-    public int turnIndex = -1;
-    public int overallTurnNumber;
+    public string chosenBattleMove; // should be deleted
+    public string chosenItem; // should be deleted
+    public bool playerResigned;
+    public Move chosenMoveDetails;
 
-    public string chosenBattleMove;
-    public string chosenItem;
-    public bool playerResigned; 
-    public BattleMoveBase chosenMoveDetails;
+    public List<GameObject> prefabs;
 
-    public BattleSystemHud battleSystemHud;
+    public BattleSystemHud battleSystemHud; // this will likely be refactored, will be a gameobject / Monobehaviour, likely to refresh automatically
     public BattleSystemMenu battleSystemMenu;
-    public BattleBonusManager battleBonusManager;
 
     private void Awake() { _instance = this; }
 
@@ -39,7 +36,6 @@ public class BattleObjectManager : MonoBehaviour
     {
         battleSystemHud = new BattleSystemHud();
         battleSystemMenu = new BattleSystemMenu();
-        battleBonusManager = new BattleBonusManager();
         Init();
     }
 
@@ -56,68 +52,61 @@ public class BattleObjectManager : MonoBehaviour
             enemyPrefab = Resources.Load("Prefabs/Characters/" + SceneSystem.battle.enemy) as GameObject;
         }
 
-        GameObject playerGO = initializeParty(ref charManager.playerParty, ref playerPrefab, playerBattleStation, playerPartyContainer);
-        GameObject enemyGO = initializeParty(ref charManager.enemyParty, ref enemyPrefab, enemyBattleStation, enemyPartyContainer, true);
+
+        List<int> friendlyListPlaceholder = new List<int>();
+        List<int> enemyListPlaceholder = new List<int>();
+        friendlyListPlaceholder.AddRange(new int[]{0, 1, 2});
+        enemyListPlaceholder.AddRange(new int[]{3, 4, 5});
+        initializeParty(friendlyListPlaceholder, playerBattleStation, playerPartyContainer);
+        initializeParty(enemyListPlaceholder, enemyBattleStation, enemyPartyContainer, true);
         _SetInitialProperties();
 
     }
 
-    public GameObject initializeParty(ref List<string> partyList, ref GameObject partyLeaderPrefab, GameObject battleStationContainer, GameObject partyContainer, bool flip=false)
+    public void initializeParty(List<int> partyList, GameObject battleStationContainer, GameObject partyContainer, bool flip=false)
     {
-        GameObject partyLeaderObj = Instantiate(partyLeaderPrefab, battleStationContainer.transform);
-        partyLeaderObj.transform.SetParent(battleStationContainer.transform);
-        if(flip)
-            partyLeaderObj.GetComponent<SpriteRenderer>().flipX = true;
-        Character partyLeader = partyLeaderPrefab.GetComponent<Character>();
-        partyLeaderObj.name = partyLeader.title;
-        partyLeader.LoadCharacterClass();
-        partyLeader.LoadState();
-        partyList.Add(partyLeader.title);
-        charManager.allPlayers.Add(partyLeader.title);
-
-        battleSystemHud.createSingleHUD(ref partyLeaderObj, ref partyLeader, partyContainer);
-
         int index = 0;
-        foreach(var pm in partyLeader.partyMembers){
-            index += 1;
-            GameObject partyMemberObject = Instantiate(Resources.Load<GameObject>("Prefabs/" + pm), battleStationContainer.transform);
-            Character partyMemberChar = partyMemberObject.GetComponent<Character>();
-            partyMemberObject.name = partyMemberChar.title;
-            partyMemberChar.LoadCharacterClass();
-            partyMemberChar.LoadState();
-            partyList.Add(partyMemberChar.title);
-            charManager.allPlayers.Add(partyMemberChar.title);
+        foreach(int pm in partyList){
+            GameObject member = PrefabManager.Load(battleStationContainer.transform, pm, PrefabManager.Types.Character);
+            
+            
+            prefabs.Add(member);
+
+            // GameObject partyMemberObject = Instantiate(Resources.Load<GameObject>("Prefabs/" + pm), battleStationContainer.transform);
+            Character partyMemberChar = CharacterManager.Get(pm);
 
             // @todo - right now it puts next party member down 2 * its height. Should try and make this more flexible
-            partyMemberObject.transform.SetParent(battleStationContainer.transform);
-            partyMemberObject.transform.position = partyMemberObject.transform.position - new Vector3(0.0f, 2 * index, 0.0f);
+            member.transform.SetParent(battleStationContainer.transform);
+            member.transform.position = member.transform.position - new Vector3(0.0f, 2 * index, 0.0f);
             if(flip)
-                partyMemberObject.GetComponent<SpriteRenderer>().flipX = true;
+                member.GetComponent<SpriteRenderer>().flipX = true;
 
 
-            battleSystemHud.createSingleHUD(ref partyMemberObject, ref partyMemberChar, partyContainer);
+            battleSystemHud.createSingleHUD(ref member, ref partyMemberChar, partyContainer);
+            index += 1;
         }
-        return partyLeaderObj;
+
     }
 
+    // TODO - cleanup java style get/set and use accessor props with public
     public void SetAttacker(string attackerName){
-        charManager.attackerName = attackerName;
-        charManager.attacker = GameObject.Find(attackerName);
+        condition.attackerName = attackerName;
+        condition.attacker = GameObject.Find(attackerName);
     }
 
     public void SetDefender(string defenderName){
-        charManager.defenderName = defenderName;
-        charManager.defender = null;
+        condition.defenderName = defenderName;
+        condition.defender = null;
         if(defenderName!=null && defenderName!=""){
-            charManager.defender = GameObject.Find(defenderName);
+            condition.defender = GameObject.Find(defenderName);
         }
     }
 
     private void _SetInitialProperties(){
-        for(int i = 0; i < charManager.allPlayers.Count; i++){
-            GameObject player = GameObject.Find(charManager.allPlayers[i]);
-            charManager.originalPositions.Add(charManager.allPlayers[i], player.transform.position);
-            charManager.originalSpriteColors.Add(charManager.allPlayers[i], player.GetComponent<SpriteRenderer>().color);
+        for(int i = 0; i < condition.allPlayers.Count; i++){
+            GameObject player = GameObject.Find(condition.allPlayers[i]);
+            condition.originalPositions.Add(condition.allPlayers[i], player.transform.position);
+            condition.originalSpriteColors.Add(condition.allPlayers[i], player.GetComponent<SpriteRenderer>().color);
         }
     }
 

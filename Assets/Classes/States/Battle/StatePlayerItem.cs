@@ -18,7 +18,7 @@ public class StatePlayerItem : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         if(BattleItems.lookup.ContainsKey(_manager.chosenItem)) {
             InventoryItemData itemData = BattleItems.lookup[_manager.chosenItem];
-            Character activeCharacter = _manager.charManager.attacker.GetComponent<Character>();
+            Character activeCharacter = _manager.condition.attacker.GetComponent<Character>();
             ToastSystem.instance.Open(itemData.Execute(activeCharacter), false);
             animator.SetTrigger("BattleSelection");
         } else {

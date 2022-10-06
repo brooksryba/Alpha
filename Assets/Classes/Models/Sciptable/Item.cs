@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Item", menuName = "Assets/New Item")]
-public class ItemNew : ScriptableObject
+public class Item : ScriptableObject
 {
     public string title;
     public string verb;

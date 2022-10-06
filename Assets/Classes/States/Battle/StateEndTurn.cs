@@ -10,7 +10,7 @@ public class StateEndTurn : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
-        _manager.battleBonusManager.IncrementPlayerTurn(_manager.charManager.attacker.GetComponent<Character>().title);
+        _manager.battleBonusManager.IncrementPlayerTurn(_manager.condition.attacker.GetComponent<Character>().title);
         _manager.battleSystemHud.RefreshAllHUDs();
          _manager.battleSystemHud.selection = null;
         _manager.chosenBattleMove = "";
@@ -24,6 +24,6 @@ public class StateEndTurn : StateMachineBehaviour
         animator.ResetTrigger("BattleEffects");
         animator.ResetTrigger("BattleRetreat");
         animator.ResetTrigger("BattleResign");
-        animator.SetBool("battleOver", battleSystemUtils.PartyDead(_manager.charManager.enemyParty) || battleSystemUtils.PartyDead(_manager.charManager.playerParty));        
+        animator.SetBool("battleOver", battleSystemUtils.PartyDead(_manager.condition.enemyParty) || battleSystemUtils.PartyDead(_manager.condition.playerParty));        
     }
 }

@@ -11,4 +11,5 @@ public class Move : ScriptableObject
     public int manaCost;
     public enum minigame {none, tapButtons, stopSlider, targeting};
     public enum target {self, singleEnemy, singleFriendly, multiEnemy, multiFriendly};
+    public BattleEffect battleEffectArchetype;
 }
