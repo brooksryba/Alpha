@@ -11,19 +11,18 @@ public class StateEnemyAttack : StateMachineBehaviour
         EnemyAttackChooser attackChooser = new EnemyAttackChooser();
         string newMessage = "";
 
-        List<string> chosenAttackList = attackChooser.GetAttack(_manager.condition.attackerName);
+        (int targetID, Move aiChosenMove) = attackChooser.GetAttack(_manager.condition.attackerName);
+        Character targetCharacter = CharacterManager.Get(targetID);
 
-        _manager.chosenBattleMove = chosenAttackList[0];
+        _manager.chosenMove = aiChosenMove;
 
-        if(chosenAttackList[1] != "")
-            newMessage = _manager.condition.attackerName + " attacks " + chosenAttackList[1] + " with " + _manager.chosenBattleMove + "!";
+        if(targetID > 0)
+            newMessage = _manager.condition.attackerName + " attacks " + targetCharacter.title + " with " + _manager.chosenMove.title + "!";
         else 
-            newMessage = _manager.condition.attackerName + " uses " + _manager.chosenBattleMove + "!";
+            newMessage = _manager.condition.attackerName + " uses " + _manager.chosenMove.title + "!";
 
-        _manager.SetDefender(chosenAttackList[1]);
-
-        if(chosenAttackList[1] != "") _manager.condition.defender = GameObject.Find(chosenAttackList[1]);
-        
+        _manager.SetDefender(targetCharacter.title);
+       
         ToastSystem.instance.Open(newMessage, false);       
         animator.SetTrigger("BattleAttack");
     }

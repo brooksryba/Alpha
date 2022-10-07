@@ -5,17 +5,19 @@ using UnityEngine;
 public class BattleCondition : ScriptableObject
 {
     public GameObject attacker = null;
+    public int attackerID;
     public string attackerName = "";
     public GameObject defender = null;
+    public int defenderID;
     public string defenderName = "";
 
-    public Dictionary<string, Vector3> originalPositions = new Dictionary<string, Vector3>();
-    public Dictionary<string, Color> originalSpriteColors = new Dictionary<string, Color>();
+    public Dictionary<int, Vector3> originalPositions = new Dictionary<int, Vector3>();
+    public Dictionary<int, Color> originalSpriteColors = new Dictionary<int, Color>();
 
-    public List<string> playerParty = new List<string>();
-    public List<string> enemyParty = new List<string>();
-    public List<string> allPlayers = new List<string>();
-    public List<string> deadPlayerList = new List<string>();
+    public List<int> playerParty = new List<int>();
+    public List<int> enemyParty = new List<int>();
+    public List<int> allPlayers = new List<int>();
+    public List<int> deadPlayerList = new List<int>();
 
     public List<Character> characterTurnOrder = new List<Character>();
     public int turnIndex = -1;

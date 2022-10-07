@@ -87,19 +87,7 @@ public class BattleSystemUtils
         // battleBonuses.Add(newBonus);
     }
 
-    public void IncrementPlayerTurn(string playerName){
-        // for(int i = 0; i < battleBonuses.Count; i++){
-        //     BattleBonus checkBonus = battleBonuses[i];
-        //     if(checkBonus.playerName==playerName){
-        //         battleBonuses[i].bonusDuration -= 1;
-        //         battleBonuses[i].BattleBonusAction();
-        //         if(battleBonuses[i].bonusDuration==0){
-        //             battleBonuses.RemoveAt(i);
-        //             i--; //ensures that if multiple are removed, it removes the correct bonuses
-        //         }
-        //     }
-        // }
-    }
+
 
     public void DestroyAllBonuses(){
         // battleBonuses = new List<BattleBonus>();

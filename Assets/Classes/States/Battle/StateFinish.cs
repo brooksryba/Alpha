@@ -17,19 +17,19 @@ public class StateFinish : StateMachineBehaviour
 
             // @TODO, currently it splits total xp into thirds and distributed evenly, will need to confirm 
             int totalXp = 0;
-            foreach(string characterName in _manager.condition.enemyParty){
-                Character enemyCharacter = battleSystemUtils.GetCharacter(characterName);
-                totalXp += enemyCharacter.earnedXp;
+            foreach(int characterID in _manager.condition.enemyParty){
+                Character enemyCharacter = CharacterManager.Get(characterID);
+                totalXp += enemyCharacter.condition.xp;
             }
             int xpToAdd = Mathf.FloorToInt(totalXp / 3);
 
             if(xpToAdd > 0){
-                foreach(string characterName in _manager.condition.playerParty){
-                    ToastSystem.instance.Queue(characterName + " earned " + xpToAdd.ToString() + " EXP!");
-                    Character playerCharacter = battleSystemUtils.GetCharacter(characterName);
+                foreach(int characterID in _manager.condition.playerParty){
+                    Character playerCharacter = CharacterManager.Get(characterID);
+                    ToastSystem.instance.Queue(playerCharacter.title + " earned " + xpToAdd.ToString() + " EXP!");
 
-                    playerCharacter.earnedXp += xpToAdd;
-                    int newLevel = LevelSystem.GetLevel(playerCharacter.earnedXp);
+                    playerCharacter.condition.xp += xpToAdd;
+                    int newLevel = LevelSystem.GetLevel(playerCharacter.condition.xp);
                     for(int lvl = playerCharacter.level; lvl < newLevel; lvl++){
                         playerCharacter.level += 1;
                         ToastSystem.instance.Queue(playerCharacter.name + " is now level " + playerCharacter.level.ToString() + "!");

@@ -93,4 +93,22 @@ public class StorySystem : MonoBehaviour
             }
         }
     }
+
+    private TextAsset FindApplicableInkFile(Character collisionCharacter)
+    {
+        // TODO - This should look for the most latest ink file that doesn't exceed the chapter/mark
+        string charName = collisionCharacter.title;
+        string inkDirectory = "Dialogue/Defaults/";
+        TextAsset inkJSON = Resources.Load<TextAsset>(inkDirectory + charName + "_Default.json");
+        return inkJSON;
+    }
+
+    public void HandleCollisionDialog(Character collisionCharacter)
+    {
+        TextAsset inkJSON = FindApplicableInkFile(collisionCharacter);
+        if(inkJSON) {
+            DialogSystem.instance.EnterDialogueMode(inkJSON, (s) => {}, () => {});
+            DialogSystem.instance.ContinueStory();
+        }
+    }
 }

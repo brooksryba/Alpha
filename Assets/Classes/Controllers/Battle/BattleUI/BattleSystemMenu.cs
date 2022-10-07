@@ -49,30 +49,24 @@ public class BattleSystemMenu
         // int > pass to selection callback
         foreach( Move attackMove in character.condition.attacks ) {
             string attackName = LocalizationData.data[attackMove.title];
-            attacks.Add("> "+attackName, () => { _manager.chosenBattleMove = attackName; });
+            attacks.Add("> "+attackName, () => { _manager.chosenMove = attackMove; });
         }
         attacks.Add("Return", () => { });
 
         foreach( Move spellMove in character.condition.spells ) {
             string spellName = LocalizationData.data[spellMove.title];
-            spells.Add("> "+spellName, () => { _manager.chosenBattleMove = spellName; });
+            spells.Add("> "+spellName, () => { _manager.chosenMove = spellMove; });
         }
         spells.Add("Return", () => { });
         
         Dictionary<string, Action> items = new Dictionary<string, Action>();
-        Dictionary<string, int> itemCount = new Dictionary<string, int>();
-        Dictionary<string, Item> itemRefs = new Dictionary<string, Item>();
-
         if(character.condition.items.Count > 0){
             foreach( (Item item, int itemQuantity) in character.condition.items ) { 
-                string itemName = LocalizationData.data[item.title];          
-                itemRefs[itemName] = item;
-                itemCount.Add(itemName, itemQuantity);
+                string itemName = LocalizationData.data[item.title];
+                items.Add("> "+itemName + " (x" + itemQuantity.ToString() + ")", () => { _manager.chosenItem = item; });
             }
 
-            foreach(KeyValuePair<string, int> item in itemCount ) {
-                items.Add("> "+item.Key + " (x" + item.Value.ToString() + ")", () => { _manager.chosenItem = item.Key; });
-            }
+
 
         }
 

@@ -89,10 +89,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         collisionCharacter = collisionObject.GetComponent<Character>();
         // TODO - This logic should be handled should call out to the story system to see if there an applicable resource
-        if(collisionCharacter.inkJSON) {
-            DialogSystem.instance.EnterDialogueMode(collisionCharacter.inkJSON, (s) => {}, () => {});
-            DialogSystem.instance.ContinueStory();
-        }
+        StorySystem.instance.HandleCollisionDialog(collisionCharacter);
     }
 
     void HandleCutscene(bool advanceStory = true)

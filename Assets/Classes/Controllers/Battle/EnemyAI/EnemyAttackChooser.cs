@@ -64,7 +64,7 @@ public class EnemyAttackChooser
         return allOptions;
     }
 
-    public List<string> GetAttack(string enemyName){
+    public (int, Move) GetAttack(string enemyName){
         // string[] attack_target;
         // Dictionary<string, int> attackOptions = GetAllAttackOptions(enemyName);
 
@@ -77,11 +77,8 @@ public class EnemyAttackChooser
 
         // return new List<string>(attack_target);
 
-        // @TODO - this code below can be removed
-        List<string> returnList = new List<string>();
-        returnList.Add("Hero");
-        returnList.Add("Basic Attack");
-        return returnList;
+        // @TODO - this code below can be removed, this should return -1 for attacking all
+        return (0, new Move());
     }
 
     public List<int> changeAiAttackChances(List<int> listOfPoints){

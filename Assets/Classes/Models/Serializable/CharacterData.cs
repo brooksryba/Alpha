@@ -17,18 +17,18 @@ public class CharacterData {
 
     public List<string> partyMembers;
 
-    public CharacterData(Character character) {
-        active = character.gameObject.activeSelf;
-        name = character.gameObject.name;
+    // public CharacterData(Character character) {
+    //     active = character.gameObject.activeSelf;
+    //     name = character.gameObject.name;
 
-        level = character.level;
-        items = character.items;
-        currentHP = character.currentHP;
-        currentMana = character.currentMana;
-        earnedXp = character.earnedXp;
-        attackNames = character.attackNames;
-        spellNames = character.spellNames;
-        partyMembers = character.partyMembers;
-    }
+    //     level = character.level;
+    //     items = character.items;
+    //     currentHP = character.currentHP;
+    //     currentMana = character.currentMana;
+    //     earnedXp = character.earnedXp;
+    //     attackNames = character.attackNames;
+    //     spellNames = character.spellNames;
+    //     partyMembers = character.partyMembers;
+    // }
 
 }

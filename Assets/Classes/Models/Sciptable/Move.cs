@@ -4,12 +4,15 @@ using UnityEngine;
 public class Move : ScriptableObject
 {
     public string title;
-    public enum type {Attack, Spell};
+    public enum Type {Attack, Spell};
+    public Type type;
     public int hpEffect;
     public int hpCost;
     public int manaEffect;
     public int manaCost;
-    public enum minigame {none, tapButtons, stopSlider, targeting};
-    public enum target {self, singleEnemy, singleFriendly, multiEnemy, multiFriendly};
+    public enum Minigame {none, tapButtons, stopSlider, targeting};
+    public Minigame minigame;
+    public enum Target {self, singleEnemy, singleFriendly, multiEnemy, multiFriendly};
+    public Target target;
     public BattleEffect battleEffectArchetype;
 }

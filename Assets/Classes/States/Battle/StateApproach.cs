@@ -8,13 +8,13 @@ public class StateApproach : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BattleObjectManager _manager = BattleObjectManager.instance;
-        bool isPlayer = (_manager.condition.playerParty.Contains(_manager.condition.attackerName));
+        bool isPlayer = (_manager.condition.playerParty.Contains(_manager.condition.attackerID));
 
         BattleMovement battleMovement = _manager.condition.attacker.GetComponent<BattleMovement>();
         if(battleMovement && !battleMovement.isFinished && !battleMovement.isAnimating) {
             Vector3 offset = new Vector3(isPlayer ? 2 : -2, 0, 0);
             Vector3 targetPosition = new Vector3();
-            if(_manager.condition.defender && _manager.chosenMoveDetails.moveType != "Spell") {
+            if(_manager.condition.defender && _manager.chosenMove.type != Move.Type.Spell) {
                 targetPosition = _manager.condition.defender.transform.position;
             }
             else {

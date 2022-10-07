@@ -20,10 +20,10 @@ public class BattleObjectManager : MonoBehaviour
 
     public BattleCondition condition = new BattleCondition();
 
-    public string chosenBattleMove; // should be deleted
-    public string chosenItem; // should be deleted
+    // public string chosenBattleMove; // should be deleted
     public bool playerResigned;
-    public Move chosenMoveDetails;
+    public Item chosenItem;
+    public Move chosenMove;
 
     public List<GameObject> prefabs;
 
@@ -88,6 +88,23 @@ public class BattleObjectManager : MonoBehaviour
 
     }
 
+
+    public void IncrementPlayerTurn(int playerID){
+        // TODO - this should handle battle effects
+        // For handling battle effects
+        // for(int i = 0; i < battleBonuses.Count; i++){
+        //     BattleBonus checkBonus = battleBonuses[i];
+        //     if(checkBonus.playerName==playerName){
+        //         battleBonuses[i].bonusDuration -= 1;
+        //         battleBonuses[i].BattleBonusAction();
+        //         if(battleBonuses[i].bonusDuration==0){
+        //             battleBonuses.RemoveAt(i);
+        //             i--; //ensures that if multiple are removed, it removes the correct bonuses
+        //         }
+        //     }
+        // }
+    }
+
     // TODO - cleanup java style get/set and use accessor props with public
     public void SetAttacker(string attackerName){
         condition.attackerName = attackerName;
@@ -104,7 +121,7 @@ public class BattleObjectManager : MonoBehaviour
 
     private void _SetInitialProperties(){
         for(int i = 0; i < condition.allPlayers.Count; i++){
-            GameObject player = GameObject.Find(condition.allPlayers[i]);
+            GameObject player = GameObject.Find(CharacterManager.Get(condition.allPlayers[i]).title);
             condition.originalPositions.Add(condition.allPlayers[i], player.transform.position);
             condition.originalSpriteColors.Add(condition.allPlayers[i], player.GetComponent<SpriteRenderer>().color);
         }

@@ -9,6 +9,9 @@ public class Item : ScriptableObject
     public int hpCost;
     public int manaEffect;
     public int manaCost;
-    public enum type {both, world, battle};
-    public enum target {all, self, friendly, enemy};
+    public enum Type {both, world, battle};
+    public Type type;
+    public enum Target {all, self, friendly, enemy};
+    public Target target;
+
 }
