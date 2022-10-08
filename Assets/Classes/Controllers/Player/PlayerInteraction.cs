@@ -61,9 +61,8 @@ public class PlayerInteraction : MonoBehaviour
     void HandleInventoryItem()
     {
         Item item = collisionObject.GetComponent<Item>();
-        Character character = CharacterManager.Get(0); // CharacterManager.refs[0];
         // TODO - conditions will be changing data structure of items and will also be storing references to all characters in character manager
-        character.condition.items.Add((item, 1));
+        CharacterManager.refs[0].condition.items.Add((item, 1));
         //gameObject.GetComponent<Character>().AddInventoryItem(item);
         string itemName = collisionObject.name.ToLower();
         collisionObject.SetActive(false);

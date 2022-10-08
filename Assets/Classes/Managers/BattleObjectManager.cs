@@ -105,6 +105,12 @@ public class BattleObjectManager : MonoBehaviour
         // }
     }
 
+    
+    public void DestroyAllBattleEffects(){
+        // TODO - This should destroy all of the battle effects that are being stored (called at end of game)
+        // battleBonuses = new List<BattleBonus>();
+    }
+
     // TODO - cleanup java style get/set and use accessor props with public
     public void SetAttacker(string attackerName){
         condition.attackerName = attackerName;

@@ -12,7 +12,7 @@ public class EnemyAttackChooser
     public List<int> GetPossibleAttackTargets(){
         List<int> possibleTargets = new List<int>();
         foreach(int characterID in _manager.allCharactersNew){
-            (int currentHp, int maxHp) = CharacterManager.Get(characterID).condition.hp;
+            (int currentHp, int maxHp) = CharacterManager.refs[characterID].condition.hp;
             if(currentHp > 0){
                 possibleTargets.Add(characterID);
             }
@@ -27,10 +27,10 @@ public class EnemyAttackChooser
         List<Move> allBattleMoves = new List<Move>();
         List<int> allTargets = GetPossibleAttackTargets();
 
-        foreach(Move attack in CharacterManager.Get(enemyID).condition.attacks)
+        foreach(Move attack in CharacterManager.refs[enemyID].condition.attacks)
             allBattleMoves.Add(attack);
 
-        foreach(Move spell in CharacterManager.Get(enemyID).condition.spells)
+        foreach(Move spell in CharacterManager.refs[enemyID].condition.spells)
             allBattleMoves.Add(spell);
 
         // NOTE: this gives only 1 instance of an attack that does not require a target, so scaling might be needed for smarter AI

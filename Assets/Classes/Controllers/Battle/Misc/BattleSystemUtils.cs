@@ -69,8 +69,7 @@ public class BattleSystemUtils
     {
         foreach(int id in partyMembers)
         {
-            Character member = CharacterManager.Get(id);
-            (int currentHP, int maxHP) = member.condition.hp;
+            (int currentHP, int maxHP) = CharacterManager.refs[id].condition.hp;
             if(currentHP > 0)
                 return false;
         }
