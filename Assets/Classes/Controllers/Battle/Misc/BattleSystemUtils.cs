@@ -88,9 +88,6 @@ public class BattleSystemUtils
 
 
 
-    public void DestroyAllBonuses(){
-        // battleBonuses = new List<BattleBonus>();
-    }
 
 
     public int GetBattleStat(string playerName, string statName, int initialValue, bool applyBonus=true)

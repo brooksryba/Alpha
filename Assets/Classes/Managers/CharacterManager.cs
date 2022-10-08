@@ -10,7 +10,7 @@ public static class CharacterManager
         return new Character();
     }
 
-    public static void SetStats(){
+    public static void SetStats(int id){
         // TODO - Should this live here? It does seem helpful to have a single function to set the stats
         // for when a player levels up. Logic below is the old code
 
