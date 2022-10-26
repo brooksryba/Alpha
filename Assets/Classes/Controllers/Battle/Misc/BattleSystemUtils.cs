@@ -10,7 +10,7 @@ public class BattleSystemUtils
         return null;
     }
 
-    public string GetMinigameNameFromBattleMove(string moveName, bool isEnemy){
+    public string GetMinigameNameFromBattleMove(Move move, bool isEnemy){
         // BattleMoveBase chosenMove = BattleMoveBase.GetBattleMoveClass(moveName);
         // if(!isEnemy)
         //     return chosenMove.minigameName;
@@ -18,7 +18,7 @@ public class BattleSystemUtils
         return "";
     }
 
-    public bool CheckPlayerDeadAndAnimate(int characterID){
+    public bool CheckPlayerDeadAndAnimate(string characterID){
         GameObject playerObj = PrefabManager.Get(characterID, PrefabManager.Types.Character);
         Character player = playerObj.GetComponent<Character>();
         (int currentHP, int maxHP) = player.condition.hp;
@@ -43,7 +43,7 @@ public class BattleSystemUtils
     // }
 
 
-    public void ExecuteBattleMove(string moveName, Character user, Character target, double minigameMultiplier=1.0, bool minigameSuccess=false){
+    public void ExecuteBattleMove(Move move, Character user, Character target, double minigameMultiplier=1.0, bool minigameSuccess=false){
         // chosenMove.minigameMultiplier = minigameMultiplier;
         // chosenMove.minigameSuccess = minigameSuccess;
         // chosenMove.ExecuteBattleMove();
@@ -51,13 +51,13 @@ public class BattleSystemUtils
         // this will apply the logic from the attributes of the select move and target
     }
 
-    public bool ConfirmBattleMoveInputs(string moveName, Character user, Character target){
+    public bool ConfirmBattleMoveInputs(Move move, Character user, Character target){
         // BattleMoveBase chosenMove = PrepChosenBattleMove(moveName, user, target);
         // check if move type and target are selected if needed
         return true;
     }
 
-    public bool ConfirmBattleMoveFeasibility(string moveName, Character user, Character target){
+    public bool ConfirmBattleMoveFeasibility(Move move, Character user, Character target){
         // BattleMoveBase chosenMove = PrepChosenBattleMove(moveName, user, target);
         // check if user has enough mana / hp to execute the move
         return true;
@@ -65,9 +65,9 @@ public class BattleSystemUtils
 
 
 
-    public bool PartyDead(List<int> partyMembers)
+    public bool PartyDead(List<string> partyMembers)
     {
-        foreach(int id in partyMembers)
+        foreach(string id in partyMembers)
         {
             (int currentHP, int maxHP) = CharacterManager.refs[id].condition.hp;
             if(currentHP > 0)

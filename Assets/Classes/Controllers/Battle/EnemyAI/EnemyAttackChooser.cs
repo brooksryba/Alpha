@@ -9,9 +9,9 @@ public class EnemyAttackChooser
     public BattleObjectManager _manager = BattleObjectManager.instance;
     public BattleSystemUtils utils = new BattleSystemUtils();
 
-    public List<int> GetPossibleAttackTargets(){
-        List<int> possibleTargets = new List<int>();
-        foreach(int characterID in _manager.allCharactersNew){
+    public List<string> GetPossibleAttackTargets(){
+        List<string> possibleTargets = new List<string>();
+        foreach(string characterID in _manager.allCharactersNew){
             (int currentHp, int maxHp) = CharacterManager.refs[characterID].condition.hp;
             if(currentHp > 0){
                 possibleTargets.Add(characterID);
@@ -22,10 +22,10 @@ public class EnemyAttackChooser
 
 
 
-    public Dictionary<string, int> GetAllAttackOptions(int enemyID){
+    public Dictionary<string, int> GetAllAttackOptions(string enemyID){
         Dictionary<string, int> allOptions = new Dictionary<string, int>();
         List<Move> allBattleMoves = new List<Move>();
-        List<int> allTargets = GetPossibleAttackTargets();
+        List<string> allTargets = GetPossibleAttackTargets();
 
         foreach(Move attack in CharacterManager.refs[enemyID].condition.attacks)
             allBattleMoves.Add(attack);
@@ -64,7 +64,7 @@ public class EnemyAttackChooser
         return allOptions;
     }
 
-    public (int, Move) GetAttack(string enemyName){
+    public (string, Move) GetAttack(string enemyName){
         // string[] attack_target;
         // Dictionary<string, int> attackOptions = GetAllAttackOptions(enemyName);
 
@@ -78,7 +78,7 @@ public class EnemyAttackChooser
         // return new List<string>(attack_target);
 
         // @TODO - this code below can be removed, this should return -1 for attacking all
-        return (0, new Move());
+        return ("", new Move());
     }
 
     public List<int> changeAiAttackChances(List<int> listOfPoints){

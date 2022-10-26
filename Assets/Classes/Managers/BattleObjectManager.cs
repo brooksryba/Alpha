@@ -16,7 +16,7 @@ public class BattleObjectManager : MonoBehaviour
 
     public GameObject playerPartyContainer; // these are for the HUD, consider making this a list to populate
     public GameObject enemyPartyContainer;
-    public List<int> allCharactersNew;   // should be deleted
+    public List<string> allCharactersNew;   // should be deleted
 
     public BattleCondition condition = new BattleCondition();
 
@@ -53,20 +53,20 @@ public class BattleObjectManager : MonoBehaviour
         }
 
 
-        List<int> friendlyListPlaceholder = new List<int>();
-        List<int> enemyListPlaceholder = new List<int>();
-        friendlyListPlaceholder.AddRange(new int[]{0, 1, 2});
-        enemyListPlaceholder.AddRange(new int[]{3, 4, 5});
+        List<string> friendlyListPlaceholder = new List<string>();
+        List<string> enemyListPlaceholder = new List<string>();
+        friendlyListPlaceholder.AddRange(new string[]{"Hero", "MF", "AF"});
+        enemyListPlaceholder.AddRange(new string[]{"Livar", "Murray", "Stormy"});
         initializeParty(friendlyListPlaceholder, playerBattleStation, playerPartyContainer);
         initializeParty(enemyListPlaceholder, enemyBattleStation, enemyPartyContainer, true);
         _SetInitialProperties();
 
     }
 
-    public void initializeParty(List<int> partyList, GameObject battleStationContainer, GameObject partyContainer, bool flip=false)
+    public void initializeParty(List<string> partyList, GameObject battleStationContainer, GameObject partyContainer, bool flip=false)
     {
         int index = 0;
-        foreach(int pm in partyList){
+        foreach(string pm in partyList){
             GameObject member = PrefabManager.Load(battleStationContainer.transform, pm, PrefabManager.Types.Character);
             
             
@@ -89,7 +89,7 @@ public class BattleObjectManager : MonoBehaviour
     }
 
 
-    public void IncrementPlayerTurn(int playerID){
+    public void IncrementPlayerTurn(string playerID){
         // TODO - this should handle battle effects
         // For handling battle effects
         // for(int i = 0; i < battleBonuses.Count; i++){
@@ -127,9 +127,10 @@ public class BattleObjectManager : MonoBehaviour
 
     private void _SetInitialProperties(){
         for(int i = 0; i < condition.allPlayers.Count; i++){
+            string charID = CharacterManager.Get(condition.allPlayers[i]).characterID;
             GameObject player = GameObject.Find(CharacterManager.Get(condition.allPlayers[i]).title);
-            condition.originalPositions.Add(condition.allPlayers[i], player.transform.position);
-            condition.originalSpriteColors.Add(condition.allPlayers[i], player.GetComponent<SpriteRenderer>().color);
+            condition.originalPositions.Add(charID, player.transform.position);
+            condition.originalSpriteColors.Add(charID, player.GetComponent<SpriteRenderer>().color);
         }
     }
 

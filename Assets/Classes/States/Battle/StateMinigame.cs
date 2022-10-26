@@ -20,7 +20,7 @@ public class StateMinigame : StateMachineBehaviour
         isEnemyTurn = _manager.condition.enemyParty.Contains(_manager.condition.attackerName);
 
         string newMessage = "";
-        string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenBattleMove, isEnemyTurn);
+        string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenMove, isEnemyTurn);
 
         if(minigameName != null & minigameName != ""){
             if(isEnemyTurn) newMessage = "Complete the Minigame to boost your defense!";
@@ -51,21 +51,18 @@ public class StateMinigame : StateMachineBehaviour
         if(ongoingMinigameData.minigameComplete){
             if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
-            battleSystemUtils.ExecuteBattleMove(_manager.chosenBattleMove, 
+            battleSystemUtils.ExecuteBattleMove(_manager.chosenMove, 
                                        battleSystemUtils.GetCharacter(_manager.condition.attackerName), 
                                        battleSystemUtils.GetCharacter(_manager.condition.defenderName), 
                                        isEnemyTurn ? 1.0f / ongoingMinigameData.bonusMultiplier: ongoingMinigameData.bonusMultiplier,
                                        ongoingMinigameData.completedSuccessfully);
 
-            BattleMoveBase chosenMoveDetails = battleSystemUtils.PrepChosenBattleMove(_manager.chosenBattleMove,
-                    battleSystemUtils.GetCharacter(_manager.condition.attackerName), battleSystemUtils.GetCharacter(_manager.condition.defenderName));
-            _manager.chosenMoveDetails = chosenMoveDetails;
 
             if(ongoingMinigameData.completedSuccessfully){
-                if(isEnemyTurn) newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful, but you decreased it's effect!";
-                else newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful with an increased effect!";
+                if(isEnemyTurn) newMessage = "The " + _manager.chosenMove.type.ToString() + " " + _manager.chosenMove.title + " is successful, but you decreased it's effect!";
+                else newMessage = "The " + _manager.chosenMove.type.ToString() + " " + _manager.chosenMove.title + " is successful with an increased effect!";
             } else {
-                newMessage = "The " + chosenMoveDetails.moveType + " " + chosenMoveDetails.moveName + " is successful!";
+                newMessage = "The " + _manager.chosenMove.type.ToString() + " " + _manager.chosenMove.title + " is successful!";
             }
 
             ToastSystem.instance.Open(newMessage, false);

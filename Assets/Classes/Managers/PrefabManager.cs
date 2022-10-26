@@ -10,13 +10,13 @@ public static class PrefabManager
         Item
     }
 
-    public static GameObject Load(Transform parent, int id, Types type) 
+    public static GameObject Load(Transform parent, string id, Types type) 
     {
         // Instantiate(calc path from enum + int, parent);
         return new GameObject();
     }
 
-    public static GameObject Get(int id, Types type) 
+    public static GameObject Get(string id, Types type) 
     {
         // Instantiate(calc path from enum + int, parent);
         return new GameObject();

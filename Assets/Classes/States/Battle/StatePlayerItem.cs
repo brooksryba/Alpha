@@ -16,8 +16,8 @@ public class StatePlayerItem : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BattleObjectManager _manager = BattleObjectManager.instance;
-        if(BattleItems.lookup.ContainsKey(_manager.chosenItem)) {
-            InventoryItemData itemData = BattleItems.lookup[_manager.chosenItem];
+        if(BattleItems.lookup.ContainsKey(_manager.chosenItem.title)) {
+            InventoryItemData itemData = BattleItems.lookup[_manager.chosenItem.title];
             Character activeCharacter = _manager.condition.attacker.GetComponent<Character>();
             ToastSystem.instance.Open(itemData.Execute(activeCharacter), false);
             animator.SetTrigger("BattleSelection");

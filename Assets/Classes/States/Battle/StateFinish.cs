@@ -17,13 +17,13 @@ public class StateFinish : StateMachineBehaviour
 
             // @TODO, currently it splits total xp into thirds and distributed evenly, will need to confirm 
             int totalXp = 0;
-            foreach(int characterID in _manager.condition.enemyParty){
+            foreach(string characterID in _manager.condition.enemyParty){
                 totalXp += CharacterManager.refs[characterID].condition.xp;
             }
             int xpToAdd = Mathf.FloorToInt(totalXp / 3);
 
             if(xpToAdd > 0){
-                foreach(int characterID in _manager.condition.playerParty){
+                foreach(string characterID in _manager.condition.playerParty){
                     ToastSystem.instance.Queue(CharacterManager.refs[characterID].title + " earned " + xpToAdd.ToString() + " EXP!");
 
                     CharacterManager.refs[characterID].condition.xp += xpToAdd;

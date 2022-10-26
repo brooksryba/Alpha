@@ -18,5 +18,5 @@ public class Condition : ScriptableObject
     public List<Move> spells;
     // @TODO - items might need to be a dictionary to make sure adding can be done more easily (especially handling multiple items)
     public List<(Item, int)> items;
-    public List<int> party;
+    public List<string> party;
 }

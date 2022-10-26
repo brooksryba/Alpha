@@ -23,10 +23,10 @@ public class StatePlayerStart : StateMachineBehaviour
            _manager.battleSystemHud.selection.title == _manager.condition.attackerName){
             _manager.battleSystemMenu.OpenSubmenu(_manager.battleSystemHud.selection, _manager.battleSystemHud.selectionButton);
             _manager.battleSystemHud.selection = null;
-        } else if(_manager.chosenBattleMove != "" && _manager.chosenBattleMove != null) {
+        } else if(_manager.chosenMove != null) {
             _manager.battleSystemHud.RefreshAllHUDs();
             animator.SetTrigger("BattleAttack");
-        } else if(_manager.chosenItem != "" && _manager.chosenItem != null) {
+        } else if(_manager.chosenItem != null) {
             _manager.battleSystemHud.RefreshAllHUDs();
             animator.SetTrigger("BattleItem");
         } else if(_manager.playerResigned == true) {

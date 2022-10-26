@@ -11,12 +11,12 @@ public class StateEnemyAttack : StateMachineBehaviour
         EnemyAttackChooser attackChooser = new EnemyAttackChooser();
         string newMessage = "";
 
-        (int targetID, Move aiChosenMove) = attackChooser.GetAttack(_manager.condition.attackerName);
+        (string targetID, Move aiChosenMove) = attackChooser.GetAttack(_manager.condition.attackerName);
         Character targetCharacter = CharacterManager.Get(targetID);
 
         _manager.chosenMove = aiChosenMove;
 
-        if(targetID > 0)
+        if(targetID != "")
             newMessage = _manager.condition.attackerName + " attacks " + targetCharacter.title + " with " + _manager.chosenMove.title + "!";
         else 
             newMessage = _manager.condition.attackerName + " uses " + _manager.chosenMove.title + "!";
