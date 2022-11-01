@@ -24,7 +24,7 @@ EditorBuildSettings:
     path: Assets/Scenes/World_Main_0-Old.unity
     guid: 3ad5049f6f2568b48b3a74c82c1b97d0
   - enabled: 1
-    path: Assets/Scenes/World_Main_1.unity
+    path: Assets/Scenes/World_Main_1-Old.unity
     guid: a8511f91b61afe947adef716ac528c2e
   - enabled: 1
     path: Assets/Scenes/World_Main_2.unity
