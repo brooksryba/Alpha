@@ -11,15 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 2b77c8cb5078c6043b6ced84a1bb421d
-  - enabled: 1
-    path: Assets/Scenes/World_Cave_0.unity
-    guid: bc55f29eef76ca54286c5b7b35e4e7c7
-  - enabled: 1
-    path: Assets/Scenes/World_Cave_1.unity
-    guid: e5cf57afa4261e44d9f0ab0249091207
-  - enabled: 1
-    path: Assets/Scenes/World_Cave_2.unity
-    guid: 49c12d85e29e175469f6daba0d76179a
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/World_Main_0.unity
     guid: 16a59f6df78c446438c08e3b5e15aee3
@@ -29,27 +29,33 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World_Main_2.unity
     guid: 3c78c489716762b499f3e92828898fe6
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/World_Main_3.unity
-    guid: 391b7fc179675984bb0a6b69915aaa61
+    guid: 99da10712d3f7b844916e276a0743356
   - enabled: 1
     path: Assets/Scenes/World_Main_4.unity
+    guid: a108430ef63659e4094b23970d52813a
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/World_Main_4-Old.unity
     guid: b5b53969ea9c00c4fafcc2240660336f
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/World_Main_5.unity
-    guid: b0146165dda9dd54d8f7fe44832de43b
+    guid: 3424733d71751ba49a1ae3b576b7617d
   - enabled: 1
     path: Assets/Scenes/World_Main_6.unity
-    guid: 3424733d71751ba49a1ae3b576b7617d
+    guid: 391b7fc179675984bb0a6b69915aaa61
   - enabled: 1
     path: Assets/Scenes/World_Main_7.unity
     guid: 33f16674d9c7ad54ab3e25a3c4a4ef98

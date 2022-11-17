@@ -10107,8 +10107,8 @@ Tilemap:
   - first: {x: 26, y: 12, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 247
-      m_TileSpriteIndex: 247
+      m_TileIndex: 245
+      m_TileSpriteIndex: 245
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -12846,11 +12846,11 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: c413b446be0306845821fbb9da1fcf75, type: 2}
   - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 1f5b07b50ecf9ca4bbb1d113a816b03c, type: 2}
-  - m_RefCount: 4
+  - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 963c8e1731ce0c04eb7cc1b6b0790775, type: 2}
   - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 670f39ebab1ef43489967ab01c6fdf75, type: 2}
-  - m_RefCount: 6
+  - m_RefCount: 5
     m_Data: {fileID: 11400000, guid: 4bf9b051248fb324fbe9e5bb840e803c, type: 2}
   - m_RefCount: 3
     m_Data: {fileID: 11400000, guid: 94e968e5ae770cd49b44ff193208e111, type: 2}
@@ -13746,13 +13746,13 @@ Tilemap:
   - m_RefCount: 5
     m_Data: {fileID: 8500795519175675664, guid: cb34016312c1c9f468a1d7ff4a311a8b,
       type: 3}
-  - m_RefCount: 4
+  - m_RefCount: 5
     m_Data: {fileID: 5269257239743686190, guid: cb34016312c1c9f468a1d7ff4a311a8b,
       type: 3}
   - m_RefCount: 5
     m_Data: {fileID: -2741495366292038074, guid: cb34016312c1c9f468a1d7ff4a311a8b,
       type: 3}
-  - m_RefCount: 6
+  - m_RefCount: 5
     m_Data: {fileID: -3288140005898504556, guid: cb34016312c1c9f468a1d7ff4a311a8b,
       type: 3}
   - m_RefCount: 3
@@ -14230,6 +14230,78 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scene: World_Main_0
   target: {x: 24.5, y: 9.5, z: 0}
+--- !u!1 &1276094879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1276094880}
+  - component: {fileID: 1276094882}
+  - component: {fileID: 1276094881}
+  m_Layer: 0
+  m_Name: Portal_World_Main_3
+  m_TagString: Portal
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1276094880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276094879}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 26, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1357275737}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1276094881
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276094879}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.5, y: 0.5}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 6}
+  m_EdgeRadius: 0
+--- !u!114 &1276094882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1276094879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2be00260c86add64dab7b0fba996c9ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scene: World_Main_3
+  target: {x: -24, y: -7, z: 0}
 --- !u!1 &1357275736
 GameObject:
   m_ObjectHideFlags: 0
@@ -14259,6 +14331,7 @@ Transform:
   m_Children:
   - {fileID: 1063179520}
   - {fileID: 1523505142}
+  - {fileID: 1276094880}
   m_Father: {fileID: 887280403}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
