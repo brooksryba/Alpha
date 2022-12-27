@@ -5344,6 +5344,26 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -1, y: 10, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 199
+      m_TileSpriteIndex: 199
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 1, y: 10, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 200
+      m_TileSpriteIndex: 200
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 2, y: 10, z: 0}
     second:
       serializedVersion: 2
@@ -7144,6 +7164,10 @@ Tilemap:
     m_Data: {fileID: 11400000, guid: 68607804624aa2d48a74e5bd7a3df5da, type: 2}
   - m_RefCount: 1
     m_Data: {fileID: 11400000, guid: 203ea6119fa602b4caaf58ec78e7ea77, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 6ece6a5436cc8624cbf4665e5b9e43f9, type: 2}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 880cac8b2e717794a827ff67fa9054dc, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 1
     m_Data: {fileID: 360272778507843902, guid: cb34016312c1c9f468a1d7ff4a311a8b, type: 3}
@@ -7733,8 +7757,13 @@ Tilemap:
   - m_RefCount: 1
     m_Data: {fileID: -9143629232595080568, guid: b7ce90a511918a24285eb02af1bf7f4d,
       type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: -8501110094382438595, guid: b7ce90a511918a24285eb02af1bf7f4d,
+      type: 3}
+  - m_RefCount: 1
+    m_Data: {fileID: 54160422377866922, guid: b7ce90a511918a24285eb02af1bf7f4d, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 624
+  - m_RefCount: 626
     m_Data:
       e00: 1
       e01: 0
@@ -7753,7 +7782,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 624
+  - m_RefCount: 626
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -16117,7 +16146,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.5, y: 0.5}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -16143,7 +16172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scene: World_Main_0
-  target: {x: 0.5, y: -22.5, z: 0}
+  target: {x: 0.5, y: -22, z: 0}
 --- !u!1 &2085036293
 GameObject:
   m_ObjectHideFlags: 0
