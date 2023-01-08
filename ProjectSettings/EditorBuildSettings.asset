@@ -11,38 +11,71 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 2b77c8cb5078c6043b6ced84a1bb421d
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/World_Cave_0.unity
-    guid: bc55f29eef76ca54286c5b7b35e4e7c7
+    guid: 59f1028e6d430ed489c6b4a493b60b0d
   - enabled: 1
     path: Assets/Scenes/World_Cave_1.unity
-    guid: e5cf57afa4261e44d9f0ab0249091207
-  - enabled: 1
-    path: Assets/Scenes/World_Cave_2.unity
-    guid: 49c12d85e29e175469f6daba0d76179a
+    guid: 3c26ced75f10a98469a9bedef4a0ec57
   - enabled: 1
     path: Assets/Scenes/World_Main_0.unity
-    guid: 3ad5049f6f2568b48b3a74c82c1b97d0
+    guid: 16a59f6df78c446438c08e3b5e15aee3
   - enabled: 1
     path: Assets/Scenes/World_Main_1.unity
-    guid: a8511f91b61afe947adef716ac528c2e
+    guid: ee18f84fda279114698095b66b776113
   - enabled: 1
     path: Assets/Scenes/World_Main_2.unity
-    guid: b25356e660de7e548a4cbe959f5febdf
+    guid: 3c78c489716762b499f3e92828898fe6
   - enabled: 1
     path: Assets/Scenes/World_Main_3.unity
-    guid: 391b7fc179675984bb0a6b69915aaa61
+    guid: 99da10712d3f7b844916e276a0743356
   - enabled: 1
     path: Assets/Scenes/World_Main_4.unity
-    guid: b5b53969ea9c00c4fafcc2240660336f
+    guid: a108430ef63659e4094b23970d52813a
   - enabled: 1
     path: Assets/Scenes/World_Main_5.unity
-    guid: b0146165dda9dd54d8f7fe44832de43b
+    guid: 798c8351e69e829429c5f343fb6c5074
   - enabled: 1
     path: Assets/Scenes/World_Main_6.unity
-    guid: 3424733d71751ba49a1ae3b576b7617d
+    guid: ee24f3a327ac67b499d66fa577b68c1e
   - enabled: 1
-    path: Assets/Scenes/World_Main_7.unity
+    path: Assets/Scenes/World_Main_7-1.unity
+    guid: f8c11e3a72e935e4eb2ec50e2c09e1ea
+  - enabled: 1
+    path: Assets/Scenes/World_Main_7-2.unity
+    guid: 979c31a9f3e5a5b48b464c0c62516100
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: Assets/Scenes/World_Main_7-Old.unity
     guid: 33f16674d9c7ad54ab3e25a3c4a4ef98
   - enabled: 1
     path: Assets/Scenes/World_Main_8.unity
