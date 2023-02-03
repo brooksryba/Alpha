@@ -56,33 +56,36 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/World_Main_8.unity
     guid: b2c3c7e9e3f936740b30847abc862553
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: 
-    guid: 33f16674d9c7ad54ab3e25a3c4a4ef98
   - enabled: 1
-    path: Assets/Scenes/World_Main_8-Old.unity
-    guid: a1a4a539c4426794b9de346d3ac0a22c
+    path: Assets/Scenes/World_Main_9.unity
+    guid: 49c87744d4420e743a930a4abe2c919f
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/World_Main_9-Old.unity
     guid: 02490e8e194e4b84789ea91dfdbf40f8
