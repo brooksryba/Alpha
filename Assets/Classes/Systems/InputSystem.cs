@@ -38,7 +38,7 @@ public class InputSystem : MonoBehaviour
         if(player == null)
             return;
 
-        Character character = player.GetComponent<Character>();
+        Character character = CharacterManager.Get("Player");
         if(character.archetype == null)
             return;
 
@@ -67,8 +67,7 @@ public class InputSystem : MonoBehaviour
         if(player == null)
             return;
 
-        Character character = player.GetComponent<Character>();
-
+        Character character = CharacterManager.Get("Player");
         for(int index=0; index<itemSlots.Count; index++) {
             Transform slotTransform = itemSlots[index].transform;
             if(slotTransform.childCount > 0)

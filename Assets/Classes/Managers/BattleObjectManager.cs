@@ -18,8 +18,7 @@ public class BattleObjectManager : MonoBehaviour
     public GameObject enemyPartyContainer;
     public List<string> allCharactersNew;   // should be deleted
 
-    public BattleCondition condition = new BattleCondition();
-
+    public BattleCondition condition;
     // public string chosenBattleMove; // should be deleted
     public bool playerResigned;
     public Item chosenItem;
@@ -30,7 +29,8 @@ public class BattleObjectManager : MonoBehaviour
     public BattleSystemHud battleSystemHud; // this will likely be refactored, will be a gameobject / Monobehaviour, likely to refresh automatically
     public BattleSystemMenu battleSystemMenu;
 
-    private void Awake() { _instance = this; }
+    private void Awake() { _instance = this; condition = new BattleCondition();
+ }
 
     public void Start()
     {
