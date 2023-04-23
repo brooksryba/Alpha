@@ -4,11 +4,10 @@ using UnityEngine;
 
 public static class CharacterManager
 {
-    public static Dictionary<string, Character> refs = new Dictionary<string, Character>();
+    public static Dictionary<string, Character> refs = CsvReader.ReadCharacterCsv();
     
     public static Character Get(string id)
     {
-        refs.Add("Player", new Character());
         return refs[id];
     }
 

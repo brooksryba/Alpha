@@ -1,0 +1,7 @@
+moveName,type,hpEffect,hpCost,manaEffect,manaCost,minigame,target,battleEffectName
+Basic Attack,Attack,5,0,0,0,tabButtons,singleEnemy,
+Heavy Attack,Attack,10,5,0,3,tabButtons,singleEnemy,
+Spread Attack,Attack,5,5,0,0,tabButtons,multiEnemy,
+Heal,Spell,-10,0,0,5,none,singleFriendly,
+Boost Physical Attack,Spell,0,0,0,5,none,self,Boost Physical Attack
+Immobilize Spell,Spell,0,0,0,5,none,singleEnemy,Skip Turn
