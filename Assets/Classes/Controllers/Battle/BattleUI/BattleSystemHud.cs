@@ -33,7 +33,7 @@ public class BattleSystemHud
         GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
         foreach(var hud in objs){
             BattleHUD battleHud = hud.GetComponent<BattleHUD>();
-            Character updateHudCharacter = utils.GetCharacter(battleHud.character.title);
+            Character updateHudCharacter = utils.GetCharacter(battleHud.character.characterID);
             battleHud.character = updateHudCharacter;
             battleHud.Refresh();
         }

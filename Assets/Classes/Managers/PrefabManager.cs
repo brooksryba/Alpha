@@ -5,7 +5,7 @@ using UnityEngine;
 public static class PrefabManager
 {
 
-    private static string baseDir = Application.dataPath + "/Resources/Prefabs/";
+    private static string baseDir = "Prefabs/";
     public enum Types {
         Character,
         Minigame,
@@ -28,9 +28,7 @@ public static class PrefabManager
     {
         // Instantiate(calc path from enum + int, parent);
         string prefabPath = GetPathFromType(type);
-        Debug.Log("Attempting to load: " + prefabPath + prefabName);
-        GameObject loadedPrefab = Resources.Load(prefabPath + prefabName) as GameObject;
-        Debug.Log(loadedPrefab);
+        GameObject loadedPrefab = Resources.Load<GameObject>(prefabPath + prefabName);
         return Object.Instantiate(loadedPrefab, parent);
     }
 

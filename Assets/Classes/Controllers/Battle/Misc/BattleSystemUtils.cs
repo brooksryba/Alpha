@@ -5,8 +5,10 @@ public class BattleSystemUtils
 
     public Character GetCharacter(string id)
     {
-        if(id!="" && id!=null)
-            return GameObject.Find(id).GetComponent<Character>();
+        if(id!="" && id!=null){
+            return CharacterManager.Get(id); //GameObject.Find(id).GetComponent<Character>();
+        }
+            
         return null;
     }
 
