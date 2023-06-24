@@ -5,10 +5,15 @@ using UnityEngine;
 public class ArchetypeManager
 {
     public static Dictionary<string, Archetype> refs = new Dictionary<string, Archetype>();
-    
+
+    public static void LoadData(){
+        refs = CsvReader.ReadArchetypeCsv();
+    }
     public static Archetype Get(string id)
     {
-        refs.Add("Player", new Archetype());
+        if(refs == null){
+            LoadData();
+        }
         return refs[id];
     }
 

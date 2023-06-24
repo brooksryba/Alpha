@@ -12,7 +12,7 @@ public class Archetype : ScriptableObject
     public (int, int) defensePhysical;
     public (int, int) defenseMagic;
     public (int, int) speed;
-    public List<(int, int)> attacks; // level, id of attack you receive
-    public List<(int, int)> spells;
+    public List<(int, string)> attacks; // level, id of attack you receive
+    public List<(int, string)> spells;
 
 }

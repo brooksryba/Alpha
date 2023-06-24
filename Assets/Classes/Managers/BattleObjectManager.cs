@@ -29,7 +29,7 @@ public class BattleObjectManager : MonoBehaviour
     public BattleSystemHud battleSystemHud; // this will likely be refactored, will be a gameobject / Monobehaviour, likely to refresh automatically
     public BattleSystemMenu battleSystemMenu;
 
-    private void Awake() { _instance = this; condition = new BattleCondition();
+    private void Awake() { _instance = this; condition = ScriptableObject.CreateInstance<BattleCondition>();
  }
 
     public void Start()
@@ -37,6 +37,7 @@ public class BattleObjectManager : MonoBehaviour
         battleSystemHud = new BattleSystemHud();
         battleSystemMenu = new BattleSystemMenu();
         Init();
+        
     }
 
     public void Init()
@@ -69,10 +70,10 @@ public class BattleObjectManager : MonoBehaviour
         foreach(string pm in partyList){
             GameObject member = PrefabManager.Load(battleStationContainer.transform, pm, PrefabManager.Types.Character);
             
-            
             prefabs.Add(member);
 
-            // GameObject partyMemberObject = Instantiate(Resources.Load<GameObject>("Prefabs/" + pm), battleStationContainer.transform);
+            GameObject partyMemberObject = PrefabManager.Load(battleStationContainer.transform, pm, PrefabManager.Types.Character);
+
             Character partyMemberChar = CharacterManager.Get(pm);
 
             // @todo - right now it puts next party member down 2 * its height. Should try and make this more flexible

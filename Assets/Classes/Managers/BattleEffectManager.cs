@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BattleEffectManager : MonoBehaviour
+public class BattleEffectManager
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public static Dictionary<string, BattleEffect> refs;
 
-    // Update is called once per frame
-    void Update()
+    public static void LoadData(){
+        refs = CsvReader.ReadBattleEffectsCsv();
+    }
+    
+    public static BattleEffect Get(string id)
     {
-        
+        if(refs == null){
+            LoadData();
+        }
+        return refs[id];
     }
 }

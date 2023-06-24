@@ -6,32 +6,48 @@ using UnityEngine;
 
 public class CsvReader
 {
-    private static string basePath = "/Resource/Fixtures/";
+    private static string basePath = Application.dataPath + "\\Resources\\Fixtures\\";
+
+    public static void ReadAllCsvFiles(){
+        ArchetypeManager.LoadData();
+        MoveManager.LoadData();
+        BattleEffectManager.LoadData();
+        CharacterManager.LoadData();
+    }
+
+    
     public static Dictionary<string, Character> ReadCharacterCsv() {
+        Debug.Log("Running Read Character");
         Dictionary<string, Character> characters = new Dictionary<string, Character>();
         using (StreamReader reader = new StreamReader(basePath + "characters.csv")) {
             string headerLine = reader.ReadLine(); // skip first row
             string line;
             while ((line = reader.ReadLine()) != null) {
                 string[] values = line.Split(',');
-                Character character = new Character();
+                Character character = ScriptableObject.CreateInstance<Character>();
                 character.characterID = values[0];
                 character.title = values[1];
                 character.condition = ConditionManager.Get(character.characterID);
+                if (!ArchetypeManager.refs.ContainsKey(values[2]))
+                {
+                    ArchetypeManager.LoadData();
+                }
                 character.archetype = ArchetypeManager.Get(values[2]);
+                characters.Add(character.characterID, character);
             }
         }
         return characters;
     }
 
     public static Dictionary<string, Move> ReadMoveCsv() {
+        Debug.Log("Running Read Move");
         Dictionary<string, Move> moves = new Dictionary<string, Move>();
         using (StreamReader reader = new StreamReader(basePath + "moves.csv")) {
             string headerLine = reader.ReadLine(); // skip first row
             string line;
             while ((line = reader.ReadLine()) != null) {
                 string[] values = line.Split(',');
-                Move move = new Move();
+                Move move = ScriptableObject.CreateInstance<Move>();
                 move.title = values[0];
                 Enum.TryParse(values[1], out move.type);
                 move.hpEffect = Int16.Parse(values[2]);
@@ -40,6 +56,7 @@ public class CsvReader
                 move.manaCost = Int16.Parse(values[5]);
                 Enum.TryParse(values[6], out move.minigame);
                 Enum.TryParse(values[7], out move.target);
+                moves.Add(move.title, move);
             }
         }
         return moves;
@@ -47,9 +64,10 @@ public class CsvReader
 
 
     public static Dictionary<string, Archetype> ReadArchetypeCsv() {
+        Debug.Log("Running Read Archetype");
         List<(int, string)> attackList = new List<(int, string)>();
         List<(int, string)> spellList = new List<(int, string)>();
-        List<(string, int, string)> moveProgressions = new List<(string, int, string)>();
+        List<(string, int, string, string)> moveProgressions = new List<(string, int, string, string)>();
         Dictionary<string, Archetype> archetypes = new Dictionary<string, Archetype>();
 
         using (StreamReader reader = new StreamReader(basePath + "archetypeMoveProgression.csv")) {
@@ -57,7 +75,7 @@ public class CsvReader
             string line;
             while ((line = reader.ReadLine()) != null) {
                 string[] values = line.Split(',');
-                moveProgressions.Add((values[0], Int16.Parse(values[1]), values[2]));
+                moveProgressions.Add((values[0], Int16.Parse(values[1]), values[2], values[3]));
             }
         }
 
@@ -67,7 +85,7 @@ public class CsvReader
             string line;
             while ((line = reader.ReadLine()) != null) {
                 string[] values = line.Split(',');
-                Archetype archetype = new Archetype();
+                Archetype archetype = ScriptableObject.CreateInstance<Archetype>();
                 archetype.title = values[0];
                 archetype.hp = (Int16.Parse(values[1]), Int16.Parse(values[2]));
                 archetype.mana = (Int16.Parse(values[3]), Int16.Parse(values[4]));
@@ -77,9 +95,7 @@ public class CsvReader
                 archetype.speed = (Int16.Parse(values[11]), Int16.Parse(values[12]));
                 for(var i = 0; i < moveProgressions.Count; i++ ){
                     if(moveProgressions[i].Item1==archetype.title){
-                        string moveType;
-                        Move move = MoveManager.Get(moveProgressions[i].Item3);
-                        if(move.type == Move.Type.Attack)
+                        if(moveProgressions[i].Item4 == "Attack")
                             attackList.Add((moveProgressions[i].Item2, moveProgressions[i].Item3));
                         else
                             spellList.Add((moveProgressions[i].Item2, moveProgressions[i].Item3));
@@ -88,10 +104,32 @@ public class CsvReader
                 archetype.attacks = attackList;
                 archetype.spells = spellList;
                 }
+                archetypes.Add(archetype.title, archetype);
 
 
             }
         }
         return archetypes;
+    }
+
+
+    public static Dictionary<string, BattleEffect> ReadBattleEffectsCsv() {
+        Debug.Log("Running Read BattleEffects");
+        Dictionary<string, BattleEffect> battleEffects = new Dictionary<string, BattleEffect>();
+        using (StreamReader reader = new StreamReader(basePath + "battleEffects.csv")) {
+            string headerLine = reader.ReadLine(); // skip first row
+            string line;
+            while ((line = reader.ReadLine()) != null) {
+                string[] values = line.Split(',');
+                BattleEffect battleEffect = ScriptableObject.CreateInstance<BattleEffect>();
+                battleEffect.title = values[0];
+                battleEffect.verb = values[1];
+                battleEffect.duration = Int16.Parse(values[2]);
+                battleEffect.value = (Int16.Parse(values[3]), Int16.Parse(values[4]));
+                Enum.TryParse(values[5], out battleEffect.type);
+                battleEffects.Add(battleEffect.title, battleEffect);
+            }
+        }
+        return battleEffects;
     }
 }

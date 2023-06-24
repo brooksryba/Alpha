@@ -4,9 +4,16 @@ using UnityEngine;
 
 public static class MoveManager 
 {
-    public static Dictionary<string, Move> refs = CsvReader.ReadMoveCsv();
+    public static Dictionary<string, Move> refs;
+
+    public static void LoadData(){
+        refs = CsvReader.ReadMoveCsv();
+    }
     public static Move Get(string id) 
     {
+        if(refs == null){
+            LoadData();
+        }
         return refs[id];
     }
 

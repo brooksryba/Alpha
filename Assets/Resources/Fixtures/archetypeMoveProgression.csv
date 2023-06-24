@@ -1,13 +1,13 @@
-archetypeName,moveLevel,moveName
-Jack,1,Basic Attack
-Jack,1,Heal
-Jack,3,Heavy Attack
-Jack,4,Spread Attack
-Jack,5,Boost Physical Attack
-Jack,6,Immobilize Spell
-Archer,1,Basic Attack
-Archer,1,Heal
-Warrior,1,Basic Attack
-Warrior,1,Heal
-Mage,1,Basic Attack
-Mage,1,Heal
+archetypeName,moveLevel,moveName,moveType
+Jack,1,Basic Attack,Attack
+Jack,1,Heal,Spell
+Jack,3,Heavy Attack,Attack
+Jack,4,Spread Attack,Attack
+Jack,5,Boost Physical Attack,Spell
+Jack,6,Immobilize Spell,Spell
+Archer,1,Basic Attack,Attack
+Archer,1,Heal,Spell
+Warrior,1,Basic Attack,Attack
+Warrior,1,Heal,Spell
+Mage,1,Basic Attack,Attack
+Mage,1,Heal,Spell

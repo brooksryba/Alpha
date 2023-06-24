@@ -1,5 +1,7 @@
 characterId,title,archetypeName
-Player,Player,Jack
-Archer1,Archer,Archer
-Mage1,Mage,Mage
-Warrior1,Warrior,Warrior
+Hero,Player,Jack
+AF,Archer,Archer
+MF,Mage,Mage
+Livar,Livar,Archer
+Murray,Murray,Warrior
+Stormy,Stormy,Mage
