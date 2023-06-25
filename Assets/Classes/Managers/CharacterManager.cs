@@ -8,16 +8,11 @@ public static class CharacterManager
 
     
     public static void LoadData(){
-        Debug.Log("Calling LoadData");
-        Debug.Log(refs);
         refs = CsvReader.ReadCharacterCsv();
-        Debug.Log(refs);
     }
     
     public static Character Get(string id)
     {
-        Debug.Log("Trying to get: " + id);
-        Debug.Log(refs);
         return refs[id];
     }
 

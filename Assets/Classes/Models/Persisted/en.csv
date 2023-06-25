@@ -1,6 +1,19 @@
 keyName,value
-_mCharacterName,Hero
+_mCharacterHeroName,Hero
+_mCharacterArcherFriendName,AF
+_mCharacterMageFriendName,MF
+_mCharacterLivarName,Livar
+_mCharacterMurrayName,Murray
+_mCharacterStormyName,Stormy
 _mArchetypeMageName,Mage
 _mArchetypeArcherName,Archer
 _mArchetypeWarriorName,Warrior
 _mArchetypeJackName,Jack of All Trades
+_mBattleEffectBoostPhysAttack,Boost Physical Attack
+_mBattleEffectSkipTurn,Skip Turn
+_mMoveBasicAttack,Basic Attack
+_mMoveHeavyAttack,Heavy Attack
+_mMoveSpreadAttack,Spread Attack
+_mMoveBasicHeal,Basic Heal
+_mMoveBoostPhysicalAttack,Physical Attack
+_mMoveImmobilizeSpell,Immobilize Spell

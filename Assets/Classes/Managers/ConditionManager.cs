@@ -42,7 +42,7 @@ public class ConditionManager
             condition.items = new List<(Item, int)>();
 
             List<string> party = new List<string>();
-            if(character.characterID=="Hero"){
+            if(character.characterID=="_mCharacterHeroName"){
                 party.Add("AF");
                 party.Add("MF");
             }

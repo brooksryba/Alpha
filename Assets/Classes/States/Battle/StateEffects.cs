@@ -37,7 +37,7 @@ public class StateEffects : StateMachineBehaviour
 
         if(effect) {
             Vector3 originalRotation = effect.transform.eulerAngles;
-            if(_manager.condition.originalPositions[_manager.condition.attackerID].x > 0 && _manager.chosenMove.type != Move.Type.Spell) {
+            if(_manager.condition.originalPositions[_manager.condition.attackerName].x > 0 && _manager.chosenMove.type != Move.Type.Spell) {
                 effect.transform.eulerAngles = new Vector3(
                     effect.transform.eulerAngles.x,
                     effect.transform.eulerAngles.y ,

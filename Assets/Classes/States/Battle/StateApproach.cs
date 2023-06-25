@@ -8,7 +8,7 @@ public class StateApproach : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BattleObjectManager _manager = BattleObjectManager.instance;
-        bool isPlayer = (_manager.condition.playerParty.Contains(_manager.condition.attackerID));
+        bool isPlayer = (_manager.condition.playerParty.Contains(_manager.condition.attackerName));
 
         BattleMovement battleMovement = _manager.condition.attacker.GetComponent<BattleMovement>();
         if(battleMovement && !battleMovement.isFinished && !battleMovement.isAnimating) {

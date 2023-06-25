@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 8802388472861513758}
   - component: {fileID: 7847794435571454595}
   m_Layer: 3
-  m_Name: Livar
+  m_Name: _mCharacterLivarName
   m_TagString: Friendly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

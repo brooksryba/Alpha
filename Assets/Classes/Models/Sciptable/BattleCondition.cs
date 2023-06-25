@@ -5,10 +5,8 @@ using UnityEngine;
 public class BattleCondition : ScriptableObject
 {
     public GameObject attacker = null;
-    public string attackerID;
     public string attackerName = "";
     public GameObject defender = null;
-    public string defenderID;
     public string defenderName = "";
 
     public Dictionary<string, Vector3> originalPositions = new Dictionary<string, Vector3>();

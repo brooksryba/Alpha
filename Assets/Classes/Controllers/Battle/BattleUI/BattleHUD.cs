@@ -26,7 +26,7 @@ public class BattleHUD : MonoBehaviour
 
     public void OnClick()
     {
-        BattleSystemController.instance.BattleHudTitleButton(character.title, gameObject);
+        BattleSystemController.instance.BattleHudTitleButton(character.characterID, gameObject);
     }
 
     public void Refresh()

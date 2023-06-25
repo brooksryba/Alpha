@@ -44,13 +44,12 @@ public class BattleObjectManager : MonoBehaviour
         Init();
         
     }
-
     public void Init()
     {
         playerPrefab = Resources.Load("Prefabs/Characters/Player") as GameObject;
 
         if(SceneSystem.battle == null)
-            SceneSystem.battle = new BattleData("Livar", "World_Main_2", null);
+            SceneSystem.battle = new BattleData("_mCharacterLivarName", "World_Main_2", null);
 
         BattleSystemController.instance.onBattleHudTitleButton += battleSystemHud.OnHUDTitleButton;
       
@@ -59,8 +58,8 @@ public class BattleObjectManager : MonoBehaviour
         }
 
 
-        condition.playerParty.AddRange(new string[]{"Hero", "MF", "AF"});
-        condition.enemyParty.AddRange(new string[]{"Livar", "Murray", "Stormy"});
+        condition.playerParty.AddRange(new string[]{"_mCharacterHeroName", "_mCharacterMageFriendName", "_mCharacterArcherFriendName"});
+        condition.enemyParty.AddRange(new string[]{"_mCharacterLivarName", "_mCharacterMurrayName", "_mCharacterStormyName"});
         initializeParty(condition.playerParty, playerBattleStation, playerPartyContainer);
         initializeParty(condition.enemyParty, enemyBattleStation, enemyPartyContainer, true);
         _SetInitialProperties();

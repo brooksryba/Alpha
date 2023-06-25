@@ -1,3 +1,3 @@
 battleEffectName,verb,duration,multiplicativeValue,additiveValue,type
-Boost Physical Attack,VERB_NEEDED,3,2,0,attackPhysical
-Skip Turn,VERB_NEEDED,1,1,0,skipTurn
+_mBattleEffectBoostPhysAttack,VERB_NEEDED,3,2,0,attackPhysical
+_mBattleEffectSkipTurn,VERB_NEEDED,1,1,0,skipTurn

@@ -10,7 +10,7 @@ public static class LocalizationData
     
     static LocalizationData()
     {
-        path = "/Assets/Classes/Models/Persisted/";
+        path = "Assets/Classes/Models/Persisted/";
         if(Application.systemLanguage == SystemLanguage.English){
             path += "en.csv";
         } 

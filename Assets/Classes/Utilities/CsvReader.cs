@@ -17,7 +17,6 @@ public class CsvReader
 
     
     public static Dictionary<string, Character> ReadCharacterCsv() {
-        Debug.Log("Running Read Character");
         Dictionary<string, Character> characters = new Dictionary<string, Character>();
         using (StreamReader reader = new StreamReader(basePath + "characters.csv")) {
             string headerLine = reader.ReadLine(); // skip first row
@@ -26,13 +25,13 @@ public class CsvReader
                 string[] values = line.Split(',');
                 Character character = ScriptableObject.CreateInstance<Character>();
                 character.characterID = values[0];
-                character.title = values[1];
+                character.title = LocalizationData.data[character.characterID];
                 
-                if (!ArchetypeManager.refs.ContainsKey(values[2]))
+                if (!ArchetypeManager.refs.ContainsKey(values[1]))
                 {
                    ArchetypeManager.LoadData();
                 }
-                character.archetype = ArchetypeManager.Get(values[2]);
+                character.archetype = ArchetypeManager.Get(values[1]);
                 character.condition = ConditionManager.Get(character);
                 characters.Add(character.characterID, character);
             }
@@ -41,7 +40,6 @@ public class CsvReader
     }
 
     public static Dictionary<string, Move> ReadMoveCsv() {
-        Debug.Log("Running Read Move");
         Dictionary<string, Move> moves = new Dictionary<string, Move>();
         using (StreamReader reader = new StreamReader(basePath + "moves.csv")) {
             string headerLine = reader.ReadLine(); // skip first row
@@ -65,9 +63,6 @@ public class CsvReader
 
 
     public static Dictionary<string, Archetype> ReadArchetypeCsv() {
-        Debug.Log("Running Read Archetype");
-        List<(int, string)> attackList = new List<(int, string)>();
-        List<(int, string)> spellList = new List<(int, string)>();
         List<(string, int, string, string)> moveProgressions = new List<(string, int, string, string)>();
         Dictionary<string, Archetype> archetypes = new Dictionary<string, Archetype>();
 
@@ -85,6 +80,9 @@ public class CsvReader
             string headerLine = reader.ReadLine(); // skip first row
             string line;
             while ((line = reader.ReadLine()) != null) {
+                List<(int, string)> attackList = new List<(int, string)>();
+                List<(int, string)> spellList = new List<(int, string)>();
+
                 string[] values = line.Split(',');
                 Archetype archetype = ScriptableObject.CreateInstance<Archetype>();
                 archetype.title = values[0];
@@ -115,7 +113,6 @@ public class CsvReader
 
 
     public static Dictionary<string, BattleEffect> ReadBattleEffectsCsv() {
-        Debug.Log("Running Read BattleEffects");
         Dictionary<string, BattleEffect> battleEffects = new Dictionary<string, BattleEffect>();
         using (StreamReader reader = new StreamReader(basePath + "battleEffects.csv")) {
             string headerLine = reader.ReadLine(); // skip first row

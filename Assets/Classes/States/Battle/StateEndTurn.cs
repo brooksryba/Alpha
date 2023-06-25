@@ -12,7 +12,7 @@ public class StateEndTurn : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
-        _manager.IncrementPlayerTurn(_manager.condition.attackerID);
+        _manager.IncrementPlayerTurn(_manager.condition.attackerName);
         _manager.battleSystemHud.RefreshAllHUDs();
         _manager.battleSystemHud.selection = null;
         _manager.chosenMove = null;

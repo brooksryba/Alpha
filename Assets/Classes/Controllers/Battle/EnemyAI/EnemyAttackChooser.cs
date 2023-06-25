@@ -78,7 +78,7 @@ public class EnemyAttackChooser
         // return new List<string>(attack_target);
 
         // @TODO - this code below can be removed, this should return -1 for attacking all
-        return ("", new Move());
+        return ("_mCharacterHeroName", MoveManager.Get("_mMoveBasicAttack"));
     }
 
     public List<int> changeAiAttackChances(List<int> listOfPoints){

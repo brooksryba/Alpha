@@ -20,10 +20,10 @@ public class StatePlayerAttack : StateMachineBehaviour
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
         if(_manager.battleSystemHud.selection != null) {
-            if(battleSystemUtils.ConfirmBattleMoveInputs(_manager.chosenMove, _manager.condition.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection)){
+            if(battleSystemUtils.ConfirmBattleMoveInputs(_manager.chosenMove, CharacterManager.Get(_manager.condition.attackerName), CharacterManager.Get(_manager.battleSystemHud.selection.characterID))){
                 _manager.battleSystemHud.canSelect = false;        
             
-                bool isAccepted = battleSystemUtils.ConfirmBattleMoveFeasibility(_manager.chosenMove, _manager.condition.attacker.GetComponent<Character>(), _manager.battleSystemHud.selection); 
+                bool isAccepted = battleSystemUtils.ConfirmBattleMoveFeasibility(_manager.chosenMove, CharacterManager.Get(_manager.condition.attackerName), CharacterManager.Get(_manager.battleSystemHud.selection.characterID)); 
 
                 _manager.battleSystemHud.RefreshAllHUDs();
                 if(isAccepted){
