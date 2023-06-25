@@ -44,12 +44,18 @@ public class StateMinigame : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if(ongoingMinigameData.minigameComplete){
+            
+            animator.SetTrigger("BattleMinigame");           
+        }              
+    }
+
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
         string newMessage = "";
-
-        if(ongoingMinigameData.minigameComplete){
-            if(minigameObj != null)
+        if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
             battleSystemUtils.ExecuteBattleMove(_manager.chosenMove, 
                                        battleSystemUtils.GetCharacter(_manager.condition.attackerName), 
@@ -66,7 +72,5 @@ public class StateMinigame : StateMachineBehaviour
             }
 
             ToastSystem.instance.Open(newMessage, false);
-            animator.SetTrigger("BattleMinigame");           
-        }              
     }
 }

@@ -46,11 +46,21 @@ public class BattleSystemUtils
 
 
     public void ExecuteBattleMove(Move move, Character user, Character target, double minigameMultiplier=1.0, bool minigameSuccess=false){
-        // chosenMove.minigameMultiplier = minigameMultiplier;
-        // chosenMove.minigameSuccess = minigameSuccess;
-        // chosenMove.ExecuteBattleMove();
+        Debug.Log(target.condition.hp.ToString());
+        Debug.Log(move.hpEffect.ToString());
 
-        // this will apply the logic from the attributes of the select move and target
+        target.condition.hp = (target.condition.hp.Item1 - move.hpEffect, target.condition.hp.Item2);
+        target.condition.mana = (target.condition.mana.Item1 - move.manaEffect, target.condition.mana.Item2);
+
+        Debug.Log(target.condition.hp.ToString());
+
+
+        user.condition.hp = (user.condition.hp.Item1 - move.hpCost, user.condition.hp.Item2);
+        user.condition.mana = (user.condition.mana.Item1 - move.manaCost, user.condition.mana.Item2);
+
+        // @TODO - Needs to incorporate formula to take player stats into account
+        // @TODO - Needs to incorporate battle effects (e.g. spell effects)
+
     }
 
     public bool ConfirmBattleMoveInputs(Move move, Character user, Character target){

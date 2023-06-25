@@ -8,8 +8,8 @@ using UnityEngine;
 //                     .onManaChange
 public class Condition : ScriptableObject
 {
-    public (int, int) hp;
-    public (int, int) mana;
+    public (int, int) hp; // current HP, maxHP
+    public (int, int) mana; // current Mana, maxMana
     public int xp;
     public int level;
 
