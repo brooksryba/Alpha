@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 8988213778532503585}
   - component: {fileID: 8161711778173131146}
   - component: {fileID: 1423242519034816784}
-  - component: {fileID: 8643284994398649998}
   - component: {fileID: 5365925650195630899}
   - component: {fileID: 8471061860960730489}
   - component: {fileID: 535100152604814730}
@@ -140,24 +139,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpriteLibraryAsset: {fileID: 11400000, guid: 7d6691a95f34cd44f9d6d1d3e9a67e93,
     type: 2}
---- !u!114 &8643284994398649998
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5619778278270914741}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9518d13259db2134c9218f639c53f1a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: Hero
-  className: Jack
-  partyMembers:
-  - Characters/AF
-  - Characters/MF
-  inkJSON: {fileID: 0}
 --- !u!114 &5365925650195630899
 MonoBehaviour:
   m_ObjectHideFlags: 0

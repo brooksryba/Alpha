@@ -11,9 +11,6 @@ public class ArchetypeManager
     }
     public static Archetype Get(string id)
     {
-        if(refs == null){
-            LoadData();
-        }
         return refs[id];
     }
 

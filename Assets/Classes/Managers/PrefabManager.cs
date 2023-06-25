@@ -32,11 +32,11 @@ public static class PrefabManager
         return Object.Instantiate(loadedPrefab, parent);
     }
 
-    public static GameObject Get(string id, Types type) 
-    {
-        // Instantiate(calc path from enum + int, parent);
-        return new GameObject();
-    }
+    // public static GameObject Get(string id, Types type) 
+    // {
+    //     // Instantiate(calc path from enum + int, parent);
+    //     return new GameObject();
+    // }
 
 }
 

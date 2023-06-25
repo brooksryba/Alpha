@@ -28,7 +28,7 @@ public class StatePlayerAttack : StateMachineBehaviour
                 _manager.battleSystemHud.RefreshAllHUDs();
                 if(isAccepted){
                     if(_manager.battleSystemHud.selection)
-                        _manager.SetDefender(_manager.battleSystemHud.selection.title);
+                        _manager.SetDefender(_manager.battleSystemHud.selection.characterID);
                     else
                         _manager.SetDefender("");
                     animator.SetTrigger("BattleSelection");

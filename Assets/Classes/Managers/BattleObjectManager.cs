@@ -34,6 +34,11 @@ public class BattleObjectManager : MonoBehaviour
 
     public void Start()
     {
+        // @TODO-the manager loading data should be called in state machine most likely
+        MoveManager.LoadData();
+        BattleEffectManager.LoadData();
+        ArchetypeManager.LoadData();
+        CharacterManager.LoadData();
         battleSystemHud = new BattleSystemHud();
         battleSystemMenu = new BattleSystemMenu();
         Init();
@@ -54,12 +59,10 @@ public class BattleObjectManager : MonoBehaviour
         }
 
 
-        List<string> friendlyListPlaceholder = new List<string>();
-        List<string> enemyListPlaceholder = new List<string>();
-        friendlyListPlaceholder.AddRange(new string[]{"Hero", "MF", "AF"});
-        enemyListPlaceholder.AddRange(new string[]{"Livar", "Murray", "Stormy"});
-        initializeParty(friendlyListPlaceholder, playerBattleStation, playerPartyContainer);
-        initializeParty(enemyListPlaceholder, enemyBattleStation, enemyPartyContainer, true);
+        condition.playerParty.AddRange(new string[]{"Hero", "MF", "AF"});
+        condition.enemyParty.AddRange(new string[]{"Livar", "Murray", "Stormy"});
+        initializeParty(condition.playerParty, playerBattleStation, playerPartyContainer);
+        initializeParty(condition.enemyParty, enemyBattleStation, enemyPartyContainer, true);
         _SetInitialProperties();
 
     }
@@ -69,10 +72,10 @@ public class BattleObjectManager : MonoBehaviour
         int index = 0;
         foreach(string pm in partyList){
             GameObject member = PrefabManager.Load(battleStationContainer.transform, pm, PrefabManager.Types.Character);
+            member.name = pm;
             
             prefabs.Add(member);
-
-            GameObject partyMemberObject = PrefabManager.Load(battleStationContainer.transform, pm, PrefabManager.Types.Character);
+            condition.allPlayers.Add(pm);
 
             Character partyMemberChar = CharacterManager.Get(pm);
 
@@ -129,7 +132,7 @@ public class BattleObjectManager : MonoBehaviour
     private void _SetInitialProperties(){
         for(int i = 0; i < condition.allPlayers.Count; i++){
             string charID = CharacterManager.Get(condition.allPlayers[i]).characterID;
-            GameObject player = GameObject.Find(CharacterManager.Get(condition.allPlayers[i]).title);
+            GameObject player = GameObject.Find(charID);
             condition.originalPositions.Add(charID, player.transform.position);
             condition.originalSpriteColors.Add(charID, player.GetComponent<SpriteRenderer>().color);
         }

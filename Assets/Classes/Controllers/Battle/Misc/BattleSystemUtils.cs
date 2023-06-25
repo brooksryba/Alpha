@@ -21,8 +21,8 @@ public class BattleSystemUtils
     }
 
     public bool CheckPlayerDeadAndAnimate(string characterID){
-        GameObject playerObj = PrefabManager.Get(characterID, PrefabManager.Types.Character);
-        Character player = playerObj.GetComponent<Character>();
+        Character player = CharacterManager.Get(characterID);
+        GameObject playerObj = GameObject.Find(characterID); // @TODO - should work but might need something like prefab manager to get the GO
         (int currentHP, int maxHP) = player.condition.hp;
         if(currentHP == 0){
             BattleSpriteController spriteController = playerObj.GetComponent<BattleSpriteController>();

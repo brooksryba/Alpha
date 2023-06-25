@@ -11,9 +11,6 @@ public static class MoveManager
     }
     public static Move Get(string id) 
     {
-        if(refs == null){
-            LoadData();
-        }
         return refs[id];
     }
 

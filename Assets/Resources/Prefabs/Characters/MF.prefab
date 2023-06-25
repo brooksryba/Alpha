@@ -89,7 +89,6 @@ GameObject:
   - component: {fileID: 555200299348408392}
   - component: {fileID: 2595511395686161800}
   - component: {fileID: 6904736571689780107}
-  - component: {fileID: 4285036244626313821}
   - component: {fileID: 4980448434061402652}
   - component: {fileID: 2211358280249566477}
   - component: {fileID: 8522677594209292016}
@@ -217,22 +216,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SpriteLibraryAsset: {fileID: 11400000, guid: 395d6431447cccb4f964999688d6bb89,
     type: 2}
---- !u!114 &4285036244626313821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8620067899578566026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9518d13259db2134c9218f639c53f1a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  title: MF
-  className: Mage
-  partyMembers: []
-  inkJSON: {fileID: 4900000, guid: ad602327dac0bef4aae1a2be5612b743, type: 3}
 --- !u!114 &4980448434061402652
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,7 +40,7 @@ public class StateStartTurn : StateMachineBehaviour
         }
         
         Character nextUp = _manager.condition.characterTurnOrder[_manager.condition.turnIndex];
-        _manager.SetAttacker(nextUp.title);
+        _manager.SetAttacker(nextUp.characterID);
         
 
         animator.SetBool("battlePlayerTurn", _manager.condition.playerParty.Contains(_manager.condition.attackerName));

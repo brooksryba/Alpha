@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CsvReader
 {
-    private static string basePath = Application.dataPath + "\\Resources\\Fixtures\\";
+    private static string basePath = "Assets/Resources/Fixtures/";
 
     public static void ReadAllCsvFiles(){
         ArchetypeManager.LoadData();
@@ -27,12 +27,13 @@ public class CsvReader
                 Character character = ScriptableObject.CreateInstance<Character>();
                 character.characterID = values[0];
                 character.title = values[1];
-                character.condition = ConditionManager.Get(character.characterID);
+                
                 if (!ArchetypeManager.refs.ContainsKey(values[2]))
                 {
-                    ArchetypeManager.LoadData();
+                   ArchetypeManager.LoadData();
                 }
                 character.archetype = ArchetypeManager.Get(values[2]);
+                character.condition = ConditionManager.Get(character);
                 characters.Add(character.characterID, character);
             }
         }

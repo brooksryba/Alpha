@@ -12,9 +12,6 @@ public class BattleEffectManager
     
     public static BattleEffect Get(string id)
     {
-        if(refs == null){
-            LoadData();
-        }
         return refs[id];
     }
 }

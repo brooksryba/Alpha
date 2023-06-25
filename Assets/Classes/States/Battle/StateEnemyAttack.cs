@@ -21,7 +21,7 @@ public class StateEnemyAttack : StateMachineBehaviour
         else 
             newMessage = _manager.condition.attackerName + " uses " + _manager.chosenMove.title + "!";
 
-        _manager.SetDefender(targetCharacter.title);
+        _manager.SetDefender(targetCharacter.characterID);
        
         ToastSystem.instance.Open(newMessage, false);       
         animator.SetTrigger("BattleAttack");
