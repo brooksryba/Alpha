@@ -17,7 +17,7 @@ public class StateMinigame : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
-        isEnemyTurn = _manager.condition.enemyParty.Contains(_manager.condition.attackerName);
+        isEnemyTurn = _manager.condition.enemyParty.Contains(_manager.condition.attackerID);
 
         string newMessage = "";
         string minigameName = battleSystemUtils.GetMinigameNameFromBattleMove(_manager.chosenMove, isEnemyTurn);
@@ -58,8 +58,8 @@ public class StateMinigame : StateMachineBehaviour
         if(minigameObj != null)
                 GameObject.Destroy(minigameObj);
             battleSystemUtils.ExecuteBattleMove(_manager.chosenMove, 
-                                       battleSystemUtils.GetCharacter(_manager.condition.attackerName), 
-                                       battleSystemUtils.GetCharacter(_manager.condition.defenderName), 
+                                       battleSystemUtils.GetCharacter(_manager.condition.attackerID), 
+                                       battleSystemUtils.GetCharacter(_manager.condition.defenderID), 
                                        isEnemyTurn ? 1.0f / ongoingMinigameData.bonusMultiplier: ongoingMinigameData.bonusMultiplier,
                                        ongoingMinigameData.completedSuccessfully);
 

@@ -11,12 +11,12 @@ public class StateEffects : StateMachineBehaviour
         
         BattleObjectManager _manager = BattleObjectManager.instance;
 
-        if(_manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenMove.title))
-            effect = _manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenMove.title).gameObject;
+        if(_manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenMove.moveID))
+            effect = _manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenMove.moveID).gameObject;
         else if (_manager.chosenMove.type == Move.Type.Spell) {
             effect = _manager.condition.attacker.transform.GetChild(0).Find("Spell").gameObject;
             var partSystemMain = effect.GetComponent<ParticleSystem>().main;
-            Vector3 currentPosition = GameObject.Find(_manager.condition.attackerName).transform.position;
+            Vector3 currentPosition = GameObject.Find(_manager.condition.attackerID).transform.position;
             if (!_manager.condition.defender || (_manager.condition.defender==_manager.condition.attacker)){
                 effect.transform.eulerAngles = new Vector3(effect.transform.eulerAngles.x, effect.transform.eulerAngles.y, 90);
                 partSystemMain.startSpeed = 0;
@@ -37,7 +37,7 @@ public class StateEffects : StateMachineBehaviour
 
         if(effect) {
             Vector3 originalRotation = effect.transform.eulerAngles;
-            if(_manager.condition.originalPositions[_manager.condition.attackerName].x > 0 && _manager.chosenMove.type != Move.Type.Spell) {
+            if(_manager.condition.originalPositions[_manager.condition.attackerID].x > 0 && _manager.chosenMove.type != Move.Type.Spell) {
                 effect.transform.eulerAngles = new Vector3(
                     effect.transform.eulerAngles.x,
                     effect.transform.eulerAngles.y ,

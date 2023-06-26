@@ -48,13 +48,13 @@ public class BattleSystemMenu
         // Localization.get(attack.title)
         // int > pass to selection callback
         foreach( Move attackMove in character.condition.attacks ) {
-            string attackName = LocalizationData.data[attackMove.title];
+            string attackName = LocalizationData.data[attackMove.moveID];
             attacks.Add("> "+attackName, () => { _manager.chosenMove = attackMove; });
         }
         attacks.Add("Return", () => { });
 
         foreach( Move spellMove in character.condition.spells ) {
-            string spellName = LocalizationData.data[spellMove.title];
+            string spellName = LocalizationData.data[spellMove.moveID];
             spells.Add("> "+spellName, () => { _manager.chosenMove = spellMove; });
         }
         spells.Add("Return", () => { });
@@ -62,7 +62,7 @@ public class BattleSystemMenu
         Dictionary<string, Action> items = new Dictionary<string, Action>();
         if(character.condition.items.Count > 0){
             foreach( (Item item, int itemQuantity) in character.condition.items ) { 
-                string itemName = LocalizationData.data[item.title];
+                string itemName = LocalizationData.data[item.itemID];
                 items.Add("> "+itemName + " (x" + itemQuantity.ToString() + ")", () => { _manager.chosenItem = item; });
             }
 

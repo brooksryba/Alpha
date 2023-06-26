@@ -30,7 +30,7 @@ public class CsvReader
                 if (!ArchetypeManager.refs.ContainsKey(values[1]))
                 {
                    ArchetypeManager.LoadData();
-                }
+                }   
                 character.archetype = ArchetypeManager.Get(values[1]);
                 character.condition = ConditionManager.Get(character);
                 characters.Add(character.characterID, character);
@@ -47,7 +47,7 @@ public class CsvReader
             while ((line = reader.ReadLine()) != null) {
                 string[] values = line.Split(',');
                 Move move = ScriptableObject.CreateInstance<Move>();
-                move.title = values[0];
+                move.moveID = values[0];
                 Enum.TryParse(values[1], out move.type);
                 move.hpEffect = Int16.Parse(values[2]);
                 move.hpCost = Int16.Parse(values[3]);
@@ -55,7 +55,8 @@ public class CsvReader
                 move.manaCost = Int16.Parse(values[5]);
                 Enum.TryParse(values[6], out move.minigame);
                 Enum.TryParse(values[7], out move.target);
-                moves.Add(move.title, move);
+                move.title = LocalizationData.data[move.moveID];
+                moves.Add(move.moveID, move);
             }
         }
         return moves;

@@ -10,7 +10,7 @@ public class StateRetreat : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleMovement battleMovement = _manager.condition.attacker.GetComponent<BattleMovement>();
         if(battleMovement && !battleMovement.isFinished && !battleMovement.isAnimating) {
-            battleMovement.Animate(_manager.condition.originalPositions[_manager.condition.attackerName]);
+            battleMovement.Animate(_manager.condition.originalPositions[_manager.condition.attackerID]);
         }
     }
 

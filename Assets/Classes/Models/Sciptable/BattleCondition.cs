@@ -5,9 +5,13 @@ using UnityEngine;
 public class BattleCondition : ScriptableObject
 {
     public GameObject attacker = null;
+    public string attackerID = "";
     public string attackerName = "";
     public GameObject defender = null;
+    public string defenderID = "";
     public string defenderName = "";
+
+    public string enemyName = ""; // used to messages in battle setup/exit
 
     public Dictionary<string, Vector3> originalPositions = new Dictionary<string, Vector3>();
     public Dictionary<string, Color> originalSpriteColors = new Dictionary<string, Color>();

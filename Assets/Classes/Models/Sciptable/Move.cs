@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Move", menuName = "Assets/New Move")]
 public class Move : ScriptableObject
 {
+    public string moveID;
     public string title;
     public enum Type {Attack, Spell};
     public Type type;

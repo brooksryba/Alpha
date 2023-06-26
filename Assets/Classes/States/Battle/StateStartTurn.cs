@@ -43,7 +43,7 @@ public class StateStartTurn : StateMachineBehaviour
         _manager.SetAttacker(nextUp.characterID);
         
 
-        animator.SetBool("battlePlayerTurn", _manager.condition.playerParty.Contains(_manager.condition.attackerName));
+        animator.SetBool("battlePlayerTurn", _manager.condition.playerParty.Contains(_manager.condition.attackerID));
 
         ToastSystem.instance.Open("It is " + _manager.condition.attackerName + "'s turn to attack!", false);
         

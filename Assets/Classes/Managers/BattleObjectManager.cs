@@ -60,6 +60,8 @@ public class BattleObjectManager : MonoBehaviour
 
         condition.playerParty.AddRange(new string[]{"_mCharacterHeroName", "_mCharacterMageFriendName", "_mCharacterArcherFriendName"});
         condition.enemyParty.AddRange(new string[]{"_mCharacterLivarName", "_mCharacterMurrayName", "_mCharacterStormyName"});
+        condition.enemyName = LocalizationData.data[condition.enemyParty[0]];
+
         initializeParty(condition.playerParty, playerBattleStation, playerPartyContainer);
         initializeParty(condition.enemyParty, enemyBattleStation, enemyPartyContainer, true);
         _SetInitialProperties();
@@ -115,16 +117,18 @@ public class BattleObjectManager : MonoBehaviour
     }
 
     // TODO - cleanup java style get/set and use accessor props with public
-    public void SetAttacker(string attackerName){
-        condition.attackerName = attackerName;
-        condition.attacker = GameObject.Find(attackerName);
+    public void SetAttacker(string attackerID){
+        condition.attackerID = attackerID;
+        condition.attackerName = LocalizationData.data[attackerID];
+        condition.attacker = GameObject.Find(attackerID);
     }
 
-    public void SetDefender(string defenderName){
-        condition.defenderName = defenderName;
+    public void SetDefender(string defenderID){
+        condition.defenderID = defenderID;
+        condition.defenderName = LocalizationData.data[defenderID];
         condition.defender = null;
-        if(defenderName!=null && defenderName!=""){
-            condition.defender = GameObject.Find(defenderName);
+        if(defenderID!=null && defenderID!=""){
+            condition.defender = GameObject.Find(defenderID);
         }
     }
 
