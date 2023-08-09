@@ -67,11 +67,13 @@ public static class SaveSystem {
     }
 
     public static void SaveAndDeregister() {
+        Debug.Log("Save and Deregister");
         Save();
         Deregister();
     }
 
     public static void ResetAndDeregister() {
+        Debug.Log("Reset and Deregister");
         Reset();
         Deregister();
     }    

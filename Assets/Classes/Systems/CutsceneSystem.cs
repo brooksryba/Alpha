@@ -46,8 +46,10 @@ public class CutsceneSystem : MonoBehaviour
         LeanTween.moveY(bottomBorderObject.GetComponent<RectTransform>(), -50f, 1f);             
     }
 
+
     public void ExitCutsceneMode()
     {
+        Debug.Log("Exit cutscene");
         LeanTween.moveY(topBorderObject.GetComponent<RectTransform>(), 100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
         LeanTween.moveY(bottomBorderObject.GetComponent<RectTransform>(), -100f, 1f).setOnComplete(() =>  borderObject.gameObject.SetActive(false));
 
