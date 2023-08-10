@@ -46,14 +46,8 @@ public class BattleSystemUtils
 
 
     public void ExecuteBattleMove(Move move, Character user, Character target, double minigameMultiplier=1.0, bool minigameSuccess=false){
-        Debug.Log(target.condition.hp.ToString());
-        Debug.Log(move.hpEffect.ToString());
-
         target.condition.hp = (target.condition.hp.Item1 - move.hpEffect, target.condition.hp.Item2);
         target.condition.mana = (target.condition.mana.Item1 - move.manaEffect, target.condition.mana.Item2);
-
-        Debug.Log(target.condition.hp.ToString());
-
 
         user.condition.hp = (user.condition.hp.Item1 - move.hpCost, user.condition.hp.Item2);
         user.condition.mana = (user.condition.mana.Item1 - move.manaCost, user.condition.mana.Item2);

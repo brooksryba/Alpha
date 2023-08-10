@@ -47,14 +47,17 @@ public class BattleSystemMenu
 
         // Localization.get(attack.title)
         // int > pass to selection callback
+        Debug.Log("Creating options submenu");
         foreach( Move attackMove in character.condition.attacks ) {
             string attackName = LocalizationData.data[attackMove.moveID];
+            Debug.Log("Adding attack " + attackName + "| for character " + character.title);
             attacks.Add("> "+attackName, () => { _manager.chosenMove = attackMove; });
         }
         attacks.Add("Return", () => { });
 
         foreach( Move spellMove in character.condition.spells ) {
             string spellName = LocalizationData.data[spellMove.moveID];
+            Debug.Log("Adding spell " + spellName + "| for character " + character.title);
             spells.Add("> "+spellName, () => { _manager.chosenMove = spellMove; });
         }
         spells.Add("Return", () => { });

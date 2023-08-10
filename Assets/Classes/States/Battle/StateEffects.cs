@@ -11,41 +11,33 @@ public class StateEffects : StateMachineBehaviour
         
         BattleObjectManager _manager = BattleObjectManager.instance;
 
-        if(_manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenMove.moveID))
+        // The first if/else block chooses the correct effect, and changes the target angle to point to correct defender
+        if(_manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenMove.moveID)){
             effect = _manager.condition.attacker.transform.GetChild(0).Find(_manager.chosenMove.moveID).gameObject;
+        }
+            
         else if (_manager.chosenMove.type == Move.Type.Spell) {
             effect = _manager.condition.attacker.transform.GetChild(0).Find("Spell").gameObject;
-            var partSystemMain = effect.GetComponent<ParticleSystem>().main;
-            Vector3 currentPosition = GameObject.Find(_manager.condition.attackerID).transform.position;
-            if (!_manager.condition.defender || (_manager.condition.defender==_manager.condition.attacker)){
-                effect.transform.eulerAngles = new Vector3(effect.transform.eulerAngles.x, effect.transform.eulerAngles.y, 90);
-                partSystemMain.startSpeed = 0;
-                
-            }
-            else {
-                float targetAngle = Mathf.Rad2Deg*Mathf.Atan((_manager.condition.defender.transform.position.y - currentPosition.y) / 
-                    (_manager.condition.defender.transform.position.x - currentPosition.x));
-                    if(currentPosition.x > _manager.condition.defender.transform.position.x)
-                        targetAngle = targetAngle + 180.0f;
-                effect.transform.eulerAngles = new Vector3(effect.transform.eulerAngles.x, effect.transform.eulerAngles.y, targetAngle);
-                partSystemMain.startSpeed = 3;
-            }
-
         }
-        else 
+        else {
             effect = _manager.condition.attacker.transform.GetChild(0).Find("Basic Attack").gameObject;
+            }
+            
 
         if(effect) {
+            var partSystemMain = effect.GetComponent<ParticleSystem>().main;
             Vector3 originalRotation = effect.transform.eulerAngles;
-            if(_manager.condition.originalPositions[_manager.condition.attackerID].x > 0 && _manager.chosenMove.type != Move.Type.Spell) {
-                effect.transform.eulerAngles = new Vector3(
-                    effect.transform.eulerAngles.x,
-                    effect.transform.eulerAngles.y ,
-                    effect.transform.eulerAngles.z + 180
-                );
+            if(_manager.chosenMove.type == Move.Type.Spell){
+                partSystemMain.startSpeed = 0;
+                effect.transform.eulerAngles = new Vector3(effect.transform.eulerAngles.x, effect.transform.eulerAngles.y, 90.0f );
+            } else {
+                partSystemMain.startSpeed = 3;
+                if(_manager.condition.originalPositions[_manager.condition.attackerID].x > 0){
+                    effect.transform.eulerAngles = new Vector3(effect.transform.eulerAngles.x, effect.transform.eulerAngles.y, effect.transform.eulerAngles.z + 180.0f);
+                }
             }
+
             effect.SetActive(true);
-            effect.transform.eulerAngles = originalRotation;
         }
         _manager.battleSystemHud.RefreshAllHUDs();
     }

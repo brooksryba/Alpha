@@ -37,8 +37,9 @@ public class StateMinigame : StateMachineBehaviour
             ongoingMinigameData.completedSuccessfully = false;
             keepMinigameRunning = false;
         }
-
-        ToastSystem.instance.Open(newMessage, false);
+        if(newMessage != ""){
+            ToastSystem.instance.Open(newMessage, false);
+        }
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

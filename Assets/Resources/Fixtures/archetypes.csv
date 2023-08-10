@@ -1,5 +1,5 @@
 archetypeName,hpBase,hpIncrement,manaBase,manaIncrement,attackMagicBase,attackMagicIncrement,defensePhysicalBase,defensePhysicalIncrement,defenseMagicBase,defenseMagicIncrement,speedBase,speedIncrement
-_mArchetypeJackName,15,10,5,3,7,2,7,2,7,2,7,10
+_mArchetypeJackName,15,10,5,3,7,2,7,2,7,2,25,10
 _mArchetypeArcherName,10,5,5,2,10,3,5,2,3,2,15,5
 _mArchetypeMageName,10,5,5,2,10,3,5,2,3,2,10,5
 _mArchetypeWarriorName,10,5,5,2,10,3,5,2,3,2,5,5

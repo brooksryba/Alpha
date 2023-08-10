@@ -35,7 +35,7 @@ public class ConditionManager
 
             List<Move> spells = new List<Move>();
             foreach((int spellLevel, string spellId) in archetype.spells){
-                attacks.Add(MoveManager.Get(spellId));
+                spells.Add(MoveManager.Get(spellId));
             }
             condition.spells = spells;
 
