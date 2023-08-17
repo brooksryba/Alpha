@@ -84,10 +84,7 @@ public class StateFinish : StateMachineBehaviour
             animator.SetBool("battleOver", true);
             animator.SetBool("battleSkipTurn", false);
             animator.SetBool("worldInBattle", false);
-
-            SaveSystem.SaveAndDeregister();
-            SceneManager.LoadScene(sceneName: SceneSystem.battle.scene);          
-            animator.SetTrigger("SceneChange");  
+            animator.SetTrigger("SceneChange");         
         }
     }    
 }

@@ -13,11 +13,13 @@ public class StateCutscene : StateMachineBehaviour
         TextAsset ink = Resources.Load("Dialogue/Chapters/Chapter_"+chapter+"_"+mark) as TextAsset;
 
         animator.SetBool("worldInCutscene", true);
-
+        Debug.Log("State-cutscene Enter");
         CutsceneSystem.instance.EnterCutsceneMode();
         DialogSystem.instance.EnterDialogueMode(ink, (s) => {CutsceneSystem.instance.HandleCutsceneEvent(s);}, () => {animator.ResetTrigger("Cutscene"); animator.SetBool("worldInCutscene", false);});
 
         if(SceneSystem.battle != null && SceneSystem.battle.scenePath != null && SceneSystem.battle.scenePath != "") {
+            Debug.Log("Scene System - Scene Path");
+            Debug.Log(SceneSystem.battle.scenePath);
             DialogSystem.instance.SetStoryCurrentPath(SceneSystem.battle.scenePath);
             SceneSystem.battle.scenePath = null;
         }

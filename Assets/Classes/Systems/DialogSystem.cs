@@ -31,10 +31,13 @@ public class DialogSystem : MonoBehaviour
 
     public void Open(string message, Action callback = null)
     {
+        Debug.Log(dialogObject);
         InputSystem.instance.DisableControls();
         if(dialogObject.activeInHierarchy){
+            Debug.Log("Open If");
             dialogObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, 50f, 0f);
         } else {
+            Debug.Log("Open Else");
             dialogObject.GetComponent<RectTransform>().anchoredPosition = new Vector3(0f, -50f, 0f);
             dialogObject.SetActive(true);
             LeanTween.moveY(dialogObject.GetComponent<RectTransform>(), 50f, 1f);               
@@ -45,6 +48,7 @@ public class DialogSystem : MonoBehaviour
 
     public void Close()
     {
+        Debug.Log("Close");
         InputSystem.instance.EnableControls();
         LeanTween.moveY(dialogObject.GetComponent<RectTransform>(), -50f, 1f).setOnComplete(() => dialogObject.gameObject.SetActive(false));
     }
@@ -62,15 +66,20 @@ public class DialogSystem : MonoBehaviour
 
     public void ContinueStory()
     {
-        if(CutsceneSystem.cutsceneIsPlaying && CutsceneSystem.cutsceneInEvent) { return; }
+        if(CutsceneSystem.cutsceneIsPlaying && CutsceneSystem.cutsceneInEvent) { 
+            Debug.Log("Dialogue Continue Story - If case 1");
+            return; }
 
         if (currentStory.canContinue && !needToMakeChoice){
+            Debug.Log("Dialogue Continue Story - If case 2");
             string displayText = currentStory.Continue();
+            Debug.Log("display text: "+ displayText);
             Open(displayText, null);
             RunTextActions();
             CreateChoiceMenu();
         }
         else if (!currentStory.canContinue && !needToMakeChoice) {
+            Debug.Log("Dialogue Continue Story - If case 3");
             ExitDialogueMode();
         }
     }
@@ -86,6 +95,7 @@ public class DialogSystem : MonoBehaviour
     }
 
     private void ExitDialogueMode(){
+        Debug.Log("I dont even know what to do if this fucks up");
         dialogueIsPlaying = false;
         Close();
         exitCallback();
