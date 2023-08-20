@@ -65,8 +65,9 @@ Livar: Not bad, but you still need more practice. # Indicator("Livar")
 === chapter_1_2_no_rats ===
 # Spawn("MF", -5, -4) # Spawn("AF", -1, -4) 
 AF: Shoo rat! # Indicator("AF")
-# Move("Rat", -3, -25)
+# Move("Rat", -3, -10)
 MF: That was a big ugly rat! # Indicator("MF")
+# Unspawn ("Rat")
 
 
 # Spawn("Livar", -3, -10) # MoveMultiple("Livar", {{-3,-6}}) # Spawn("Murray", -5, -10) # MoveMultiple("Murray", {{-5,-7}}) # Spawn("Stormy", -1, -10) # MoveMultiple("Stormy", {{-1,-7}})
@@ -85,32 +86,64 @@ MF: The experience would help out for combat school. # Indicator("MF")
 -> chapter_1_2_post_rival
 
 === chapter_1_2_post_rival ===
-# Spawn("MF", -5,-4) # Spawn("AF", -1, -4) # Spawn("Livar", -3, -6) # Spawn("Murray", -5, -10) # Spawn("Stormy", -1, -7)
+# Spawn("MF", -5,-4) # Spawn("AF", -1, -4) # Spawn("Livar", -3, -6) # Spawn("Murray", -5, -7) # Spawn("Stormy", -1, -7)
 All but Livar: Good match! #Indicator ("Player")
 
-Livar: You guys got lucky...<br> You won't be so lucky next time! # Indicator("Livar")
+Livar: You guys got lucky... #Indicator("Livar")
+
+Livar: You won't be so lucky next time!
 
 Hero: Quit being a bad sport cry baby! # Indicator("Player")
 
-Livar: Let's go guys! I can't be around this fool any longer. #Indicator("Livar")
+Livar: Let's go guys! I can't be around this chompsky any longer. # Indicator("Livar")
 
-Murray: See you guys tomorrow! #Indicator("Murray")
+# MoveMultiple("Livar", {{1, -6},{1,0}})
 
-Stormy: See you at Orientation! #Indicator("Stormy")
+# Unspawn("Livar")
 
-# MoveMultiple("Livar", {{1, -6}}) # MoveMultiple("Murray", {{1, -8}}) # MoveMultiple("Stormy", {{1, -7}})
+Stormy: Livar... # Indicator("Stormy")
 
-Hero: What a sore loser. # Indicator("Player")
+Murray: He'll be fine. # Indicator("Murray")
 
-MF: That's enough training for me today. # Indicator("MF")
+Stormy: Well, we'll see you guys tomorrow! # Indicator("Stormy")
 
-AF: Same here, we should get some rest for tomorrow. # Indicator("AF")
+Murray: See you at Orientation! # Indicator("Murray")
 
-Hero: You're right, I'll see you guys in the morning. # Indicator("Player")
+AF: Later! # Indicator("AF")
 
-# MoveMultiple("MF", {{1, -4},{1,0}}) # Move("AF", {{1, -4},{1,0}})
+MF: Bye! # Indicator("MF")
 
+# MoveMultiple("Murray", {{1, -8},{1,1}}) # MoveMultiple("Stormy", {{1, -7},{1,1}})
 
+# Unspawn("Murray") #Unspawn("Stormy")
+
+Hero: Bye guys. # Indicator("Player")
+
+AF: You didn't have to call him a cry baby! # Indicator("AF")
+
+Hero: Well he was being a bad sport! # Indicator("Player")
+
+MF: He was, yes, but name-calling is not sportsman like either. # Indicator("MF")
+
+Hero: I guess you guys are right. He's still a jerk though. # Indicator("Player")
+
+AF: I don't understand why you guys hate each other so much. # Indicator("AF")
+
+AF: It's been like this ever since you were kids.
+
+AF: I guess it can't be helped. I'm going to go rest up for tomorrow.
+
+AF: You guys should get some rest too.
+
+MF: Indeed. I've had enough training today. # Indicator("MF")
+
+# Indicator("Player") 
+
+Hero: You're right, I'll see you guys in the morning. 
+
+# MoveMultiple("MF", {{-5, 1}}) # MoveMultiple("AF", {{-1, 1}})
+
+# Unspawn("AF") #Unspawn("MF")
 
 -> DONE
 
