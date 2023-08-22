@@ -3,13 +3,13 @@
 
 === chapter_1_2_intro ===
 # Spawn("MF", -8, -1) # Spawn("AF", -4, -1) 
-# MoveMultiple("Player", {{1,6},{1,2},{-6,2},{-6,1}}) 
+# MoveMultiple("Player", {{1,7},{1,2},{-6,2},{-6,1}}) 
 
 Hero: Hey guys, how's the training going? # Indicator("Player")
 
 AF: Great! # Indicator("AF")
 
-MF: **Keeps staring down at his book** # Indicator("MF")
+:**Keeps staring down at his book** # Indicator("MF")
 
 Hero: How do you guys know what your combat affinities will be? # Indicator("Player")
 
@@ -41,7 +41,7 @@ AF: Look over there, a giant rat!. # Indicator("AF")
 
 Hero: Let's check it out! # Indicator("Player")
 
-# MoveMultiple("Player", {{-3,1}, {-3,-4.5}}) # MoveMultiple("MF", {{-5, -1}, {-5,-4}}) # MoveMultiple("AF", {{-1, -1},{-1,-4}})  # Spawn("Rat", -3,-6)
+# MoveMultiple("Player", {{-2.5,1}, {-2.5,-4.5}}) # MoveMultiple("MF", {{-4.5, -1}, {-4.5,-4}}) # MoveMultiple("AF", {{-.5, -1},{-.5,-4}})  # Spawn("Rat", -2.5,-6)
 AF: Look over there.
 
 AF: Let's get some real practice! # Indicator("AF")
@@ -50,43 +50,60 @@ AF: Let's get some real practice! # Indicator("AF")
 Fight the rats? 
     * [Yes]
         # Battle("Rat", "chapter_1_2_post_rats")
-        Hero: Yes, they will be great practice! # Indicator("Player")
+        Hero: Yes, it'll be great practice! # Indicator("Player")
         -> chapter_1_2_post_rats
     * [No]
-        Hero: No, let's leave them be. # Indicator("Player")
+        Hero: No, let's leave him be. # Indicator("Player")
         -> chapter_1_2_no_rats
 
 
 === chapter_1_2_post_rats ===
-# Spawn("MF", -5, -4) # Spawn("AF", -1, -4) # Spawn("Livar", -3, -10) # MoveMultiple("Livar", {{-3,-6}}) # Spawn("Murray", -5, -10) # MoveMultiple("Murray", {{-5,-7}}) # Spawn("Stormy", -1, -10) # MoveMultiple("Stormy", {{-1,-7}})
-Livar: Not bad, but you still need more practice. # Indicator("Livar")
+# Spawn("MF", -4.5,-4) # Spawn("AF", -.5,-4) 
+# RemoveIndicator()
+Unknown voice: Not bad, but you still need more practice. 
+AF: Who was that? # Indicator("AF")
+MF: I'm not quite sure. # Indicator("MF")
+Hero: I know that voice... # Indicator("Player")
+# Spawn("Livar", -2.5, -10) # MoveMultiple("Livar", {{-2.5,-6}}) # Spawn("Murray", -4.5, -10) # MoveMultiple("Murray", {{-4.5,-7}}) # Spawn("Stormy", -.5, -10) # MoveMultiple("Stormy", {{-.5,-7}})
+Hero: Livar! What are you doing here?
+Livar: That's none of your business, but I saw you pathetically handle those rats.
+
 -> chapter_1_2_pre_rival
 
 === chapter_1_2_no_rats ===
-# Spawn("MF", -5, -4) # Spawn("AF", -1, -4) 
+# Spawn("MF", -4.5,-4) # Spawn("AF", -.5,-4) 
 AF: Shoo rat! # Indicator("AF")
-# Move("Rat", -3, -10)
+# Move("Rat", -2.5, -10)
 MF: That was a big ugly rat! # Indicator("MF")
 # Unspawn ("Rat")
+# RemoveIndicator()
+Unknown Voice: So you think you're above the practice? 
+AF: Who was that? # Indicator("AF")
+MF: I'm not quite sure. # Indicator("MF")
+Hero: I know that voice... # Indicator("Player")
+# Spawn("Livar", -2.5, -10) # MoveMultiple("Livar", {{-2.5,-6}}) # Spawn("Murray", -4.5,-10) # MoveMultiple("Murray", {{-4.5,-7}}) # Spawn("Stormy", -.5, -10) # MoveMultiple("Stormy", {{-.5,-7}})
+Hero: Livar! What are you doing here?
+Livar: I don't answer to cowards who are scared of rats. # Indicator("Livar")
 
-
-# Spawn("Livar", -3, -10) # MoveMultiple("Livar", {{-3,-6}}) # Spawn("Murray", -5, -10) # MoveMultiple("Murray", {{-5,-7}}) # Spawn("Stormy", -1, -10) # MoveMultiple("Stormy", {{-1,-7}})
-Livar: So you think you're above the practice? # Indicator("Livar")
 -> chapter_1_2_pre_rival
 
 === chapter_1_2_pre_rival ===
-Hero: If you think you're so good Livar, let's<br>have a duel to prove it! # Indicator("Player")
+Hero: If you think you're so good, Livar, let's<br>have a duel to prove it! # Indicator("Player")
 
 Livar: I accept your challenge! # Indicator("Livar")
 
-AF: I know we normally break these fights up, but<br>perhaps a friendly spar could benefit us all. # Indicator("AF")
+AF: I know we normally break these fights up you guys, but<br>perhaps a friendly spar could benefit us all. # Indicator("AF")
+MF: Indeed, this experience who be beneficial to our training. # Indicator("MF")
+Stormy: I'd be down for a friendly spar! # Indicator("Stormy")
+Murray: Me too! # Indicator ("Murray")
+All: Let's do it! # Indicator("Player")
 
 # Battle("Livar", "chapter_1_2_post_rival")
-MF: The experience would help out for combat school. # Indicator("MF")
+
 -> chapter_1_2_post_rival
 
 === chapter_1_2_post_rival ===
-# Spawn("MF", -5,-4) # Spawn("AF", -1, -4) # Spawn("Livar", -3, -6) # Spawn("Murray", -5, -7) # Spawn("Stormy", -1, -7)
+# Spawn("MF", -4.5,-4) # Spawn("AF", -.5,-4) # Spawn("Livar", -2.5, -6) # Spawn("Murray", -4.5,-7) # Spawn("Stormy", -.5, -7)
 All but Livar: Good match! #Indicator ("Player")
 
 Livar: You guys got lucky... #Indicator("Livar")
@@ -103,7 +120,7 @@ Livar: Let's go guys! I can't be around this chompsky any longer. # Indicator("L
 
 Stormy: Livar... # Indicator("Stormy")
 
-Murray: He'll be fine. # Indicator("Murray")
+Murray: He'll be fine. He just needs to cool off. # Indicator("Murray")
 
 Stormy: Well, we'll see you guys tomorrow! # Indicator("Stormy")
 
@@ -135,17 +152,10 @@ AF: I guess it can't be helped. I'm going to go rest up for tomorrow.
 
 AF: You guys should get some rest too.
 
-MF: Indeed. I've had enough training today. # Indicator("MF")
+MF: I concur. I've had enough training today. # Indicator("MF")
 
-# Indicator("Player") 
-
-Hero: You're right, I'll see you guys in the morning. 
-
-# MoveMultiple("MF", {{-5, 1}}) # MoveMultiple("AF", {{-1, 1}})
-
+Hero: You're right, I'll see you guys in the morning. # Indicator("Player") 
+# RemoveIndicator()
+# MoveMultiple("MF", {{-4.5, 1}}) # MoveMultiple("AF", {{-.5, 1}})
 # Unspawn("AF") #Unspawn("MF")
-
 -> DONE
-
-
-
