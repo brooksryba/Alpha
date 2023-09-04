@@ -2,73 +2,34 @@
 
 
 === chapter_1_3_intro ===
-# Spawn("AF", 13, -22) # Spawn("MF", 14, -22) 
-# Move("Player", 13, -21)
-AF: The blacksmith is right down here. # Indicator("AF")
+# Spawn("AF", 15, -11)
+# MoveMultiple("Player", {{6,-12}, {14, -12}})
+Hero: Hey! There's AF! # Indicator("Player")
 
-# Spawn("Warrior", 20, -26) # Spawn("Knight", 21, -26)
-# MoveMultiple("Player", {{13,-28}, {17, -28}})
-# MoveMultiple("AF", {{13,-27}, {17, -27}})
-# MoveMultiple("MF", {{14,-26}, {17, -26}})
-AF: The blacksmith is right down here.
+AF: Hi Hero! Today's the big day! I can't wait for the test and to<br> start orientation at combat school! # Indicator("AF")
 
-AF: Ugh! This is going to take so long!
+AF: Are you still nervous about the test?
+    * [Yes]
+        Hero: Yes, I'm not sure what to expect.<br> Regardless of what happens I'll make the best of it. # Indicator("Player")
+        -> chapter_1_3_mf
+    * [No]
+        Hero: Not anymore. I realized it doesn't matter what affinity I get.<br> Regardless of what happens I'll make the best of it. # Indicator("Player")
+        -> chapter_1_3_mf
 
-# Spawn("Archer", 18, -25)
-# Move("Archer", 18, -26)
-# MoveMultiple("Warrior", {{18, -26}, {18, -25}})
-# Move("Knight", 20, -26)
-# Unspawn("Warrior")
-Unknown Warrior: I can't believe I had a mage affinity. # Indicator("Archer")
+=== chapter_1_3_mf ==
+AF: That's the spirit! Now let's go get MF. # Indicator("AF")
 
-Unknown Warrior: Everyone in my family has been an archer for generations!
+# Spawn("MF", 27, -11)
+# MoveMultiple("Player", {{26,-12}}) # MoveMultiple("AF", {{26,-11}})
+AF: That's the spirit! Now let's go get MF.
 
-Unknown Warrior: I've already practiced so much with my bow.
+MF: I can't wait to learn more spells! # Indicator("MF")
 
-# MoveMultiple("Archer", {{18,-29}, {5, -29}})
-AF: Poor guy, hopes it turns out well for him  # Indicator("AF")
+AF: I would be worried if you didn't! # Indicator("AF")
 
-MF: I don't know why he's so sad, mage affinity is the best! # Indicator("MF")
+Hero: Let's head to the blacksmith and do the affinity test! # Indicator("Player")
 
-# Spawn("Livar", 19, -25)
-# Spawn("Murray", 18, -25)
-# Spawn("Stormy", 18, -25)
-# MoveMultiple("Livar", {{19, -26}})
-# MoveMultiple("Murray", {{18, -26}})
-# MoveMultiple("Stormy", {{18, -27}})
-Livar: I knew I would be a warrior! # Indicator("Livar")
-
-# MoveMultiple("Livar", {{19, -29}, {4, -29}})
-Murray: We got the affinities we were hoping for! # Indicator("Murray")
-
-Stormy: I hope you guys get the affinities that you wanted! # Indicator("Stormy")
-
-AF: Thanks! # Indicator("AF")
-
-MF: Thank you guys! # Indicator("MF")
-
-Murray: We better go catch up with Livar! # Indicator("Murray")
-
-# MoveMultiple("Murray", {{18, -29}, {3, -29}})
-# MoveMultiple("Stormy", {{18, -29}, {2, -29}})
-Hero: I can't believe those guys are friends with Livar. # Indicator("Player")
-
-Hero: They're so nice and he's such a jerk!
-
-MF: He's actually quite nice. # Indicator("MF")
-
-AF: He is when ever Hero isn't around. I don't know what it is but both<br>of you completely lose your cool when the other is around. # Indicator("AF")
-
-Hero: I've tried to get along with him but he's so arrogant. # Indicator("Player")
-
-Hero: Whatever though.... looks like we're up for the test. You guys should go first.
-
-# MoveMultiple("AF", {{18,-27}, {18, -25}})
-# MoveMultiple("MF", {{18,-26}, {18, -25}})
-# MoveMultiple("Knight", {{18, -26}, {18, -25}})
-# Unspawn("AF")
-# Unspawn("MF")
-# Unspawn("Knight")
-Hero: Whatever though.... looks like we're up for the test. You guys should go first.
+# MoveMultiple("AF", {{11,-11}}) # MoveMultiple("MF", {{12,-11}})
+Hero: Let's head to the blacksmith and do the affinity test!
 
 -> DONE
