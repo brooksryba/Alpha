@@ -99,6 +99,7 @@ public class CutsceneSystem : MonoBehaviour
         script.Globals["MoveMultiple"] = (Func<string, List<List<int>>, bool>)MoveMultiple;
         script.Globals["Battle"] = (Func<string, string, bool>)Battle;
         script.Globals["Indicator"] = (Func<string, bool>)Indicator;
+        script.Globals["RemoveIndicator"] = (Func<bool>)RemoveIndicator;
     
         //Once all functions have been registered
         script.DoString(tag); 
@@ -189,6 +190,12 @@ public class CutsceneSystem : MonoBehaviour
                 
         CinemachineVirtualCamera vcam = GameObject.Find("Virtual Camera").GetComponent<CinemachineVirtualCamera>();
         vcam.Follow = indicatorTarget.transform;
+
+        return true;
+    }
+
+    private bool RemoveIndicator(){
+        indicatorObject.gameObject.SetActive(false);
 
         return true;
     }
