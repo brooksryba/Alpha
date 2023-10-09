@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
+// TODO - Refactor into monobehaviour with cached references
+// to the spawned hud objects. A hud instantiation is linked 
+// to a character id. This pulls from character.condition 
+// on an automatic basis to display the current states
+// without callbacks from the battle system. 
+
 
 public class BattleSystemHud
 {
@@ -14,6 +20,7 @@ public class BattleSystemHud
     public GameObject selectionButton;
     public void createSingleHUD(ref GameObject partyMember, ref Character hudCharacter, GameObject partyContainer)
     {
+        // @ TODO - Use prefab manager tp spawn these in
         GameObject battleHudPrefab = GameObject.Instantiate(Resources.Load<GameObject>("Prefabs/Battle/BattleHUD"), partyContainer.transform);
         battleHudPrefab.transform.SetParent(partyContainer.transform);
         BattleHUD hud = battleHudPrefab.GetComponent<BattleHUD>();
@@ -26,7 +33,7 @@ public class BattleSystemHud
         GameObject[] objs = GameObject.FindGameObjectsWithTag("BattleHUD");
         foreach(var hud in objs){
             BattleHUD battleHud = hud.GetComponent<BattleHUD>();
-            Character updateHudCharacter = utils.GetCharacter(battleHud.character.title);
+            Character updateHudCharacter = utils.GetCharacter(battleHud.character.characterID);
             battleHud.character = updateHudCharacter;
             battleHud.Refresh();
         }

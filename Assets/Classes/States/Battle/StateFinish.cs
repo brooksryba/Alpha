@@ -11,43 +11,42 @@ public class StateFinish : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
-        if(battleSystemUtils.PartyDead(_manager.charManager.enemyParty))
+        if(battleSystemUtils.PartyDead(_manager.condition.enemyParty))
         {
             ToastSystem.instance.Queue("You won the battle!");
 
             // @TODO, currently it splits total xp into thirds and distributed evenly, will need to confirm 
             int totalXp = 0;
-            foreach(string characterName in _manager.charManager.enemyParty){
-                Character enemyCharacter = battleSystemUtils.GetCharacter(characterName);
-                totalXp += enemyCharacter.earnedXp;
+            foreach(string characterID in _manager.condition.enemyParty){
+                totalXp += CharacterManager.refs[characterID].condition.xp;
             }
             int xpToAdd = Mathf.FloorToInt(totalXp / 3);
 
             if(xpToAdd > 0){
-                foreach(string characterName in _manager.charManager.playerParty){
-                    ToastSystem.instance.Queue(characterName + " earned " + xpToAdd.ToString() + " EXP!");
-                    Character playerCharacter = battleSystemUtils.GetCharacter(characterName);
+                foreach(string characterID in _manager.condition.playerParty){
+                    ToastSystem.instance.Queue(CharacterManager.refs[characterID].title + " earned " + xpToAdd.ToString() + " EXP!");
 
-                    playerCharacter.earnedXp += xpToAdd;
-                    int newLevel = LevelSystem.GetLevel(playerCharacter.earnedXp);
-                    for(int lvl = playerCharacter.level; lvl < newLevel; lvl++){
-                        playerCharacter.level += 1;
-                        ToastSystem.instance.Queue(playerCharacter.name + " is now level " + playerCharacter.level.ToString() + "!");
+                    CharacterManager.refs[characterID].condition.xp += xpToAdd;
+                    int newLevel = LevelSystem.GetLevel(CharacterManager.refs[characterID].condition.xp);
+                    for(int lvl = CharacterManager.refs[characterID].condition.level; lvl < newLevel; lvl++){
+                        CharacterManager.refs[characterID].condition.level += 1;
+                        ToastSystem.instance.Queue(CharacterManager.refs[characterID].title + " is now level " + CharacterManager.refs[characterID].condition.level.ToString() + "!");
 
-                        playerCharacter.characterClass.SetStats(playerCharacter.level);
-                        if(playerCharacter.characterClass.attackProgression.ContainsKey(playerCharacter.level)){
-                            if(!playerCharacter.attackNames.Contains(playerCharacter.characterClass.attackProgression[playerCharacter.level])){
-                                playerCharacter.attackNames.Add(playerCharacter.characterClass.attackProgression[playerCharacter.level]);
-                                ToastSystem.instance.Queue(this.name + " has learned attack " + playerCharacter.characterClass.attackProgression[playerCharacter.level] + "!");
-                            }
-                        }
+                        CharacterManager.SetStats(characterID);
+                        // TODO - Level Progression is not set up currently
+                        // if(playerCharacter.characterClass.attackProgression.ContainsKey(playerCharacter.level)){
+                        //     if(!playerCharacter.attackNames.Contains(playerCharacter.characterClass.attackProgression[playerCharacter.level])){
+                        //         playerCharacter.attackNames.Add(playerCharacter.characterClass.attackProgression[playerCharacter.level]);
+                        //         ToastSystem.instance.Queue(this.name + " has learned attack " + playerCharacter.characterClass.attackProgression[playerCharacter.level] + "!");
+                        //     }
+                        // }
 
-                        if(playerCharacter.characterClass.spellProgression.ContainsKey(playerCharacter.level)){
-                            if(!playerCharacter.spellNames.Contains(playerCharacter.characterClass.spellProgression[playerCharacter.level])){
-                                playerCharacter.spellNames.Add(playerCharacter.characterClass.spellProgression[playerCharacter.level]);
-                                ToastSystem.instance.Queue(playerCharacter.name + " has learned spell " + playerCharacter.characterClass.spellProgression[playerCharacter.level] + "!");
-                            }
-                        }
+                        // if(playerCharacter.characterClass.spellProgression.ContainsKey(playerCharacter.level)){
+                        //     if(!playerCharacter.spellNames.Contains(playerCharacter.characterClass.spellProgression[playerCharacter.level])){
+                        //         playerCharacter.spellNames.Add(playerCharacter.characterClass.spellProgression[playerCharacter.level]);
+                        //         ToastSystem.instance.Queue(playerCharacter.name + " has learned spell " + playerCharacter.characterClass.spellProgression[playerCharacter.level] + "!");
+                        //     }
+                        // }
 
                     }
 
@@ -56,7 +55,7 @@ public class StateFinish : StateMachineBehaviour
 
             }
         }
-        else if (battleSystemUtils.PartyDead(_manager.charManager.playerParty))
+        else if (battleSystemUtils.PartyDead(_manager.condition.playerParty))
         {
             ToastSystem.instance.Queue("You were defeated");
         }
@@ -65,7 +64,7 @@ public class StateFinish : StateMachineBehaviour
             ToastSystem.instance.Queue("You resigned!");
         }
 
-        _manager.battleBonusManager.DestroyAllBonuses();
+        _manager.DestroyAllBattleEffects();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks

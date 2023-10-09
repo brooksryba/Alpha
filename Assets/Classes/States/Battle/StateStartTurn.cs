@@ -10,48 +10,50 @@ public class StateStartTurn : StateMachineBehaviour
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();        
         
-        if(_manager.turnIndex == -1){
-            _manager.charManager.characterTurnOrder = new List<Character>();
-            foreach(var p in _manager.charManager.allPlayers){
-                _manager.charManager.characterTurnOrder.Add(battleSystemUtils.GetCharacter(p));
+        if(_manager.condition.turnIndex == -1){
+            _manager.condition.characterTurnOrder = new List<Character>();
+            foreach(var p in _manager.condition.allPlayers){
+                _manager.condition.characterTurnOrder.Add(battleSystemUtils.GetCharacter(p));
             }
 
-            for(int i = 0; i < _manager.charManager.allPlayers.Count; i++){
-                if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.charManager.allPlayers[i]))
-                    _manager.charManager.deadPlayerList.Add(_manager.charManager.allPlayers[i]);
+            for(int i = 0; i < _manager.condition.allPlayers.Count; i++){
+                if(battleSystemUtils.CheckPlayerDeadAndAnimate(_manager.condition.allPlayers[i]))
+                    _manager.condition.deadPlayerList.Add(_manager.condition.allPlayers[i]);
             }
-            _manager.overallTurnNumber = 0;
+            _manager.condition.overallTurnNumber = 0;
             
         }
 
         //coninually add 1 to turn index until a non-dead play is picked. If we hit the whole list of players, reset the speed list and add to overall turn count
         // It loops through 2*# of players as the speeds might change mid battle. Due to order change, going through size of list twice guarantees selection
-        for(int i = 1; i <= 2*_manager.charManager.characterTurnOrder.Count; i++){
-            _manager.turnIndex = (_manager.turnIndex + 1) % (_manager.charManager.characterTurnOrder.Count);
-            if(_manager.turnIndex == 0){
-                _manager.charManager.characterTurnOrder.Sort(delegate(Character a, Character b){return (b.characterClass.speed).CompareTo(a.characterClass.speed);}); // highest speed first (a comp to b is lowest)
-                _manager.overallTurnNumber += 1;
+        for(int i = 1; i <= 2*_manager.condition.characterTurnOrder.Count; i++){
+            _manager.condition.turnIndex = (_manager.condition.turnIndex + 1) % (_manager.condition.characterTurnOrder.Count);
+            if(_manager.condition.turnIndex == 0){
+                _manager.condition.characterTurnOrder.Sort(delegate(Character a, Character b){return (b.archetype.speed).CompareTo(a.archetype.speed);}); // highest speed first (a comp to b is lowest)
+                _manager.condition.overallTurnNumber += 1;
 
             }
-            if(!_manager.charManager.deadPlayerList.Contains(_manager.charManager.characterTurnOrder[_manager.turnIndex].title)){
+            if(!_manager.condition.deadPlayerList.Contains(_manager.condition.characterTurnOrder[_manager.condition.turnIndex].title)){
                 break;
             }
 
         }
         
-        Character nextUp = _manager.charManager.characterTurnOrder[_manager.turnIndex];
-        _manager.SetAttacker(nextUp.title);
+        Character nextUp = _manager.condition.characterTurnOrder[_manager.condition.turnIndex];
+        _manager.SetAttacker(nextUp.characterID);
         
 
-        animator.SetBool("battlePlayerTurn", _manager.charManager.playerParty.Contains(_manager.charManager.attackerName));
+        animator.SetBool("battlePlayerTurn", _manager.condition.playerParty.Contains(_manager.condition.attackerID));
 
-        ToastSystem.instance.Open("It is " + _manager.charManager.attackerName + "'s turn to attack!", false);
+        ToastSystem.instance.Open("It is " + _manager.condition.attackerName + "'s turn to attack!", false);
         
         animator.SetBool("battleSkipTurn", false);
-        if(_manager.battleBonusManager.CheckSkipTurn(_manager.charManager.attackerName)){
-            ToastSystem.instance.Open(_manager.charManager.attackerName + " cannot attack this round!", false);
-            animator.SetBool("battleSkipTurn", true);
-        }       
+
+        // @TODO - need to figure out how to handle battle status effects
+        // if(_manager.battleBonusManager.CheckSkipTurn(_manager.condition.attackerName)){
+        //     ToastSystem.instance.Open(_manager.condition.attackerName + " cannot attack this round!", false);
+        //     animator.SetBool("battleSkipTurn", true);
+        // }       
 
     }
 }

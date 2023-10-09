@@ -9,7 +9,7 @@ public class StateEnemyStart : StateMachineBehaviour
     {
         // @ todo - allow enemy to use items in battle
         BattleObjectManager _manager = BattleObjectManager.instance;
-        ToastSystem.instance.Open(_manager.charManager.attackerName + " is about to attack!", false);
+        ToastSystem.instance.Open(_manager.condition.attackerName + " is about to attack!", false);
         animator.SetTrigger("BattleAttack");
     }
 }

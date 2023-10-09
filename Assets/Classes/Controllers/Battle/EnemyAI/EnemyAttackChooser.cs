@@ -11,9 +11,10 @@ public class EnemyAttackChooser
 
     public List<string> GetPossibleAttackTargets(){
         List<string> possibleTargets = new List<string>();
-        foreach(var pm in _manager.charManager.allPlayers){
-            if(utils.GetCharacter(pm).currentHP > 0){
-                possibleTargets.Add(pm);
+        foreach(string characterID in _manager.allCharactersNew){
+            (int currentHp, int maxHp) = CharacterManager.refs[characterID].condition.hp;
+            if(currentHp > 0){
+                possibleTargets.Add(characterID);
             }
         }
         return possibleTargets;
@@ -21,60 +22,63 @@ public class EnemyAttackChooser
 
 
 
-    public Dictionary<string, int> GetAllAttackOptions(string enemyName){
+    public Dictionary<string, int> GetAllAttackOptions(string enemyID){
         Dictionary<string, int> allOptions = new Dictionary<string, int>();
-        List<string> allBattleMoves = new List<string>();
+        List<Move> allBattleMoves = new List<Move>();
         List<string> allTargets = GetPossibleAttackTargets();
 
-        foreach(var attack in utils.GetCharacter(enemyName).attackNames)
+        foreach(Move attack in CharacterManager.refs[enemyID].condition.attacks)
             allBattleMoves.Add(attack);
 
-        foreach(var spell in utils.GetCharacter(enemyName).spellNames)
+        foreach(Move spell in CharacterManager.refs[enemyID].condition.spells)
             allBattleMoves.Add(spell);
 
         // NOTE: this gives only 1 instance of an attack that does not require a target, so scaling might be needed for smarter AI
 
-        foreach(var a in allBattleMoves){
-            BattleMoveBase battleMoveRef = BattleMoveBase.GetBattleMoveClass(a);
-            battleMoveRef.userName = enemyName;
-            if(battleMoveRef.needsTarget){
-                foreach(var t in allTargets){
-                    battleMoveRef.targetName = t;
-                    if(battleMoveRef.CheckFeasibility()){
-                        int attackPointsAi = battleMoveRef.GetMoveValueForAi();
-                        if(attackPointsAi <= 0)
-                            continue;
-                        allOptions.Add(a + "|" + t, attackPointsAi);
-                    }
-                }
+        // @ TODO needs TLC
+        // foreach(Move move in allBattleMoves){
+        //     battleMoveRef.userName = enemyName;
+        //     if(battleMoveRef.needsTarget){
+        //         foreach(var t in allTargets){
+        //             battleMoveRef.targetName = t;
+        //             if(battleMoveRef.CheckFeasibility()){
+        //                 int attackPointsAi = battleMoveRef.GetMoveValueForAi();
+        //                 if(attackPointsAi <= 0)
+        //                     continue;
+        //                 allOptions.Add(a + "|" + t, attackPointsAi);
+        //             }
+        //         }
 
-            } else {
-                if(battleMoveRef.CheckFeasibility()){
-                    int attackPointsAi = battleMoveRef.GetMoveValueForAi();
-                    if(attackPointsAi <= 0)
-                        continue;
-                    allOptions.Add(a + "|", attackPointsAi);
-                }
+        //     } else {
+        //         if(battleMoveRef.CheckFeasibility()){
+        //             int attackPointsAi = battleMoveRef.GetMoveValueForAi();
+        //             if(attackPointsAi <= 0)
+        //                 continue;
+        //             allOptions.Add(a + "|", attackPointsAi);
+        //         }
 
-            }
+        //     }
 
-        }
+        // }
 
         return allOptions;
     }
 
-    public List<string> GetAttack(string enemyName){
-        string[] attack_target;
-        Dictionary<string, int> attackOptions = GetAllAttackOptions(enemyName);
+    public (string, Move) GetAttack(string enemyName){
+        // string[] attack_target;
+        // Dictionary<string, int> attackOptions = GetAllAttackOptions(enemyName);
 
-        List<string> attackNames = new List<string>(attackOptions.Keys);
-        List<int> pointsAi = new List<int>(attackOptions.Values);
-        pointsAi = changeAiAttackChances(pointsAi);
-        int randomlyChosenAttackIndex = GetRandomWeightedIndex(pointsAi);
-        string chosenAttackKey = attackNames[randomlyChosenAttackIndex];
-        attack_target = chosenAttackKey.Split(char.Parse("|"));
+        // List<string> attackNames = new List<string>(attackOptions.Keys);
+        // List<int> pointsAi = new List<int>(attackOptions.Values);
+        // pointsAi = changeAiAttackChances(pointsAi);
+        // int randomlyChosenAttackIndex = GetRandomWeightedIndex(pointsAi);
+        // string chosenAttackKey = attackNames[randomlyChosenAttackIndex];
+        // attack_target = chosenAttackKey.Split(char.Parse("|"));
 
-        return new List<string>(attack_target);
+        // return new List<string>(attack_target);
+
+        // @TODO - this code below can be removed, this should return -1 for attacking all
+        return ("_mCharacterHeroName", MoveManager.Get("_mMoveBasicAttack"));
     }
 
     public List<int> changeAiAttackChances(List<int> listOfPoints){

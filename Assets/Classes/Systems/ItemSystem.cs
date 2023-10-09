@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class InventoryItemData
 {
+    // @TODO - Should this script be removed entirely (or updated)
     public string title;
     public double hp;
     public double mana;
@@ -21,7 +22,7 @@ public class InventoryItemData
             text += "\n" + message;
         }
 
-        user.items.Remove(user.GetInventoryItemRefs()[title]);
+        //user.items.Remove(user.GetInventoryItemRefs()[title]);
 
         return text;
     }
@@ -30,18 +31,18 @@ public class InventoryItemData
 public static class WorldItems
 {
     public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
-        {"Revive", new Revive()},
-        {"Gem", new Gem()},
-        {"Toxic Gem", new ToxicGem()},
+        //{"Revive", new Revive()},
+        //{"Gem", new Gem()},
+        //{"Toxic Gem", new ToxicGem()},
     };
 }
 
 public static class BattleItems
 {
     public static Dictionary<string, InventoryItemData> lookup = new Dictionary<string, InventoryItemData>() {
-        {"Revive", new Revive()},
-        {"Gem", new Gem()},
-        {"Toxic Gem", new ToxicGem()},
+        //{"Revive", new Revive()},
+        //{"Gem", new Gem()},
+        //{"Toxic Gem", new ToxicGem()},
     };
 }
 

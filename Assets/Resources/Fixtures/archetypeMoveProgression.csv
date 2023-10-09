@@ -1,0 +1,13 @@
+archetypeName,moveLevel,moveName,moveType
+_mArchetypeJackName,1,_mMoveBasicAttack,Attack
+_mArchetypeJackName,1,_mMoveBasicHeal,Spell
+_mArchetypeJackName,3,_mMoveHeavyAttack,Attack
+_mArchetypeJackName,4,_mMoveSpreadAttack,Attack
+_mArchetypeJackName,5,_mMoveBoostPhysicalAttack,Spell
+_mArchetypeJackName,6,_mMoveImmobilizeSpell,Spell
+_mArchetypeArcherName,1,_mMoveBasicAttack,Attack
+_mArchetypeArcherName,1,_mMoveBasicHeal,Spell
+_mArchetypeWarriorName,1,_mMoveBasicAttack,Attack
+_mArchetypeWarriorName,1,_mMoveBasicHeal,Spell
+_mArchetypeMageName,1,_mMoveBasicAttack,Attack
+_mArchetypeMageName,1,_mMoveBasicHeal,Spell

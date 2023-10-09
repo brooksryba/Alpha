@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class StateEndTurn : StateMachineBehaviour
 {
+
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BattleObjectManager _manager = BattleObjectManager.instance;
         BattleSystemUtils battleSystemUtils = new BattleSystemUtils();
 
-        _manager.battleBonusManager.IncrementPlayerTurn(_manager.charManager.attacker.GetComponent<Character>().title);
+        _manager.IncrementPlayerTurn(_manager.condition.attackerID);
         _manager.battleSystemHud.RefreshAllHUDs();
-         _manager.battleSystemHud.selection = null;
-        _manager.chosenBattleMove = "";
+        _manager.battleSystemHud.selection = null;
+        _manager.chosenMove = null;
 
         animator.ResetTrigger("BattleAttack");
         animator.ResetTrigger("BattleItem");
@@ -24,6 +26,6 @@ public class StateEndTurn : StateMachineBehaviour
         animator.ResetTrigger("BattleEffects");
         animator.ResetTrigger("BattleRetreat");
         animator.ResetTrigger("BattleResign");
-        animator.SetBool("battleOver", battleSystemUtils.PartyDead(_manager.charManager.enemyParty) || battleSystemUtils.PartyDead(_manager.charManager.playerParty));        
+        animator.SetBool("battleOver", battleSystemUtils.PartyDead(_manager.condition.enemyParty) || battleSystemUtils.PartyDead(_manager.condition.playerParty));        
     }
 }

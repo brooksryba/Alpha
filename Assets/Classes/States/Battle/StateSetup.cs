@@ -7,6 +7,6 @@ public class StateSetup : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         BattleObjectManager.instance.battleSystemHud.RefreshAllHUDs();
-        ToastSystem.instance.Open(BattleObjectManager.instance.charManager.enemyParty[0] + " engages in battle...", false);
+        ToastSystem.instance.Open(BattleObjectManager.instance.condition.enemyName + " engages in battle...", false);
     }
 }

@@ -38,24 +38,26 @@ public class InputSystem : MonoBehaviour
         if(player == null)
             return;
 
-        Character character = player.GetComponent<Character>();
-        if(character.characterClass == null)
+        Character character = CharacterManager.Get("Player");
+        if(character.archetype == null)
             return;
 
         if(HUDLevelText != null) {
-            HUDLevelText.GetComponent<TMP_Text>().SetText("Lvl. "+character.level);
+            HUDLevelText.GetComponent<TMP_Text>().SetText("Lvl. "+character.condition.level);
         }
 
         if(HUDHealthSlider != null) {
+            (int currentHp, int maxHp) = character.archetype.hp;
             HUDHealthSlider.minValue = 0;
-            HUDHealthSlider.maxValue = character.characterClass.maxHP;
-            HUDHealthSlider.value = character.currentHP;
+            HUDHealthSlider.maxValue = maxHp;
+            HUDHealthSlider.value = currentHp;
         }
 
         if(HUDManaSlider != null) {
+            (int currentMana, int maxMana) = character.archetype.mana;
             HUDManaSlider.minValue = 0;
-            HUDManaSlider.maxValue = character.characterClass.maxMana;
-            HUDManaSlider.value = character.currentMana;   
+            HUDManaSlider.maxValue = maxMana;
+            HUDManaSlider.value = currentMana;   
         }
     }
 
@@ -65,15 +67,14 @@ public class InputSystem : MonoBehaviour
         if(player == null)
             return;
 
-        Character character = player.GetComponent<Character>();
-
+        Character character = CharacterManager.Get("Player");
         for(int index=0; index<itemSlots.Count; index++) {
             Transform slotTransform = itemSlots[index].transform;
             if(slotTransform.childCount > 0)
                 Destroy(slotTransform.GetChild(0).gameObject);
 
-            if(index < character.items.Count) {
-                ItemData item = character.items[index];
+            if(index < character.condition.items.Count) {
+                (Item item, int itemCount) = character.condition.items[index];
                 GameObject prefab = Resources.Load("Prefabs/Items/"+item.title) as GameObject;
                 GameObject inst = GameObject.Instantiate(prefab, slotTransform); 
                 Destroy(inst.GetComponent<InventoryItem>());
@@ -85,9 +86,9 @@ public class InputSystem : MonoBehaviour
             if(slotTransform.childCount > 0)
                 Destroy(slotTransform.GetChild(0).gameObject);
 
-            if(index < character.partyMembers.Count) {
-                string path = character.partyMembers[index];
-                GameObject prefab = Resources.Load("Prefabs/"+path) as GameObject;
+            if(index < character.condition.party.Count) {
+                string path = character.condition.party[index];
+                GameObject prefab = Resources.Load("Prefabs/Characters/"+path) as GameObject;
                 GameObject inst = GameObject.Instantiate(prefab, slotTransform); 
                 Destroy(inst.GetComponent<CharacterMovement>());
                 Destroy(inst.GetComponent<BattleMovement>());
@@ -103,12 +104,13 @@ public class InputSystem : MonoBehaviour
 
         Character character = player.GetComponent<Character>();  
 
-        if(index >= character.items.Count)
+        if(index >= character.condition.items.Count)
             return;
 
         string message = "";
-        if( WorldItems.lookup.ContainsKey(character.items[index].title) ) {
-            InventoryItemData itemData = WorldItems.lookup[character.items[index].title];
+        (Item item, int itemCount) = character.condition.items[index];
+        if( WorldItems.lookup.ContainsKey(item.title) ) {
+            InventoryItemData itemData = WorldItems.lookup[item.title];
             message = itemData.Execute(character);
         } else {
             message = "Can't use this item now.";

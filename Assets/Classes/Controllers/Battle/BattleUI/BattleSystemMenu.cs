@@ -45,33 +45,31 @@ public class BattleSystemMenu
         Dictionary<string, Action> spells = new Dictionary<string, Action>();
         Dictionary<string, Action> strategies = new Dictionary<string, Action>();
 
-        foreach( var attackName in character.attackNames ) {
-            attacks.Add("> "+attackName, () => { _manager.chosenBattleMove = attackName; });
+        // Localization.get(attack.title)
+        // int > pass to selection callback
+        Debug.Log("Creating options submenu");
+        foreach( Move attackMove in character.condition.attacks ) {
+            string attackName = LocalizationData.data[attackMove.moveID];
+            Debug.Log("Adding attack " + attackName + "| for character " + character.title);
+            attacks.Add("> "+attackName, () => { _manager.chosenMove = attackMove; });
         }
         attacks.Add("Return", () => { });
 
-        foreach( var spellName in character.spellNames ) {
-            spells.Add("> "+spellName, () => { _manager.chosenBattleMove = spellName; });
+        foreach( Move spellMove in character.condition.spells ) {
+            string spellName = LocalizationData.data[spellMove.moveID];
+            Debug.Log("Adding spell " + spellName + "| for character " + character.title);
+            spells.Add("> "+spellName, () => { _manager.chosenMove = spellMove; });
         }
         spells.Add("Return", () => { });
         
         Dictionary<string, Action> items = new Dictionary<string, Action>();
-        Dictionary<string, int> itemCount = new Dictionary<string, int>();
-        Dictionary<string, ItemData> itemRefs = new Dictionary<string, ItemData>();
-
-        if(character.items.Count > 0){
-            foreach( var item in character.items ) {               
-            itemRefs[item.title] = item;
-            if( itemCount.ContainsKey(item.title) ) {
-                itemCount[item.title] += 1;
-            } else {
-                itemCount.Add(item.title, 1);
-            }
+        if(character.condition.items.Count > 0){
+            foreach( (Item item, int itemQuantity) in character.condition.items ) { 
+                string itemName = LocalizationData.data[item.itemID];
+                items.Add("> "+itemName + " (x" + itemQuantity.ToString() + ")", () => { _manager.chosenItem = item; });
             }
 
-            foreach(KeyValuePair<string, int> item in itemCount ) {
-                items.Add("> "+item.Key + " (x" + item.Value.ToString() + ")", () => { _manager.chosenItem = item.Key; });
-            }
+
 
         }
 
